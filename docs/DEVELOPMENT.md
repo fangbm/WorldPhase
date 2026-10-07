@@ -200,7 +200,43 @@ See [Noise kernels](NOISE_KERNELS.md) for algorithms, ranges, seed/channel
 contract, numerical limits, source/license attribution and the intentional
 `GradientNoise` / fixed ridge sharpness choices relative to Technical Design v0.1.
 
+## Noise profiling helper (WPH-004)
+
+```sh
+./gradlew noiseProfile
+./gradlew noiseProfile -PnoiseProfileSamples=5000000
+./gradlew noiseProfile -PnoiseProfileKernel=WorleyNoise -PnoiseProfileSamples=100000
+./gradlew testNoiseProfiler
+./gradlew cleanTest test --tests dev.fangbm.worldphase.worldgen.noise.NoiseKernelsTest --no-build-cache
+./gradlew build --no-build-cache
+```
+
+`noiseProfile` runs development classes from `src/profiling/java`, with no
+Minecraft runtime. The ordinary JUnit task `testNoiseProfiler` checks the
+profiler from `src/profilingTest/java` and is included in `check`/`build`.
+This keeps tooling classes outside NeoForge's mod test loader and the final
+mod JAR; no gameplay API or benchmark library is added.
+
+Validated on 2026-10-07 (Asia/Shanghai), Windows x64 / AMD Ryzen 9 8945HX /
+Temurin 25.0.3+9, using the same local ASCII cache/temp settings as above:
+
+- Profiler tests: **8 tests, 0 failures/errors/skips**.
+- Fresh noise golden/regression run (build-cache disabled): **34 tests,
+  0 failures/errors/skips**. Kernels and golden fixtures are unchanged.
+- Full build: **BUILD SUCCESSFUL**, with **71 passing tests** across both test
+  tasks (29 Phase + 34 noise + 8 profiler), no failures/errors/skips.
+- Repeated 5,000,000-sample runs in separate JVMs: Worley **1.62–1.64×** Smooth,
+  Ridge **2.18–2.21×** and DomainWarp **3.22–3.31×**. The latter two are slightly
+  above the approximate guardrails; no clear kernel bug was found and no
+  kernel optimization or mathematical change is made.
+- JAR inspection excludes dev/test classes. Diff checks pass; logs and all
+  build/game output remain ignored.
+
+See [Noise profiling](NOISE_PROFILING.md) for exact fixture settings, workload,
+warm-up/consumption design, full result tables and measurement limits. Timings
+are local comparison evidence, not performance assertions or worldgen validation.
+
 ## Next issue
 
-After WPH-003 review, the next issue is **#4 / WPH-004: Add noise profiling helper**.
-WPH-004 and WPH-005 have not been started by this change.
+After WPH-004 review, the next issue is **#5 / WPH-005: Register configurable
+Phase noise density function**. WPH-005 has not been started by this change.

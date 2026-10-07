@@ -46,6 +46,49 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:5.21.0'
 }
 
+// Development-only profiler: no Minecraft runtime, benchmark library, or mod packaging.
+sourceSets {
+    profiling {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+    profilingTest {
+        compileClasspath += sourceSets.main.output + sourceSets.profiling.output
+        runtimeClasspath += sourceSets.main.output + sourceSets.profiling.output
+    }
+}
+
+dependencies {
+    profilingTestImplementation platform('org.junit:junit-bom:5.13.4')
+    profilingTestImplementation 'org.junit.jupiter:junit-jupiter'
+    profilingTestRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+// Plain JUnit keeps dev tooling tests outside NeoForge's transforming mod class loader.
+def testNoiseProfiler = tasks.register('testNoiseProfiler', Test) {
+    group = 'verification'
+    description = 'Test profiling statistics and deterministic workload (no timing assertions).'
+    testClassesDirs = sourceSets.profilingTest.output.classesDirs
+    classpath = sourceSets.profilingTest.runtimeClasspath
+    useJUnitPlatform()
+}
+
+tasks.named('check').configure {
+    dependsOn testNoiseProfiler
+}
+
+tasks.register('noiseProfile', JavaExec) {
+    group = 'verification'
+    description = 'Profile deterministic noise kernels (development tooling only).'
+    classpath = sourceSets.profiling.runtimeClasspath
+    mainClass = 'dev.fangbm.worldphase.dev.noise.NoiseProfiler'
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+    args providers.gradleProperty('noiseProfileKernel').orElse('all').get(),
+            providers.gradleProperty('noiseProfileSamples').orElse('1000000').get()
+}
+
 tasks.named('test', Test).configure {
     useJUnitPlatform()
 }
