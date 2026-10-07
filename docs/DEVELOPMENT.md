@@ -168,7 +168,39 @@ settings, not project requirements or committed Gradle configuration. Use your
 own ASCII directories if encountering the same Windows worker/temporary-path
 issue. The successful full build required no proxy command-line properties.
 
+## Noise kernel tests (WPH-003)
+
+```sh
+./gradlew test --tests dev.fangbm.worldphase.worldgen.noise.NoiseKernelsTest
+./gradlew cleanTest test --tests dev.fangbm.worldphase.worldgen.noise.NoiseKernelsTest
+./gradlew build
+```
+
+Validated on 2026-10-07 (Asia/Shanghai), Windows x64 / Temurin 25.0.3+9,
+using the same local ASCII Gradle cache and Java temporary directory described
+above. Commands used the Unix wrapper in Git Bash:
+
+- Both focused runs: **34 tests, 0 failures/errors/skips**; `cleanTest` ensures
+  golden values are checked again in a fresh test worker.
+- Full build: **BUILD SUCCESSFUL**, **63 tests, 0 failures/errors/skips**
+  (34 noise tests plus 29 existing Phase domain tests).
+- All production noise sources also compile with JDK 25 `javac` alone, without
+  a Minecraft/NeoForge classpath. This verifies the pure Java dependency boundary.
+- JAR inspection and `git diff --check` verify production packaging and source
+  hygiene; build output, standalone probes and game directories remain ignored.
+
+Tests cover bit-exact golden results, repeated calls/fresh instances, sampling
+order, different seeds, finite output/ranges, Smooth continuity, normalized
+ridge behavior, deterministic Worley features and exact search across cell
+boundaries, and independent warp channels. A wider unpruned Worley reference
+search checks the bounded/pruned search; one pinned fixture would fail a 3×3
+implementation. These tests validate kernels only, not terrain generation.
+
+See [Noise kernels](NOISE_KERNELS.md) for algorithms, ranges, seed/channel
+contract, numerical limits, source/license attribution and the intentional
+`GradientNoise` / fixed ridge sharpness choices relative to Technical Design v0.1.
+
 ## Next issue
 
-After WPH-002 review, the next issue is **#3 / WPH-003: Deterministic noise kernels**.
-WPH-003 has not been started.
+After WPH-003 review, the next issue is **#4 / WPH-004: Add noise profiling helper**.
+WPH-004 and WPH-005 have not been started by this change.
