@@ -1,2 +1,2 @@
-/** Reserved for the Phase domain model and world resolution (WPH-002). */
+/** Stable MVP Phase identities and Level-key mappings, without world generation. */
 package dev.fangbm.worldphase.phase;

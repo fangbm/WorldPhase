@@ -30,11 +30,11 @@ The long-term goal is to reconstruct the player's compatibility with the **Stabl
 
 ## Project status
 
-**Week 1 technical PoC / WPH-001 project bootstrap.**
+**Week 1 technical PoC / WPH-002 Phase domain model.**
 
-The project currently contains only the NeoForge entry point, startup logging,
-package skeleton and development launch configurations. Phase worlds, transfer
-and tutorial behavior are not implemented yet.
+The project contains the NeoForge bootstrap and a minimal Phase domain model
+with tested, bidirectional Level-key mappings. Phase worlds, terrain algorithms,
+transfer and tutorial behavior are not implemented yet.
 
 The first milestone is intentionally small:
 
@@ -53,6 +53,7 @@ If that loop is not fun, the project should not expand into content, bosses, mac
 - [Technical Design v0.1](docs/TECHNICAL_DESIGN_v0.1.md)
 - [MVP Issue List](docs/MVP_ISSUE_LIST.md)
 - [Roadmap](docs/ROADMAP.md)
+- [Phase domain API](docs/PHASE_DOMAIN.md)
 
 ## Target stack
 

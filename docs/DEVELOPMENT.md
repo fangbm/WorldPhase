@@ -124,7 +124,51 @@ No scope or target-stack deviation from the design documents was necessary.
 Current official APIs/configuration worked directly. Exact versions and the
 development EULA/offline behavior are documented above.
 
+## Phase domain unit tests (WPH-002)
+
+```sh
+./gradlew test --tests dev.fangbm.worldphase.phase.PhaseDomainTest
+./gradlew build
+```
+
+JUnit Jupiter 5.13.4 and Mockito 5.21.0 are test-only dependencies. The minimal
+[ModDevGradle JUnit configuration](https://docs.neoforged.net/toolchain/docs/plugins/mdg/#unit-testing-with-junit)
+enables Minecraft/NeoForge classes in tests, with WorldPhase as the tested mod.
+Mockito uses its subclass mock maker to stub `ServerLevel.dimension()` without
+an inline-mocking agent; NeoForge bootstraps its own test environment. The
+`test` task is included in `build`; its HTML report is
+`build/reports/tests/test/index.html`.
+
+These tests validate the domain model and Level-key resolution. They do not
+generate Phase worlds or test worldgen, transfer, commands or tutorials.
+See [Phase domain API](PHASE_DOMAIN.md) for the contract and scope.
+
+Validated on 2026-10-07 (Asia/Shanghai), Windows x64 / Temurin 25.0.3+9:
+
+- Focused `PhaseDomainTest` run: **29 tests, 0 failures/errors/skips**.
+- `./gradlew build` in Git Bash: **BUILD SUCCESSFUL**, including a fresh test
+  execution with the same 29 passing cases and the packaged domain classes.
+- JAR inspection confirms no test classes, mocking resources or test libraries
+  are packaged. `git diff --check` passes; outputs remain ignored.
+
+The initial test worker failed before test execution with
+`ClassNotFoundException: worker.org.gradle.process.internal.worker.GradleWorkerMain`
+under this machine's non-ASCII Gradle home. A separate ASCII cache directory
+resolved worker startup. An ASCII Java temporary directory also avoided a
+NeoForge self-attach error under the user temporary directory. The successful
+build used these local environment values, outside the repository:
+
+```powershell
+$env:GRADLE_USER_HOME = 'D:\codex-temp\worldphase-gradle-ascii'
+$env:JAVA_TOOL_OPTIONS = '-Djava.io.tmpdir=D:\codex-temp\worldphase-java-tmp'
+```
+
+Set `JAVA_HOME` to JDK 25 as above. These paths are machine-local validation
+settings, not project requirements or committed Gradle configuration. Use your
+own ASCII directories if encountering the same Windows worker/temporary-path
+issue. The successful full build required no proxy command-line properties.
+
 ## Next issue
 
-After WPH-001 review, proceed to **#2 / WPH-002: Define Phase domain model**.
-No later issue is implemented by this bootstrap.
+After WPH-002 review, the next issue is **#3 / WPH-003: Deterministic noise kernels**.
+WPH-003 has not been started.
