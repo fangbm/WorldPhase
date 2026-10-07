@@ -9,8 +9,11 @@ displayURL="https://github.com/fangbm/WorldPhase"
 authors="fangbm"
 description='''
 Same seed. Same coordinates. Different worlds.
-Week 1 technical PoC: project bootstrap only.
+Week 1 technical PoC: Phase domain, deterministic noise and configurable density adapter.
 '''
+
+[[mixins]]
+config="worldphase.mixins.json"
 
 [[dependencies.${mod_id}]]
 modId="neoforge"

@@ -128,5 +128,5 @@ unchanged.
 
 This issue adds only development profiling/regression tooling. No DensityFunction,
 dimension/worldgen JSON, `/wp` command or worldgen integration is implemented.
-Next after review is **#5 / WPH-005: Register configurable Phase noise density
-function**; this change stops at #4.
+The WPH-005 [density adapter](PHASE_DENSITY.md) is documented separately;
+profiler scope and kernel behavior remain unchanged.

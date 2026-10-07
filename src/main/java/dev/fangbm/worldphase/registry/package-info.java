@@ -1,2 +1,2 @@
-/** Reserved for density-function registration and worldgen keys. */
+/** Density-function type registration; future worldgen keys belong here. */
 package dev.fangbm.worldphase.registry;

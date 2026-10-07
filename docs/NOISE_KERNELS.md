@@ -119,8 +119,10 @@ ridged-multifractal feedback model. The minimal
 parameters are frequency, octave count and warp strength where needed; extra
 worldgen configuration belongs to later issues.
 
-The kernels are not wired into Minecraft DensityFunction, Phase dimensions,
-worldgen JSON, transfer, commands or tutorial behavior. Development profiling
+The kernels remain pure Java. WPH-005 adds a thin, seeded
+[Minecraft density adapter](PHASE_DENSITY.md) without changing their math or
+golden fixtures; Phase dimensions, transfer and tutorial behavior remain deferred.
+Development profiling
 and regression tooling added in WPH-004 is documented in
 [Noise profiling](NOISE_PROFILING.md); it leaves these kernels and golden
-fixtures unchanged. Density-function integration remains **#5 / WPH-005**.
+fixtures unchanged.
