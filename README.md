@@ -30,11 +30,12 @@ The long-term goal is to reconstruct the player's compatibility with the **Stabl
 
 ## Project status
 
-**Week 1 technical PoC / WPH-002 Phase domain model.**
+**Week 1 technical PoC / WPH-003 deterministic noise kernels.**
 
 The project contains the NeoForge bootstrap and a minimal Phase domain model
-with tested, bidirectional Level-key mappings. Phase worlds, terrain algorithms,
-transfer and tutorial behavior are not implemented yet.
+with tested, bidirectional Level-key mappings and pure Java 2D Smooth, Ridged,
+Worley F1 and DomainWarp noise kernels. Phase worlds, Minecraft density-function
+integration, transfer and tutorial behavior are not implemented yet.
 
 The first milestone is intentionally small:
 
@@ -54,6 +55,7 @@ If that loop is not fun, the project should not expand into content, bosses, mac
 - [MVP Issue List](docs/MVP_ISSUE_LIST.md)
 - [Roadmap](docs/ROADMAP.md)
 - [Phase domain API](docs/PHASE_DOMAIN.md)
+- [Noise kernel API, algorithms and provenance](docs/NOISE_KERNELS.md)
 
 ## Target stack
 
