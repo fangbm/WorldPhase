@@ -107,7 +107,7 @@ in `NoiseHash.java`. Its mutable generator state and increment sequence are not
 used. No external noise library or new dependency is added. WorldPhase's own
 code retains the repository's current All Rights Reserved status.
 
-## Design relationship and next issue
+## Design relationship and profiling
 
 Technical Design v0.1 lists `OpenSimplexNoise.java` as an example. This issue uses
 `GradientNoise` instead: the requested coherent gradient/simplex-style field is
@@ -120,6 +120,7 @@ parameters are frequency, octave count and warp strength where needed; extra
 worldgen configuration belongs to later issues.
 
 The kernels are not wired into Minecraft DensityFunction, Phase dimensions,
-worldgen JSON, transfer, commands or tutorial behavior. Next is **#4 / WPH-004:
-Add noise profiling helper**, after review; density-function integration remains
-**#5 / WPH-005**. This change stops at #3.
+worldgen JSON, transfer, commands or tutorial behavior. Development profiling
+and regression tooling added in WPH-004 is documented in
+[Noise profiling](NOISE_PROFILING.md); it leaves these kernels and golden
+fixtures unchanged. Density-function integration remains **#5 / WPH-005**.
