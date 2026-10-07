@@ -1,0 +1,29 @@
+# Gradle outputs and generated IDE launch configurations
+.gradle/
+build/
+out/
+bin/
+src/generated/
+
+# Local IDE state
+.idea/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+.vscode/
+*.launch
+
+# Development game directories and logs
+run/
+run-*/
+runs/
+logs/
+crash-reports/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

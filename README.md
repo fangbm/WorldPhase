@@ -30,7 +30,11 @@ The long-term goal is to reconstruct the player's compatibility with the **Stabl
 
 ## Project status
 
-**Pre-development / technical PoC planning.**
+**Week 1 technical PoC / WPH-001 project bootstrap.**
+
+The project currently contains only the NeoForge entry point, startup logging,
+package skeleton and development launch configurations. Phase worlds, transfer
+and tutorial behavior are not implemented yet.
 
 The first milestone is intentionally small:
 
@@ -52,13 +56,15 @@ If that loop is not fun, the project should not expand into content, bosses, mac
 
 ## Target stack
 
-Current planning target:
+Pinned development baseline:
 
 - Minecraft 26.1
-- NeoForge 26.1.x
-- Java 25
+- NeoForge 26.1.0.19-beta
+- Java 25 (JDK)
+- ModDevGradle 2.0.148 / Gradle wrapper 9.2.1
 
-This may change if implementation testing shows a better-supported baseline.
+See [Development setup](docs/DEVELOPMENT.md) for build and launch instructions,
+toolchain provenance, and the WPH-001 validation record.
 
 ## Design rule
 
