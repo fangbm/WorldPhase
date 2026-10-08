@@ -10,6 +10,11 @@ import java.util.concurrent.atomic.AtomicReference;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.chunk.status.ChunkStatus;
@@ -66,6 +71,7 @@ class PhaseTransferServiceTest {
         when(player.teleport(any(TeleportTransition.class))).thenAnswer(call -> {
             TeleportTransition transition = call.getArgument(0);
             transitions.add(transition);
+            player.setBoundingBox(player.getBoundingBox().move(transition.position().subtract(currentPosition.get())));
             currentLevel.set(transition.newLevel()); currentPosition.set(transition.position());
             currentYaw.set(transition.yRot()); currentPitch.set(transition.xRot());
             return player;
@@ -241,5 +247,85 @@ class PhaseTransferServiceTest {
         }
         verify(player, times(12)).teleport(any(TeleportTransition.class));
         verify(player, never()).getInventory();
+    }
+
+    private void boundedFloor(PhaseId phase, int offset) {
+        // A real snow collision shape reaches 7/8 block height; use .875 fractional source y.
+        original = new Vec3(-16.125,80.875,15.9375); currentPosition.set(original);
+        body = new AABB(original.x-.3,original.y,original.z-.3,original.x+.3,original.y+1.8,original.z+.3);
+        player.setBoundingBox(body); when(player.getMainHandItem()).thenReturn(ItemStack.EMPTY);
+        var target = levels.get(phase);
+        var getter = mock(BlockGetter.class);
+        var floor = Blocks.SNOW.defaultBlockState().setValue(net.minecraft.world.level.block.SnowLayerBlock.LAYERS,8);
+        org.mockito.stubbing.Answer<BlockState> state = call -> ((BlockPos)call.getArgument(0)).getY() == 80+offset
+                ? floor : Blocks.AIR.defaultBlockState();
+        when(getter.getBlockState(any())).thenAnswer(state);
+        when(target.getBlockState(any())).thenAnswer(state);
+        when(target.getChunkForCollisions(anyInt(),anyInt())).thenReturn(getter);
+        when(target.noEntityCollision(any(),any())).thenReturn(true);
+    }
+
+    @ParameterizedTest @ValueSource(ints={0,1,-1,4,-4})
+    void boundedTransferUsesResolvedDestinationAndPreservesSourceFractionAndRotation(int offset) {
+        boundedFloor(PhaseId.RIDGE,offset);
+        assertEquals(TransferResult.SUCCESS,service.transfer(player,PhaseId.RIDGE,TransferPolicy.BOUNDED_LANDING));
+        assertEquals(original.add(0,offset,0),player.position());
+        assertEquals(original.add(0,offset,0),transitions.getFirst().position());
+        assertEquals(123.25f,player.getYRot()); assertEquals(-37.5f,player.getXRot());
+        verify(chunks.get(PhaseId.RIDGE),times(4)).getChunk(anyInt(),anyInt(),eq(ChunkStatus.FULL),eq(true));
+    }
+    @ParameterizedTest @ValueSource(ints={5,-5})
+    void floorOutsideBoundCannotTransfer(int offset) {
+        boundedFloor(PhaseId.RIDGE,offset);
+        assertEquals(TransferResult.NO_SAFE_POSITION,service.transfer(player,PhaseId.RIDGE,TransferPolicy.BOUNDED_LANDING)); unmoved();
+    }
+    @ParameterizedTest @CsvSource({"1,0,0","0,5,0","0,-5,0","0,0.25,0","0,0,0.00001"})
+    void boundedCustomResolverCannotEscapeItsPolicy(double dx,double dy,double dz) {
+        service=new PhaseTransferService(server,(p,l,pos,policy)->Optional.of(pos.add(dx,dy,dz)));
+        assertThrows(IllegalStateException.class,()->service.transfer(player,PhaseId.RIDGE,TransferPolicy.BOUNDED_LANDING)); unmoved();
+    }
+    @Test void customResolverCannotBypassActualSupportOrFinalBounds() {
+        boundedFloor(PhaseId.RIDGE,5);
+        service=new PhaseTransferService(server,(p,l,pos,policy)->Optional.of(pos));
+        assertEquals(TransferResult.NO_SAFE_POSITION,service.transfer(player,PhaseId.RIDGE,TransferPolicy.BOUNDED_LANDING)); unmoved();
+        service=new PhaseTransferService(server,(p,l,pos,policy)->Optional.of(pos.add(0,4,0)));
+        when(levels.get(PhaseId.RIDGE).getMaxY()).thenReturn(83);
+        assertEquals(TransferResult.NO_SAFE_POSITION,service.transfer(player,PhaseId.RIDGE,TransferPolicy.BOUNDED_LANDING)); unmoved();
+    }
+    @Test void boundedCandidateCanRecoverIntoBuildHeightWithoutCheckingOutsideCandidate() {
+        boundedFloor(PhaseId.RIDGE,1); when(levels.get(PhaseId.RIDGE).getMinY()).thenReturn(81);
+        assertEquals(TransferResult.SUCCESS,service.transfer(player,PhaseId.RIDGE,TransferPolicy.BOUNDED_LANDING));
+        assertEquals(original.add(0,1,0),player.position());
+    }
+    @Test void boundedNativeVetoAndExceptionRetainCommitBoundarySemantics() {
+        boundedFloor(PhaseId.RIDGE,1); when(player.teleport(any(TeleportTransition.class))).thenReturn(null);
+        assertEquals(TransferResult.ERROR,service.transfer(player,PhaseId.RIDGE,TransferPolicy.BOUNDED_LANDING));
+        assertEquals(original,player.position()); assertSame(levels.get(PhaseId.SMOOTH),player.level());
+        when(player.teleport(any(TeleportTransition.class))).thenThrow(new IllegalArgumentException("native"));
+        assertThrows(IllegalStateException.class,()->service.transfer(player,PhaseId.RIDGE,TransferPolicy.BOUNDED_LANDING));
+    }
+    @Test void resolverMutatingSourceIsRejectedBeforeTeleport() {
+        service=new PhaseTransferService(server,(p,l,pos,policy)-> {currentYaw.set(90f); return Optional.of(pos);});
+        assertEquals(TransferResult.INVALID_SOURCE,transfer(PhaseId.RIDGE));
+        verify(player,never()).teleport(any(TeleportTransition.class));
+    }
+    @Test void boundedPostconditionsCompareAdjustedDestinationRatherThanOriginalPosition() {
+        boundedFloor(PhaseId.RIDGE,1);
+        when(player.teleport(any(TeleportTransition.class))).thenAnswer(call -> {
+            currentLevel.set(levels.get(PhaseId.RIDGE)); return player; // Native bug: old y kept.
+        });
+        assertThrows(IllegalStateException.class,()->service.transfer(player,PhaseId.RIDGE,TransferPolicy.BOUNDED_LANDING));
+    }
+    @Test void noCandidateInsideBuildRangeRejectsBeforeAnyChunkLoad() {
+        boundedFloor(PhaseId.RIDGE,0); when(levels.get(PhaseId.RIDGE).getMinY()).thenReturn(86);
+        assertEquals(TransferResult.OUT_OF_WORLD,service.transfer(player,PhaseId.RIDGE,TransferPolicy.BOUNDED_LANDING)); unmoved();
+        verifyNoInteractions(chunks.get(PhaseId.RIDGE));
+    }
+    @Test void haloMatchesVanillaCollisionEpsilonImmediatelyInsideChunkBoundary() {
+        body=new AABB(14.39999995,original.y,14.4,14.99999995,original.y+1.8,15);
+        player.setBoundingBox(body);
+        assertEquals(TransferResult.SUCCESS,transfer(PhaseId.RIDGE));
+        for(int x:new int[]{0,1}) for(int z:new int[]{0,1}) verify(chunks.get(PhaseId.RIDGE)).getChunk(x,z,ChunkStatus.FULL,true);
+        verify(chunks.get(PhaseId.RIDGE),times(4)).getChunk(anyInt(),anyInt(),eq(ChunkStatus.FULL),eq(true));
     }
 }
