@@ -1,196 +1,185 @@
-# WPH-009 PhaseTransferService
-
-Production types live in `dev.fangbm.worldphase.transfer`:
+# Phase transfer and bounded safe landing (WPH-009 / WPH-010)
 
 ```java
 var transfers = new PhaseTransferService(server);
-TransferResult result = transfers.transfer(player, PhaseId.RIDGE, TransferPolicy.EXACT_POSITION);
+transfers.transfer(player, PhaseId.RIDGE, TransferPolicy.BOUNDED_LANDING);
 ```
 
-The service is scoped to one MinecraftServer lifetime. Calls must be made on its
-main thread; otherwise IllegalStateException is thrown before reading the player.
-The service reads the source Level, full double position, rotation and body AABB
-from ServerPlayer. There are no client-supplied coordinates, coordinate rounding,
-dimension-scale multiplication, new player objects or inventory copies.
+The service belongs to one MinecraftServer lifetime. Calls must run on its main
+thread; an off-thread call throws before reading the player. Source Level,
+position, yaw/pitch and complete AABB come from ServerPlayer. Only live players
+in this server's loaded MVP Phases are accepted. Removed, dead, sleeping, riding,
+passenger-carrying and unknown/Vanilla source states remain INVALID_SOURCE.
+SAME_PHASE remains an early no-op. No client coordinates or terrain estimates
+are used. PhaseWorldResolver supplies the target key; a missing Level returns
+TARGET_LEVEL_MISSING.
 
-Only a live, nonremoved player in a currently loaded MVP Phase of this server is
-accepted. Sleeping, riding and carrying passengers are rejected as INVALID_SOURCE:
-this slice does not define bed/camera/vehicle/passenger-transfer policy. Vanilla and
-unknown source Levels are also INVALID_SOURCE; use Vanilla development teleport
-to enter the first Phase. SAME_PHASE is an early no-op. Null arguments are caller
-programming errors. Nonfinite position/rotation/AABB is rejected before generation.
+## Policies and search order
 
-## Responsibilities and exact policy
+- EXACT_POSITION preserves the original x/y/z. As in WPH-009, it checks only
+  full body bounds, Vanilla block/entity collision and liquid occupancy. It can
+  accept unsupported air; it does not promise a safe standing surface.
+- BOUNDED_LANDING checks exactly this fixed order:
+  `0, +1, -1, +2, -2, +3, -3, +4, -4`. Upward wins equal-distance ties. It stops
+  at the first safe position; at most nine candidates receive safety checks.
+  Each position copies the original x/z doubles directly (including signed zero)
+  and adds an integer to the original y. There is no rounding, horizontal move,
+  dimension scaling, fractional y snapping, surface scan or +/-5 fallback.
 
-PhaseWorldResolver maps the requested Phase to its catalog Level key. A missing
-target returns TARGET_LEVEL_MISSING, without falling back to another world.
+Airborne positions may have no supported candidate with that fractional y and
+will be refused. Integer offsets deliberately cannot turn arbitrary fractional
+feet height into an integer or half-block surface height.
 
-The service checks the entire body AABB against the destination's build height
-and WorldBorder **before** chunk generation. In 26.1 getMaxY is inclusive, so
-the body's max edge may reach `getMaxY()+1`. It then acquires FULL LevelChunks
-synchronously via `ServerChunkCache.getChunk(cx,cz,ChunkStatus.FULL,true)` covering
-the body's x/z footprint **plus one block**. Vanilla BlockCollisions inspects this
-halo for shapes extending from neighboring blocks; chunk edges and negative
-coordinates are included. This can generate actual features and structures, as
-required for real safety, unlike TerrainSampleService's temporary base columns.
+SafeLandingResolver.gameplay() supports both policies. The original
+exactPosition() factory remains available. Resolvers must not mutate the player.
+TransferPolicy.permits verifies that a returned Vec3 equals one of the actual
+policy candidates. A custom resolver returning another x/z, fractional adjustment
+or an out-of-range y causes a programming error before teleport. Custom resolver
+results also pass the same real safety check in the service. The built-in already
+checks that final AABB during resolution, so the service does not repeat its
+safety evaluation; callers cannot enable that internal trusted path.
 
-getChunk's main-thread path adds Vanilla UNKNOWN loading tickets (timeout one
-tick) and pumps its processor until generation completes. A null/non-LevelChunk
-result is CHUNK_NOT_READY; known IllegalStateException/CompletionException loading
-failures are logged and return CHUNK_FAILURE. Other unexpected failures propagate.
-No custom ticket registry, permanent force load, scheduler or timeout framework is
-added. Because the wait pumps tasks, source Level/position/rotation/body/player
-validity and destination bounds are checked again before landing evaluation.
+## Actual 26.1 collision and support APIs
 
-SafeLandingResolver is a functional boundary:
+Inspected generated sources pinned to Minecraft 26.1 / NeoForge 26.1.0.19-beta:
+CollisionGetter, BlockCollisions, CollisionContext, EntityCollisionContext,
+Shapes, VoxelShape, ServerPlayer, ServerChunkCache and TeleportTransition. Official
+26.1 references: [migration primer](https://docs.neoforged.net/primer/docs/26.1/)
+and [blockstates](https://docs.neoforged.net/docs/blocks/states/).
 
-```java
-Optional<Vec3> resolve(ServerPlayer player, ServerLevel target,
-        Vec3 originalPosition, TransferPolicy policy);
-```
+LandingSafety translates the source's actual AABB to each candidate, including
+nondefault widths/poses. BOUNDED_LANDING requires:
 
-Resolvers must not mutate players. The default `exactPosition()` translates the
-current body to the original position and asks the **target** Level:
+1. The entire body is inside WorldBorder and build height. getMaxY is inclusive;
+   the body's maximum edge may reach getMaxY()+1. Candidates outside these bounds
+   are skipped. If none can fit, the service returns OUT_OF_WORLD before loading.
+2. No target block collision shapes intersect the body. The public
+   BlockCollisions constructor receives CollisionContext.withPosition(player,
+   candidate.y), the API also used by Vanilla pre-move collision queries. This
+   supplies candidate feet height, player descent state and held item without
+   moving the player. CollisionGetter.noEntityCollision checks entities that
+   actually block movement; visible entities such as armor stands need not block.
+3. ServerLevel.containsAnyLiquid rejects body space containing water/lava/liquid.
+4. A block collision face supports the central half of the footprint in both
+   horizontal axes. A 0.0001-block downward probe is evaluated by Vanilla
+   Shapes.collide(Y, feet, shapes, -0.0001); remaining fall must be <=1e-7, Vanilla's
+   numerical tolerance. This is contact, not permission to hover or snap down.
+   The support must come from block shapes, not a boat/entity. Half slabs, stairs,
+   trapdoors and other shapes are handled by Vanilla geometry, never isSolid or
+   copied collision math. Contact only at the outer edge is conservatively refused.
+5. Blocks in the body/support footprint with a 0.0001 contact margin exclude:
+   fire/soul fire (also the fire tag), lava, magma, cactus, sweet berry bush,
+   wither rose, powder snow, pointed dripstone and lit normal/soul campfires.
+   Unlit campfires can support a player. Hazard checks are conservative block-cell
+   checks, independent of equipment or temporary immunity.
 
-```java
-target.noCollision(player, body) && !target.containsAnyLiquid(body)
-```
+No TerrainSampleService, baseHeight, worldgen tuning, noise or PhaseDefinition
+changes are involved.
 
-Vanilla noCollision checks block shapes, entities that participate in collision
-and world-border collision; not every visible entity blocks movement. For example,
-an armor stand is not an appropriate blocking-entity fixture; the smoke uses a boat.
-Liquid-filled body space also rejects. No estimated height or noise is consulted.
-The resolver returns the exact original Vec3 or empty, with no y adjustment.
-Returning adjusted coordinates under EXACT_POSITION is a programming error.
+## Chunks, destination integration and failure boundary
 
-This policy guarantees collision-free, non-liquid **body space**, not support
-under the feet or freedom from fall damage, magma, fire or nearby hazards. It can
-accept open air. No ground/surface search, y +/-1..4 search or safe-route/scoring
-system is implemented in #9.
+The service obtains FULL LevelChunks synchronously with
+ServerChunkCache.getChunk(cx,cz,ChunkStatus.FULL,true). It prepares the original
+body's x/z footprint and Vanilla BlockCollisions' one-block neighborhood once.
+The integer endpoints match Vanilla's 1e-7 boundary epsilon as well, preventing
+an unprepared neighbor immediately inside a chunk boundary. All vertical
+candidates reuse that footprint; no repeated acquisition or distant search occurs.
+Vanilla can generate dependency chunks while satisfying FULL requests. A null or
+non-LevelChunk gives CHUNK_NOT_READY; known CompletionException/IllegalStateException
+acquisition failures give logged CHUNK_FAILURE. Unexpected failures propagate.
 
-## Verified 26.1 teleport pipeline
-
-Inspected the generated Minecraft 26.1 sources pinned to NeoForge 26.1.0.19-beta
-and NeoForge's ServerPlayer travel hook. The service calls:
+Synchronous chunk loading pumps tasks, so the original Level/position/rotation,
+body and source validity are rechecked afterward. Bounds are rechecked too, and
+source consistency is checked again after resolution. The original snapshot is
+used for preflight/veto checks; the resolved final destination is used in the
+teleport call and success postconditions:
 
 ```java
 ServerPlayer moved = player.teleport(new TeleportTransition(
-        target, originalPosition, Vec3.ZERO, originalYaw, originalPitch,
-        TeleportTransition.PLACE_PORTAL_TICKET));
+    target, destination, Vec3.ZERO, originalYaw, originalPitch,
+    TeleportTransition.PLACE_PORTAL_TICKET));
 ```
 
-This constructor uses an empty Set of Relative flags: position/rotation are
-absolute; original x/y/z doubles are passed unchanged. Velocity is reset to zero,
-matching Vanilla's absolute teleportTo helper. Vanilla's ServerPlayer implementation
-returns **the same ServerPlayer**, removes it from the old Level and registers it
-in the destination; inventory and UUID stay attached to that object. The service
-checks returned identity, actual Level/position/yaw/pitch and removal state before
-reporting SUCCESS. The post-transition uses Vanilla's portal ticket: radius 3,
-300-tick timeout, preserving destination loading while normal player tracking takes
-over. Preflight itself uses only temporary UNKNOWN tickets.
+Empty relative flags mean absolute, unscaled coordinates. Vanilla reuses the same
+ServerPlayer and inventory, and resets velocity as in WPH-009. Its normal portal
+ticket has radius 3 and timeout 300 ticks; preflight uses temporary UNKNOWN tickets.
+There is no new registry, queue, Mixin or teleport-pipeline modification.
 
-NeoForge's EntityTravelToDimensionEvent can veto before native player mutation and
-the method then returns null. The service returns ERROR only if the player is still
-valid in the source with the original position/rotation/body. This lower-level API
-is intentional: ServerPlayer.teleportTo(...) wakes a sleeper and can reset camera
-**before** delegating, even if the travel event later vetoes.
+All candidates failing safety gives NO_SAFE_POSITION before native teleport;
+source Level/position/yaw/pitch/UUID/inventory remain unchanged. A normal NeoForge
+travel veto returns null; ERROR is returned only if the original source state is
+still valid and unchanged. The native call remains the nontransactional commit
+boundary: exceptions, changed-state null returns, wrong identity or wrong final
+position/rotation/removal state throw. Arbitrary third-party/native failures after
+commit are not safely rollbackable; no second teleport or false SUCCESS is used.
+Unexpected resolver failures also propagate. The service cannot undo mutations
+made by a contract-violating custom resolver or third-party event listener.
 
-## Failure atomicity boundary
-
-Every normal preflight rejection is before player mutation. Chunk generation may
-change the destination world, but does not move the player or copy inventory. A
-normal NeoForge travel veto is verified to leave source state/items unchanged.
-Externally changed state while chunk tasks execute prevents a stale transfer.
-
-The native call is the commit boundary. Vanilla sends packets, removes/registers
-entities and invokes events during it; it exposes no transactional undo. If it
-throws, the service rethrows with the cause and an explicit commit-boundary warning.
-If it returns null after changing source state, returns another player, or reports
-a result with wrong Level/position/rotation/removal state, the service throws an
-inconsistency exception. These are **not** normal TransferResult failures or safe
-automatic retry cases. There is no second-teleport rollback that could itself fail
-or duplicate packets/events. Atomic rollback of arbitrary third-party event/native
-exceptions is not promised. No teleport pipeline Mixin or patch is introduced.
-
-| TransferResult | Meaning |
-| --- | --- |
-| SUCCESS | Same player verified at the requested Phase and exact position/rotation |
-| SAME_PHASE | Source already is the requested Phase; no mutation or chunk load |
-| TARGET_LEVEL_MISSING | Target Phase Level is not loaded |
-| NO_SAFE_POSITION | Exact body space is blocked by real collision or contains liquid |
-| CHUNK_NOT_READY | FULL acquisition did not return a LevelChunk |
-| CHUNK_FAILURE | Known synchronous chunk loading/generation failure |
-| OUT_OF_WORLD | Body leaves destination build bounds or WorldBorder |
-| INVALID_SOURCE | Invalid/unsupported/stale source player/world/state |
-| ERROR | Native travel returned null with verified unchanged source state |
-
-## Tests and dedicated-server probe
+## Validation
 
 ```sh
-./gradlew test --tests dev.fangbm.worldphase.transfer.PhaseTransferServiceTest --no-build-cache
-./gradlew test --tests dev.fangbm.worldphase.transfer.PhaseTransferServiceTest --tests 'dev.fangbm.worldphase.worldgen.*' --no-build-cache
-./gradlew build --no-build-cache
+./gradlew test --tests '*transfer*' --console=plain --no-build-cache
+./gradlew build --console=plain --no-build-cache
 ./gradlew runPhaseVerificationTransferServer --console=plain --no-build-cache
+# Run the same server task again against its saved world.
 ```
 
-The dedicated run uses the existing phaseVerification dev source set in transfer
-mode, with its own `run/phase-transfer-verification-server` directory, never the
-WPH-007 full-chunk/visual probe. Prepare accepted eula.txt and server.properties
-with seed 123456789, loopback server-ip, unused port (validated: 25571), offline
-mode, view-distance=2, simulation-distance=2. The final validation used a fresh
-`level-name=world-wph009-final`. A fresh level-name exercises cold generation;
-the probe can also run again on its saved world. The task clears old status, requires PASS and stops
-automatically. Reports/worlds/logs remain ignored; the probe is excluded from the
-production JAR.
+The isolated run remains run/phase-transfer-verification-server with dev-only
+phaseVerification classes, excluded from the production JAR. Prepare accepted
+eula.txt, seed 123456789, loopback server-ip, unused port 25571, offline mode,
+view-distance=2 and simulation-distance=2. Use a fresh level-name for a clean
+world; repeating that name tests reload. The task clears old status, requires
+PASS, saves and stops automatically. Runtime files stay ignored.
 
-Unit tests cover sequencing, Smooth->Ridge->Cell, exact fractional position and
-rotation, same Phase, missing target, body/fluid/entity/border/build-bound rejection,
-chunk failure/readiness/halo, invalid source states, off-thread rejection, native
-null/exception/inconsistent results, stale source during loading, exact-policy
-enforcement and repeated delegation. They use mocked shells; actual entity identity,
-all inventory slots and Vanilla teleport behavior are checked by the real probe.
+Unit tests use real Vanilla BlockCollisions/VoxelShapes over a small block map
+with mocked world shells, plus transfer sequencing/native-result mocks. Dedicated
+validation uses real ServerLevels, blocks, a boat and a real ServerPlayer with
+Vanilla teleport handling; only outbound packet sends are discarded. This proves
+server collision/teleport behavior with simulated transport, not a connected
+client session or player login/save cycle.
 
-Full build: **188 tests, zero failures/errors/skips**: 26 transfer, 30 sampling,
-6 Phase world, 3 Smooth world, 1 Fracture preset, 34 unchanged noise golden/regression,
-51 density/codec, 29 Phase domain and 8 profiler. Focused transfer + worldgen run:
-151 tests, all passing. Production JAR contains the four transfer types and no
-verification or test classes.
+The probe retains WPH-009 EXACT_POSITION regression (Smooth -> Ridge -> Cell,
+solid block/entity/border rejection, actual NeoForge travel veto, 12 repeats and
+removed-player rejection). It adds supported Smooth -> Ridge at
+(-16.125,220.5,15.9375), then Ridge -> Cell corrected +1 to221.5; all-blocked,
+unsupported-body-space, actually safe but forbidden +5, narrow cave, real
+water/lava/fire/soul fire/magma/cactus/lit campfire/berry/rose/powder snow/dripstone,
+boat occupancy, +4/-4/-1 and stairs. Postarrival it checks actual body/liquid space,
+landing safety and Vanilla findSupportingBlock. Another 12 bounded transfers
+alternate220.5/221.5 and verify exact x/z, yaw123.25, pitch-37.5, UUID, same player
+and inventory objects, every inventory slot, and exactly one UUID entity across
+all Levels. Bounded WorldBorder rejection and an actual veto of an adjusted -1
+transfer retain source state. On restart a saved GOLD_BLOCK fixture is checked
+before fixtures are reset, followed by the complete probe and another clean save.
 
-Dedicated validation on 2026-10-08, Windows x64 / Temurin 25.0.3+9:
+Validated on 2026-10-08, Windows x64 / Temurin 25.0.3+9:
 
-- All four actual same-seed Phase Levels loaded. Fresh cold-target run reached
-  Done (4.625s), PASS, save/stop,
-  Gradle exit 0; no registry, density codec, Mixin or final-run runtime errors.
-- Real ServerPlayer with a Vanilla ServerGamePacketListenerImpl; **only outbound
-  packet send is discarded**. Vanilla teleport/position updates are not overridden.
-  NeoForge FakePlayer's handler skips teleport position updates, so it would not
-  prove this requirement. This is simulated transport, not a connected-client test.
-- Controlled body-space fixture at (-16.125,220.375,15.9375), yaw=123.25,
-  pitch=-37.5. Smooth->Ridge->Cell and 12 further Ridge/Cell transfers all retain
-  exact coordinates, rotation, UUID, same player/inventory objects and every slot
-  (including 7 diamonds and 23 iron ingots). Exactly one matching entity across all
-  Levels after every transfer.
-- Initial Ridge and Cell visible chunk-holder counts were 0; each became 576
-  after its first transfer. These counts include Vanilla's lower-status generation
-  dependencies, **not 576 FULL chunks**. At this body/chunk boundary the service
-  requests four FULL chunks, with Vanilla managing their dependencies and the
-  ordinary post-teleport ticket. Cold generation blocks the server until ready.
-- Saved-world restart also passed the same probe and stopped cleanly: Done
-  (5.281s), Ridge/Cell holder counts 841->841. Expiring native portal tickets can
-  be persisted across restart; this is why the probe accepts warm and cold targets.
-- Same-Phase no-op, blocked exact y despite empty higher space, overlapping boat,
-  border violation, **actual NeoForge travel veto** and removed-player rejection
-  pass. Normal failures retain source Level/position/rotation/identity/items.
+- Focused landing/transfer tests passed. The complete build passed **239 tests**:
+  45 transfer, 32 landing, 29 Phase domain, 51 density/codec, 34 noise, 10 world
+  preset tests, 30 sampling and 8 profiler; zero failures/errors/skips.
+- Fresh `world-wph010-final` reached Done (3.278s), passed the complete real
+  probe, saved every Level and stopped with Gradle exit0.
+- Restarting that same world reached Done (3.414s), reported
+  `WPH010 RELOAD PASS persisted GOLD_BLOCK target fixture`, passed every scenario
+  again, saved and stopped with exit0. No registry/codec/Mixin/runtime errors in
+  either final run. Initial fixture development exposed setup errors (slab height
+  and soul-fire support); the fixtures were corrected before these final runs.
+- The production JAR contains the transfer/landing types and excludes dev probe,
+  test and profiler classes. No generated output or game directory is committed.
 
-## Scope and next issue
+## Known safety boundaries and scope
 
-Technical Design v0.1's core service/result/resolver responsibilities are retained;
-26.1's nullable native return and nontransactional commit boundary are made explicit.
-No changes to PhaseDefinition, kernels/golden fixtures, density adapter, sampling
-service or worldgen presets. No commands, items, Anchor/Shifter, tutorial/Scanner,
-rendering, worldgen tuning or village/entity adaptation (#25).
+This is a conservative immediate landing check. Central-footprint contact is not
+a requirement that every square centimeter of the body footprint have ground.
+It may refuse thin edge perches or hazards elsewhere in the touched block cells.
+Only listed Vanilla hazards and fire-tag extensions are recognized; arbitrary
+modded damage callbacks, traps/portals, future fluid flow, falling blocks, moving
+entities, ongoing status/fall damage and subsequent world changes are not
+promised safe. Special collision shapes depend on Vanilla's player context and
+the block implementation. There is no blanket guarantee for every modded block.
 
-After review, **#10** should implement bounded exact-y then +/-1..4 candidate
-search in SafeLandingResolver, define/validate its standing/support/hazard policy,
-retain original x/z, and add correction/all-blocked acceptance tests. #9 provides
-the resolver seam; it intentionally does not enable any correction or surface mode.
+Technical Design v0.1's bounded-y architecture is retained; actual 26.1 shape,
+context and nullable teleport APIs implement it. EXACT_POSITION keeps its original
+body-space contract. No surface mode, commands, items, Anchor/Shifter, tutorial,
+visuals, Phase presets, terrain/noise changes or village adaptation are added.
+After review the next scoped issue is #11; it is not implemented here.

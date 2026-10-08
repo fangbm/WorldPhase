@@ -25,14 +25,20 @@ public final class PhaseTransferService {
     private static final Logger LOGGER = LogUtils.getLogger();
     private final MinecraftServer server;
     private final SafeLandingResolver landing;
+    private final boolean builtInResolver;
 
     public PhaseTransferService(MinecraftServer server) {
-        this(server, SafeLandingResolver.exactPosition());
+        this(server, SafeLandingResolver.gameplay(), true);
     }
 
     public PhaseTransferService(MinecraftServer server, SafeLandingResolver landing) {
+        this(server, landing, false);
+    }
+
+    private PhaseTransferService(MinecraftServer server, SafeLandingResolver landing, boolean builtInResolver) {
         this.server = Objects.requireNonNull(server, "server");
         this.landing = Objects.requireNonNull(landing, "landing");
+        this.builtInResolver = builtInResolver;
     }
 
     public TransferResult transfer(ServerPlayer player, PhaseId targetPhase, TransferPolicy policy) {
@@ -53,32 +59,44 @@ public final class PhaseTransferService {
         if (!finite(position) || !Float.isFinite(yaw) || !Float.isFinite(pitch) || !finite(box)) {
             return TransferResult.INVALID_SOURCE;
         }
-        if (!withinWorld(target, box)) return TransferResult.OUT_OF_WORLD;
+        if (policy.candidates(position).stream().noneMatch(p -> withinWorld(target, box.move(p.subtract(position))))) {
+            return TransferResult.OUT_OF_WORLD;
+        }
 
         var ready = prepareChunks(target, box);
         if (ready != TransferResult.SUCCESS) return ready;
         // Synchronous chunk acquisition pumps tasks. Never transfer from a stale source snapshot.
         if (!validSource(player, source) || !unchanged(player, source, position, yaw, pitch)
                 || !player.getBoundingBox().equals(box)) return TransferResult.INVALID_SOURCE;
-        if (!withinWorld(target, box)) return TransferResult.OUT_OF_WORLD;
+        if (policy.candidates(position).stream().noneMatch(p -> withinWorld(target, box.move(p.subtract(position))))) {
+            return TransferResult.OUT_OF_WORLD;
+        }
         var destination = landing.resolve(player, target, position, policy);
         if (destination.isEmpty()) return TransferResult.NO_SAFE_POSITION;
-        if (!destination.get().equals(position)) {
-            throw new IllegalStateException("EXACT_POSITION resolver must preserve original x/y/z");
+        var finalPosition = destination.get();
+        if (!policy.permits(position, finalPosition)) {
+            throw new IllegalStateException(policy + " resolver returned a position outside its candidates");
+        }
+        if (!validSource(player, source) || !unchanged(player, source, position, yaw, pitch)
+                || !player.getBoundingBox().equals(box)) return TransferResult.INVALID_SOURCE;
+        // Also enforce safety for custom resolvers; they cannot bypass geometry or policy bounds.
+        // The built-in already checked this AABB; avoid checking a tenth candidate on success.
+        if (!builtInResolver && !LandingSafety.isSafe(player, target, finalPosition, policy)) {
+            return TransferResult.NO_SAFE_POSITION;
         }
 
         // Unlike teleportTo(...), this does not wake sleepers/reset camera before a travel veto.
         // Empty relative flags mean absolute, unscaled doubles. Vanilla reuses this ServerPlayer.
         ServerPlayer moved;
         try {
-            moved = player.teleport(new TeleportTransition(target, position, Vec3.ZERO, yaw, pitch,
+            moved = player.teleport(new TeleportTransition(target, finalPosition, Vec3.ZERO, yaw, pitch,
                     TeleportTransition.PLACE_PORTAL_TICKET));
         } catch (RuntimeException error) {
             throw new IllegalStateException("Native Phase teleport failed at commit boundary; player state may have changed", error);
         }
         if (moved == null && validSource(player, source) && unchanged(player, source, position, yaw, pitch)
                 && player.getBoundingBox().equals(box)) return TransferResult.ERROR;
-        if (moved != player || !unchanged(player, target, position, yaw, pitch) || player.isRemoved()) {
+        if (moved != player || !unchanged(player, target, finalPosition, yaw, pitch) || player.isRemoved()) {
             throw new IllegalStateException("Native Phase teleport returned inconsistent state; no safe automatic rollback");
         }
         return TransferResult.SUCCESS;
@@ -96,15 +114,17 @@ public final class PhaseTransferService {
     }
 
     private static boolean withinWorld(ServerLevel target, AABB box) {
-        return box.minY >= target.getMinY() && box.maxY <= (double) target.getMaxY() + 1
-                && target.getWorldBorder().isWithinBounds(box);
+        return LandingSafety.withinWorld(target, box);
     }
 
     private static TransferResult prepareChunks(ServerLevel target, AABB box) {
         // Vanilla BlockCollisions also inspects neighboring blocks whose shapes can extend into
         // the body. Load that one-block halo, including across negative/boundary chunk edges.
-        int minX = Mth.floor(box.minX - 1) >> 4, maxX = Mth.floor(box.maxX + 1) >> 4;
-        int minZ = Mth.floor(box.minZ - 1) >> 4, maxZ = Mth.floor(box.maxZ + 1) >> 4;
+        // Match BlockCollisions' epsilon as well, including an edge just inside a block boundary.
+        int minX = (Mth.floor(box.minX - 1.0E-7) - 1) >> 4;
+        int maxX = (Mth.floor(box.maxX + 1.0E-7) + 1) >> 4;
+        int minZ = (Mth.floor(box.minZ - 1.0E-7) - 1) >> 4;
+        int maxZ = (Mth.floor(box.maxZ + 1.0E-7) + 1) >> 4;
         try {
             for (int x = minX; x <= maxX; x++) for (int z = minZ; z <= maxZ; z++) {
                 if (!(target.getChunkSource().getChunk(x, z, ChunkStatus.FULL, true) instanceof LevelChunk)) {

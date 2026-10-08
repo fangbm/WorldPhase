@@ -1,2 +1,2 @@
-/** Reserved for server-authoritative transfer and safe landing (WPH-009/010). */
+/** Server-authoritative Phase transfer with exact or bounded supported landing. */
 package dev.fangbm.worldphase.transfer;

@@ -67,7 +67,7 @@ If that loop is not fun, the project should not expand into content, bosses, mac
 - [Smooth world preset, entry and fixed-seed validation](docs/SMOOTH_WORLD.md)
 - [Four Phase presets, diagnostics and runtime validation](docs/PHASE_WORLDS.md)
 - [Terrain sampling API, height semantics and verification](docs/TERRAIN_SAMPLING.md)
-- [Phase transfer API, exact-position policy and verification](docs/PHASE_TRANSFER.md)
+- [Phase transfer API, exact/bounded landing policies and verification](docs/PHASE_TRANSFER.md)
 
 ## Target stack
 

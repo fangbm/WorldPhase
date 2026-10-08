@@ -7,7 +7,7 @@ import net.minecraft.world.phys.Vec3;
 
 /**
  * Landing strategy boundary. Called on the server thread after collision-neighborhood chunks are ready.
- * Implementations must not mutate the player; EXACT_POSITION must return the supplied position or empty.
+ * Implementations must not mutate the player; returned positions must satisfy the supplied policy.
  */
 @FunctionalInterface
 public interface SafeLandingResolver {
@@ -20,5 +20,11 @@ public interface SafeLandingResolver {
             return target.noCollision(player, box) && !target.containsAnyLiquid(box)
                     ? Optional.of(position) : Optional.empty();
         };
+    }
+
+    /** Searches at most nine positions, using only already prepared target chunks. */
+    static SafeLandingResolver gameplay() {
+        return (player, target, position, policy) -> policy.candidates(position).stream()
+                .filter(candidate -> LandingSafety.isSafe(player, target, candidate, policy)).findFirst();
     }
 }
