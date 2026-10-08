@@ -1,0 +1,8 @@
+{
+  "type": "worldphase:phase_noise",
+  "algorithm": "fracture",
+  "frequency": 0.002,
+  "amplitude": 1.8,
+  "warp_frequency": 0.0015,
+  "warp_strength": 1400.0
+}

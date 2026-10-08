@@ -1,5 +1,12 @@
 # WPH-006 Smooth world
 
+This is the WPH-006 implementation/validation record. WPH-007 retains this
+preset unchanged and generalizes its former `smoothVerification` source set
+and run tasks to `phaseVerification` / `runPhaseVerificationServer` /
+`runPhaseVerificationClient`. The historical names and observations below
+describe that earlier run. For current runnable setup and all-four-world
+acceptance, see [Phase worlds](PHASE_WORLDS.md).
+
 `worldphase:smooth` is the first enterable Phase dimension. It uses the same
 base world seed as Overworld, with a different terrain interpretation. This
 change adds only Smooth; kernels, seed binding, PhaseDefinition and the other

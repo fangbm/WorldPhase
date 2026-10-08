@@ -277,6 +277,10 @@ using the previously documented local cache/temp environment:
 
 ## WPH-006 Smooth world
 
+Historical WPH-006 record: its Smooth-only source set/run names below were
+replaced by the general WPH-007 tooling. Use the current commands in the next
+section when running this checkout.
+
 The mod now supplies `worldphase:smooth` through bundled dimension and worldgen
 JSON. It uses Vanilla's Overworld dimension type, multi-noise biome preset,
 NoiseBasedChunkGenerator, caves, aquifers, surface rules and structure/feature
@@ -325,7 +329,56 @@ across disk save/stop/reload. A real client entered both worlds and rendered
 forest, shores and water normally. Production packaging excludes all dev
 verification code and game artifacts.
 
+## WPH-007 four Phase worlds
+
+Ridge, Cell and Fracture are now bundled dimensions alongside unchanged
+Smooth. See [Phase worlds](PHASE_WORLDS.md) for the exact compositions,
+parameter units, fixed-seed comparisons and acceptance observations.
+
+```sh
+./gradlew test --tests dev.fangbm.worldphase.worldgen.PhaseWorldTest \
+  --tests dev.fangbm.worldphase.worldgen.noise.FracturePresetTest --no-build-cache
+./gradlew build --no-build-cache
+./gradlew runPhaseVerificationServer --console=plain
+# Save/stop is automatic. Repeat to compare persisted FULL chunks.
+./gradlew runPhaseVerificationServer --console=plain
+./gradlew runPhaseVerificationClient --console=plain
+```
+
+`src/phaseVerification` replaces `src/smoothVerification`: one development
+mod, Dist-gated server/client entry points, excluded from the production JAR.
+Ordinary client/server/density-smoke runs still load only WorldPhase. Verification
+is isolated under `run/phase-verification-{server,client}`. The dedicated probe
+requires seed 123456789, creates FULL chunks, checks Vanilla teleport and
+structures, writes its baseline/reload JSON, flushes saves and exits; a failed
+or missing completion marker fails the Gradle task.
+
+Before the first server run, create `eula.txt` with `eula=true` and
+`server.properties` with `level-seed=123456789`, `server-ip=127.0.0.1`, an
+unused port (local validation used 25569), `view-distance=2`, and
+`simulation-distance=2` in its game directory. Use a fresh isolated directory
+when modifying presets; do not reuse stale chunks as tuning evidence. Keep
+the same directory and baseline for the unchanged preset's restart check.
+
+For the graphical probe, copy the **contents** of the stopped server's `world`
+into `run/phase-verification-client/saves/wph007` (`level.dat` directly inside
+wph007). Complete Vanilla's initial accessibility onboarding if necessary,
+then set `onboardAccessibility:false`, `pauseOnLostFocus:false` and
+`tutorialStep:none` in this isolated client's options. The dev helper accepts
+the copied experimental world's Backup and Join prompt. Quick Play uses this
+copy, never an ordinary player's world. The helper selects spectator mode,
+daytime, render distance 16, client simulation distance 5, and disables clouds for
+unobstructed comparison. Window size is 1280x720.
+
+Three same-coordinate cameras capture all five worlds (15 images, overwritten
+on repeat). After a minimum 18 seconds, capture waits for the inner 14-chunk
+view circle to load and the native renderer's section compile queue to finish
+for one stable second. Missing readiness times out instead of capturing an
+incomplete loading frame. Screenshots and game data remain ignored in the run directory.
+The client exits once native capture completes and the Gradle task checks its
+completion marker; inspect the images before claiming visual acceptance.
+
 ## Next issue
 
-After WPH-006 review, the next issue is **#7 / WPH-007: Add Ridge, Cell and
-Fracture phase worlds**. This change stops at #6.
+After WPH-007 review, the next issue is **#8 / WPH-008: Implement
+TerrainSampleService**. This change stops at #7.
