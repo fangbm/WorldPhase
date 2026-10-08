@@ -30,7 +30,7 @@ The long-term goal is to reconstruct the player's compatibility with the **Stabl
 
 ## Project status
 
-**Week 1 technical PoC / WPH-008 terrain sampling service.**
+**Week 1 technical PoC / WPH-009 Phase transfer core.**
 
 The project contains the NeoForge bootstrap and a minimal Phase domain model
 with tested, bidirectional Level-key mappings and pure Java 2D Smooth, Ridged,
@@ -39,7 +39,9 @@ and the composable `worldphase:phase_noise` density-function type. Smooth,
 Ridge, Cell and Fracture now reuse Vanilla Overworld generation with distinct
 macro-terrain interpretations of the same seed. A server-scoped TerrainSampleService
 samples actual base terrain and data-driven kernel signals without loading chunks.
-Transfer, developer gameplay commands and tutorial behavior remain deferred.
+The server-owned PhaseTransferService now supports exact-position transfers with
+real chunk/collision checks. Bounded landing corrections, developer gameplay
+commands and tutorial behavior remain deferred.
 
 The first milestone is intentionally small:
 
@@ -65,6 +67,7 @@ If that loop is not fun, the project should not expand into content, bosses, mac
 - [Smooth world preset, entry and fixed-seed validation](docs/SMOOTH_WORLD.md)
 - [Four Phase presets, diagnostics and runtime validation](docs/PHASE_WORLDS.md)
 - [Terrain sampling API, height semantics and verification](docs/TERRAIN_SAMPLING.md)
+- [Phase transfer API, exact-position policy and verification](docs/PHASE_TRANSFER.md)
 
 ## Target stack
 

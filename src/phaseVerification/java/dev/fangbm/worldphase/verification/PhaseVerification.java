@@ -28,6 +28,10 @@ public final class PhaseVerification {
     public PhaseVerification() { NeoForge.EVENT_BUS.addListener(this::verify); }
 
     private void verify(ServerStartedEvent event) {
+        if ("phase-transfer".equals(System.getProperty("worldphase.verification"))) {
+            PhaseTransferVerification.verify(event.getServer());
+            return;
+        }
         if ("terrain-sampling".equals(System.getProperty("worldphase.verification"))) {
             TerrainSamplingVerification.verify(event.getServer());
             return;
