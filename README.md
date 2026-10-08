@@ -30,15 +30,15 @@ The long-term goal is to reconstruct the player's compatibility with the **Stabl
 
 ## Project status
 
-**Week 1 technical PoC / WPH-006 first Smooth Phase world.**
+**Week 1 technical PoC / WPH-007 four Phase worlds.**
 
 The project contains the NeoForge bootstrap and a minimal Phase domain model
 with tested, bidirectional Level-key mappings and pure Java 2D Smooth, Ridged,
 Worley F1 and DomainWarp noise kernels, a deterministic development profiler,
-and the composable `worldphase:phase_noise` density-function type. The first
-Phase world, `worldphase:smooth`, reuses Vanilla Overworld generation with a
-gentler macro-terrain interpretation. Other Phase worlds, transfer and tutorial
-behavior remain deferred.
+and the composable `worldphase:phase_noise` density-function type. Smooth,
+Ridge, Cell and Fracture now reuse Vanilla Overworld generation with distinct
+macro-terrain interpretations of the same seed. Transfer, developer gameplay
+commands and tutorial behavior remain deferred.
 
 The first milestone is intentionally small:
 
@@ -62,6 +62,7 @@ If that loop is not fun, the project should not expand into content, bosses, mac
 - [Noise profiler usage and local comparison](docs/NOISE_PROFILING.md)
 - [Phase noise density API, JSON and seed binding](docs/PHASE_DENSITY.md)
 - [Smooth world preset, entry and fixed-seed validation](docs/SMOOTH_WORLD.md)
+- [Four Phase presets, diagnostics and runtime validation](docs/PHASE_WORLDS.md)
 
 ## Target stack
 

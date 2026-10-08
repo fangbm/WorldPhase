@@ -1,0 +1,7 @@
+{
+  "type": "worldphase:phase_noise",
+  "algorithm": "ridge",
+  "frequency": 0.002,
+  "amplitude": 1.0,
+  "octaves": 2
+}

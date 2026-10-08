@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:add",
+  "argument1": -0.16,
+  "argument2": {
+    "type": "minecraft:mul",
+    "argument1": 0.95,
+    "argument2": {
+      "type": "minecraft:mul",
+      "argument1": "worldphase:cell_radius",
+      "argument2": {
+        "type": "minecraft:square",
+        "argument": "worldphase:cell_radius"
+      }
+    }
+  }
+}

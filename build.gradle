@@ -9,9 +9,9 @@ base.archivesName = mod_id
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
-// Dedicated-server acceptance tooling, never packaged in the gameplay mod.
+// Isolated Phase acceptance tooling, never packaged in the gameplay mod.
 sourceSets {
-    smoothVerification {
+    phaseVerification {
         compileClasspath += sourceSets.main.compileClasspath + sourceSets.main.output
         runtimeClasspath += sourceSets.main.runtimeClasspath + sourceSets.main.output
     }
@@ -35,17 +35,18 @@ neoForge {
             gameDirectory = project.file('run/density-smoke-server')
             programArgument '--nogui'
         }
-        smoothVerificationServer {
+        phaseVerificationServer {
             server()
-            sourceSet = sourceSets.smoothVerification
-            gameDirectory = project.file('run/smooth-verification-server')
+            sourceSet = sourceSets.phaseVerification
+            gameDirectory = project.file('run/phase-verification-server')
             programArgument '--nogui'
         }
-        smoothVerificationClient {
+        phaseVerificationClient {
             client()
-            sourceSet = sourceSets.smoothVerification
-            gameDirectory = project.file('run/smooth-verification-client')
-            programArguments.addAll('--quickPlaySingleplayer', 'wph006')
+            sourceSet = sourceSets.phaseVerification
+            gameDirectory = project.file('run/phase-verification-client')
+            programArguments.addAll('--quickPlaySingleplayer', 'wph007')
+            programArguments.addAll('--width', '1280', '--height', '720')
         }
         configureEach {
             logLevel = org.slf4j.event.Level.INFO
@@ -57,12 +58,12 @@ neoForge {
             sourceSet(sourceSets.main)
         }
         worldphase_verification {
-            sourceSet(sourceSets.smoothVerification)
+            sourceSet(sourceSets.phaseVerification)
         }
     }
 
     runs.configureEach {
-        loadedMods = name.startsWith('smoothVerification')
+        loadedMods = name.startsWith('phaseVerification')
                 ? [mods.worldphase, mods.worldphase_verification] : [mods.worldphase]
     }
 
@@ -155,29 +156,31 @@ tasks.named('runServer', JavaExec).configure {
     standardInput = System.in
 }
 
-tasks.named('runSmoothVerificationServer', JavaExec).configure {
+tasks.named('runPhaseVerificationServer', JavaExec).configure {
     standardInput = System.in
-    def statusFile = project.file('run/smooth-verification-server/smooth-verification-status.txt')
+    def statusFile = project.file('run/phase-verification-server/phase-verification-status.txt')
     doFirst { statusFile.delete() }
     doLast {
         if (!statusFile.exists() || statusFile.text.trim() != 'PASS') {
-            throw new GradleException('Smooth acceptance probe did not pass; inspect the isolated server log/status.')
+            throw new GradleException('Phase acceptance probe did not pass; inspect the isolated server log/status.')
         }
     }
 }
 
-tasks.named('runSmoothVerificationClient', JavaExec).configure {
-    def clientDirectory = project.file('run/smooth-verification-client')
-    def statusFile = new File(clientDirectory, 'smooth-visual-status.txt')
+tasks.named('runPhaseVerificationClient', JavaExec).configure {
+    def clientDirectory = project.file('run/phase-verification-client')
+    def statusFile = new File(clientDirectory, 'phase-visual-status.txt')
     doFirst {
         statusFile.delete()
-        (0..<6).each { index ->
-            new File(clientDirectory, "screenshots/wph006-${index.intdiv(2)}-${index % 2 == 0 ? 'overworld' : 'smooth'}.png").delete()
+        (0..<3).each { view ->
+            ['overworld', 'smooth', 'ridge', 'cell', 'fracture'].each { phase ->
+                new File(clientDirectory, "screenshots/wph007-${view}-${phase}.png").delete()
+            }
         }
     }
     doLast {
         if (!statusFile.exists() || statusFile.text.trim() != 'PASS') {
-            throw new GradleException('Smooth native client verification did not finish; inspect its log.')
+            throw new GradleException('Phase native client verification did not finish; inspect its log.')
         }
     }
 }

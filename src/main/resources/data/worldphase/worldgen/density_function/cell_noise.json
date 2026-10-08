@@ -1,0 +1,6 @@
+{
+  "type": "worldphase:phase_noise",
+  "algorithm": "cell",
+  "frequency": 0.003,
+  "amplitude": 1.0
+}
