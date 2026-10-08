@@ -1,4 +1,4 @@
-# Phase transfer and bounded safe landing (WPH-009 / WPH-010)
+# Phase transfer and safe landing (WPH-009 / WPH-010 / WPH-011)
 
 ```java
 var transfers = new PhaseTransferService(server);
@@ -10,7 +10,8 @@ thread; an off-thread call throws before reading the player. Source Level,
 position, yaw/pitch and complete AABB come from ServerPlayer. Only live players
 in this server's loaded MVP Phases are accepted. Removed, dead, sleeping, riding,
 passenger-carrying and unknown/Vanilla source states remain INVALID_SOURCE.
-SAME_PHASE remains an early no-op. No client coordinates or terrain estimates
+SAME_PHASE remains an early no-op for EXACT_POSITION and BOUNDED_LANDING.
+Explicit DEV_SURFACE can reposition within the same Phase. No client coordinates or terrain estimates
 are used. PhaseWorldResolver supplies the target key; a missing Level returns
 TARGET_LEVEL_MISSING.
 
@@ -25,12 +26,19 @@ TARGET_LEVEL_MISSING.
   Each position copies the original x/z doubles directly (including signed zero)
   and adds an integer to the original y. There is no rounding, horizontal move,
   dimension scaling, fractional y snapping, surface scan or +/-5 fallback.
+- DEV_SURFACE is an explicit OP development policy. After preparing FULL chunks,
+  it examines at most 64 descending rows from the real
+  MOTION_BLOCKING_NO_LEAVES first-free height plus four (clamped to build height).
+  The center-column collision shape proposes a top face, including fractional
+  slab/stair heights; the same full-body LandingSafety checks remain authoritative.
+  It preserves exact x/z but may replace y and its fractional part. It is never
+  a fallback for gameplay. See [developer commands](DEVELOPER_COMMANDS.md).
 
 Airborne positions may have no supported candidate with that fractional y and
 will be refused. Integer offsets deliberately cannot turn arbitrary fractional
 feet height into an integer or half-block surface height.
 
-SafeLandingResolver.gameplay() supports both policies. The original
+SafeLandingResolver.gameplay() supports these policies. The original
 exactPosition() factory remains available. Resolvers must not mutate the player.
 TransferPolicy.permits verifies that a returned Vec3 equals one of the actual
 policy candidates. A custom resolver returning another x/z, fractional adjustment
@@ -180,6 +188,21 @@ the block implementation. There is no blanket guarantee for every modded block.
 
 Technical Design v0.1's bounded-y architecture is retained; actual 26.1 shape,
 context and nullable teleport APIs implement it. EXACT_POSITION keeps its original
-body-space contract. No surface mode, commands, items, Anchor/Shifter, tutorial,
-visuals, Phase presets, terrain/noise changes or village adaptation are added.
-After review the next scoped issue is #11; it is not implemented here.
+body-space contract. WPH-011 adds OP commands and explicit DEV_SURFACE without
+changing those gameplay policies, presets, terrain/noise or the known hazard boundaries.
+
+## WPH-011 diagnostic integration
+
+`inspectLanding(player, phase, policy)` uses the same chunk preparation, candidate
+contract and LandingSafety as transfer, and returns a LandingInspection without
+teleporting. Its SUCCESS means a candidate was found, not a transfer or reservation.
+Inspection accepts a valid Vanilla source for development diagnostics; actual
+transfer still requires a Phase source. The original snapshot is checked after
+chunk loading and resolution. DEV_SURFACE candidates and `permits` require the
+prepared target Level; the no-Level candidate API refuses that policy. Returned
+surface positions must match an actual candidate and pass the same safety check.
+
+The original 239-test WPH-010 validation above is retained as its historical record.
+WPH-011 adds command/surface tests, bringing the complete build to 280 passing tests,
+and reruns the real transfer probe. See the separate command acceptance record for
+dedicated-server and incomplete native-client evidence.

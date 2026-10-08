@@ -55,6 +55,26 @@ neoForge {
             programArgument '--nogui'
             systemProperty 'worldphase.verification', 'phase-transfer'
         }
+        phaseVerificationCommandsServer {
+            server()
+            sourceSet = sourceSets.phaseVerification
+            gameDirectory = project.file('run/command-verification-server')
+            programArgument '--nogui'
+            systemProperty 'worldphase.verification', 'commands'
+        }
+        phaseVerificationCommandsNativeServer {
+            server()
+            sourceSet = sourceSets.phaseVerification
+            gameDirectory = project.file('run/command-native-server')
+            programArgument '--nogui'
+            systemProperty 'worldphase.verification', 'commands-native'
+        }
+        commandClient {
+            client()
+            gameDirectory = project.file('run/command-client')
+            programArguments.addAll('--quickPlayMultiplayer', '127.0.0.1:25572', '--username', 'WPH011Review')
+            programArguments.addAll('--width', '1280', '--height', '720')
+        }
         phaseVerificationClient {
             client()
             sourceSet = sourceSets.phaseVerification
@@ -199,6 +219,19 @@ tasks.named('runPhaseVerificationTransferServer', JavaExec).configure {
             throw new GradleException('Phase transfer probe did not pass; inspect its isolated server log/status.')
         }
     }
+}
+
+tasks.named('runPhaseVerificationCommandsServer', JavaExec).configure {
+    def statusFile = project.file('run/command-verification-server/command-status.txt')
+    doFirst { statusFile.delete() }
+    doLast {
+        if (!statusFile.exists() || statusFile.text.trim() != 'PASS') {
+            throw new GradleException('Command acceptance probe failed; inspect its isolated log/status.')
+        }
+    }
+}
+tasks.named('runPhaseVerificationCommandsNativeServer', JavaExec).configure {
+    standardInput = System.in
 }
 
 tasks.named('runPhaseVerificationClient', JavaExec).configure {

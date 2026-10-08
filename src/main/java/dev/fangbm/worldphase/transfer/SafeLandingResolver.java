@@ -22,9 +22,9 @@ public interface SafeLandingResolver {
         };
     }
 
-    /** Searches at most nine positions, using only already prepared target chunks. */
+    /** Gameplay: at most nine positions. Explicit DEV_SURFACE: at most64. Reuses prepared chunks. */
     static SafeLandingResolver gameplay() {
-        return (player, target, position, policy) -> policy.candidates(position).stream()
+        return (player, target, position, policy) -> policy.candidates(position, target).stream()
                 .filter(candidate -> LandingSafety.isSafe(player, target, candidate, policy)).findFirst();
     }
 }
