@@ -28,6 +28,10 @@ public final class PhaseVerification {
     public PhaseVerification() { NeoForge.EVENT_BUS.addListener(this::verify); }
 
     private void verify(ServerStartedEvent event) {
+        if ("terrain-sampling".equals(System.getProperty("worldphase.verification"))) {
+            TerrainSamplingVerification.verify(event.getServer());
+            return;
+        }
         var server=event.getServer();
         try {
             Map<String,ServerLevel> levels=new LinkedHashMap<>();
