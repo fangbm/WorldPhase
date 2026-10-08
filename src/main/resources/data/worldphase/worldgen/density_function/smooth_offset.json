@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "minecraft:add",
+      "argument1": "minecraft:overworld/offset",
+      "argument2": {
+        "type": "minecraft:add",
+        "argument1": {
+          "type": "minecraft:mul",
+          "argument1": -0.65,
+          "argument2": {
+            "type": "minecraft:add",
+            "argument1": "minecraft:overworld/offset",
+            "argument2": 0.55
+          }
+        },
+        "argument2": "worldphase:smooth_noise"
+      }
+    }
+  }
+}

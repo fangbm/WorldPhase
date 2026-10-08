@@ -9,6 +9,14 @@ base.archivesName = mod_id
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
+// Dedicated-server acceptance tooling, never packaged in the gameplay mod.
+sourceSets {
+    smoothVerification {
+        compileClasspath += sourceSets.main.compileClasspath + sourceSets.main.output
+        runtimeClasspath += sourceSets.main.runtimeClasspath + sourceSets.main.output
+    }
+}
+
 neoForge {
     version = project.neo_version
 
@@ -27,6 +35,18 @@ neoForge {
             gameDirectory = project.file('run/density-smoke-server')
             programArgument '--nogui'
         }
+        smoothVerificationServer {
+            server()
+            sourceSet = sourceSets.smoothVerification
+            gameDirectory = project.file('run/smooth-verification-server')
+            programArgument '--nogui'
+        }
+        smoothVerificationClient {
+            client()
+            sourceSet = sourceSets.smoothVerification
+            gameDirectory = project.file('run/smooth-verification-client')
+            programArguments.addAll('--quickPlaySingleplayer', 'wph006')
+        }
         configureEach {
             logLevel = org.slf4j.event.Level.INFO
         }
@@ -36,6 +56,14 @@ neoForge {
         "${mod_id}" {
             sourceSet(sourceSets.main)
         }
+        worldphase_verification {
+            sourceSet(sourceSets.smoothVerification)
+        }
+    }
+
+    runs.configureEach {
+        loadedMods = name.startsWith('smoothVerification')
+                ? [mods.worldphase, mods.worldphase_verification] : [mods.worldphase]
     }
 
     unitTest {
@@ -96,6 +124,8 @@ tasks.register('noiseProfile', JavaExec) {
 
 tasks.named('test', Test).configure {
     useJUnitPlatform()
+    // The transforming test loader does not expose Vanilla data resources via getResource.
+    systemProperty 'worldphase.minecraftJar', layout.buildDirectory.file("moddev/artifacts/minecraft-patched-${neo_version}.jar").get().asFile.absolutePath
 }
 
 def generateModMetadata = tasks.register('generateModMetadata', ProcessResources) {
@@ -123,6 +153,33 @@ tasks.withType(JavaCompile).configureEach {
 // Forward terminal input so runServer supports a graceful `stop`.
 tasks.named('runServer', JavaExec).configure {
     standardInput = System.in
+}
+
+tasks.named('runSmoothVerificationServer', JavaExec).configure {
+    standardInput = System.in
+    def statusFile = project.file('run/smooth-verification-server/smooth-verification-status.txt')
+    doFirst { statusFile.delete() }
+    doLast {
+        if (!statusFile.exists() || statusFile.text.trim() != 'PASS') {
+            throw new GradleException('Smooth acceptance probe did not pass; inspect the isolated server log/status.')
+        }
+    }
+}
+
+tasks.named('runSmoothVerificationClient', JavaExec).configure {
+    def clientDirectory = project.file('run/smooth-verification-client')
+    def statusFile = new File(clientDirectory, 'smooth-visual-status.txt')
+    doFirst {
+        statusFile.delete()
+        (0..<6).each { index ->
+            new File(clientDirectory, "screenshots/wph006-${index.intdiv(2)}-${index % 2 == 0 ? 'overworld' : 'smooth'}.png").delete()
+        }
+    }
+    doLast {
+        if (!statusFile.exists() || statusFile.text.trim() != 'PASS') {
+            throw new GradleException('Smooth native client verification did not finish; inspect its log.')
+        }
+    }
 }
 
 // Isolated Vanilla server with an unused density JSON fixture; no Phase dimension/preset.

@@ -121,7 +121,8 @@ worldgen configuration belongs to later issues.
 
 The kernels remain pure Java. WPH-005 adds a thin, seeded
 [Minecraft density adapter](PHASE_DENSITY.md) without changing their math or
-golden fixtures; Phase dimensions, transfer and tutorial behavior remain deferred.
+golden fixtures. WPH-006 supplies the first [Smooth world preset](SMOOTH_WORLD.md)
+as data; other Phase worlds, transfer and tutorial behavior remain deferred.
 Development profiling
 and regression tooling added in WPH-004 is documented in
 [Noise profiling](NOISE_PROFILING.md); it leaves these kernels and golden

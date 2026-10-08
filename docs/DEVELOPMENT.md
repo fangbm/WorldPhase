@@ -275,7 +275,57 @@ using the previously documented local cache/temp environment:
   classes, profiler, datapack fixture, dimensions or noise-settings JSON.
   Generated sources, debug/game files and output remain ignored.
 
+## WPH-006 Smooth world
+
+The mod now supplies `worldphase:smooth` through bundled dimension and worldgen
+JSON. It uses Vanilla's Overworld dimension type, multi-noise biome preset,
+NoiseBasedChunkGenerator, caves, aquifers, surface rules and structure/feature
+pipeline. Only terrain density and preliminary surface estimation are modified;
+the biome climate router remains identical. See [Smooth world](SMOOTH_WORLD.md)
+for resource paths, parameter units, native entry commands and measured results.
+
+```sh
+./gradlew test --tests dev.fangbm.worldphase.worldgen.SmoothWorldTest --no-build-cache
+./gradlew build --no-build-cache
+./gradlew runSmoothVerificationServer --console=plain
+# Repeat the same run to verify the saved world's fingerprints.
+./gradlew runSmoothVerificationServer --console=plain
+```
+
+The isolated server run loads `src/smoothVerification` as a separate dev mod,
+never packages it into WorldPhase, asserts seed 123456789, samples generated
+chunks in both worlds, checks a simulated player's Vanilla teleport and three
+Vanilla structure tags, flushes saves, and exits normally. On subsequent runs
+it compares all recorded fingerprints/structure positions. A missing/failed
+probe result fails the Gradle task. The ordinary client/server runs load only
+the gameplay mod.
+
+Before the first isolated run, accept Minecraft's EULA in
+`run/smooth-verification-server/eula.txt` and create `server.properties` there
+with `level-seed=123456789`, `server-ip=127.0.0.1`, an available `server-port`,
+`view-distance=2`, and `simulation-distance=2`. The measured local port was
+25568. Use a fresh verification directory when changing worldgen presets:
+saved chunks must not be mistaken for newly generated terrain.
+
+The run writes ignored `smooth-baseline.json`, `smooth-reload.json` and status
+files in its own directory. These are local acceptance artifacts, not fixtures
+or persistent mod state. It does not touch the ordinary client/server worlds.
+
+`runSmoothVerificationClient` can load a copy of this stopped world via native
+Quick Play and record six matching Overworld/Smooth views. See
+[native client setup/results](SMOOTH_WORLD.md#native-client-check). Both
+verification runs are isolated, load the extra dev mod only there, and fail if
+their completion marker is absent. The graphical run was inspected on the
+actual GPU; its screenshots stay ignored under its run directory.
+
+Final validation: **125 tests**, zero failures/errors/skips; 200 macro-height
+comparison edges average 13.095 blocks in Vanilla versus 6.590 in Smooth.
+Twenty generated-region fingerprints and three structure coordinates matched
+across disk save/stop/reload. A real client entered both worlds and rendered
+forest, shores and water normally. Production packaging excludes all dev
+verification code and game artifacts.
+
 ## Next issue
 
-After WPH-005 review, the next issue is **#6 / WPH-006: Create Smooth phase world**.
-WPH-006 has not been started by this change.
+After WPH-006 review, the next issue is **#7 / WPH-007: Add Ridge, Cell and
+Fracture phase worlds**. This change stops at #6.

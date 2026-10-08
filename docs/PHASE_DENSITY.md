@@ -183,3 +183,6 @@ proves actual worldgen-loader parsing/registration. The isolated noise-column
 test proves additive terrain influence; it is not a four-Phase survival test
 or visual terrain tuning. WPH-003 mathematical outputs and `PhaseDefinition`
 are unchanged. Next is **#6 / WPH-006**, after review; this change stops at #5.
+
+WPH-006 subsequently supplies the first [Smooth world preset](SMOOTH_WORLD.md)
+as data using this adapter, without changing its codec, kernels or seed hook.
