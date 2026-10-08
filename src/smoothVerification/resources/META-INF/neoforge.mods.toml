@@ -1,0 +1,13 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="All Rights Reserved"
+[[mods]]
+modId="worldphase_verification"
+version="0.1.0"
+displayName="WorldPhase Smooth acceptance tooling"
+[[dependencies.worldphase_verification]]
+modId="worldphase"
+type="required"
+versionRange="[0.1,)"
+ordering="AFTER"
+side="BOTH"
