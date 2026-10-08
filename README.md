@@ -30,13 +30,13 @@ The long-term goal is to reconstruct the player's compatibility with the **Stabl
 
 ## Project status
 
-**Week 1 technical PoC / WPH-004 noise profiling helper.**
+**Week 1 technical PoC / WPH-005 configurable Phase noise density function.**
 
 The project contains the NeoForge bootstrap and a minimal Phase domain model
 with tested, bidirectional Level-key mappings and pure Java 2D Smooth, Ridged,
-Worley F1 and DomainWarp noise kernels, plus a deterministic development profiler.
-Phase worlds, Minecraft density-function integration, transfer and tutorial
-behavior are not implemented yet.
+Worley F1 and DomainWarp noise kernels, a deterministic development profiler,
+and the composable `worldphase:phase_noise` density-function type. Phase worlds,
+transfer and tutorial behavior are not implemented yet.
 
 The first milestone is intentionally small:
 
@@ -58,6 +58,7 @@ If that loop is not fun, the project should not expand into content, bosses, mac
 - [Phase domain API](docs/PHASE_DOMAIN.md)
 - [Noise kernel API, algorithms and provenance](docs/NOISE_KERNELS.md)
 - [Noise profiler usage and local comparison](docs/NOISE_PROFILING.md)
+- [Phase noise density API, JSON and seed binding](docs/PHASE_DENSITY.md)
 
 ## Target stack
 

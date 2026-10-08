@@ -236,7 +236,46 @@ See [Noise profiling](NOISE_PROFILING.md) for exact fixture settings, workload,
 warm-up/consumption design, full result tables and measurement limits. Timings
 are local comparison evidence, not performance assertions or worldgen validation.
 
+## Phase noise density function (WPH-005)
+
+```sh
+./gradlew test --tests dev.fangbm.worldphase.worldgen.density.PhaseNoiseDensityFunctionTest --no-build-cache
+./gradlew test --tests dev.fangbm.worldphase.worldgen.density.PhaseNoiseDensityFunctionTest \
+  --tests dev.fangbm.worldphase.worldgen.noise.NoiseKernelsTest \
+  --tests dev.fangbm.worldphase.phase.PhaseDomainTest testNoiseProfiler --no-build-cache
+./gradlew build --no-build-cache
+./gradlew runDensitySmokeServer --console=plain
+```
+
+The density adapter registers `worldphase:phase_noise` with a MapCodec in
+Vanilla's existing density-function type registry. It uses the pinned 26.1
+`DensityFunction.SimpleFunction` / `KeyDispatchDataCodec` APIs. `FunctionContext`
+has coordinates but no world seed: one required MixinExtras wrapper binds
+WorldPhase leaves during RandomState's existing router wiring pass, retaining
+the original Vanilla visitor. See [Phase density API](PHASE_DENSITY.md) for the
+actual API/schema, seed path, defaults/ranges and the necessary seed-hook detail
+absent from Technical Design v0.1.
+
+Validated on 2026-10-07 (Asia/Shanghai), Windows x64 / Temurin 25.0.3+9,
+using the previously documented local cache/temp environment:
+
+- Focused density tests: **51 tests, 0 failures/errors/skips**.
+- Requested regression suites: **51 density + 34 noise + 29 Phase + 8 profiler**,
+  all passing. Noise math, golden fixtures and PhaseDefinition are unchanged.
+- Full build: **BUILD SUCCESSFUL**, **122 tests**, zero failures/errors/skips.
+- In-memory Vanilla `NoiseBasedChunkGenerator.getBaseColumn` test proves that
+  adding the modifier changes stone/air decisions while retaining Vanilla
+  generator/settings; no Phase dimension or world preset is created.
+- Isolated server loads the test-only datapack and reaches `Done (1.588s)` on
+  first boot and `Done (0.354s)` on final-adapter restart. Enabled pack listing
+  includes `file/phase-noise-fixture`. Both shut down with `stop` and exit 0.
+- No startup ERROR, density registry/codec failure or Mixin failure. Known
+  upstream command-ambiguity/Windows-counter/offline-dev warnings persist.
+- JAR contains density classes, the seed Mixin and its configuration; no test
+  classes, profiler, datapack fixture, dimensions or noise-settings JSON.
+  Generated sources, debug/game files and output remain ignored.
+
 ## Next issue
 
-After WPH-004 review, the next issue is **#5 / WPH-005: Register configurable
-Phase noise density function**. WPH-005 has not been started by this change.
+After WPH-005 review, the next issue is **#6 / WPH-006: Create Smooth phase world**.
+WPH-006 has not been started by this change.

@@ -22,6 +22,11 @@ neoForge {
             gameDirectory = project.file('run/server')
             programArgument '--nogui'
         }
+        densitySmokeServer {
+            server()
+            gameDirectory = project.file('run/density-smoke-server')
+            programArgument '--nogui'
+        }
         configureEach {
             logLevel = org.slf4j.event.Level.INFO
         }
@@ -117,5 +122,15 @@ tasks.withType(JavaCompile).configureEach {
 
 // Forward terminal input so runServer supports a graceful `stop`.
 tasks.named('runServer', JavaExec).configure {
+    standardInput = System.in
+}
+
+// Isolated Vanilla server with an unused density JSON fixture; no Phase dimension/preset.
+def prepareDensitySmokeFixture = tasks.register('prepareDensitySmokeFixture', Copy) {
+    from 'src/test/resources/datapacks/phase-noise-fixture'
+    into 'run/density-smoke-server/world/datapacks/phase-noise-fixture'
+}
+tasks.named('runDensitySmokeServer', JavaExec).configure {
+    dependsOn prepareDensitySmokeFixture
     standardInput = System.in
 }
