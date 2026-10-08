@@ -48,6 +48,13 @@ neoForge {
             programArgument '--nogui'
             systemProperty 'worldphase.verification', 'terrain-sampling'
         }
+        phaseVerificationTransferServer {
+            server()
+            sourceSet = sourceSets.phaseVerification
+            gameDirectory = project.file('run/phase-transfer-verification-server')
+            programArgument '--nogui'
+            systemProperty 'worldphase.verification', 'phase-transfer'
+        }
         phaseVerificationClient {
             client()
             sourceSet = sourceSets.phaseVerification
@@ -180,6 +187,16 @@ tasks.named('runPhaseVerificationSamplingServer', JavaExec).configure {
     doLast {
         if (!statusFile.exists() || statusFile.text.trim() != 'PASS') {
             throw new GradleException('Terrain sampling probe did not pass; inspect its isolated server log/status.')
+        }
+    }
+}
+
+tasks.named('runPhaseVerificationTransferServer', JavaExec).configure {
+    def statusFile = project.file('run/phase-transfer-verification-server/phase-transfer-status.txt')
+    doFirst { statusFile.delete() }
+    doLast {
+        if (!statusFile.exists() || statusFile.text.trim() != 'PASS') {
+            throw new GradleException('Phase transfer probe did not pass; inspect its isolated server log/status.')
         }
     }
 }
