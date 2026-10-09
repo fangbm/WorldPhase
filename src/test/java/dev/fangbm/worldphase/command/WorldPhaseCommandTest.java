@@ -62,6 +62,7 @@ class WorldPhaseCommandTest {
             when(level.getServer()).thenReturn(server); when(level.dimension()).thenReturn(PhaseWorldResolver.levelKey(p));
             when(server.getLevel(PhaseWorldResolver.levelKey(p))).thenReturn(level);
             when(level.getSeed()).thenReturn(123456789L); when(level.getMinY()).thenReturn(-64); when(level.getMaxY()).thenReturn(319);
+            when(level.getSeaLevel()).thenReturn(63);
             when(level.getWorldBorder()).thenReturn(new WorldBorder()); when(level.getChunkSource()).thenReturn(cache);
             when(level.registryAccess()).thenReturn(access); when(level.getChunkForCollisions(anyInt(),anyInt())).thenReturn(getter);
             when(cache.getChunk(anyInt(),anyInt(),eq(ChunkStatus.FULL),eq(true))).thenReturn(mock(LevelChunk.class));
@@ -74,6 +75,8 @@ class WorldPhaseCommandTest {
             when(generator.getBaseHeight(anyInt(),anyInt(),eq(Heightmap.Types.OCEAN_FLOOR_WG),eq(level),any())).thenReturn(height++);
             levels.put(p,level); caches.put(p,cache);
         }
+        when(server.getLevel(Level.OVERWORLD)).thenReturn(levels.get(PhaseId.SMOOTH));
+        when(levels.get(PhaseId.SMOOTH).getRespawnData()).thenReturn(net.minecraft.world.level.storage.LevelData.RespawnData.of(Level.OVERWORLD,new BlockPos(32,70,-32),0,0));
         player=mock(ServerPlayer.class); current.set(levels.get(PhaseId.SMOOTH)); position.set(new Vec3(-16.125,81,15.9375));
         when(player.level()).thenAnswer(call -> current.get()); when(player.position()).thenAnswer(call -> position.get());
         when(player.isAlive()).thenReturn(true); when(player.getMainHandItem()).thenReturn(ItemStack.EMPTY);
@@ -94,6 +97,58 @@ class WorldPhaseCommandTest {
     }
     private int run(String command) throws CommandSyntaxException { messages.clear(); return dispatcher.execute(command,source(LevelBasedPermissionSet.GAMEMASTER,true)); }
     private String text() { return String.join("\n",messages); }
+
+    @AfterEach void cleanupTutorialSearch() { TutorialCommand.onStopped(new net.neoforged.neoforge.event.server.ServerStoppedEvent(server)); }
+
+    @ParameterizedTest @ValueSource(strings={"wp tutorial score","wp tutorial find","wp tutorial find 256"})
+    void tutorialRequiresOp(String command) {
+        assertThrows(CommandSyntaxException.class,()->dispatcher.execute(command,source(PermissionSet.NO_PERMISSIONS,true)));
+    }
+    @ParameterizedTest @ValueSource(strings={"wp tutorial find 7","wp tutorial find 257","wp tutorial find -1","wp tutorial find unknown"})
+    void tutorialCountBoundsAreRejectedByParser(String command) { assertThrows(CommandSyntaxException.class,()->run(command)); }
+    @Test void tutorialScoreShowsEverySignalAndDoesNotTeleportOrRequestChunks() throws Exception {
+        assertEquals(1,run("wp tutorial score"));
+        for(String field:List.of("seed=123456789","(32,-32)","x=-17 z=15","slope F=","heightContrast=","height=","slope=","distancePenalty=","hazardPenalty=","total=","usefulHeuristic=","samples=18"))
+            assertTrue(text().contains(field),field);
+        verify(player,never()).teleport(any());
+        for(var cache:caches.values()) verify(cache,never()).getChunk(anyInt(),anyInt(),any(),anyBoolean());
+    }
+    @Test void tutorialScoreRejectsConsoleButFindUsesSharedSpawnAndBatches() throws Exception {
+        var console=source(LevelBasedPermissionSet.OWNER,false);
+        assertSame(CommandSourceStack.ERROR_NOT_PLAYER,
+                assertThrows(CommandSyntaxException.class,()->dispatcher.execute("wp tutorial score",console)).getType());
+        assertEquals(1,dispatcher.execute("wp tutorial find 8",console));
+        assertTrue(text().contains("(32,-32)")); assertFalse(text().contains("#1"));
+        assertEquals(0,dispatcher.execute("wp tutorial find 8",console)); assertTrue(text().contains("already active"));
+        for(int i=0;i<71;i++) TutorialCommand.advance(server);
+        assertFalse(text().contains("#1")); TutorialCommand.advance(server);
+        assertTrue(text().contains("evaluated=8")); assertTrue(text().contains("heightSamples=")); assertTrue(text().contains("#1"));
+        assertTrue(text().contains("maxBatchMs=")); verify(player,never()).teleport(any());
+        for(var cache:caches.values()) verify(cache,never()).getChunk(anyInt(),anyInt(),any(),anyBoolean());
+    }
+    @Test void tutorialDefaultAndStopCancellationLeaveNoPersistentSearch() throws Exception {
+        assertEquals(1,run("wp tutorial find")); assertTrue(text().contains("candidates=64"));
+        cleanupTutorialSearch(); TutorialCommand.advance(server); assertFalse(text().contains("#1"));
+        assertEquals(1,run("wp tutorial find 8"));
+        for(int i=0;i<72;i++) TutorialCommand.advance(server);
+        assertTrue(text().contains("evaluated=8"));
+    }
+    @Test void tutorialMissingWorldAndInvalidSpawnAreClearFailures() throws Exception {
+        when(server.getLevel(PhaseWorldResolver.levelKey(PhaseId.FRACTURE))).thenReturn(null);
+        assertEquals(0,run("wp tutorial find")); assertTrue(text().contains("worldphase:fracture"));
+        when(levels.get(PhaseId.SMOOTH).getRespawnData()).thenReturn(net.minecraft.world.level.storage.LevelData.RespawnData.of(Level.NETHER,BlockPos.ZERO,0,0));
+        assertEquals(0,run("wp tutorial score")); assertTrue(text().contains("Overworld shared spawn"));
+    }
+    @Test void tutorialBatchFailureReleasesSearchSlotForRecovery() throws Exception {
+        assertEquals(1,run("wp tutorial find 8"));
+        when(server.getLevel(PhaseWorldResolver.levelKey(PhaseId.FRACTURE))).thenReturn(null);
+        TutorialCommand.advance(server);
+        assertTrue(text().contains("tutorial search failed")); assertTrue(text().contains("worldphase:fracture"));
+        when(server.getLevel(PhaseWorldResolver.levelKey(PhaseId.FRACTURE))).thenReturn(levels.get(PhaseId.FRACTURE));
+        assertEquals(1,run("wp tutorial find 8"));
+        for(int tick=0;tick<72;tick++) TutorialCommand.advance(server);
+        assertTrue(text().contains("evaluated=8")); verify(player,never()).teleport(any());
+    }
 
     @Test void treeHasAllRequiredPathsAndNoAmbiguities() throws Exception {
         var ambiguities=new ArrayList<String>(); dispatcher.findAmbiguities((a,b,c,inputs)->ambiguities.add(inputs.toString()));

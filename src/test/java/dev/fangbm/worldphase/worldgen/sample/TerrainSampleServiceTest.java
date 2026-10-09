@@ -7,6 +7,7 @@ import com.google.gson.*;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.Lifecycle;
 import dev.fangbm.worldphase.phase.*;
+import dev.fangbm.worldphase.tutorial.*;
 import dev.fangbm.worldphase.worldgen.density.PhaseNoiseDensityFunction;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -230,6 +231,23 @@ class TerrainSampleServiceTest {
     @Test void comparisonRejectsMismatchedCoordinates() {
         assertThrows(IllegalArgumentException.class, () -> new TerrainComparison(
                 new TerrainSample(PhaseId.SMOOTH,0,0,10,0), new TerrainSample(PhaseId.RIDGE,1,0,20,1)));
+    }
+
+    @Test void tutorialUsesRealServiceAndGeneratorWithoutAdditionalChunkRequests() {
+        for(var level:levels.values()) when(level.getSeaLevel()).thenReturn(63);
+        var finder=new TutorialCandidateFinder(server);
+        var first=finder.begin(0,0,new TutorialSearchConfig(512,8));
+        while(!first.done()) first.advance(1);
+        var second=finder.begin(0,0,new TutorialSearchConfig(512,8));
+        while(!second.done()) second.advance(4);
+        assertEquals(first.result().candidates(),second.result().candidates());
+        for(var candidate:first.result().candidates()) {
+            assertEquals(service.sampleHeight(PhaseId.FRACTURE,candidate.x(),candidate.z()),candidate.fractureHeight());
+            assertEquals(service.sampleHeight(PhaseId.SMOOTH,candidate.x(),candidate.z()),candidate.smoothHeight());
+            assertTrue(Double.isFinite(candidate.score().totalScore()));
+        }
+        assertTrue(first.result().heightSamples()<=144);
+        // Existing @AfterEach audits every Level/cache call and forbids chunk/live-heightmap requests.
     }
 
     private static RegistryAccess densityRegistry(PhaseId changed, DensityFunction replacement) {

@@ -170,3 +170,13 @@ ambiguity and Windows PerfOS warnings are outside the `/wp` tree; no new
 density/registry/Mixin error occurred. WPH-013 and village adaptation #25 remain
 separate work. The known safety boundaries in [Phase transfer](PHASE_TRANSFER.md)
 still apply.
+
+## WPH-013 coverage extension
+
+`coreRegression`/`build` also include tutorial search/scoring and the new command
+contracts: **334 total tests** (the original287 plus47), with the original
+kernel goldens, presets, sampling and transfer semantics preserved. The separate
+`tutorialVerification` task exercises ten real seeds and FULL terrain observations;
+it distinguishes correctness failures from empirical candidate-quality shortfall.
+See [Tutorial search](TUTORIAL_SEARCH.md). The historical WPH-012 acceptance
+counts above remain its original record, rather than being rewritten retroactively.

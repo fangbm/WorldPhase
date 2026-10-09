@@ -30,7 +30,7 @@ The long-term goal is to reconstruct the player's compatibility with the **Stabl
 
 ## Project status
 
-**Week 1 technical PoC / WPH-012 automated core regression.**
+**Week 1 technical PoC / WPH-013 tutorial candidate search prototype.**
 
 The project contains the NeoForge bootstrap and a minimal Phase domain model
 with tested, bidirectional Level-key mappings and pure Java 2D Smooth, Ridged,
@@ -45,7 +45,10 @@ diagnostics and an explicit surface-entry mode. Dedicated-server and connected
 native-client verification pass, including safe transfers and save/reload.
 `./gradlew coreRegressionAll` adds repeatable headless acceptance: all core unit
 suites and 50 complete four-Phase cycles on both cold startup and save/reload.
-Tutorial behavior is deferred.
+OP tutorial score/find diagnostics now compare Fracture/Smooth base columns with
+bounded, seed-aware search and explanatory scores. Actual tutorial behavior,
+location selection and persistence remain deferred. Candidate quality is an
+experiment, with its ten-seed results documented separately from correctness.
 
 The first milestone is intentionally small:
 
@@ -74,6 +77,8 @@ If that loop is not fun, the project should not expand into content, bosses, mac
 - [Phase transfer API, exact/bounded landing policies and verification](docs/PHASE_TRANSFER.md)
 - [OP developer commands, surface policy and acceptance record](docs/DEVELOPER_COMMANDS.md)
 - [One-command core regression, persistence checks and reports](docs/CORE_REGRESSION.md)
+- [Tutorial candidate API, scoring, bounds and commands](docs/TUTORIAL_SEARCH.md)
+- [Tutorial ten-seed results and observed terrain](docs/TUTORIAL_SEARCH_VALIDATION.md)
 
 ## Target stack
 
