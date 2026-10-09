@@ -108,7 +108,8 @@ class WorldPhaseCommandTest {
     void tutorialCountBoundsAreRejectedByParser(String command) { assertThrows(CommandSyntaxException.class,()->run(command)); }
     @Test void tutorialScoreShowsEverySignalAndDoesNotTeleportOrRequestChunks() throws Exception {
         assertEquals(1,run("wp tutorial score"));
-        for(String field:List.of("seed=123456789","(32,-32)","x=-17 z=15","slope F=","heightContrast=","height=","slope=","distancePenalty=","hazardPenalty=","total=","usefulHeuristic=","samples=18"))
+        assertFalse(text().contains("#1")); for(int tick=0;tick<33;tick++) TutorialCommand.advance(server);
+        for(String field:List.of("seed=123456789","(32,-32)","x=-17 z=15","slope F=","heightContrast=","height=","slope=","distancePenalty=","hazardPenalty=","total=","usefulHeuristic=","heightSamples=66","corridor axis=","risk=","UNVERIFIED"))
             assertTrue(text().contains(field),field);
         verify(player,never()).teleport(any());
         for(var cache:caches.values()) verify(cache,never()).getChunk(anyInt(),anyInt(),any(),anyBoolean());
@@ -121,7 +122,7 @@ class WorldPhaseCommandTest {
         assertTrue(text().contains("(32,-32)")); assertFalse(text().contains("#1"));
         assertEquals(0,dispatcher.execute("wp tutorial find 8",console)); assertTrue(text().contains("already active"));
         for(int i=0;i<71;i++) TutorialCommand.advance(server);
-        assertFalse(text().contains("#1")); TutorialCommand.advance(server);
+        assertFalse(text().contains("#1")); for(int i=71;i<264;i++) TutorialCommand.advance(server);
         assertTrue(text().contains("evaluated=8")); assertTrue(text().contains("heightSamples=")); assertTrue(text().contains("#1"));
         assertTrue(text().contains("maxBatchMs=")); verify(player,never()).teleport(any());
         for(var cache:caches.values()) verify(cache,never()).getChunk(anyInt(),anyInt(),any(),anyBoolean());
@@ -130,7 +131,7 @@ class WorldPhaseCommandTest {
         assertEquals(1,run("wp tutorial find")); assertTrue(text().contains("candidates=64"));
         cleanupTutorialSearch(); TutorialCommand.advance(server); assertFalse(text().contains("#1"));
         assertEquals(1,run("wp tutorial find 8"));
-        for(int i=0;i<72;i++) TutorialCommand.advance(server);
+        for(int i=0;i<264;i++) TutorialCommand.advance(server);
         assertTrue(text().contains("evaluated=8"));
     }
     @Test void tutorialMissingWorldAndInvalidSpawnAreClearFailures() throws Exception {
@@ -146,7 +147,7 @@ class WorldPhaseCommandTest {
         assertTrue(text().contains("tutorial search failed")); assertTrue(text().contains("worldphase:fracture"));
         when(server.getLevel(PhaseWorldResolver.levelKey(PhaseId.FRACTURE))).thenReturn(levels.get(PhaseId.FRACTURE));
         assertEquals(1,run("wp tutorial find 8"));
-        for(int tick=0;tick<72;tick++) TutorialCommand.advance(server);
+        for(int tick=0;tick<264;tick++) TutorialCommand.advance(server);
         assertTrue(text().contains("evaluated=8")); verify(player,never()).teleport(any());
     }
 

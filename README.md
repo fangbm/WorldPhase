@@ -79,6 +79,8 @@ If that loop is not fun, the project should not expand into content, bosses, mac
 - [One-command core regression, persistence checks and reports](docs/CORE_REGRESSION.md)
 - [Tutorial candidate API, scoring, bounds and commands](docs/TUTORIAL_SEARCH.md)
 - [Tutorial ten-seed results and observed terrain](docs/TUTORIAL_SEARCH_VALIDATION.md)
+- [Tutorial baseline failure attribution](docs/TUTORIAL_SEARCH_ATTRIBUTION.md)
+- [Tutorial v4 frozen plan and holdout results](docs/TUTORIAL_SEARCH_REFINEMENT_VALIDATION.md)
 
 ## Target stack
 

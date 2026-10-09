@@ -102,11 +102,13 @@ They report Fracture/Smooth heights, local slopes, height/slope contributions,
 spawn-distance and conservative hazard penalties, total and base usefulness.
 There is no teleport, location selection, spawn change or persistence.
 
-Find runs incrementally on server ticks, at most two base height columns per
-tick and one active search per server. It prints Top5 after deterministic spatial
-de-duplication. Expected20TPS wall duration is about29 seconds for64 or115 seconds
-for256, rather than executing all generation synchronously in one command. Score
-is a bounded18-column synchronous diagnostic. Neither requests FULL chunks or
+Score and find now run incrementally on server ticks, at most two new base height
+columns per tick and one active job per server. V4 coarse screening retains at
+most24 spatially separated centers and refines at most8 directional corridors.
+Default64 uses at most768 columns/384 ticks (~19.2s); maximum256 uses1152/576
+(~28.8s); score uses66/33 (~1.65s at20TPS). These are workload bounds, not CPU
+timing guarantees. Output distinguishes legacy score components, directional
+rank/risk/height-compatible hints and explicit shift UNVERIFIED. Neither requests FULL chunks or
 certifies a safe landing/path. See [Tutorial search](TUTORIAL_SEARCH.md) for
 actual26.1 spawn APIs, formulas, failure handling, workload and quality limitations,
 and [ten-seed observations](TUTORIAL_SEARCH_VALIDATION.md) for empirical results.

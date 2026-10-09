@@ -1,36 +1,33 @@
 # Seed-aware tutorial search prototype (WPH-013)
 
-This is an OP development diagnostic for **Fracture versus Smooth**. It finds and
-scores candidates; it neither selects/persists a tutorial location nor changes
-spawn, teleports a player, places an Anchor or proves a traversable path. See the
-[predeclared acceptance plan](TUTORIAL_SEARCH_VALIDATION_PLAN.md) and
-[actual ten-seed results](TUTORIAL_SEARCH_VALIDATION.md).
+OP development diagnostics for FRACTURE/SMOOTH. They search and explain base
+terrain candidates; they select/persist no tutorial location, change no spawn,
+teleport nobody and place no Anchor. Keep the [original frozen 2/10 Top1 record](TUTORIAL_SEARCH_VALIDATION.md)
+separate from [failure attribution](TUTORIAL_SEARCH_ATTRIBUTION.md), the [frozen v4 plan](TUTORIAL_SEARCH_REFINEMENT_PLAN.md)
+and its [actual results](TUTORIAL_SEARCH_REFINEMENT_VALIDATION.md).
 
-## API and seed semantics
+## API, seed and determinism
 
-`dev.fangbm.worldphase.tutorial` contains `TutorialCandidateFinder`, immutable
-`TutorialCandidate` / `TutorialScore`, and the small `TutorialSearchConfig`.
-The Finder owns a server-scoped `TerrainSampleService`; all terrain columns use
-that service's unchanged `OCEAN_FLOOR_WG` base-height semantics. It never copies
-generator, density or noise mathematics. A candidate stores only integer x/z,
-the two base heights and numeric score components, without a Level/player/time.
+`TutorialCandidateFinder.beginRefined(centerX,centerZ,config)` returns an ephemeral
+`RefinedTutorialSearch`; `scoreRefined(x,z,centerX,centerZ,config)` returns a
+single-location corridor job. `advance(1..4)` limits new height columns per call;
+`result()` requires completion. All operations use the server thread and unchanged
+`TerrainSampleService` OCEAN_FLOOR_WG base-height API. Missing Levels, mismatched
+raw seeds, mid-search seed changes and invalid configuration fail explicitly.
+Normal ranking uses no FULL chunk request or live heightmap.
 
-`begin(centerX, centerZ, config)` reads the actual loaded Phase Levels' raw seed,
-requires all four equal and Fracture/Smooth height bounds and sea levels equal,
-and returns an ephemeral incremental `Search`. `advance(1..4)` budgets **height
-columns**, not whole candidates, on the server thread. `result()` requires
-completion. The convenience `score(...)` evaluates one point synchronously
-(18 columns maximum). Missing Levels, mismatched seeds, off-thread use, invalid
-coordinates/configuration and incomplete results fail explicitly.
+Legacy `begin` / `score`, original nine-point `TutorialScore`, its thresholds and
+weights remain for baseline reproduction. `Search.diagnostics()` exposes cached
+stencils after completion without extra sampling. `TutorialCorridor` stores
+separate directional evidence; legacy usefulHeuristic is not gameplay safety.
 
-Fixed pair: FRACTURE/SMOOTH. No arbitrary pair framework or seed override is
-introduced. Given the same raw seed, integer center, config and presets, the
-point sequence, scores and ranked candidates are identical. Timing is diagnostic
-metadata in the search Result and never participates in ranking.
+Same raw seed, integer center, config and presets produce the same candidates,
+ranking and tie-breaks across batch sizes. Timing never affects ranking. Results
+are immutable coordinates/numeric evidence/risk/status, without player/time/Level
+references. Sampling caches and service references are ephemeral job state.
 
-### Candidate sequence, version 3
-
-The sequence uses stateless hash-indexed rejection sampling in a disk:
+Candidate sequence remains version3: stateless uniform-disk rejection, at most16*N
+attempts, stable64-point prefix of256, signed floorMod, duplicate center rejection:
 
 ```text
 packedCenter = ((long)centerX << 32) XOR (centerZ & 0xffffffffL)
@@ -40,94 +37,62 @@ dx = floorMod(mix(channel_i), 2*radius+1) - radius
 dz = floorMod(mix(channel_i XOR 0xd1b54a32d192ed03L), 2*radius+1) - radius
 ```
 
-Reject points outside the disk and repeated centers. Java long overflow is
-intentional modular arithmetic. Try at most `16*candidateCount` hash attempts;
-fail explicitly if insufficient unique points. This makes the first64 points
-a stable prefix of256 for identical seed/center/radius. There is no mutable
-Random, time seed, Phase-index seed offset or dependency on player movement.
-Coordinates plus the local stencil must remain inside +/-30,000,000 blocks.
+Long overflow is intentional. Reject outside-radius/repeated points; fail if the
+finite attempt cap is exhausted. Coordinates/stencil stay inside +/-30,000,000.
+No mutable Random/time/Phase-index seed offsets. `mix` is
+[Vigna's public-domain SplitMix64 finalizer](https://prng.di.unimi.it/splitmix64.c),
+xor-shifts30/27/31, multipliers0xbf58476d1ce4e5b9/0x94d049bb133111eb.
+Search/score code is original WorldPhase; mod license remains All Rights Reserved.
+Existing kernels/provenance remain unchanged.
 
-`mix` is the three-stage SplitMix64 finalizer with xor-shifts30/27/31 and
-multipliers `0xbf58476d1ce4e5b9L` / `0x94d049bb133111ebL`. The finalizer is from
-[Sebastiano Vigna's public-domain SplitMix64 source](https://prng.di.unimi.it/splitmix64.c).
-Only this integer mixer is reused; candidate generation/scoring is original
-WorldPhase prototype code; existing mod metadata retains its `All Rights Reserved`
-declaration. Existing kernels and
-their provenance remain unchanged.
+## Two-stage v4 ranking
 
-## Signals, units and ranking
+Defaults radius512/count64; API radius64..1024/count8..256.
 
-Sample the center plus eight neighbors at x/z offsets +/-16: four cardinal
-directions and four diagonals. This uses18 base columns per candidate before
-per-search coordinate caching. For each Phase, local slope is maximum absolute
-center-to-neighbor height difference divided by the neighbor's actual horizontal
-distance (16 or sqrt(512) blocks), i.e. dimensionless rise/run. It is a coarse
-obstacle signal, not a path simulation or maximum adjacent-block step.
+1. Sample both Phase centers for N uniform points. Exclude invalid height
+   sentinels; retain at most24 spaced32 apart, preferring moderate contrast,
+   possible height compatibility, distance and lower uncertain-coast penalty.
+   Sample four cardinal neighbors at16 blocks. Retain at most8 spaced64 apart,
+   prioritizing directional difficulty/ease and a <=4 height-gap hint.
+2. At those8 analyze x,z and both diagonal corridors, offsets
+   -16,-12,-8,-4,0,4,8,12,16:33 unique x/z per Phase. Cache center/endpoints and
+   overlaps. Axis ties use fixed axis order; candidate ties use x then z.
 
-Let F/S be those slopes, H the absolute center height difference in blocks, D
-the distance to the specified center and R the search radius:
+F/S are maximum consecutive four-block rise/run along one axis; diagonal distance
+is4*sqrt(2). H is maximum same-x/z height contrast along it. D is distance from
+explicit center, R radius, C number of sampled height gaps<=4. Fine score:
 
 ```text
-heightContribution = 6 * min(H/32, 1)
-slopeContribution  = 64 * clamp(F-S, -2, 2)
-                   - 128 * clamp(S-0.25, 0, 2)
-                   - 16 * clamp((0.375-F)/0.375, 0, 1)
-distancePenalty    = 12 * D/R
-totalScore         = heightContribution + slopeContribution
-                   - distancePenalty - hazardPenalty
+height = 6 * min(H/32,1)
+slope = 64*clamp(F-S,-2,2) -128*clamp(S-.25,0,2)
+        -16*clamp((.375-F)/.375,0,1)
+distancePenalty = 12*D/R
+riskPenalty = 8 when REQUIRES_VALIDATION, otherwise0
+shiftHint = 4*min(C,3)/3
+rankScore = height + slope -distancePenalty -riskPenalty +shiftHint
 ```
 
-Slope improvement dominates the capped height contribution. Smooth steepness
-and an unchallenging Fracture are penalized, so a large height difference between
-two flat plains does not imply a good lesson. Distance is a linear spawn-near
-preference. Weights are initial explainable heuristics, not gameplay balance.
+Exact coarse formulas are in the frozen plan. Interesting requires F>=.375,
+S<=.25,F-S>=.25,H>=4,D<=R and valid data. Rank interesting with height-gap hint
+first, interesting without hint next, other diagnostics next, invalid last;
+then descending score, x/z. Large contrast alone is insufficient. Height
+compatibility is a hint, never a permission to transfer. This is local analysis,
+not A* or pathfinding.
 
-Hazard penalties are independent and conservative:
+Risk: INVALID (empty/vertical-edge data), REQUIRES_VALIDATION (sea/coast or extreme
+slope), LOW_RISK (no such base hint). Coast is not discarded as definitely unsafe;
+LOW_RISK is not safety certification. Actual water/lava, support, body/entity
+collision and known hazards remain mandatory in separate real validation.
+Normal results are INTERESTING_BUT_SHIFT_UNVERIFIED or INSUFFICIENT_DIRECTIONAL_CONTRAST.
 
-| Base-column hint | Penalty |
-| --- | ---: |
-| Any of nine heights <= seaLevel+1 | 60 per Phase |
-| Any empty/invalid/vertical-edge height outside minY..maxY-2 | 120 per Phase |
-| Either local slope >2 | 30 |
+## Scheduling, bounds and commands
 
-These hints do not inspect real water, lava, caves, entities, tree collision,
-dangerous blocks or landing support. They cannot certify a safe Phase Shift.
-Finite/overflow validation prevents extreme integer heights from wrapping and
-rejects nonfinite scores. All individual contributions are exposed.
-
-The fixed **base usefulness predicate** is H>=4, F>=0.375, S<=0.25,
-F-S>=0.25, hazardPenalty=0 and D<=R. Rank predicate-qualified candidates first,
-then each group by descending totalScore, then ascending x and z. Greedily retain
-centers at least64 blocks from earlier retained candidates. Unqualified results
-remain visible with `usefulHeuristic=false`, rather than being presented as
-successful tutorial choices. The acceptance plan additionally checks actual FULL
-terrain and supported safe standing at both centers; it does not rescue a failed
-Top1 by looking for a post-hoc lower-ranked success.
-
-## Bounds and server scheduling
-
-Defaults: radius512,64 evaluated centers; API radius64..1024, count8..256.
-The commands use radius512 and print Top5 after spatial de-duplication.
-Maximum256 candidates require at most4608 height-service calls and4096 hash
-attempts. Normal scoring requests no FULL chunks and never scans farther away.
-Caching and partial stencils exist only for that search.
-
-One `/wp tutorial find` may be active per server. NeoForge
-`ServerTickEvent.Post` advances **at most two height columns per tick**; no
-background thread accesses Levels. With20 ticks/s,64 candidates need576 ticks
-(about28.8 seconds) and256 need2304 ticks (about115.2 seconds). Sampling cost is
-spread across those ticks, not hidden by an unbounded async queue. Individual
-generator calls can still exceed a frame budget on slow CPUs/first-use JIT; this
-is a column budget, not a hard millisecond guarantee. `score` is a bounded
-synchronous18-column request. Measured compute/max-batch times are in the result
-record and command output; they are never portable timing assertions.
-
-A second find is refused while the first runs. Server stop removes pending
-state. Search failure reports a reason and releases the slot. No search runs at
-normal startup. An empty dedicated server that pauses ticks will also pause its
-console search; keep it ticking (e.g. `pause-when-empty-seconds=0`) during dev use.
-
-## Commands and current 26.1 APIs
+Maximum unique height calls:2*N+8*min(N,24)+56*min(N,8): **768 default /1152 maximum**;
+single score66. One score/find per server. Both advance at most2 new heights per
+`ServerTickEvent.Post` on the server thread; no async Level access. Default384
+ticks/about19.2s, maximum576/about28.8s, single score33/about1.65s at20TPS.
+Work caps are not hard millisecond guarantees; cold generation can exceed a frame
+budget. No automatic startup search.
 
 ```text
 /wp tutorial score
@@ -135,99 +100,66 @@ console search; keep it ticking (e.g. `pause-when-empty-seconds=0`) during dev u
 /wp tutorial find 256
 ```
 
-The existing `wp` root requires typed GAMEMASTER/OP level2 permission using
-`Commands.hasPermission(Commands.LEVEL_GAMEMASTERS)`. `score` is player-only
-and floors the player's current double x/z to the block-column coordinates used
-by TerrainSampleService. `find` accepts OP players and authorized console sources;
-Brigadier's bounded IntegerArgumentType rejects counts outside8..256.
+Root permission remains typed GAMEMASTER/OP2. Score is player-only and captures
+floor(player.x/z) when submitted. Find also accepts authorized console; its center
+is actual Overworld shared spawn. Both use that spawn for distance via
+`server.getLevel(Level.OVERWORLD).getRespawnData().pos()`. Missing Overworld or
+shared respawn outside Overworld fails explicitly. No Fracture spawn redirection.
+Brigadier enforces8..256. Second jobs are refused; stop clears pending state;
+failure reports reason and releases the slot.
 
-Both use the actual **Overworld shared respawn x/z** as the development center:
-`server.getLevel(Level.OVERWORLD).getRespawnData().pos()`. Minecraft26.1 exposes
-`LevelData.RespawnData` with `pos()` / `dimension()`; a missing Overworld or a
-shared respawn currently pointing into another dimension is explicitly refused.
-This is not an implementation of the designed future Fracture opening flow.
+Output: seed/center/radius, coarse/fine counts, columns/ticks, active elapsed
+computeMs, current-thread cpuMs, wallMs, maxBatchMs and Top5. ThreadMXBean CPU
+timing prints-1 when unsupported/disabled. Legacy components are labelled
+separately from corridor axis/F/S step/contrast/rankScore/risk/height-compatible
+count. The formula above explains new contributions. All ordinary output says
+shift UNVERIFIED. Existing phase goto/cycle/sampling/TransferPolicy are unchanged.
 
-Registration reuses the existing current NeoForge `RegisterCommandsEvent` tree.
-The new listeners are `ServerTickEvent.Post` and `ServerStoppedEvent` on
-NeoForge.EVENT_BUS. There is no new argument registry, permission system, packet,
-Mixin, teleport policy or API compatibility hack. The design's conceptual
-spawn-area input maps to actual26.1 RespawnData; see the official
-[26.1 primer](https://docs.neoforged.net/primer/docs/26.1/).
+Registration reuses actual26.1 `RegisterCommandsEvent`, `Commands.hasPermission`,
+`ServerTickEvent.Post`, `ServerStoppedEvent`; LevelData.RespawnData has pos()/dimension().
+No registry, packet, permission system, Mixin or compatibility hack. See official
+[26.1 primer](https://docs.neoforged.net/primer/docs/26.1/). Empty-server tick
+pausing pauses jobs; use pause-when-empty-seconds=0 for development.
 
-For manual in-game inspection, use the printed x/z and the **existing explicit
-OP developer surface mode**, after a Vanilla creative/flying bootstrap into a
-Phase if needed. For example, on seed8675309:
+## Separate actual validation
 
-```text
-/execute in worldphase:fracture run tp @s -174.5 220 -106.5
-/wp phase goto fracture --surface
-/wp phase goto smooth --surface
-```
+Only the explicit dev probe audits Top3 with FULL chunks: max16 requests/Phase/
+candidate,96/seed in37x37 collision-halo footprints, cached across candidates.
+It analyzes all33 adjacent actual ground columns on the selected axis, skipping
+logs/leaves, and checks supported standing in both worlds with unchanged
+LandingSafety. At9 fixed points real ServerPlayer bodies/Levels and
+SafeLandingResolver.gameplay must resolve forward and reverse under normal
+BOUNDED_LANDING, preserve exact double x/z and satisfy policy/safety. No
+DEV_SURFACE or teleport. Strong contrast without a proven shift is NO_FEASIBLE_SHIFT.
 
-The first Vanilla command has no landing safety; remain flying until the existing
-surface command succeeds. These are deliberate review actions, not automatic
-tutorial transfer or proof that bounded gameplay shift succeeds at that center.
+New acceptance requires actual F adjacent step>=2,S<=1,improvement>=1,contrast>=4,
+distance<=512,all33 standing positions safe in both worlds and one bidirectional
+bounded shift. Old2/10 is not recomputed with this new criterion. Partial support
+shapes at ground+1 can be conservatively rejected. These are local samples/shift
+positions, not a continuous playable route, jump-trajectory proof, future safety
+or coverage of arbitrary modded damage. Entity/environment changes can invalidate
+an otherwise deterministic base prediction.
 
-Output includes center, radius, raw seed, workload/compute/wall time and Top5
-two-line rows: x/z, both heights/slopes, signed slope contrast, height contrast,
-height/slope contributions, distance/hazard penalties, distance, total and the
-explicit base-usefulness predicate. No command teleports or edits the world.
-Existing `phase goto`, `cycle`, transfer policies and sampling semantics remain
-unchanged. Results are descriptive rather than promises of safe travel.
-
-## Reproduce dedicated-server acceptance
+## Reproduce
 
 ```sh
 ./gradlew test --tests '*tutorial*' --tests '*WorldPhaseCommandTest' --tests '*TerrainSampleServiceTest'
-./gradlew coreRegression build
-# After accepting the Minecraft EULA, set eula=true in
-# run/tutorial-verification-server/eula.txt, or pass -PtutorialAcceptEula=true.
-./gradlew tutorialVerification --console=plain
+./gradlew coreRegressionAll build --console=plain
+./gradlew tutorialVerification -PtutorialProtocol=attribution --console=plain
+./gradlew tutorialVerification -PtutorialProtocol=refined --console=plain
 ```
 
-The last task runs ten sequential, isolated, fresh-world dedicated servers on
-loopback25575, with the predeclared seeds. All versions, Top5 components, repeats,
-generator cross-checks,64/256 workloads, command output and actual observations
-are written to ignored `run/tutorial-verification-server/seed-*/tutorial-report.json`.
-The aggregate is ignored `build/tutorial-verification/summary.json`. Existing
-worlds are preserved. No probe or plotting tool is packaged in the gameplay JAR.
+After accepting Minecraft EULA, retain eula=true in
+run/tutorial-verification-server/eula.txt or pass -PtutorialAcceptEula=true.
+Use pinned Java25; isolated loopback25575/fresh worlds preserve earlier worlds.
+Do not run parallel copies on that port. Historical default protocol is legacy.
+Attribution captures entire old pools/up to4 FULL audits/seed without changing
+old scoring. Refined runs original10 plus independent5. Ignored reports use
+attribution-report.json /refined-report.json, build/tutorial-attribution or
+tutorial-refined/summary.json; old tutorial-report.json /build/tutorial-verification
+stay separate. Probes/plot dependencies never enter the gameplay JAR.
 
-Automated correctness failures leave FAIL/RUNNING reports and return a nonzero
-Gradle exit. Empirical quality is separately reported as PASS or
-**QUALITY_SHORTFALL**, with `majorityMet=false` when fewer than7/10 Top1s meet
-the frozen standard; it is not silently equated to correctness PASS. This is
-deliberate because the issue permits reporting a negative prototype experiment.
-
-The probe first asserts base searches/commands leave Phase loaded-chunk counts
-unchanged and independently cross-checks Top5's9 columns/Phase against each real
-generator. Afterwards only, expensive dev observations explicitly load the
-33x33 footprint (at most9 FULL chunks per Phase per observed point), record real
-ground heights/blocks, skip logs/leaves above ground, and reuse LandingSafety
-at the two actual center standing positions. Top1 is observed in all ten seeds;
-seeds0/42 also observe a low-ranked example. The isolated bulk compute measurement
-runs4-column batches back-to-back and may warn about lag; production commands
-are separately tested through real2-column ticks, including count256 on the
-last seed. Such bulk warnings are not ordinary command latency measurements.
-
-Optional data visualization (not native-client screenshots): install matplotlib
-and numpy in a dev Python environment, then run
-`python tools/render_tutorial_observations.py`. Images stay under ignored
-`build/tutorial-verification/observations/`. They show actual FULL-ground surfaces
-and cross-sections, without edits or smoothing. They do not show rendered art,
-lighting or prove a continuous player route.
-
-## Boundaries and future #14 interface
-
-Coarse columns miss narrow cliffs, overhangs, final carvers/features and small
-hazards. Height-based coast avoidance can reject valid shore lessons. A dry,
-gentle surface in Smooth does not prove the original player's y is transferable
-within +/-4. The FULL validation is intentionally separated from cheap ranking.
-No paths, endpoints, current-player safety or arbitrary modded hazards are proven.
-
-#14 could persist a primitive selected candidate together with a schema version,
-raw seed, Phase keys, center/config, generation/scoring version and preset/data
-fingerprint. It should explicitly distinguish searched/scored/validated/selected
-states and invalidate stale preset results. The current immutable Candidate/Score
-can be a DTO boundary; no SavedData codec, automatic selection or persistence is
-implemented here. Candidate-quality work remains subject to review of the
-negative and successful evidence in this issue.
+Correctness failures return nonzero with specific invariant/failure details.
+Empirical QUALITY_SHORTFALL is separate from correctness PASS; Draft review is
+not silently passed. Curated tools render actual FULL numeric observations to
+documentation figures; plots are not native-client screenshots.

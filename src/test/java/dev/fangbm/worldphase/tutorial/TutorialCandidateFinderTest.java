@@ -129,6 +129,52 @@ class TutorialCandidateFinderTest {
         assertThrows(IllegalArgumentException.class,()->finder.begin(Integer.MAX_VALUE,0,TutorialSearchConfig.defaults()));
         assertThrows(IllegalArgumentException.class,()->finder.score(0,Integer.MIN_VALUE,0,0,TutorialSearchConfig.defaults()));
     }
+    @Test void refinedSearchIsDeterministicBudgetedAndOnlyUsesHeightService() {
+        var a=finder.beginRefined(-17,16,TutorialSearchConfig.defaults());
+        var b=finder.beginRefined(-17,16,TutorialSearchConfig.defaults());
+        while(!a.done()) { int before=heightReads.get(); a.advance(2); assertTrue(heightReads.get()-before<=2); }
+        while(!b.done()) b.advance(4);
+        assertEquals(a.result().candidates(),b.result().candidates());
+        assertEquals(64,a.result().evaluatedCount()); assertTrue(a.result().cardinalCount()<=24);
+        assertTrue(a.result().analyzed().size()<=8); assertTrue(a.result().heightSamples()<=768);
+        assertEquals(768,RefinedTutorialSearch.maximumHeightCalls(64));
+        for(var generator:generators.values()) for(var invocation:mockingDetails(generator).getInvocations())
+            assertEquals("getBaseHeight",invocation.getMethod().getName());
+    }
+    @Test void refinedMaximumAndSingleScoreHaveHardCaps() {
+        var search=finder.beginRefined(0,0,new TutorialSearchConfig(512,256));
+        assertThrows(IllegalStateException.class,search::result);
+        assertThrows(IllegalArgumentException.class,()->search.advance(5));
+        while(!search.done()) search.advance(4);
+        assertTrue(search.result().heightSamples()<=1152); assertEquals(256,search.result().evaluatedCount());
+        var single=finder.scoreRefined(-17,16,0,0,TutorialSearchConfig.defaults());
+        while(!single.done()) single.advance(1);
+        assertEquals(66,single.result().heightSamples()); assertEquals(1,single.result().analyzed().size());
+    }
+    @Test void refinementNeverMasksMissingSeedOrOffThreadState() {
+        var search=finder.beginRefined(0,0,TutorialSearchConfig.defaults());
+        when(server.isSameThread()).thenReturn(false);
+        assertThrows(IllegalStateException.class,()->search.advance(1)); assertEquals(0,heightReads.get());
+        when(server.isSameThread()).thenReturn(true); when(levels.get(PhaseId.SMOOTH).getSeed()).thenReturn(99L);
+        assertThrows(IllegalStateException.class,()->search.advance(1));
+    }
+    @Test void invalidCenterPoolTerminatesWithoutFineSamplingOrFullChunks() {
+        for(var entry:generators.entrySet()) when(entry.getValue().getBaseHeight(anyInt(),anyInt(),eq(Heightmap.Types.OCEAN_FLOOR_WG),eq(levels.get(entry.getKey())),any()))
+                .thenAnswer(c->{ heightReads.incrementAndGet(); return -64; });
+        var search=finder.beginRefined(0,0,TutorialSearchConfig.defaults());
+        for(int tick=0;tick<64 && !search.done();tick++) search.advance(2);
+        assertTrue(search.done()); assertEquals(128,heightReads.get());
+        assertEquals(0,search.result().cardinalCount()); assertTrue(search.result().candidates().isEmpty());
+    }
+    @Test void refinedCacheNeverResamplesAPhaseCoordinateWithinOneSearch() {
+        var search=finder.beginRefined(0,0,TutorialSearchConfig.defaults());
+        while(!search.done()) search.advance(2);
+        for(var generator:generators.values()) {
+            var coordinates=new HashSet<List<Integer>>();
+            for(var call:mockingDetails(generator).getInvocations()) if(call.getMethod().getName().equals("getBaseHeight"))
+                assertTrue(coordinates.add(List.of(call.getArgument(0),call.getArgument(1))),"repeated base column");
+        }
+    }
     private static TutorialCandidate candidate(int x,int z,double total) {
         return new TutorialCandidate(x,z,80,70,new TutorialScore(0,0,10,0,0,total,0,0,0));
     }

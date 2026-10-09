@@ -174,9 +174,10 @@ still apply.
 ## WPH-013 coverage extension
 
 `coreRegression`/`build` also include tutorial search/scoring and the new command
-contracts: **334 total tests** (the original287 plus47), with the original
+contracts: **345 total tests** (the original287 plus58), with the original
 kernel goldens, presets, sampling and transfer semantics preserved. The separate
-`tutorialVerification` task exercises ten real seeds and FULL terrain observations;
+`tutorialVerification` task exercises ten original seeds and, with the refined
+protocol, five independent holdouts plus actual bounded-shift validation;
 it distinguishes correctness failures from empirical candidate-quality shortfall.
 See [Tutorial search](TUTORIAL_SEARCH.md). The historical WPH-012 acceptance
 counts above remain its original record, rather than being rewritten retroactively.

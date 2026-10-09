@@ -19,7 +19,7 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 /** OP-only diagnostics. One ephemeral search per server, advanced only by server ticks. */
 public final class TutorialCommand {
-    private record Pending(CommandSourceStack source,TutorialCandidateFinder.Search search,long started) {}
+    private record Pending(CommandSourceStack source,RefinedTutorialSearch search,long started,String label) {}
     private static final Map<MinecraftServer,Pending> ACTIVE=new ConcurrentHashMap<>();
     private TutorialCommand() {}
 
@@ -32,15 +32,14 @@ public final class TutorialCommand {
     }
     private static int score(CommandSourceStack source) throws CommandSyntaxException {
         var player=source.getPlayerOrException();
-        long start=System.nanoTime();
+        if(ACTIVE.containsKey(source.getServer())) return fail(source,"tutorial search already active; wait for its bounded completion");
         try {
             var center=center(source.getServer());
             var config=TutorialSearchConfig.defaults();
-            var candidate=new TutorialCandidateFinder(source.getServer()).score(Mth.floor(player.position().x),Mth.floor(player.position().z),center.getX(),center.getZ(),config);
-            long seed=source.getServer().getLevel(PhaseWorldResolver.levelKey(PhaseId.FRACTURE)).getSeed();
-            say(source,String.format(Locale.ROOT,"tutorial score seed=%d center=Overworld shared spawn (%d,%d) radius=%d samples=18 computeMs=%.2f; base heuristic, no FULL chunks/path proof",
-                    seed,center.getX(),center.getZ(),config.radius(),(System.nanoTime()-start)/1e6));
-            row(source,1,candidate,config.radius()); return 1;
+            var search=new TutorialCandidateFinder(source.getServer()).scoreRefined(Mth.floor(player.position().x),Mth.floor(player.position().z),center.getX(),center.getZ(),config);
+            ACTIVE.put(source.getServer(),new Pending(source,search,System.nanoTime(),"score"));
+            say(source,"tutorial score started center=Overworld shared spawn ("+center.getX()+","+center.getZ()+") radius="+config.radius()+"; at most66 columns, two/tick, no FULL chunks or teleport");
+            return 1;
         } catch(IllegalArgumentException | IllegalStateException error) { return fail(source,error.getMessage()); }
     }
     private static int find(CommandSourceStack source,int count) {
@@ -49,8 +48,8 @@ public final class TutorialCommand {
         try {
             var center=center(server);
             var config=new TutorialSearchConfig(TutorialSearchConfig.DEFAULT_RADIUS,count);
-            var search=new TutorialCandidateFinder(server).begin(center.getX(),center.getZ(),config);
-            ACTIVE.put(server,new Pending(source,search,System.nanoTime()));
+            var search=new TutorialCandidateFinder(server).beginRefined(center.getX(),center.getZ(),config);
+            ACTIVE.put(server,new Pending(source,search,System.nanoTime(),"find"));
             say(source,"tutorial find started center=Overworld shared spawn ("+center.getX()+","+center.getZ()+") radius="+config.radius()
                     +" candidates="+count+"; at most two height columns/tick, no FULL chunks, no teleport");
             return 1;
@@ -75,10 +74,14 @@ public final class TutorialCommand {
             if(!pending.search.done()) return;
             ACTIVE.remove(server);
             var result=pending.search.result();
-            say(pending.source,String.format(Locale.ROOT,"tutorial find seed=%d center=(%d,%d) radius=%d evaluated=%d spaced=%d heightSamples=%d computeMs=%.2f wallMs=%.2f maxBatchMs=%.2f; heuristic only",
-                    result.seed(),result.centerX(),result.centerZ(),result.config().radius(),result.evaluatedCount(),result.candidates().size(),result.heightSamples(),
-                    result.computeNanos()/1e6,(System.nanoTime()-pending.started)/1e6,result.maxBatchNanos()/1e6));
-            for(int i=0;i<Math.min(5,result.candidates().size());i++) row(pending.source,i+1,result.candidates().get(i),result.config().radius());
+            say(pending.source,String.format(Locale.ROOT,"tutorial %s seed=%d center=(%d,%d) radius=%d evaluated=%d cardinal=%d fine=%d heightSamples=%d ticks=%d computeMs=%.2f cpuMs=%.2f wallMs=%.2f maxBatchMs=%.2f; shift UNVERIFIED",
+                    pending.label,result.seed(),result.centerX(),result.centerZ(),result.config().radius(),result.evaluatedCount(),result.cardinalCount(),result.candidates().size(),result.heightSamples(),result.batches(),
+                    result.computeNanos()/1e6,result.cpuNanos()<0?-1:result.cpuNanos()/1e6,(System.nanoTime()-pending.started)/1e6,result.maxBatchNanos()/1e6));
+            for(int i=0;i<Math.min(5,result.candidates().size());i++) {
+                var corridor=result.candidates().get(i); row(pending.source,i+1,corridor.candidate(),result.config().radius());
+                say(pending.source,String.format(Locale.ROOT,"corridor axis=(%d,%d) Fstep=%.3f Sstep=%.3f maxContrast=%.1f rankScore=%+.2f risk=%s heightCompatible=%d status=%s; legacy components above, no actual landing/path proof",
+                        corridor.dx(),corridor.dz(),corridor.fractureStep(),corridor.smoothStep(),corridor.heightContrast(),corridor.score(),corridor.risk(),corridor.heightCompatiblePoints(),corridor.status()));
+            }
         } catch(IllegalArgumentException | IllegalStateException error) {
             ACTIVE.remove(server); fail(pending.source,"tutorial search failed: "+error.getMessage());
         }

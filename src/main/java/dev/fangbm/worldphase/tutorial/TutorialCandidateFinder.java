@@ -20,6 +20,10 @@ public final class TutorialCandidateFinder {
     }
 
     public record Point(int x,int z) {}
+    /** Frozen legacy stencil for explicit diagnostics; no new sampling or mutable Level references. */
+    public record Evaluation(TutorialCandidate candidate,List<Integer> fracture,List<Integer> smooth) {
+        public Evaluation { fracture=List.copyOf(fracture); smooth=List.copyOf(smooth); }
+    }
     public record Result(long seed,int centerX,int centerZ,TutorialSearchConfig config,
                          List<TutorialCandidate> candidates,int evaluatedCount,int heightSamples,
                          long computeNanos,long maxBatchNanos) {
@@ -41,6 +45,17 @@ public final class TutorialCandidateFinder {
         var search=begin(centerX,centerZ,config);
         checkCoordinate(x,z,TutorialScore.LOCAL_RADIUS);
         return search.evaluate(new Point(x,z));
+    }
+
+    public RefinedTutorialSearch beginRefined(int x,int z,TutorialSearchConfig config) {
+        var metadata=begin(x,z,config);
+        return new RefinedTutorialSearch(this::checkedSeed,sampling,metadata.seed,x,z,config,
+                metadata.seaLevel,metadata.minY,metadata.maxY,null);
+    }
+    public RefinedTutorialSearch scoreRefined(int x,int z,int centerX,int centerZ,TutorialSearchConfig config) {
+        var metadata=begin(centerX,centerZ,config); checkCoordinate(x,z,TutorialScore.LOCAL_RADIUS);
+        return new RefinedTutorialSearch(this::checkedSeed,sampling,metadata.seed,centerX,centerZ,config,
+                metadata.seaLevel,metadata.minY,metadata.maxY,new Point(x,z));
     }
 
     private long checkedSeed() {
@@ -137,6 +152,12 @@ public final class TutorialCandidateFinder {
         public Result result() {
             if(!done()) throw new IllegalStateException("Tutorial search is not complete");
             return new Result(seed,centerX,centerZ,config,rank(raw,config.radius()),cursor,heightSamples,computeNanos,maxBatchNanos);
+        }
+        public List<Evaluation> diagnostics() {
+            if(!done()) throw new IllegalStateException("Tutorial search is not complete");
+            return raw.stream().map(c->new Evaluation(c,
+                    TutorialScore.OFFSETS.stream().map(o->cache.get(PhaseId.FRACTURE).get(pack(c.x()+o.x(),c.z()+o.z()))).toList(),
+                    TutorialScore.OFFSETS.stream().map(o->cache.get(PhaseId.SMOOTH).get(pack(c.x()+o.x(),c.z()+o.z()))).toList())).toList();
         }
         private TutorialCandidate evaluate(Point point) {
             int[] f=heights(PhaseId.FRACTURE,point),s=heights(PhaseId.SMOOTH,point);

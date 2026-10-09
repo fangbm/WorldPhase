@@ -250,6 +250,24 @@ class TerrainSampleServiceTest {
         // Existing @AfterEach audits every Level/cache call and forbids chunk/live-heightmap requests.
     }
 
+    @Test void refinedCorridorUsesRealPresetColumnsWithNoFullChunkRequests() {
+        for(var level:levels.values()) when(level.getSeaLevel()).thenReturn(63);
+        var finder=new TutorialCandidateFinder(server);
+        var first=finder.beginRefined(0,0,new TutorialSearchConfig(512,8));
+        while(!first.done()) first.advance(2);
+        var second=finder.beginRefined(0,0,new TutorialSearchConfig(512,8));
+        while(!second.done()) second.advance(4);
+        assertEquals(first.result().candidates(),second.result().candidates());
+        assertTrue(first.result().heightSamples()<=528);
+        for(var corridor:first.result().analyzed()) {
+            var candidate=corridor.candidate();
+            assertEquals(service.sampleHeight(PhaseId.FRACTURE,candidate.x(),candidate.z()),candidate.fractureHeight());
+            assertEquals(service.sampleHeight(PhaseId.SMOOTH,candidate.x(),candidate.z()),candidate.smoothHeight());
+            assertTrue(Double.isFinite(corridor.score()));
+        }
+        // The shared AfterEach audit forbids FULL/live-heightmap access for this real-generator test.
+    }
+
     private static RegistryAccess densityRegistry(PhaseId changed, DensityFunction replacement) {
         var registry = new MappedRegistry<DensityFunction>(Registries.DENSITY_FUNCTION, Lifecycle.stable());
         for (PhaseId phase : PhaseId.values()) {
