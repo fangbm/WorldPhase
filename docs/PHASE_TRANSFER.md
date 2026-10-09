@@ -206,3 +206,9 @@ The original 239-test WPH-010 validation above is retained as its historical rec
 WPH-011 adds command/surface tests, bringing the complete build to 280 passing tests,
 and reruns the real transfer probe. See the separate command acceptance record for
 dedicated-server and completed connected native-client evidence.
+
+WPH-012 combines these suites with 50 real four-Phase command cycles on cold
+startup and another 50 after native player/world save and reload. See
+[Core regression](CORE_REGRESSION.md) for the one-command entry, failure injection,
+per-step state checks and ignored structured reports. Transfer policies and
+production behavior are unchanged.

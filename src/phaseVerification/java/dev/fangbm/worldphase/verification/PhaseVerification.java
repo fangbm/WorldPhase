@@ -28,6 +28,9 @@ public final class PhaseVerification {
     public PhaseVerification() { NeoForge.EVENT_BUS.addListener(this::verify); }
 
     private void verify(ServerStartedEvent event) {
+        if ("core-regression".equals(System.getProperty("worldphase.verification"))) {
+            CoreRegressionVerification.verify(event.getServer()); return;
+        }
         if ("commands".equals(System.getProperty("worldphase.verification"))) {
             PhaseCommandVerification.smoke(event.getServer()); return;
         }
@@ -109,7 +112,7 @@ public final class PhaseVerification {
         }
     }
 
-    private static JsonObject chunk(ServerLevel level,int x,int z) throws Exception {
+    static JsonObject chunk(ServerLevel level,int x,int z) throws Exception {
         var chunk=level.getChunk(x>>4,z>>4);
         int top=level.getHeight(Heightmap.Types.OCEAN_FLOOR,x,z)-1;
         JsonObject result=new JsonObject();result.addProperty("floor",top);
