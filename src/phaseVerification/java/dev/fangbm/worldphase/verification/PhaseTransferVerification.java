@@ -42,13 +42,7 @@ final class PhaseTransferVerification {
                 }
             }
             var profile = new GameProfile(UUID.fromString("a3b83e90-28f9-4a94-b89c-8c46af811009"), "WPH009Probe");
-            var player = new ServerPlayer(server, smooth, profile, ClientInformation.createDefault());
-            player.connection = new ServerGamePacketListenerImpl(server, new Connection(PacketFlow.SERVERBOUND), player,
-                    CommonListenerCookie.createInitial(profile, false)) {
-                @Override public void send(Packet<?> packet) {}
-                @Override public void send(Packet<?> packet, io.netty.channel.ChannelFutureListener listener) {}
-            };
-            player.snapTo(position.x, position.y, position.z, 123.25f, -37.5f);
+            var player = createPlayer(server, smooth, profile, position);
             smooth.addNewPlayer(player);
             var inventory = player.getInventory();
             inventory.setItem(0, new ItemStack(Items.DIAMOND, 7));
@@ -218,14 +212,25 @@ final class PhaseTransferVerification {
         report.append("WPH010 PASS 12 repeated bounded shifts alternating220.5/221.5, bounded border/native veto; x/z/yaw/pitch/UUID/entity/inventory unchanged; save/stop\n");
     }
 
-    private static void clear(ServerLevel level) {
+    static ServerPlayer createPlayer(MinecraftServer server, ServerLevel level, GameProfile profile, Vec3 position) {
+        var player = new ServerPlayer(server, level, profile, ClientInformation.createDefault());
+        player.connection = new ServerGamePacketListenerImpl(server, new Connection(PacketFlow.SERVERBOUND), player,
+                CommonListenerCookie.createInitial(profile, false)) {
+            @Override public void send(Packet<?> packet) {}
+            @Override public void send(Packet<?> packet, io.netty.channel.ChannelFutureListener listener) {}
+        };
+        player.snapTo(position.x, position.y, position.z, 123.25f, -37.5f);
+        return player; // Caller registers after fixture setup or Vanilla saved-player loading.
+    }
+
+    static void clear(ServerLevel level) {
         for(int y=214;y<=231;y++) layer(level,y,Blocks.AIR.defaultBlockState());
     }
-    private static void slab(ServerLevel level,int y) { layer(level,y,Blocks.STONE_SLAB.defaultBlockState()); }
-    private static void layer(ServerLevel level,int y,net.minecraft.world.level.block.state.BlockState state) {
+    static void slab(ServerLevel level,int y) { layer(level,y,Blocks.STONE_SLAB.defaultBlockState()); }
+    static void layer(ServerLevel level,int y,net.minecraft.world.level.block.state.BlockState state) {
         for(int x=-18;x<=-15;x++) for(int z=14;z<=17;z++) level.setBlock(new BlockPos(x,y,z),state,3);
     }
-    private static void arrived(ServerPlayer player,ServerLevel target,Vec3 point,GameProfile profile,
+    static void arrived(ServerPlayer player,ServerLevel target,Vec3 point,GameProfile profile,
                                 net.minecraft.world.entity.player.Inventory inventory,List<ItemStack> items) {
         assertPlayer(player,target,point,profile,inventory,items);
         require(LandingSafety.isSafe(player,target,point,TransferPolicy.BOUNDED_LANDING),"Postarrival actual safe environment");
@@ -240,7 +245,7 @@ final class PhaseTransferVerification {
         assertPlayer(player,source,point,profile,inventory,items);
     }
 
-    private static void assertPlayer(ServerPlayer player, ServerLevel target, Vec3 position, GameProfile profile,
+    static void assertPlayer(ServerPlayer player, ServerLevel target, Vec3 position, GameProfile profile,
                                      net.minecraft.world.entity.player.Inventory inventory, List<ItemStack> items) {
         require(player.level() == target && player.position().equals(position), "Target Level and exact coordinates");
         require(player.getYRot() == 123.25f && player.getXRot() == -37.5f, "Exact yaw/pitch");

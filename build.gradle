@@ -69,6 +69,24 @@ neoForge {
             programArgument '--nogui'
             systemProperty 'worldphase.verification', 'commands-native'
         }
+        phaseVerificationCoreColdServer {
+            server()
+            sourceSet = sourceSets.phaseVerification
+            gameDirectory = project.file('run/core-regression-server')
+            programArgument '--nogui'
+            systemProperty 'worldphase.verification', 'core-regression'
+            systemProperty 'worldphase.core.stage', 'cold'
+            systemProperty 'worldphase.core.failInvariant', providers.gradleProperty('coreRegressionFailInvariant').orElse('').get()
+        }
+        phaseVerificationCoreReloadServer {
+            server()
+            sourceSet = sourceSets.phaseVerification
+            gameDirectory = project.file('run/core-regression-server')
+            programArgument '--nogui'
+            systemProperty 'worldphase.verification', 'core-regression'
+            systemProperty 'worldphase.core.stage', 'reload'
+            systemProperty 'worldphase.core.failInvariant', providers.gradleProperty('coreRegressionFailInvariant').orElse('').get()
+        }
         commandClient {
             client()
             gameDirectory = project.file('run/command-client')
@@ -121,8 +139,8 @@ sourceSets {
         runtimeClasspath += sourceSets.main.output
     }
     profilingTest {
-        compileClasspath += sourceSets.main.output + sourceSets.profiling.output
-        runtimeClasspath += sourceSets.main.output + sourceSets.profiling.output
+        compileClasspath += sourceSets.main.output + sourceSets.profiling.output + sourceSets.phaseVerification.output
+        runtimeClasspath += sourceSets.main.output + sourceSets.profiling.output + sourceSets.phaseVerification.output
     }
 }
 
@@ -135,7 +153,7 @@ dependencies {
 // Plain JUnit keeps dev tooling tests outside NeoForge's transforming mod class loader.
 def testNoiseProfiler = tasks.register('testNoiseProfiler', Test) {
     group = 'verification'
-    description = 'Test profiling statistics and deterministic workload (no timing assertions).'
+    description = 'Test profiling statistics/workload and pure core invariant report accounting.'
     testClassesDirs = sourceSets.profilingTest.output.classesDirs
     classpath = sourceSets.profilingTest.runtimeClasspath
     useJUnitPlatform()
@@ -232,6 +250,104 @@ tasks.named('runPhaseVerificationCommandsServer', JavaExec).configure {
 }
 tasks.named('runPhaseVerificationCommandsNativeServer', JavaExec).configure {
     standardInput = System.in
+}
+
+// WPH-012 reuses all existing test suites. No alternate Minecraft test loader or framework.
+def coreRegression = tasks.register('coreRegression') {
+    group = 'verification'
+    description = 'Run all unit core regressions and development report/profiler tests.'
+    dependsOn tasks.named('test'), testNoiseProfiler
+}
+
+def prepareCoreRegressionServer = tasks.register('prepareCoreRegressionServer') {
+    group = 'verification'
+    description = 'Prepare an isolated fixed-seed fresh world, preserving earlier test worlds.'
+    doLast {
+        def directory = project.file('run/core-regression-server')
+        directory.mkdirs()
+        def summary = layout.buildDirectory.file('core-regression/summary.json').get().asFile
+        summary.parentFile.mkdirs()
+        summary.text = groovy.json.JsonOutput.toJson([status:'RUNNING', failedInvariant:'server.did_not_complete',
+                reports:['run/core-regression-server/core-cold.json', 'run/core-regression-server/core-reload.json']])
+        def eula = new File(directory, 'eula.txt')
+        if (providers.gradleProperty('coreRegressionAcceptEula').orElse('false').get().toBoolean()) {
+            eula.text = 'eula=true\n'
+        }
+        if (!eula.exists() || !(eula.text =~ /(?m)^\s*eula\s*=\s*true\s*$/).find()) {
+            throw new GradleException('Core server requires an accepted Minecraft EULA: https://aka.ms/MinecraftEULA . Set run/core-regression-server/eula.txt or use -PcoreRegressionAcceptEula=true after reading it.')
+        }
+        // Run identity is random; seed, coordinate workload and gameplay behavior are fixed.
+        // A new name guarantees a cold run without deleting any previous world directory.
+        def world = "world-wph012-${UUID.randomUUID()}"
+        new File(directory, 'server.properties').text = """level-name=${world}
+level-seed=123456789
+server-ip=127.0.0.1
+server-port=25574
+online-mode=false
+gamemode=creative
+spawn-protection=0
+view-distance=2
+simulation-distance=2
+max-tick-time=-1
+"""
+        new File(directory, 'core-run-world.txt').text = world + '\n'
+    }
+}
+
+def coreCold = tasks.named('runPhaseVerificationCoreColdServer', JavaExec) {
+    dependsOn prepareCoreRegressionServer
+    mustRunAfter coreRegression
+}
+def coreReload = tasks.named('runPhaseVerificationCoreReloadServer', JavaExec) {
+    dependsOn coreCold
+}
+['Cold': 'cold', 'Reload': 'reload'].each { title, stage ->
+    tasks.named("runPhaseVerificationCore${title}Server", JavaExec).configure {
+        def reportFile = project.file("run/core-regression-server/core-${stage}.json")
+        doFirst {
+            reportFile.parentFile.mkdirs()
+            reportFile.text = groovy.json.JsonOutput.toJson([status:'RUNNING', stage:stage, failedInvariant:'server.did_not_complete'])
+        }
+        doLast {
+            def report = new groovy.json.JsonSlurper().parse(reportFile)
+            if (report.status != 'PASS' || report.completeCycles != 50 || report.loopTransfers != 200) {
+                throw new GradleException("Core ${stage} failed: invariant=${report.failedInvariant}, scenario=${report.scenario}, reason=${report.failure}; report=${reportFile}")
+            }
+        }
+    }
+}
+def coreRegressionServer = tasks.register('coreRegressionServer') {
+    group = 'verification'
+    description = 'Run 50 real four-Phase cycles on cold startup and another 50 after save/stop/reload.'
+    dependsOn coreReload
+    doLast {
+        def directory = project.file('run/core-regression-server')
+        def cold = new groovy.json.JsonSlurper().parse(new File(directory, 'core-cold.json'))
+        def reload = new groovy.json.JsonSlurper().parse(new File(directory, 'core-reload.json'))
+        if (reload.saveReloadCheck?.startsWith('PASS:') != true) {
+            throw new GradleException('Core reload did not verify the persisted checkpoint; inspect core-reload.json')
+        }
+        def summary = [status:'PASS', minecraft:reload.minecraft, neoforge:reload.neoforge, java:reload.java,
+                       seed:reload.seed, world:new File(directory,'core-run-world.txt').text.trim(),
+                       completeCycles:cold.completeCycles+reload.completeCycles,
+                       loopTransfers:cold.loopTransfers+reload.loopTransfers,
+                       successfulTransfers:cold.successfulTransfers+reload.successfulTransfers,
+                       maxXzDeviation:Math.max(cold.maxXzDeviation,reload.maxXzDeviation),
+                       maxYawPitchDeviation:Math.max(cold.maxYawPitchDeviation,reload.maxYawPitchDeviation),
+                       maxYCorrection:Math.max(cold.maxYCorrection,reload.maxYCorrection),
+                       inventoryIdentityAndContentChecks:cold.inventoryIdentityAndContentChecks+reload.inventoryIdentityAndContentChecks,
+                       duplicatePlayerEntities:0, droppedTestItemEntities:0, saveReloadCheck:reload.saveReloadCheck,
+                       stages:[cold:cold, reload:reload]]
+        def destination = layout.buildDirectory.file('core-regression/summary.json').get().asFile
+        destination.parentFile.mkdirs()
+        destination.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(summary))
+        logger.lifecycle("Core PASS: ${summary.completeCycles} complete cycles / ${summary.loopTransfers} loop shifts; ${summary.successfulTransfers} total including recovery. Report: ${destination}")
+    }
+}
+tasks.register('coreRegressionAll') {
+    group = 'verification'
+    description = 'Complete headless acceptance: all unit suites plus real cold and reloaded core server regressions.'
+    dependsOn coreRegression, coreRegressionServer
 }
 
 tasks.named('runPhaseVerificationClient', JavaExec).configure {

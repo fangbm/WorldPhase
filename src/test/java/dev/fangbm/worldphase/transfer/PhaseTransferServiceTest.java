@@ -115,6 +115,9 @@ class PhaseTransferServiceTest {
     @Test void missingTargetIsExplicitAndDoesNotMove() {
         when(server.getLevel(PhaseWorldResolver.levelKey(PhaseId.RIDGE))).thenReturn(null);
         assertEquals(TransferResult.TARGET_LEVEL_MISSING, transfer(PhaseId.RIDGE)); unmoved();
+        when(server.getLevel(PhaseWorldResolver.levelKey(PhaseId.RIDGE))).thenReturn(levels.get(PhaseId.RIDGE));
+        assertEquals(TransferResult.SUCCESS, transfer(PhaseId.RIDGE));
+        assertSame(levels.get(PhaseId.RIDGE), player.level()); assertEquals(original, player.position());
     }
 
     @Test void blockedExactBodySpaceRejectsWithoutTryingAnotherY() {

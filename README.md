@@ -30,7 +30,7 @@ The long-term goal is to reconstruct the player's compatibility with the **Stabl
 
 ## Project status
 
-**Week 1 technical PoC / WPH-011 developer commands.**
+**Week 1 technical PoC / WPH-012 automated core regression.**
 
 The project contains the NeoForge bootstrap and a minimal Phase domain model
 with tested, bidirectional Level-key mappings and pure Java 2D Smooth, Ridged,
@@ -43,6 +43,8 @@ The server-owned PhaseTransferService supports exact-position and bounded +/-4
 landing with real chunk/collision checks. OP developer commands expose sampling,
 diagnostics and an explicit surface-entry mode. Dedicated-server and connected
 native-client verification pass, including safe transfers and save/reload.
+`./gradlew coreRegressionAll` adds repeatable headless acceptance: all core unit
+suites and 50 complete four-Phase cycles on both cold startup and save/reload.
 Tutorial behavior is deferred.
 
 The first milestone is intentionally small:
@@ -71,6 +73,7 @@ If that loop is not fun, the project should not expand into content, bosses, mac
 - [Terrain sampling API, height semantics and verification](docs/TERRAIN_SAMPLING.md)
 - [Phase transfer API, exact/bounded landing policies and verification](docs/PHASE_TRANSFER.md)
 - [OP developer commands, surface policy and acceptance record](docs/DEVELOPER_COMMANDS.md)
+- [One-command core regression, persistence checks and reports](docs/CORE_REGRESSION.md)
 
 ## Target stack
 
