@@ -30,7 +30,7 @@ The long-term goal is to reconstruct the player's compatibility with the **Stabl
 
 ## Project status
 
-**Week 1 technical PoC / WPH-011 developer commands (native acceptance pending).**
+**Week 1 technical PoC / WPH-011 developer commands.**
 
 The project contains the NeoForge bootstrap and a minimal Phase domain model
 with tested, bidirectional Level-key mappings and pure Java 2D Smooth, Ridged,
@@ -41,8 +41,9 @@ macro-terrain interpretations of the same seed. A server-scoped TerrainSampleSer
 samples actual base terrain and data-driven kernel signals without loading chunks.
 The server-owned PhaseTransferService supports exact-position and bounded +/-4
 landing with real chunk/collision checks. OP developer commands expose sampling,
-diagnostics and an explicit surface-entry mode. Their dedicated-server verification
-passes; native-client transfer acceptance remains pending. Tutorial behavior is deferred.
+diagnostics and an explicit surface-entry mode. Dedicated-server and connected
+native-client verification pass, including safe transfers and save/reload.
+Tutorial behavior is deferred.
 
 The first milestone is intentionally small:
 

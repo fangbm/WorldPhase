@@ -110,6 +110,9 @@ final class PhaseCommandVerification {
     }
     private static void login(PlayerEvent.PlayerLoggedInEvent event) {
         if(!(event.getEntity() instanceof ServerPlayer player) || !player.getGameProfile().name().equals("WPH011Review")) return;
+        // Observe the saved player before OP fixture positioning/inventory initialization.
+        System.out.println("WPH011 NATIVE RESTORED uuid="+player.getUUID()+" level="+player.level().dimension().identifier()
+                +" at="+player.position()+" yaw="+player.getYRot()+" pitch="+player.getXRot()+" inventory="+copy(player.getInventory()));
         var server=player.level().getServer(); server.getPlayerList().op(player.nameAndId());
         player.setGameMode(GameType.CREATIVE); player.getAbilities().flying=true; player.onUpdateAbilities();
         // Fixture setup only. The production service still refuses Vanilla -> Phase bootstrap.
@@ -129,9 +132,12 @@ final class PhaseCommandVerification {
         identity(player,entry.inventory(),entry.items());
         require(player.position().x==entry.position().x && player.position().z==entry.position().z,"Native wp preserves x/z");
         require(player.getYRot()==entry.yaw() && player.getXRot()==entry.pitch(),"Native wp preserves yaw/pitch");
+        boolean moved=player.level()!=entry.level() || !player.position().equals(entry.position());
+        if(moved) require(LandingSafety.isSafe(player,player.level(),player.position(),
+                entry.command().endsWith("--surface")?TransferPolicy.DEV_SURFACE:TransferPolicy.BOUNDED_LANDING),"Native arrival safety");
         var text="NATIVE "+entry.command()+" before="+entry.level().dimension().identifier()+entry.position()
                 +" after="+player.level().dimension().identifier()+player.position()+" yaw="+player.getYRot()+" pitch="+player.getXRot()
-                +" uuid="+player.getUUID()+" inventory/entity PASS\n";
+                +" uuid="+player.getUUID()+" inventory/entity PASS landing="+(moved?"SAFE":"unchanged")+"\n";
         try { Files.writeString(Path.of("native-command-audit.txt"),text,StandardOpenOption.CREATE,StandardOpenOption.APPEND); }
         catch(Exception error) { throw new IllegalStateException(error); }
         System.out.print(text);

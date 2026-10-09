@@ -205,4 +205,4 @@ surface positions must match an actual candidate and pass the same safety check.
 The original 239-test WPH-010 validation above is retained as its historical record.
 WPH-011 adds command/surface tests, bringing the complete build to 280 passing tests,
 and reruns the real transfer probe. See the separate command acceptance record for
-dedicated-server and incomplete native-client evidence.
+dedicated-server and completed connected native-client evidence.

@@ -2,8 +2,8 @@
 
 These commands execute on the server. They expose existing Phase, terrain-sampling
 and transfer services; no new worldgen preset, client protocol or gameplay item is added.
-Native-client acceptance is **incomplete**; the implementation and dedicated-server
-checks are ready, but connected-client successful transfer checks remain pending.
+Dedicated-server and connected native-client acceptance pass, including ordinary
+bounded transfers, explicit surface mode, rejection and save/stop/reload.
 
 ## Command contract
 
@@ -107,7 +107,7 @@ gameplay +/-4 semantics remain unchanged; DEV_SURFACE is a separate development 
 
 ## Automated and dedicated-server validation
 
-Validated 2026-10-08, Windows x64, Temurin 25.0.3+9:
+Validated 2026-10-08 and resumed 2026-10-09, Windows x64, Temurin 25.0.3+9:
 
 ```sh
 ./gradlew test --tests '*WorldPhaseCommandTest' --tests '*transfer*' --console=plain --no-build-cache
@@ -138,7 +138,7 @@ Probe outputs are ignored runtime files under run/command-verification-server
 test and profiling classes. Native runs use the separate command-native-server
 and command-client directories; these game directories are never committed.
 
-## Native-client record and remaining acceptance
+## Native-client acceptance record
 
 The connected NeoForge client joined the real loopback dedicated server as OP
 WPH011Review, seed123456789. Chat successfully executed list, current, seedcheck,
@@ -154,12 +154,61 @@ printed four actual matching seeds and PASS. At block (-512,768), output was:
 
 Sample ridge agreed. Goto smooth --surface from Overworld correctly returned
 INVALID_SOURCE without changing the source. Vanilla /execute then entered Smooth.
-**The user physically pressed Escape to stop Computer Use before the successful
-surface and subsequent transfer commands were exercised.** No complete native
-acceptance is claimed. The isolated dev server logs each wp command's before/after
-position, rotation, UUID and full inventory in native-command-audit.txt.
+The session was interrupted on October 8 and completed on October 9. The isolated
+dev server logs each wp command's before/after position and rotation, UUID, inventory
+object/every slot and unique player entity checks in native-command-audit.txt.
 
-To reproduce/finish, prepare accepted eula.txt and server.properties in
+The resumed connected-client checks passed:
+
+| Scenario | Actual result |
+| --- | --- |
+| Smooth explicit surface at x=-511.875,z=768.25 | SUCCESS, actual commit source y206.49945590426327 -> y75; forest grass surface visible |
+| Ordinary goto ridge at Smooth y75 | NO_SAFE_POSITION; source Level/position/rotation/inventory unchanged |
+| Cycle at the same natural position | Same rejection; no surface fallback |
+| Safepos cell at the same position | exactSafe=false, NO_SAFE_POSITION; no movement |
+| Smooth -> Ridge at (-16.125,220.5,15.9375) | BOUNDED_LANDING SUCCESS at original y |
+| Safepos cell from Ridge | exactSafe=false, candidate y221.5, deltaY=+1; player stays y220.5 |
+| Ridge -> Cell | BOUNDED_LANDING SUCCESS at y221.5, matching diagnostic |
+| Four consecutive cycles | Cell -> Fracture -> Smooth -> Ridge -> Cell, y221.5 ->220.5 ->220.5 ->220.5 ->221.5 |
+| Save/stop/restart/reconnect | Restored Cell, exact position, rotation, UUID and inventory before test initialization |
+| Commands after restart | Seedcheck PASS, compare-all same values above, goto ridge SUCCESS, current=ridge |
+
+The platform sequence retained x=-16.125,z=15.9375, yaw123.25,pitch-37.5 and UUID
+713feee0-75bf-3a00-8414-a1e79a9cb011. The explicit surface request preserved its
+own actual source rotation (-128.9001,26.09999). After reconnect the dev fixture
+uses Vanilla to position the player again; the final platform entry deliberately
+used pitch35.5 to show the supporting slab in the client, which goto preserved.
+No mathematical/kernel/preset or production transfer behavior changed on resume.
+
+At 09:26:47, before login fixture positioning or inventory initialization, the
+new dev-only RESTORED log reported Cell (-16.125,221.5,15.9375), yaw123.25,
+pitch-37.5, the same UUID, seven diamonds in slot0 and23 iron ingots in slot10;
+all other slots were empty. This observes actual player save data before the
+test entry can hide a persistence problem. Save-all flush and stop both saved
+every Level and exited cleanly; the restarted native server reached Done in0.857s.
+Native commands were entered through the connected client's chat, not substituted
+by simulated packet transport. A dev-only post-command check after restart also
+evaluates LandingSafety in the real destination and logged landing=SAFE for goto.
+
+Curated F2 screenshots from this native session (only these evidence images, not
+game directories or runtime logs, are committed):
+
+- [Surface success, bounded/cycle rejection and safepos](verification/wph011/surface-and-rejection.png)
+- [Bounded goto, +1 diagnostic and full cycle](verification/wph011/bounded-cycle.png)
+- [After reconnect: seedcheck, identical samples, goto/current and actual support](verification/wph011/reload-commands.png)
+
+The build was rerun after adding the dev-only restored-state log and arrival
+safety assertion: `./gradlew build compilePhaseVerificationJava --console=plain
+--no-build-cache`, exit0 with280 passing tests. No production changes were required.
+
+Some cold high-altitude fixture transitions displayed Vanilla's Loading terrain
+screen for roughly30 seconds; later warm transitions completed promptly. Initial
+chunk generation also produced a brief Can't keep up warning. Startup has existing
+Vanilla command ambiguities outside the wp subtree and a Windows PerfOS warning;
+no wp tree ambiguity, density/registry/Mixin error or failed native audit was seen.
+These checks establish functional acceptance, not a transfer-latency benchmark.
+
+To reproduce, prepare accepted eula.txt and server.properties in
 run/command-native-server: level-seed=123456789, loopback IP, port25572,
 online-mode=false, gamemode=creative, spawn-protection=0, view-distance=4,
 simulation-distance=2, max-tick-time=-1. Run these in separate terminals:
@@ -177,5 +226,7 @@ shifts. Real supported slab platforms also exist around (-16.125,220.5,15.9375);
 Cell's platform is one block higher. Use Vanilla OP positioning to visit this
 fixture for reproducible bounded successes; natural terrain may legitimately reject
 a +/-4 transfer. Verify inventory/UUID/rotation, save/stop, restart the same world
-and reconnect to repeat commands. These **connected-client transfer and reload
-checks remain pending**, so the delivery PR stays draft. No #12 work is included.
+and reconnect to repeat commands. The login fixture intentionally repositions the
+player after logging the restored state; this is isolated dev setup, not gameplay
+spawn/progression behavior. Native acceptance is complete and the delivery PR can
+be reviewed. No #12 work is included.
