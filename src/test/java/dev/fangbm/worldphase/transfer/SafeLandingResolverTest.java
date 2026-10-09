@@ -142,4 +142,25 @@ class SafeLandingResolverTest {
         assertTrue(LandingSafety.isSafe(player,target,original,TransferPolicy.EXACT_POSITION));
         assertEquals(List.of(original),TransferPolicy.EXACT_POSITION.candidates(original));
     }
+    @Test void surfaceCandidatesUseActualHeightAfterPreparationWithDeterministic64PositionCap() {
+        when(target.getHeight(eq(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),anyInt(),anyInt())).thenReturn(100);
+        var points=TransferPolicy.DEV_SURFACE.candidates(original,target);
+        assertEquals(64,points.size()); assertEquals(new Vec3(original.x,104,original.z),points.getFirst());
+        assertEquals(new Vec3(original.x,41,original.z),points.getLast());
+        assertFalse(TransferPolicy.DEV_SURFACE.permits(original,new Vec3(original.x,40,original.z),target));
+        assertFalse(TransferPolicy.DEV_SURFACE.permits(original,new Vec3(original.x+.01,81,original.z),target));
+        assertThrows(IllegalStateException.class,()->TransferPolicy.DEV_SURFACE.candidates(original));
+    }
+    @Test void surfaceRejectsSafeGroundOutsideSearchCap() {
+        when(target.getHeight(eq(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),anyInt(),anyInt())).thenReturn(100);
+        layer(39,Blocks.STONE.defaultBlockState());
+        assertTrue(SafeLandingResolver.gameplay().resolve(player,target,original,TransferPolicy.DEV_SURFACE).isEmpty());
+        layer(40,Blocks.STONE.defaultBlockState());
+        assertEquals(Optional.of(new Vec3(original.x,41,original.z)),SafeLandingResolver.gameplay().resolve(player,target,original,TransferPolicy.DEV_SURFACE));
+    }
+    @Test void explicitSurfaceUsesActualHalfSlabCollisionTopRatherThanUnsafeHeightmapInteger() {
+        floor(0);
+        when(target.getHeight(eq(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),anyInt(),anyInt())).thenReturn(81);
+        assertEquals(Optional.of(original),SafeLandingResolver.gameplay().resolve(player,target,original,TransferPolicy.DEV_SURFACE));
+    }
 }

@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import dev.fangbm.worldphase.phase.PhaseId;
 import dev.fangbm.worldphase.phase.PhaseWorldResolver;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.CompletionException;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -49,7 +50,9 @@ public final class PhaseTransferService {
 
         var source = player.level();
         if (!validSource(player, source)) return TransferResult.INVALID_SOURCE;
-        if (PhaseWorldResolver.phaseId(source).orElseThrow() == targetPhase) return TransferResult.SAME_PHASE;
+        if (PhaseWorldResolver.phaseId(source).orElseThrow() == targetPhase && policy != TransferPolicy.DEV_SURFACE) {
+            return TransferResult.SAME_PHASE;
+        }
         var target = server.getLevel(PhaseWorldResolver.levelKey(targetPhase));
         if (target == null) return TransferResult.TARGET_LEVEL_MISSING;
 
@@ -59,31 +62,9 @@ public final class PhaseTransferService {
         if (!finite(position) || !Float.isFinite(yaw) || !Float.isFinite(pitch) || !finite(box)) {
             return TransferResult.INVALID_SOURCE;
         }
-        if (policy.candidates(position).stream().noneMatch(p -> withinWorld(target, box.move(p.subtract(position))))) {
-            return TransferResult.OUT_OF_WORLD;
-        }
-
-        var ready = prepareChunks(target, box);
-        if (ready != TransferResult.SUCCESS) return ready;
-        // Synchronous chunk acquisition pumps tasks. Never transfer from a stale source snapshot.
-        if (!validSource(player, source) || !unchanged(player, source, position, yaw, pitch)
-                || !player.getBoundingBox().equals(box)) return TransferResult.INVALID_SOURCE;
-        if (policy.candidates(position).stream().noneMatch(p -> withinWorld(target, box.move(p.subtract(position))))) {
-            return TransferResult.OUT_OF_WORLD;
-        }
-        var destination = landing.resolve(player, target, position, policy);
-        if (destination.isEmpty()) return TransferResult.NO_SAFE_POSITION;
-        var finalPosition = destination.get();
-        if (!policy.permits(position, finalPosition)) {
-            throw new IllegalStateException(policy + " resolver returned a position outside its candidates");
-        }
-        if (!validSource(player, source) || !unchanged(player, source, position, yaw, pitch)
-                || !player.getBoundingBox().equals(box)) return TransferResult.INVALID_SOURCE;
-        // Also enforce safety for custom resolvers; they cannot bypass geometry or policy bounds.
-        // The built-in already checked this AABB; avoid checking a tenth candidate on success.
-        if (!builtInResolver && !LandingSafety.isSafe(player, target, finalPosition, policy)) {
-            return TransferResult.NO_SAFE_POSITION;
-        }
+        var inspection = resolveLanding(player, target, policy, new Snapshot(source, position, yaw, pitch, box));
+        if (inspection.result() != TransferResult.SUCCESS) return inspection.result();
+        var finalPosition = inspection.destination().orElseThrow();
 
         // Unlike teleportTo(...), this does not wake sleepers/reset camera before a travel veto.
         // Empty relative flags mean absolute, unscaled doubles. Vanilla reuses this ServerPlayer.
@@ -102,9 +83,63 @@ public final class PhaseTransferService {
         return TransferResult.SUCCESS;
     }
 
+    /** Diagnostic only; accepts a Vanilla source, but never relaxes transfer's Phase-source rule. */
+    public LandingInspection inspectLanding(ServerPlayer player, PhaseId targetPhase, TransferPolicy policy) {
+        Objects.requireNonNull(player); Objects.requireNonNull(targetPhase); Objects.requireNonNull(policy);
+        if (!server.isSameThread()) throw new IllegalStateException("Phase landing inspection must run on the server thread");
+        var state = new Snapshot(player.level(), player.position(), player.getYRot(), player.getXRot(), player.getBoundingBox());
+        if (!validPlayer(player, state.source()) || !finite(state.position()) || !finite(state.box())
+                || !Float.isFinite(state.yaw()) || !Float.isFinite(state.pitch())) return failed(TransferResult.INVALID_SOURCE, state);
+        var target = server.getLevel(PhaseWorldResolver.levelKey(targetPhase));
+        if (target == null) return failed(TransferResult.TARGET_LEVEL_MISSING, state);
+        return resolveLanding(player, target, policy, state);
+    }
+
+    private record Snapshot(ServerLevel source, Vec3 position, float yaw, float pitch, AABB box) {}
+
+    private LandingInspection resolveLanding(ServerPlayer player, ServerLevel target, TransferPolicy policy, Snapshot state) {
+        var position = state.position(); var box = state.box();
+        // Surface height must not be queried before FULL chunk preparation.
+        if (!target.getWorldBorder().isWithinBounds(box) || (policy == TransferPolicy.DEV_SURFACE
+                ? box.getYsize() > (double) target.getMaxY() + 1 - target.getMinY()
+                : policy.candidates(position).stream().noneMatch(p -> withinWorld(target, box.move(p.subtract(position)))))) {
+            return failed(TransferResult.OUT_OF_WORLD, state);
+        }
+        var ready = prepareChunks(target, box);
+        if (ready != TransferResult.SUCCESS) return failed(ready, state);
+        if (!snapshotUnchanged(player, state)) return failed(TransferResult.INVALID_SOURCE, state);
+        if (policy.candidates(position, target).stream().noneMatch(p -> withinWorld(target, box.move(p.subtract(position))))) {
+            return failed(TransferResult.OUT_OF_WORLD, state);
+        }
+        var destination = landing.resolve(player, target, position, policy);
+        if (destination.isEmpty()) return failed(TransferResult.NO_SAFE_POSITION, state);
+        var finalPosition = destination.get();
+        if (!policy.permits(position, finalPosition, target)) {
+            throw new IllegalStateException(policy + " resolver returned a position outside its candidates");
+        }
+        if (!snapshotUnchanged(player, state)) return failed(TransferResult.INVALID_SOURCE, state);
+        if (!builtInResolver && !LandingSafety.isSafe(player, target, finalPosition, policy)) {
+            return failed(TransferResult.NO_SAFE_POSITION, state);
+        }
+        return new LandingInspection(TransferResult.SUCCESS, position, destination);
+    }
+
+    private static LandingInspection failed(TransferResult result, Snapshot state) {
+        return new LandingInspection(result, state.position(), Optional.empty());
+    }
+
+    private boolean snapshotUnchanged(ServerPlayer player, Snapshot state) {
+        return validPlayer(player, state.source()) && unchanged(player, state.source(), state.position(), state.yaw(), state.pitch())
+                && player.getBoundingBox().equals(state.box());
+    }
+
     private boolean validSource(ServerPlayer player, ServerLevel source) {
+        return validPlayer(player, source) && PhaseWorldResolver.phaseId(source).isPresent();
+    }
+
+    private boolean validPlayer(ServerPlayer player, ServerLevel source) {
         return source != null && source.getServer() == server && server.getLevel(source.dimension()) == source
-                && PhaseWorldResolver.phaseId(source).isPresent() && player.isAlive() && !player.isRemoved()
+                && player.isAlive() && !player.isRemoved()
                 && !player.isSleeping() && !player.isPassenger() && !player.isVehicle();
     }
 

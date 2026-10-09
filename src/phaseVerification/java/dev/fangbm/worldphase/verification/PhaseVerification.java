@@ -28,6 +28,12 @@ public final class PhaseVerification {
     public PhaseVerification() { NeoForge.EVENT_BUS.addListener(this::verify); }
 
     private void verify(ServerStartedEvent event) {
+        if ("commands".equals(System.getProperty("worldphase.verification"))) {
+            PhaseCommandVerification.smoke(event.getServer()); return;
+        }
+        if ("commands-native".equals(System.getProperty("worldphase.verification"))) {
+            PhaseCommandVerification.startNative(event.getServer()); return;
+        }
         if ("phase-transfer".equals(System.getProperty("worldphase.verification"))) {
             PhaseTransferVerification.verify(event.getServer());
             return;

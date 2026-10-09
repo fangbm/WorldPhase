@@ -2,6 +2,8 @@ package dev.fangbm.worldphase;
 
 import com.mojang.logging.LogUtils;
 import dev.fangbm.worldphase.registry.ModDensityFunctions;
+import dev.fangbm.worldphase.command.WorldPhaseCommand;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ public final class WorldPhase {
 
     public WorldPhase(IEventBus modBus) {
         ModDensityFunctions.TYPES.register(modBus);
+        NeoForge.EVENT_BUS.addListener(WorldPhaseCommand::onRegister);
         LOGGER.info("WorldPhase bootstrap loaded (mod id: {}).", MOD_ID);
     }
 }
