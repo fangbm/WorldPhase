@@ -11,8 +11,8 @@ records local correctness PASS, original useful-majority FAIL and unvalidated
 complete routes. This finder is a diagnostic/discovery system, not a mandatory
 opening selector. Searched does not mean selected; local shift-feasible does not
 mean route-validated or future-safe. See the decision's #14 semantic/invalidation
-boundary before designing any persistence. The Issue13 PoC amendment awaits
-final review; Issue13 stays open and PR30 stays Draft.
+boundary before designing any persistence. The Issue13 experimental-PoC scope
+was accepted in final review; original useful-majority remains FAIL.
 
 ## API, seed and determinism
 
