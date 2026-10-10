@@ -412,7 +412,7 @@ No full pathfinding is required for v0.1.
 Candidate generation should be deterministic for the same seed.
 
 WPH-013's [feasibility closeout](TUTORIAL_FEASIBILITY_DECISION.md) retains the
-original useful-majority FAIL and proposes a bounded experimental PoC deliverable.
+original useful-majority FAIL and records the accepted bounded experimental PoC deliverable.
 The finder is a diagnostic/discovery tool; it neither selects a mandatory opening
 nor establishes a complete route. Hybrid Opening guarantees the future first
 lesson through a controlled Station, independently of natural candidate quality.
