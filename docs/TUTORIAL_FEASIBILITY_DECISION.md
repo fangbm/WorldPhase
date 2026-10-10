@@ -1,8 +1,8 @@
 # WPH-013 closeout: bounded tutorial feasibility prototype
 
 Date: **2026-10-10**. Experiment/source head: **f3069c6**. Design direction:
-**Hybrid Opening**. Proposed Issue13 PoC acceptance amendment: **pending final
-review**. Issue13 remains OPEN; PR30 remains Draft. This document records a
+**Hybrid Opening**. Issue13 experimental-PoC acceptance amendment: **approved in final review**.
+Original useful-majority remains FAIL; no natural-only tutorial reliability is claimed. This document records a
 negative experiment and a design decision, not successful original acceptance.
 
 ## Evidence and verdict
@@ -59,10 +59,10 @@ fallback realization and playable-route acceptance need separate future design
 and implementation. This PR adds none of them: no Station/block/item, Anchor,
 spawn redirection, worldgen tuning, progression, automatic teleport or SavedData.
 
-## Issue13 acceptance amendment proposal
+## Issue13 accepted experimental-PoC scope
 
 Keep the original useful-majority checklist item, its unchecked state and FAIL
-evidence. The proposed deliverable is now a **validated bounded feasibility PoC
+evidence. The accepted deliverable is now a **validated bounded feasibility PoC
 with a negative feasibility report and explicit design decision**, rather than
 a reliable natural tutorial selector. Suggested completion criteria:
 
@@ -78,10 +78,10 @@ a reliable natural tutorial selector. Suggested completion criteria:
    with simulated transport and historical versus newly rerun evidence identified.
 5. Record Hybrid Opening and the semantic/invalidation boundaries below; no
    implicit natural selection or future-safety promise.
-6. Obtain explicit final acceptance of the amendment. Recording a proposal does
-   **not** close Issue13, complete its original gate or authorize Ready/merge/#14.
+6. Final review explicitly accepted the experimental-PoC scope. This does **not**
+   turn original useful-majority FAIL into PASS or authorize natural tutorial selection.
 
-The implementation/evidence supports criteria1–5; criterion6 is pending review.
+The implementation/evidence supports criteria1–5; criterion6 was accepted in final review.
 This changes the deliverable's scope, not the experimental result. The issue
 must retain a visible audit trail instead of replacing the failed criterion.
 
@@ -154,5 +154,5 @@ Focused126/126 passed (38s). Build passed (42s):330 transforming-loader tests
 executed; the unchanged15 plain dev-tooling tests were UP-TO-DATE from the prior
 passing run,345 total recorded tests with zero failures/errors. Logs remain ignored
 under build/wph-013-closeout-*.log. No seed experiment or real-server probe was
-rerun/refitted in this docs-only round. Final review remains required; #14 and
-all gameplay implementation remain deferred.
+rerun/refitted in this docs-only round. The scope amendment was accepted in final review; #14 and all gameplay
+implementation remain deferred.
