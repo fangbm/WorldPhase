@@ -53,8 +53,8 @@ Local correctness passes, but original useful-majority acceptance fails: retaine
 baseline2/10, refined original group1/10 and holdout0/5. Complete tutorial routes
 are unvalidated. The documented Hybrid Opening direction uses a future controlled
 Station for mandatory onboarding and natural candidates for optional discovery.
-No Station/spawn/selection/persistence is implemented; PR30 remains Draft pending
-final review of the Issue13 experimental-PoC acceptance amendment.
+No Station/spawn/selection/persistence is implemented. Issue13's experimental-PoC
+scope was accepted in final review, while original useful-majority remains FAIL.
 
 The first milestone is intentionally small:
 
