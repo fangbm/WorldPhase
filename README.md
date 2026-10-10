@@ -30,7 +30,7 @@ The long-term goal is to reconstruct the player's compatibility with the **Stabl
 
 ## Project status
 
-**Week 1 technical PoC / WPH-013 tutorial candidate search prototype.**
+**Week 1 technical PoC / WPH-013 bounded tutorial feasibility prototype.**
 
 The project contains the NeoForge bootstrap and a minimal Phase domain model
 with tested, bidirectional Level-key mappings and pure Java 2D Smooth, Ridged,
@@ -49,6 +49,12 @@ OP tutorial score/find diagnostics now compare Fracture/Smooth base columns with
 bounded, seed-aware search and explanatory scores. Actual tutorial behavior,
 location selection and persistence remain deferred. Candidate quality is an
 experiment, with its ten-seed results documented separately from correctness.
+Local correctness passes, but original useful-majority acceptance fails: retained
+baseline2/10, refined original group1/10 and holdout0/5. Complete tutorial routes
+are unvalidated. The documented Hybrid Opening direction uses a future controlled
+Station for mandatory onboarding and natural candidates for optional discovery.
+No Station/spawn/selection/persistence is implemented; PR30 remains Draft pending
+final review of the Issue13 experimental-PoC acceptance amendment.
 
 The first milestone is intentionally small:
 
@@ -81,6 +87,7 @@ If that loop is not fun, the project should not expand into content, bosses, mac
 - [Tutorial ten-seed results and observed terrain](docs/TUTORIAL_SEARCH_VALIDATION.md)
 - [Tutorial baseline failure attribution](docs/TUTORIAL_SEARCH_ATTRIBUTION.md)
 - [Tutorial v4 frozen plan and holdout results](docs/TUTORIAL_SEARCH_REFINEMENT_VALIDATION.md)
+- [Tutorial feasibility closeout, Hybrid Opening and selection semantics](docs/TUTORIAL_FEASIBILITY_DECISION.md)
 
 ## Target stack
 

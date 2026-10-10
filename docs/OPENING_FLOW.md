@@ -2,6 +2,10 @@
 
 This document defines the intended first ~2 hours of a first playthrough. It is a pacing target, not a hard scripted sequence.
 
+WPH-013 [negative feasibility closeout](TUTORIAL_FEASIBILITY_DECISION.md) revises
+the first lesson to Hybrid Opening. Station/spawn/lesson content below is planned,
+not implemented by the bounded search prototype.
+
 ## 0:00 — World generation
 
 The player creates a world through the normal Vanilla UI.
@@ -78,14 +82,19 @@ The Station provides enough early resources to avoid turning the first interacti
 
 ---
 
-## ~0:08 — First natural obstacle
+## ~0:08 — Controlled first terrain interaction
 
-During world initialization, a seed-aware search selects a nearby location where:
+The planned Station provides a controlled, safe and predictable local lesson where:
 
 - Fracture traversal is significantly harder;
 - Smooth traversal is significantly easier.
 
-This may naturally be:
+It requires safe entry, a Fracture obstacle, a traversable Smooth bypass and safe
+exit/return with normal bounded Shift positions. A found natural candidate is
+not automatically selected during world initialization and is not required to
+guarantee this first interaction.
+
+Nearby natural differences can supply subsequent optional lessons, for example:
 
 - a ravine;
 - a steep ridge;
@@ -93,7 +102,10 @@ This may naturally be:
 - dangerous terrain;
 - a large local height discontinuity.
 
-The exact terrain is seed-dependent.
+Those optional targets are seed-dependent and need separate route validation.
+If none qualifies, use the controlled opening rather than weakening safety or
+selecting an unverified candidate. Station layout and fallback realization remain
+future design/implementation work.
 
 ---
 

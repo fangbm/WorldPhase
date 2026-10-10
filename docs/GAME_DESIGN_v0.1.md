@@ -364,14 +364,24 @@ WorldPhase uses a hybrid model:
 
 1. a controlled opening structure near spawn;
 2. a guaranteed first Anchor interaction;
-3. programmatic search for natural terrain differences near spawn.
+3. programmatic discovery of natural terrain differences for optional lessons and later exploration.
+
+The [WPH-013 feasibility decision](TUTORIAL_FEASIBILITY_DECISION.md) adopts
+Hybrid Opening as the design direction: the controlled Station must guarantee
+a safe, predictable first terrain interaction independently of random seed.
+The natural candidate finder is a development/discovery tool, not the sole
+mandatory opening selector. No qualified natural candidate means the controlled
+opening is required; it does not justify choosing a low-quality candidate.
+This is a design requirement, not an implemented Station or spawn flow.
 
 Example target:
 
 - Fracture is difficult to traverse;
 - Smooth is easy to traverse.
 
-The player learns the mechanic from naturally generated terrain rather than an artificial corridor.
+The first lesson uses a controlled local interaction; natural terrain differences
+extend that understanding during exploration without having to supply a perfect
+first lesson for every seed.
 
 Tutorial control should decrease over time:
 

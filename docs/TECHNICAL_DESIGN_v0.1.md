@@ -411,6 +411,12 @@ No full pathfinding is required for v0.1.
 
 Candidate generation should be deterministic for the same seed.
 
+WPH-013's [feasibility closeout](TUTORIAL_FEASIBILITY_DECISION.md) retains the
+original useful-majority FAIL and proposes a bounded experimental PoC deliverable.
+The finder is a diagnostic/discovery tool; it neither selects a mandatory opening
+nor establishes a complete route. Hybrid Opening guarantees the future first
+lesson through a controlled Station, independently of natural candidate quality.
+
 ---
 
 ## 16. Saved data
@@ -426,6 +432,16 @@ selectedTutorialCandidate
 ```
 
 Do not duplicate player position or current dimension.
+
+The fields above are conceptual, not a sufficient validation/selection contract.
+`tutorialSearchComplete` must not imply `selectedTutorialCandidate`. Searched,
+interesting, local shift-feasible, route-validated and explicitly selected are
+distinct meanings; this prototype has no route-validated/selected output.
+Future #14 design must bind evidence to seed, search configuration, generation/
+scoring versions and actual preset identity, invalidate it when those change,
+and distinguish static geometry from transient safety rechecks. Missing natural
+choices require an explicit controlled-opening state, not a low-quality rank1.
+See the closeout contract; no SavedData schema/implementation is added here.
 
 ---
 

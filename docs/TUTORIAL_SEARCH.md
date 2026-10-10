@@ -1,10 +1,18 @@
-# Seed-aware tutorial search prototype (WPH-013)
+# Bounded tutorial feasibility prototype (WPH-013)
 
 OP development diagnostics for FRACTURE/SMOOTH. They search and explain base
 terrain candidates; they select/persist no tutorial location, change no spawn,
 teleport nobody and place no Anchor. Keep the [original frozen 2/10 Top1 record](TUTORIAL_SEARCH_VALIDATION.md)
 separate from [failure attribution](TUTORIAL_SEARCH_ATTRIBUTION.md), the [frozen v4 plan](TUTORIAL_SEARCH_REFINEMENT_PLAN.md)
 and its [actual results](TUTORIAL_SEARCH_REFINEMENT_VALIDATION.md).
+
+The [formal closeout and Hybrid Opening decision](TUTORIAL_FEASIBILITY_DECISION.md)
+records local correctness PASS, original useful-majority FAIL and unvalidated
+complete routes. This finder is a diagnostic/discovery system, not a mandatory
+opening selector. Searched does not mean selected; local shift-feasible does not
+mean route-validated or future-safe. See the decision's #14 semantic/invalidation
+boundary before designing any persistence. The Issue13 PoC amendment awaits
+final review; Issue13 stays open and PR30 stays Draft.
 
 ## API, seed and determinism
 

@@ -249,6 +249,12 @@ MVP compares Fracture and Smooth only.
 
 `/wp tutorial find` returns ranked natural terrain candidates near spawn.
 
+2026-10-10 closeout: original useful-majority acceptance in GitHub Issue13 is
+**FAIL**, not satisfied by baseline2/10 or refined1/10 (holdout0/5).
+The [bounded feasibility PoC amendment and Hybrid Opening decision](TUTORIAL_FEASIBILITY_DECISION.md)
+await final review. Ranked candidates are not automatic opening selections;
+Issue13 remains open and PR30 Draft.
+
 ---
 
 ## WPH-014 — Persist tutorial candidate
@@ -261,6 +267,11 @@ Persist the selected candidate with `WorldPhaseSavedData`.
 ### Acceptance
 
 Save/reload does not silently choose a new tutorial location.
+
+Not started. Before implementing this issue, use the closeout's explicit
+searched/selected, shift-feasible/route-validated and provenance/invalidation
+boundary. Search completion must not auto-select an unverified natural candidate;
+missing qualified candidates require a controlled-opening design state.
 
 ---
 
