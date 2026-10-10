@@ -42,6 +42,7 @@ public final class WorldPhaseCommand {
             compare.then(first);
         }
         dispatcher.register(root.then(phases.then(go)).then(sample).then(compare).then(safe)
+                .then(TutorialCommand.tree())
                 .then(Commands.literal("seedcheck").executes(c -> seedcheck(c.getSource()))));
     }
 

@@ -157,3 +157,9 @@ and configured raw signals. No new visual comparison is needed for this service.
 Next after review: **#9 / WPH-009 PhaseTransferService**. No transfer, commands,
 tutorial, Scanner, preview or structure/entity repair is implemented here. The
 WPH-007 villager suffocation risk remains outside this issue.
+
+WPH-013 now consumes this API for a bounded Fracture/Smooth tutorial candidate
+prototype. Its ordinary scoring retains the no-FULL-chunk contract; real terrain
+and supported-landing observations are separate explicit dev verification.
+See [Tutorial search](TUTORIAL_SEARCH.md) and [ten-seed results](TUTORIAL_SEARCH_VALIDATION.md).
+The original WPH-008 acceptance record above remains historical.

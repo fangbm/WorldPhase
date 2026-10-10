@@ -28,6 +28,9 @@ public final class PhaseVerification {
     public PhaseVerification() { NeoForge.EVENT_BUS.addListener(this::verify); }
 
     private void verify(ServerStartedEvent event) {
+        if ("tutorial".equals(System.getProperty("worldphase.verification"))) {
+            TutorialVerification.start(event.getServer()); return;
+        }
         if ("core-regression".equals(System.getProperty("worldphase.verification"))) {
             CoreRegressionVerification.verify(event.getServer()); return;
         }

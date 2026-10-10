@@ -18,6 +18,8 @@ bounded transfers, explicit surface mode, rejection and save/stop/reload.
 /wp compare all
 /wp safepos <phase>
 /wp seedcheck
+/wp tutorial score
+/wp tutorial find [candidateCount]
 ```
 
 Phase tokens are `fracture`, `smooth`, `ridge`, `cell`, derived from the domain's
@@ -27,7 +29,9 @@ FRACTURE -> SMOOTH -> RIDGE -> CELL -> FRACTURE.
 
 The whole tree requires OP level 2 / GAMEMASTERS permission. Authorized console or
 command-block sources may use list, current and seedcheck. All other commands call
-`getPlayerOrException()` and return Vanilla's typed player-required error for console.
+`getPlayerOrException()` and return Vanilla's typed player-required error for console,
+except the WPH-013 `tutorial find` diagnostic, which also accepts an authorized
+console source. `tutorial score` remains player-only.
 Current describes the command source Level; Vanilla dimensions are NON_PHASE.
 List reports each dimension key and whether its ServerLevel is loaded.
 
@@ -88,6 +92,28 @@ development entry use Vanilla, then request the safe surface policy:
 The Vanilla command is an OP development bootstrap and does not apply landing safety.
 In the isolated creative/flying test setup, remain flying until the wp surface
 command succeeds. Neither ordinary goto nor cycle silently expands its search.
+
+## WPH-013 tutorial diagnostics
+
+`tutorial score` evaluates the player's current block-column x/z; `tutorial find`
+searches around the actual Overworld shared spawn x/z, with radius512 and default
+64 candidates (explicit count8..256). Both require the existing OP permission.
+They report Fracture/Smooth heights, local slopes, height/slope contributions,
+spawn-distance and conservative hazard penalties, total and base usefulness.
+There is no teleport, location selection, spawn change or persistence.
+
+Score and find now run incrementally on server ticks, at most two new base height
+columns per tick and one active job per server. V4 coarse screening retains at
+most24 spatially separated centers and refines at most8 directional corridors.
+Default64 uses at most768 columns/384 ticks (~19.2s); maximum256 uses1152/576
+(~28.8s); score uses66/33 (~1.65s at20TPS). These are workload bounds, not CPU
+timing guarantees. Output distinguishes legacy score components, directional
+rank/risk/height-compatible hints and explicit shift UNVERIFIED. Neither requests FULL chunks or
+certifies a safe landing/path. See [Tutorial search](TUTORIAL_SEARCH.md) for
+actual26.1 spawn APIs, formulas, failure handling, workload and quality limitations,
+and [ten-seed observations](TUTORIAL_SEARCH_VALIDATION.md) for empirical results.
+The native-client record below concerns WPH-011; WPH-013 adds headless server
+command/worldgen acceptance, not a new connected-client screenshot claim.
 
 ## Minecraft 26.1 APIs
 

@@ -3,6 +3,15 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.148'
 }
 
+// WPH-013 predeclared seeds; see TUTORIAL_SEARCH_VALIDATION_PLAN.md.
+def tutorialSeeds = [0L, 1L, -1L, 42L, 8675309L, 20261009L, 123456789L,
+                     987654321L, -7046029254386353131L, Long.MAX_VALUE]
+def tutorialProtocol = providers.gradleProperty('tutorialProtocol').orElse('legacy').get()
+if (!(tutorialProtocol in ['legacy', 'attribution', 'refined'])) throw new GradleException('tutorialProtocol must be legacy, attribution or refined')
+if(tutorialProtocol=='refined') tutorialSeeds += [314159265L, 271828182L, 20260711L, -20260930L, Long.MIN_VALUE]
+def tutorialReportName = tutorialProtocol == 'refined' ? 'refined-report.json' : tutorialProtocol == 'attribution' ? 'attribution-report.json' : 'tutorial-report.json'
+def tutorialSummaryPath = tutorialProtocol == 'refined' ? 'tutorial-refined/summary.json' : tutorialProtocol == 'attribution' ? 'tutorial-attribution/summary.json' : 'tutorial-verification/summary.json'
+
 version = mod_version
 group = mod_group_id
 base.archivesName = mod_id
@@ -21,6 +30,16 @@ neoForge {
     version = project.neo_version
 
     runs {
+        tutorialSeeds.eachWithIndex { seed, index ->
+            create("phaseVerificationTutorialSeed${index}Server") {
+                server()
+                sourceSet = sourceSets.phaseVerification
+                gameDirectory = project.file("run/tutorial-verification-server/seed-${index}")
+                programArgument '--nogui'
+                systemProperty 'worldphase.verification', 'tutorial'
+                systemProperty 'worldphase.tutorial.protocol', tutorialProtocol
+            }
+        }
         client {
             client()
             gameDirectory = project.file('run/client')
@@ -257,6 +276,75 @@ def coreRegression = tasks.register('coreRegression') {
     group = 'verification'
     description = 'Run all unit core regressions and development report/profiler tests.'
     dependsOn tasks.named('test'), testNoiseProfiler
+}
+
+def prepareTutorialVerification = tasks.register('prepareTutorialVerification') {
+    doLast {
+        def root = project.file('run/tutorial-verification-server')
+        root.mkdirs()
+        def summary=layout.buildDirectory.file(tutorialSummaryPath).get().asFile
+        summary.parentFile.mkdirs()
+        summary.text=groovy.json.JsonOutput.toJson([status:'RUNNING', failure:'server.did_not_complete'])
+        def eula = new File(root, 'eula.txt')
+        if (providers.gradleProperty('tutorialAcceptEula').orElse('false').get().toBoolean()) eula.text = 'eula=true\n'
+        if (!eula.exists() || !(eula.text =~ /(?m)^\s*eula\s*=\s*true\s*$/).find()) {
+            throw new GradleException('Accept Minecraft EULA in run/tutorial-verification-server/eula.txt or use -PtutorialAcceptEula=true after reading https://aka.ms/MinecraftEULA')
+        }
+        tutorialSeeds.eachWithIndex { seed,index ->
+            def directory = new File(root,"seed-${index}"); directory.mkdirs()
+            new File(directory,tutorialReportName).text=groovy.json.JsonOutput.toJson([status:'PENDING', seed:seed])
+            new File(directory,'eula.txt').text=eula.text
+            new File(directory,'server.properties').text="""level-name=world-wph013-${UUID.randomUUID()}
+level-seed=${seed}
+pause-when-empty-seconds=0
+server-ip=127.0.0.1
+server-port=25575
+online-mode=false
+gamemode=creative
+spawn-protection=0
+view-distance=2
+simulation-distance=2
+max-tick-time=-1
+"""
+        }
+    }
+}
+def tutorialRuns=[]
+tutorialSeeds.eachWithIndex { seed,index ->
+    def run=tasks.named("runPhaseVerificationTutorialSeed${index}Server", JavaExec) {
+        dependsOn prepareTutorialVerification
+        if(index>0) dependsOn tasks.named("runPhaseVerificationTutorialSeed${index-1}Server")
+        def report=project.file("run/tutorial-verification-server/seed-${index}/${tutorialReportName}")
+        doFirst { report.text=groovy.json.JsonOutput.toJson([status:'RUNNING', seed:seed, failure:'server.did_not_complete']) }
+        doLast {
+            def data=new groovy.json.JsonSlurper().parse(report)
+            if(data.status!='PASS' || data.seed!=seed || data.repeatRanking!='PASS' || data.baseSearchFullChunkRequests!=0)
+                throw new GradleException("Tutorial seed=${seed} failed: ${data.failure}; report=${report}")
+        }
+    }
+    tutorialRuns.add(run)
+}
+tasks.register('tutorialVerification') {
+    group='verification'
+    description='Validate the fixed ten tutorial seeds, repeats, maximum workload and actual FULL observations.'
+    dependsOn tutorialRuns
+    doLast {
+        def reports=(0..<tutorialSeeds.size()).collect { new groovy.json.JsonSlurper().parse(project.file("run/tutorial-verification-server/seed-${it}/${tutorialReportName}")) }
+        int useful=reports.take(10).count { it.usefulTop1 }
+        def destination=layout.buildDirectory.file(tutorialSummaryPath).get().asFile
+        destination.parentFile.mkdirs()
+        def aggregate=[status:useful>=7?'PASS':'QUALITY_SHORTFALL', correctnessStatus:'PASS', usefulSeeds:useful, totalSeeds:10,
+                majorityMet:useful>=7, protocol:tutorialProtocol, reports:reports]
+        if(tutorialProtocol=='refined') {
+            aggregate.originalTop3Useful=reports.take(10).count { it.usefulTop3 }
+            aggregate.originalTop1Shift=reports.take(10).count { it.shiftTop1 }
+            aggregate.originalTop3Shift=reports.take(10).count { it.shiftTop3 }
+            aggregate.holdout=[count:5, top1Useful:reports.drop(10).count { it.usefulTop1 }, top3Useful:reports.drop(10).count { it.usefulTop3 },
+                    top1Shift:reports.drop(10).count { it.shiftTop1 }, top3Shift:reports.drop(10).count { it.shiftTop3 }]
+        }
+        destination.text=groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(aggregate))
+        logger.lifecycle("Tutorial correctness PASS; useful actual Top1=${useful}/10 (target7/10); report=${destination}")
+    }
 }
 
 def prepareCoreRegressionServer = tasks.register('prepareCoreRegressionServer') {
