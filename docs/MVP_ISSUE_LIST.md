@@ -252,8 +252,8 @@ MVP compares Fracture and Smooth only.
 2026-10-10 closeout: original useful-majority acceptance in GitHub Issue13 is
 **FAIL**, not satisfied by baseline2/10 or refined1/10 (holdout0/5).
 The [bounded feasibility PoC amendment and Hybrid Opening decision](TUTORIAL_FEASIBILITY_DECISION.md)
-await final review. Ranked candidates are not automatic opening selections;
-Issue13 remains open and PR30 Draft.
+were accepted as an experimental-PoC scope in final review. Original useful-majority
+remains FAIL; ranked candidates are not automatic opening selections.
 
 ---
 
