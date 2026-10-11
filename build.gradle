@@ -30,6 +30,16 @@ neoForge {
     version = project.neo_version
 
     runs {
+        ['Cold', 'Reload'].each { stage ->
+            create("phaseVerificationSavedData${stage}Server") {
+                server()
+                sourceSet = sourceSets.phaseVerification
+                gameDirectory = project.file('run/saved-data-verification-server')
+                programArgument '--nogui'
+                systemProperty 'worldphase.verification', 'saved-data'
+                systemProperty 'worldphase.savedData.stage', stage.toLowerCase(Locale.ROOT)
+            }
+        }
         tutorialSeeds.eachWithIndex { seed, index ->
             create("phaseVerificationTutorialSeed${index}Server") {
                 server()
@@ -276,6 +286,57 @@ def coreRegression = tasks.register('coreRegression') {
     group = 'verification'
     description = 'Run all unit core regressions and development report/profiler tests.'
     dependsOn tasks.named('test'), testNoiseProfiler
+}
+
+def prepareSavedDataVerification = tasks.register('prepareSavedDataVerification') {
+    doLast {
+        def directory = project.file('run/saved-data-verification-server'); directory.mkdirs()
+        def eula = new File(directory, 'eula.txt')
+        if (!eula.exists() || !(eula.text =~ /(?m)^\s*eula\s*=\s*true\s*$/).find())
+            throw new GradleException('Set eula=true in run/saved-data-verification-server/eula.txt after accepting https://aka.ms/MinecraftEULA')
+        // Fresh isolated save per invocation; never remove earlier worlds. Reload uses this same save.
+        new File(directory, 'server.properties').text = """level-name=world-wph014-${UUID.randomUUID()}
+level-seed=123456789
+server-ip=127.0.0.1
+server-port=25576
+online-mode=false
+pause-when-empty-seconds=0
+gamemode=creative
+spawn-protection=0
+view-distance=2
+simulation-distance=2
+max-tick-time=-1
+"""
+    }
+}
+def savedDataCold = tasks.named('runPhaseVerificationSavedDataColdServer', JavaExec) {
+    dependsOn prepareSavedDataVerification
+}
+def savedDataReload = tasks.named('runPhaseVerificationSavedDataReloadServer', JavaExec) {
+    dependsOn savedDataCold
+}
+['cold', 'reload'].each { stage ->
+    tasks.named("runPhaseVerificationSavedData${stage.capitalize()}Server", JavaExec).configure {
+        def reportFile = project.file("run/saved-data-verification-server/saved-data-${stage}.json")
+        doFirst { reportFile.text = groovy.json.JsonOutput.toJson([status:'RUNNING', failure:'server.did_not_complete']) }
+        doLast {
+            def report = new groovy.json.JsonSlurper().parse(reportFile)
+            if (report.status != 'PASS' || report.additionalLoadedFullChunks != 0 || report.naturalOpeningUsable != false)
+                throw new GradleException("SavedData ${stage} failed: ${report.failure}; report=${reportFile}")
+        }
+    }
+}
+tasks.register('savedDataVerification') {
+    group = 'verification'
+    description = 'Real dedicated-server cold save and second-JVM reload of global tutorial opening state.'
+    dependsOn savedDataReload
+    doLast {
+        def cold = new groovy.json.JsonSlurper().parse(project.file('run/saved-data-verification-server/saved-data-cold.json'))
+        def reload = new groovy.json.JsonSlurper().parse(project.file('run/saved-data-verification-server/saved-data-reload.json'))
+        if (cold.snapshot != reload.snapshot || reload.reload?.startsWith('PASS:') != true)
+            throw new GradleException('SavedData cold/reload snapshots differ or reload checkpoint was not verified')
+        logger.lifecycle('WPH014 SavedData PASS: same explicit choice, candidate evidence and provenance after second-JVM restart.')
+    }
 }
 
 def prepareTutorialVerification = tasks.register('prepareTutorialVerification') {

@@ -156,3 +156,8 @@ passing run,345 total recorded tests with zero failures/errors. Logs remain igno
 under build/wph-013-closeout-*.log. No seed experiment or real-server probe was
 rerun/refitted in this docs-only round. The scope amendment was accepted in final review; #14 and all gameplay
 implementation remain deferred.
+
+WPH-014 adds the [explicit global persistence data layer](TUTORIAL_SAVED_DATA.md).
+It records diagnostic evidence and controlled/undecided intent independently;
+no natural-selection issuer or route validation is introduced. The negative
+experiment above remains unchanged; Station/spawn implementation is still future work.
