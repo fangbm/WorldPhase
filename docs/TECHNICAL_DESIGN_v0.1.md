@@ -437,11 +437,14 @@ The fields above are conceptual, not a sufficient validation/selection contract.
 `tutorialSearchComplete` must not imply `selectedTutorialCandidate`. Searched,
 interesting, local shift-feasible, route-validated and explicitly selected are
 distinct meanings; this prototype has no route-validated/selected output.
-Future #14 design must bind evidence to seed, search configuration, generation/
-scoring versions and actual preset identity, invalidate it when those change,
-and distinguish static geometry from transient safety rechecks. Missing natural
-choices require an explicit controlled-opening state, not a low-quality rank1.
-See the closeout contract; no SavedData schema/implementation is added here.
+The [WPH-014 global data layer](TUTORIAL_SAVED_DATA.md) binds diagnostic evidence
+to seed, search configuration and generation/scoring/toolchain versions. It
+records preset identity as explicitly UNVERIFIED until a trustworthy resolved
+fingerprint exists; no stored evidence can authorize a natural opening yet.
+Version/context changes invalidate evidence without silently replacing the
+recorded choice. Static geometry still requires transient safety rechecks.
+Missing natural choices have an explicit controlled-opening state, not rank1.
+Natural selection and full-route validation remain independent future contracts.
 
 ---
 

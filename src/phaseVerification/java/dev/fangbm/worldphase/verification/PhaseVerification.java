@@ -28,6 +28,9 @@ public final class PhaseVerification {
     public PhaseVerification() { NeoForge.EVENT_BUS.addListener(this::verify); }
 
     private void verify(ServerStartedEvent event) {
+        if ("saved-data".equals(System.getProperty("worldphase.verification"))) {
+            SavedDataVerification.verify(event.getServer()); return;
+        }
         if ("tutorial".equals(System.getProperty("worldphase.verification"))) {
             TutorialVerification.start(event.getServer()); return;
         }
