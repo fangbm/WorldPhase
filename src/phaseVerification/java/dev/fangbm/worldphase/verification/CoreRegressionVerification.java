@@ -8,6 +8,7 @@ import dev.fangbm.worldphase.phase.*;
 import dev.fangbm.worldphase.transfer.*;
 import dev.fangbm.worldphase.worldgen.sample.TerrainSampleService;
 import java.nio.file.*;
+import java.lang.management.ManagementFactory;
 import java.util.*;
 import java.util.function.Consumer;
 import net.minecraft.SharedConstants;
@@ -43,6 +44,7 @@ final class CoreRegressionVerification {
     private final CoreInvariantLedger ledger=new CoreInvariantLedger();
     private final Map<PhaseId,ServerLevel> levels=new EnumMap<>(PhaseId.class);
     private final JsonObject report=new JsonObject();
+    private final JsonArray resources=new JsonArray();
     private ServerPlayer player;
     private Inventory inventory;
     private List<ItemStack> items;
@@ -96,6 +98,7 @@ final class CoreRegressionVerification {
             platforms(); checkPlayer(PhaseId.FRACTURE,POINT,true);
             failures("before");
             int beforeLoop=ledger.successfulTransfers();
+            resourceSample("before_loop");
             for(int cycle=1;cycle<=50;cycle++) {
                 for(int step=1;step<=4;step++) {
                     var phase=CYCLE.get(step%4);
@@ -107,7 +110,10 @@ final class CoreRegressionVerification {
                     observeMove(source,yaw,pitch); loopTransfers++;
                 }
                 ledger.cycleCompleted();
-                if(cycle%10==0) System.out.println("WPH012 "+stage+" cycle="+cycle+"/50 successful loop transfers="+loopTransfers);
+                if(cycle%10==0) {
+                    resourceSample("cycle_"+cycle);
+                    System.out.println("WPH012 "+stage+" cycle="+cycle+"/50 successful loop transfers="+loopTransfers);
+                }
             }
             ledger.require(loopTransfers==200 && ledger.successfulTransfers()-beforeLoop==200,"cycle.count","requires 50 complete four-Phase loops");
             failures("after");
@@ -136,6 +142,15 @@ final class CoreRegressionVerification {
             server.halt(false);
             throw new IllegalStateException("WPH012 "+report.get("failedInvariant")+" at "+ledger.scenario()+"; inspect "+output,failure);
         }
+    }
+
+    /** Observations, not timing assertions. The probe runs at startup: no steady-state TPS claim. */
+    private void resourceSample(String label) {
+        var row=new JsonObject();row.addProperty("label",label);row.addProperty("nanoTime",System.nanoTime());
+        row.addProperty("heapUsedBytes",ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getUsed());
+        row.addProperty("gcCount",ManagementFactory.getGarbageCollectorMXBeans().stream().mapToLong(b->Math.max(0,b.getCollectionCount())).sum());
+        row.addProperty("gcTimeMs",ManagementFactory.getGarbageCollectorMXBeans().stream().mapToLong(b->Math.max(0,b.getCollectionTime())).sum());
+        resources.add(row);report.add("resources",resources);
     }
 
     private JsonObject terrain() throws Exception {

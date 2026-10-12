@@ -20,7 +20,10 @@ public final class PhaseVisualVerification {
     private int ticks, stage, wait, settled;
     private boolean moving;
 
-    public PhaseVisualVerification() { NeoForge.EVENT_BUS.addListener(this::tick); }
+    public PhaseVisualVerification() {
+        if(Boolean.getBoolean("worldphase.mvp.client")) new MvpPlaytestClient();
+        else NeoForge.EVENT_BUS.addListener(this::tick);
+    }
 
     private void tick(ClientTickEvent.Post event) {
         Minecraft mc=Minecraft.getInstance();

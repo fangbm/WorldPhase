@@ -30,6 +30,25 @@ neoForge {
     version = project.neo_version
 
     runs {
+        (0..<3).each { index ->
+            create("phaseVerificationMvpSeed${index}Server") {
+                server(); sourceSet = sourceSets.phaseVerification
+                gameDirectory = project.file("run/mvp-playtest/seed-${index}-server")
+                programArgument '--nogui'; systemProperty 'worldphase.verification', providers.gradleProperty('mvpServerMode').orElse('mvp-world').get()
+            }
+            create("phaseVerificationMvpSeed${index}Client") {
+                client(); sourceSet = sourceSets.phaseVerification
+                gameDirectory = project.file("run/mvp-playtest/seed-${index}-client")
+                systemProperty 'worldphase.mvp.client', 'true'
+                systemProperty 'worldphase.mvp.seedIndex', index.toString()
+                systemProperty 'worldphase.mvp.reload', providers.gradleProperty('mvpReload').orElse('false').get()
+                systemProperty 'worldphase.mvp.resumeViews', providers.gradleProperty('mvpResumeViews').orElse('false').get()
+                systemProperty 'worldphase.mvp.routesOnly', providers.gradleProperty('mvpRoutesOnly').orElse('false').get()
+                systemProperty 'worldphase.mvp.routeFrom', providers.gradleProperty('mvpRouteFrom').orElse('0').get()
+                systemProperty 'worldphase.mvp.routeTo', providers.gradleProperty('mvpRouteTo').orElse('36').get()
+                programArguments.addAll('--quickPlaySingleplayer', providers.gradleProperty('mvpRoutesOnly').orElse('false').get().toBoolean()?'wph015-routes':'wph015', '--username', 'WPH015Review', '--width', '1280', '--height', '720')
+            }
+        }
         ['Cold', 'Reload'].each { stage ->
             create("phaseVerificationSavedData${stage}Server") {
                 server()
@@ -497,6 +516,97 @@ tasks.register('coreRegressionAll') {
     group = 'verification'
     description = 'Complete headless acceptance: all unit suites plus real cold and reloaded core server regressions.'
     dependsOn coreRegression, coreRegressionServer
+}
+
+// WPH-015: fixed native playtest worlds. Outputs stay under ignored run/.
+def mvpSeeds = [123456789L, 8675309L, 20261011L]
+def prepareMvp = tasks.register('prepareMvpPlaytest') {
+    doLast {
+        def accepted = project.file('run/core-regression-server/eula.txt')
+        if (!accepted.exists() || !(accepted.text =~ /(?m)^\s*eula\s*=\s*true\s*$/).find())
+            throw new GradleException('Use the existing accepted core-regression EULA before preparing playtest worlds.')
+        mvpSeeds.eachWithIndex { seed, index ->
+            def directory = project.file("run/mvp-playtest/seed-${index}-server")
+            directory.mkdirs()
+            new File(directory,'eula.txt').text = accepted.text
+            new File(directory,'server.properties').text = """level-name=world-wph015
+level-seed=${seed}
+server-ip=127.0.0.1
+server-port=25577
+online-mode=false
+gamemode=survival
+spawn-protection=0
+view-distance=8
+simulation-distance=5
+pause-when-empty-seconds=0
+max-tick-time=-1
+"""
+        }
+    }
+}
+def mvpRuns=[]
+mvpSeeds.eachWithIndex { seed,index ->
+    def server = tasks.named("runPhaseVerificationMvpSeed${index}Server", JavaExec) {
+        dependsOn prepareMvp
+        if(index>0) dependsOn tasks.named("runPhaseVerificationMvpSeed${index-1}Server")
+        doFirst {
+            if(providers.gradleProperty('mvpServerMode').orElse('mvp-world').get()=='mvp-world')
+                project.file("run/mvp-playtest/seed-${index}-server/mvp-world.json").text = '{"status":"RUNNING"}'
+            else project.file("run/mvp-playtest/seed-${index}-server/mvp-villages.json").text = '{"status":"RUNNING"}'
+        }
+        doLast {
+            def directory=project.file("run/mvp-playtest/seed-${index}-server")
+            if(providers.gradleProperty('mvpServerMode').orElse('mvp-world').get()=='mvp-villages') {
+                def report=new groovy.json.JsonSlurper().parse(new File(directory,'mvp-villages.json'))
+                if(report.status!='OBSERVATION_COMPLETED_NOT_STRUCTURE_SAFETY_CERTIFICATION' || report.seed!=seed || report.ticks!=600)
+                    throw new GradleException("MVP village observations incomplete: ${report.failure}")
+                return
+            }
+            def report=new groovy.json.JsonSlurper().parse(new File(directory,'mvp-world.json'))
+            if(report.status!='PASS' || report.seed!=seed || report.samples.size()!=40)
+                throw new GradleException("MVP world measurement failed: seed=${seed}; ${report.failure}")
+        }
+    }
+    mvpRuns.add(server)
+    tasks.register("prepareMvpSeed${index}Client") {
+        doLast {
+            def source=project.file("run/mvp-playtest/seed-${index}-server/world-wph015")
+            def name=providers.gradleProperty('mvpRoutesOnly').orElse('false').get().toBoolean()?'wph015-routes':'wph015'
+            def target=project.file("run/mvp-playtest/seed-${index}-client/saves/${name}")
+            if(!new File(source,'mvp-world.json').exists()) throw new GradleException('Run mvpPlaytestWorlds first.')
+            if(!target.exists()) project.copy { from source; into target }
+            def options=project.file("run/mvp-playtest/seed-${index}-client/options.txt")
+            def initial=project.file('run/mvp-playtest/seed-0-client/options.txt')
+            if(index>0 && !options.exists() && initial.exists()) options.text=initial.text
+            // Keep an existing client world and all evidence on reruns; never silently reset it.
+        }
+    }
+    long nativeStarted=0
+    tasks.named("runPhaseVerificationMvpSeed${index}Client", JavaExec) {
+        dependsOn tasks.named("prepareMvpSeed${index}Client")
+        doFirst {
+            nativeStarted=System.currentTimeMillis()
+            def directory=project.file("run/mvp-playtest/seed-${index}-client")
+            def history=new File(directory,'history');history.mkdirs()
+            ['client','routes','reload'].each { kind ->
+                def previous=new File(directory,"mvp-${kind}.json")
+                if(previous.exists()) new File(history,"mvp-${kind}-${nativeStarted}.json").bytes=previous.bytes
+            }
+        }
+        doLast {
+            boolean reload=providers.gradleProperty('mvpReload').orElse('false').get().toBoolean()
+            boolean routesOnly=providers.gradleProperty('mvpRoutesOnly').orElse('false').get().toBoolean()
+            def file=project.file("run/mvp-playtest/seed-${index}-client/mvp-${reload?'reload':routesOnly?'routes':'client'}.json")
+            def report=file.exists()?new groovy.json.JsonSlurper().parse(file):[:]
+            if(!file.exists() || file.lastModified()<nativeStarted || report.status!=(reload?'RELOAD_PASS':'COMPLETED_NOT_A_GAMEPLAY_GATE_PASS'))
+                throw new GradleException("MVP native workload incomplete: ${report.failure}; ${file}")
+        }
+    }
+}
+tasks.register('mvpPlaytestWorlds') {
+    group='verification'
+    description='Measure the three frozen seeds and FULL columns for the native playtest; not gameplay acceptance.'
+    dependsOn mvpRuns
 }
 
 tasks.named('runPhaseVerificationClient', JavaExec).configure {

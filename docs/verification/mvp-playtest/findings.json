@@ -1,0 +1,251 @@
+{
+  "status": "INCOMPLETE",
+  "seeds": [
+    {
+      "seed": 123456789,
+      "status": "COMPLETED_NOT_A_GAMEPLAY_GATE_PASS",
+      "photos": 42,
+      "routeTrials": 36,
+      "classes": {
+        "OBSERVED_TERRAIN_DIFFERENCE": 24,
+        "SHIFT_POSITION_FEASIBLE": 12,
+        "ROUTE_COMPLETED": 0
+      },
+      "reasons": {
+        "ALTERNATE_WALK_INCOMPLETE": 11,
+        "NO_SAFE_BOOTSTRAP": 8,
+        "ENTRY_SHIFT_REFUSED": 16,
+        "SOURCE_NOT_SUBSTANTIALLY_BLOCKED": 1
+      },
+      "survival": [
+        {
+          "phase": "FRACTURE",
+          "activeSeconds": 900.0614849,
+          "clientTicks": 18000,
+          "blocksBroken": 152,
+          "blocksPlaced": 142,
+          "health": 20.0,
+          "position": "(121.40030067116776, 62.0, 139.30000001192093)",
+          "status": "TIMED_NATIVE_SURVIVAL_COMPLETED"
+        },
+        {
+          "phase": "SMOOTH",
+          "activeSeconds": 900.054736,
+          "clientTicks": 18001,
+          "blocksBroken": 47,
+          "blocksPlaced": 42,
+          "health": 19.0,
+          "position": "(118.31960001186431, 62.03499999910593, 146.30000001192093)",
+          "status": "TIMED_NATIVE_SURVIVAL_COMPLETED"
+        }
+      ],
+      "failure": null,
+      "fps": {
+        "min": 9,
+        "median": 29,
+        "max": 119
+      },
+      "heapUsedBytes": {
+        "min": 699655984,
+        "median": 1627500232,
+        "max": 3066036224
+      },
+      "integratedAverageTickMs": {
+        "min": 1.373636,
+        "median": 2.851917,
+        "max": 46.173639
+      },
+      "gcTimeMsDelta": 20765,
+      "metricJvms": 2
+    },
+    {
+      "seed": 8675309,
+      "status": "FAIL",
+      "photos": 42,
+      "routeTrials": 35,
+      "classes": {
+        "OBSERVED_TERRAIN_DIFFERENCE": 31,
+        "SHIFT_POSITION_FEASIBLE": 4,
+        "ROUTE_COMPLETED": 0
+      },
+      "reasons": {
+        "NO_SAFE_BOOTSTRAP": 12,
+        "ENTRY_SHIFT_REFUSED": 19,
+        "ALTERNATE_WALK_INCOMPLETE": 2,
+        "RETURN_SHIFT_REFUSED": 2
+      },
+      "survival": [],
+      "failure": "java.lang.IllegalStateException: Native player died in ROUTES; Survival activeSeconds=0.0",
+      "fps": {
+        "min": 9,
+        "median": 28,
+        "max": 113
+      },
+      "heapUsedBytes": {
+        "min": 582479408,
+        "median": 1800445688,
+        "max": 2748187800
+      },
+      "integratedAverageTickMs": {
+        "min": 1.894341,
+        "median": 4.806185,
+        "max": 46.085427
+      },
+      "gcTimeMsDelta": 19598,
+      "metricJvms": 1,
+      "settledReturnReplay": {
+        "status": "COMPLETED_NOT_A_GAMEPLAY_GATE_PASS",
+        "from": 24,
+        "to": 28,
+        "routes": [
+          {
+            "index": 24,
+            "classification": "SHIFT_POSITION_FEASIBLE",
+            "reason": "ALTERNATE_WALK_INCOMPLETE"
+          },
+          {
+            "index": 25,
+            "classification": "SHIFT_POSITION_FEASIBLE",
+            "reason": "RETURN_SHIFT_REFUSED"
+          },
+          {
+            "index": 26,
+            "classification": "SHIFT_POSITION_FEASIBLE",
+            "reason": "SOURCE_NOT_SUBSTANTIALLY_BLOCKED"
+          },
+          {
+            "index": 27,
+            "classification": "SHIFT_POSITION_FEASIBLE",
+            "reason": "ALTERNATE_WALK_INCOMPLETE"
+          }
+        ]
+      }
+    },
+    {
+      "seed": 20261011,
+      "status": "COMPLETED_NOT_A_GAMEPLAY_GATE_PASS",
+      "photos": 42,
+      "routeTrials": 36,
+      "classes": {
+        "OBSERVED_TERRAIN_DIFFERENCE": 36,
+        "SHIFT_POSITION_FEASIBLE": 0,
+        "ROUTE_COMPLETED": 0
+      },
+      "reasons": {
+        "NO_SAFE_BOOTSTRAP": 24,
+        "ENTRY_SHIFT_REFUSED": 12
+      },
+      "survival": [],
+      "failure": null,
+      "fps": {
+        "min": 29,
+        "median": 30,
+        "max": 118
+      },
+      "heapUsedBytes": {
+        "min": 484432256,
+        "median": 1539309568,
+        "max": 2583691264
+      },
+      "integratedAverageTickMs": {
+        "min": 1.801874,
+        "median": 3.614747,
+        "max": 43.013006
+      },
+      "gcTimeMsDelta": 17464,
+      "metricJvms": 1
+    }
+  ],
+  "limits": [
+    "Native key-mapping automation is not unrestricted human play.",
+    "A completed short straight bypass is not a full tutorial route.",
+    "Screenshots and structure/entity safety require human review."
+  ],
+  "nativeReload": {
+    "status": "RELOAD_PASS",
+    "snapshotMatches": true
+  },
+  "core": {
+    "status": "PASS",
+    "minecraft": "26.1",
+    "neoforge": "26.1.0.19-beta",
+    "java": "25.0.3+9-LTS",
+    "seed": 123456789,
+    "completeCycles": 100,
+    "loopTransfers": 400,
+    "successfulTransfers": 456,
+    "inventoryIdentityAndContentChecks": 495,
+    "maxXzDeviation": 0.0,
+    "maxYawPitchDeviation": 0.0,
+    "maxYCorrection": 1.0,
+    "duplicatePlayerEntities": 0,
+    "droppedTestItemEntities": 0,
+    "saveReloadCheck": "PASS: terrain, marker and Vanilla player data restored before fixture initialization"
+  },
+  "recommendation": "RETUNE",
+  "acceptance": "INCOMPLETE_KEEP_DRAFT",
+  "baseMain": "5d359a9d60b75f5552c2fdbac36cc0a8ddee4b4a",
+  "uncovered": [
+    "Cave and long-distance native Survival exploration",
+    "Per-column walking/hazard survey",
+    "Multiple independently useful routes",
+    "Native GLFW root cause"
+  ],
+  "villageObservations": [
+    {
+      "seed": 123456789,
+      "ticks": 600,
+      "observedVillagers": 19,
+      "inWallObserved": [],
+      "healthDecreased": [],
+      "status": "OBSERVATION_COMPLETED_NOT_STRUCTURE_SAFETY_CERTIFICATION",
+      "msptMinMedianMax": [
+        3.229486,
+        5.292778,
+        39.56048
+      ],
+      "inWallSnapshots": []
+    },
+    {
+      "seed": 8675309,
+      "ticks": 600,
+      "observedVillagers": 16,
+      "inWallObserved": [],
+      "healthDecreased": [],
+      "status": "OBSERVATION_COMPLETED_NOT_STRUCTURE_SAFETY_CERTIFICATION",
+      "msptMinMedianMax": [
+        2.082117,
+        3.4978635000000002,
+        30.005815
+      ],
+      "inWallSnapshots": []
+    },
+    {
+      "seed": 20261011,
+      "ticks": 600,
+      "observedVillagers": 30,
+      "inWallObserved": [
+        "FRACTURE:753a7eb5-8e65-4579-bcd9-ab7ca8d6797c"
+      ],
+      "healthDecreased": [
+        "FRACTURE:753a7eb5-8e65-4579-bcd9-ab7ca8d6797c"
+      ],
+      "status": "OBSERVATION_COMPLETED_NOT_STRUCTURE_SAFETY_CERTIFICATION",
+      "msptMinMedianMax": [
+        2.80428,
+        4.4367185,
+        30.49159
+      ],
+      "inWallSnapshots": [
+        {
+          "tick": 20,
+          "phase": "FRACTURE",
+          "uuid": "753a7eb5-8e65-4579-bcd9-ab7ca8d6797c",
+          "position": "(-1415.6163975727975, 64.0, 343.5806821123198)",
+          "health": 18.0,
+          "isInWall": true
+        }
+      ]
+    }
+  ]
+}
