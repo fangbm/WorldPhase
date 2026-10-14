@@ -30,7 +30,7 @@ The long-term goal is to reconstruct the player's compatibility with the **Stabl
 
 ## Project status
 
-**Week 1 technical PoC / WPH-015 playtest: RETUNE, incomplete gameplay acceptance.**
+**Week 1 technical PoC / WPH-015: negative playtest evidence accepted (RETUNE); Phase 2 NOT APPROVED.**
 
 The project contains the NeoForge bootstrap and a minimal Phase domain model
 with tested, bidirectional Level-key mappings and pure Java 2D Smooth, Ridged,
