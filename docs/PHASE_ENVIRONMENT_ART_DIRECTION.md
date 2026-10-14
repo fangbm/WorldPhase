@@ -3,6 +3,17 @@
 状态：**设计与API审计，未添加渲染器或修改生产维度**。关联[Issue #34](https://github.com/fangbm/WorldPhase/issues/34)。
 配套[空间重设计](SPATIAL_RETUNE_PLAN.md)。环境通过、地形通过、路线通过分别判断。
 
+## 0. 评审与实施准入边界
+
+本环境方案可与[地形数学契约](SPATIAL_RETUNE_PLAN.md)
+并行评审，不要求先完成全部地形实验才能讨论天空。后续**只有单独获批的隔离实验**可验证最小天空效果；
+它必须独立PR/配置/新测试环境，不替换中性天空的terrain对照，不构成正式renderer实施或发布授权。
+正式客户端天空渲染/环境系统发布仍须独立review和准入，不能从里程碑顺序推导已获批准。
+
+本PR只修订文档，不注册Environment Attributes、不改维度数据、不添加renderer。
+环境视觉目标通过不能证明地形辨识度，更不能证明SHIFT_POSITION_FEASIBLE或ROUTE_COMPLETED。
+Phase 2继续**NOT_APPROVED**；地形/环境/实际路线三套验收保持独立。
+
 ## 1. 目标与共享可读性
 
 四个世界应在天空轮廓、云层结构、运动方式、远景层次与声音节奏上具有身份，不能只给画面染色。
@@ -124,8 +135,8 @@ SkyRenderState/WeatherRenderState等属于当前extract/render分离体系，不
 | 标志粒子 | 复用ParticleOptions与ambient属性 | 真正新几何才注册provider；默认低密度，可关闭 |
 | 雨雪 | 原生优先 | 仅风向形态确有需求才CustomWeatherEffectRenderer，不改weather模拟 |
 
-本轮不增加任何上述renderer/provider/resources。Phase1地形原型必须在native中性天空下先验收，
-防止把环境风格当作地形辨识度。
+本轮不增加任何上述renderer/provider/resources。地形原型必须在native中性天空下独立验收，
+不受并行环境实验影响，防止把环境风格当作地形辨识度。
 
 ### 服务端隔离
 
