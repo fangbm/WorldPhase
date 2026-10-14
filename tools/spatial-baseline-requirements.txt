@@ -1,0 +1,3 @@
+# Optional plot/report tooling only; never a mod/runtime or Gradle build dependency.
+numpy==2.3.5
+matplotlib==3.10.7

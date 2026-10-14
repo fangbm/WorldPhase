@@ -1,0 +1,421 @@
+{
+  "meaning": "Integrity of curated evidence bytes; NOT a transitive worldgen preset fingerprint or gameplay safety proof",
+  "files": {
+    "NATIVE_OBSERVATIONS.md": {
+      "bytes": 7886,
+      "sha256": "1928cc6164f8cfe2c6b8879d2aed37803a6d5053d0694886354ff999d3a848a5"
+    },
+    "PROTOCOL.md": {
+      "bytes": 4501,
+      "sha256": "effc83da5c51385a12e3c642b8822f631d5907327b00be7be2a3e18acd23181d"
+    },
+    "RESULTS.md": {
+      "bytes": 9947,
+      "sha256": "80061e8ccc8df1d75b1095444867371a72e23faf393d259cf0e7b512c6d737b5"
+    },
+    "VALIDATION.md": {
+      "bytes": 3572,
+      "sha256": "330403d95ccdb3ec41e67b063206d5649def37467bbe61d0c99b85c74300ca6b"
+    },
+    "api-audit.json": {
+      "bytes": 1208,
+      "sha256": "21356e2ee9d597daf019e120514a58548573a6fc0eae870e4f985ca28e5569e9"
+    },
+    "excluded-attempts.json": {
+      "bytes": 871,
+      "sha256": "b1b61cb28667f42f427e6ac961c19ae01294391a627d1dfb7c6e507cb4079e2b"
+    },
+    "measurements/123456789/attribution.csv.gz": {
+      "bytes": 13057,
+      "sha256": "c7f5c3103f8a2ea139898d8affe0c4df0d2cb50e15167cdcd90e21d7fd4f439f"
+    },
+    "measurements/123456789/columns.csv.gz": {
+      "bytes": 29293,
+      "sha256": "8ecbe80ccfedb9edfcba3709f788ccb4b30df78dfc3e624dcb72eba6ac719922"
+    },
+    "measurements/123456789/density.csv.gz": {
+      "bytes": 1836062,
+      "sha256": "2b83083e32c3f96f9a46238251e1346744b14fc74d5fe7820b556ef6bde315ea"
+    },
+    "measurements/123456789/heights.csv.gz": {
+      "bytes": 63544,
+      "sha256": "716cbe014c9dfd3d4327af04303140f04ec46c4e6cfd79a34916cf2ea01e9721"
+    },
+    "measurements/123456789/probes.csv.gz": {
+      "bytes": 4185,
+      "sha256": "64067ca6e1f0144fb5044eace3d261939bbed84777db90150c6884f12c0ac154"
+    },
+    "measurements/123456789/selected-options.json": {
+      "bytes": 464,
+      "sha256": "eaa6d0a978f50e243615f6566e0f1531423c41515b6b9dc05e0cf7f007734964"
+    },
+    "measurements/123456789/spatial-baseline.json": {
+      "bytes": 967,
+      "sha256": "2aa3d2a0404be39b1260b03aae1588f4716d3760fd20d75dee4b0b1b9f270a87"
+    },
+    "measurements/123456789/spatial-client.json": {
+      "bytes": 7753,
+      "sha256": "95acffd44a70ffb51d5aa7a8b421446d58862c7ee700f1794d5ec7715cac5443"
+    },
+    "measurements/20261011/attribution.csv.gz": {
+      "bytes": 12459,
+      "sha256": "8c8b98d24f43e427975d84bd6e388c04c99bf6926c4ee2b1bf9f8910aa894479"
+    },
+    "measurements/20261011/columns.csv.gz": {
+      "bytes": 30092,
+      "sha256": "ac34aac780ed18d67ede70bd0425c9d86566061995ee748a74abc581336a6b78"
+    },
+    "measurements/20261011/density.csv.gz": {
+      "bytes": 1750016,
+      "sha256": "c556d52e62f4dd0a3110d5a5769dcc8f7eef3058443a1d25a7247abba4c27d67"
+    },
+    "measurements/20261011/heights.csv.gz": {
+      "bytes": 62767,
+      "sha256": "c2f62f51243def3b6cbd1c75e5288313e2f08eb8aca88edc5d53fa0fe46c39bd"
+    },
+    "measurements/20261011/probes.csv.gz": {
+      "bytes": 5289,
+      "sha256": "6697c8a55d9fef50f724664ce46e13abd48944f6bd5ebe7fb44cc4a7d7c9a759"
+    },
+    "measurements/20261011/selected-options.json": {
+      "bytes": 464,
+      "sha256": "eaa6d0a978f50e243615f6566e0f1531423c41515b6b9dc05e0cf7f007734964"
+    },
+    "measurements/20261011/spatial-baseline.json": {
+      "bytes": 962,
+      "sha256": "f052ebf685a48ac9065cffd4b9650e71041ce03908a75a6e4e82d939894c8022"
+    },
+    "measurements/20261011/spatial-client.json": {
+      "bytes": 7740,
+      "sha256": "c529f55f1829acaa29bd96c3c3486976956a685e786fe377ddba67d4ec49fa8a"
+    },
+    "measurements/8675309/attribution.csv.gz": {
+      "bytes": 12919,
+      "sha256": "26bfd5e451a1272e9dd64c4f0eee871ad0b3a597ef73b547531d56fa20b5c530"
+    },
+    "measurements/8675309/columns.csv.gz": {
+      "bytes": 29904,
+      "sha256": "1224c4c84f8461b035bd1488abd90e3da6fb3a3d9e88c724688f7c7f92e0679f"
+    },
+    "measurements/8675309/density.csv.gz": {
+      "bytes": 1802081,
+      "sha256": "6664a4a24039aa3a456e663b41d2d2594a8bfa91fbed97afb9107ee7a728babd"
+    },
+    "measurements/8675309/heights.csv.gz": {
+      "bytes": 63421,
+      "sha256": "4340cda47d207eb1d4866079458ca058d51a0f1a50ffc14eb25cd5091a938757"
+    },
+    "measurements/8675309/probes.csv.gz": {
+      "bytes": 4548,
+      "sha256": "37bde21b0d48c0c0502458f0db2a729e5c5e205706bb18e9cf99795b3a72b045"
+    },
+    "measurements/8675309/selected-options.json": {
+      "bytes": 464,
+      "sha256": "eaa6d0a978f50e243615f6566e0f1531423c41515b6b9dc05e0cf7f007734964"
+    },
+    "measurements/8675309/spatial-baseline.json": {
+      "bytes": 953,
+      "sha256": "dd844583f41e7f2973ffd2512e35d93aaa9b4d4bcc12b4372945345261455809"
+    },
+    "measurements/8675309/spatial-client.json": {
+      "bytes": 7731,
+      "sha256": "b4aa4982026b38c3e74a429600e549fe581044d2dd1adf4831896536a4c5a61a"
+    },
+    "native/wph016-123456789-forest-cell.png": {
+      "bytes": 1942883,
+      "sha256": "62e3c47b7db3530b83a700d0a6b26cbbbeac26270fb077cb1c242d8e52954d8d"
+    },
+    "native/wph016-123456789-forest-fracture.png": {
+      "bytes": 1711701,
+      "sha256": "9718789bf673f5724456ed1bce9e34635ffed7a5d049328b11862380cf76bcd1"
+    },
+    "native/wph016-123456789-forest-overworld.png": {
+      "bytes": 1848478,
+      "sha256": "d0887969b3eaf5ce53f6b6fa80208fa86ba7d1158d403fb8e8bfe2b473cc6a67"
+    },
+    "native/wph016-123456789-forest-ridge.png": {
+      "bytes": 1901864,
+      "sha256": "09ed22410add167508674fd3d1e5835dd3eb784c5ff8e25dace5cde3644b9ba8"
+    },
+    "native/wph016-123456789-forest-smooth.png": {
+      "bytes": 1663069,
+      "sha256": "e5da0d2263b8ca26fe2feb8cde70a2e8eff66886030f6b430318e8c3f09a9694"
+    },
+    "native/wph016-123456789-highland-cell.png": {
+      "bytes": 2012628,
+      "sha256": "8654bd456b0a7ab2131047e96677f63a247fb6325d962ad730b7159fde07efc0"
+    },
+    "native/wph016-123456789-highland-fracture.png": {
+      "bytes": 1576702,
+      "sha256": "07200bee2856e9049aeb095f03cdcc3fb2b11c69a01e1e1739e03f3b1d7980d6"
+    },
+    "native/wph016-123456789-highland-overworld.png": {
+      "bytes": 1839829,
+      "sha256": "fbee77ca367d577d1d3f2fbc711fee7523664707c5be23c8bd91d6dbc8225f45"
+    },
+    "native/wph016-123456789-highland-ridge.png": {
+      "bytes": 1960496,
+      "sha256": "e97bc5accf2a043c53a1d2c67eee26b1f517264d8b7f70d428e807303d2a9348"
+    },
+    "native/wph016-123456789-highland-smooth.png": {
+      "bytes": 1652972,
+      "sha256": "71c78cc31b802bb81ebadcc9c5b57bb3620d659beb540cc7b4b1bf34bcbfaa24"
+    },
+    "native/wph016-20261011-forest-cell.png": {
+      "bytes": 1543980,
+      "sha256": "1c9204f9a6def77b593e1146dd4b9e84cf69b4d05e296a9e50b3062d7a6415c5"
+    },
+    "native/wph016-20261011-forest-fracture.png": {
+      "bytes": 1290035,
+      "sha256": "9e858ecb5febe7fcea4eeea47fee06c193964943c9dcdd6a59b330402fe5288e"
+    },
+    "native/wph016-20261011-forest-overworld.png": {
+      "bytes": 1463028,
+      "sha256": "0cd63f84d46dadabf9452505ae4dcd48ac47068dca568adb75f0d9d85e9b090d"
+    },
+    "native/wph016-20261011-forest-ridge.png": {
+      "bytes": 1641827,
+      "sha256": "43c9fdcafeb0c1144e840a301cbfe550092f23ba3ee35826662a8ca74853b02b"
+    },
+    "native/wph016-20261011-forest-smooth.png": {
+      "bytes": 1490963,
+      "sha256": "e73fd80c4bf926c01e1e572eb58d835f368e7db08931364eea7ed507ba8eac4f"
+    },
+    "native/wph016-20261011-highland-cell.png": {
+      "bytes": 1598717,
+      "sha256": "e93208191ae5f8bee12474e4c2152c5c2afa4c3313923fd56c94f8750dc54339"
+    },
+    "native/wph016-20261011-highland-fracture.png": {
+      "bytes": 1552746,
+      "sha256": "b6d538b15ca643a344dc5b50ad896133581826e0197360465e2e99ebf5c83752"
+    },
+    "native/wph016-20261011-highland-overworld.png": {
+      "bytes": 1587530,
+      "sha256": "633ea5d3cfed9364ad99593831e7d73001c421595b7fada9a186c7b0e2910a96"
+    },
+    "native/wph016-20261011-highland-ridge.png": {
+      "bytes": 1757868,
+      "sha256": "1874078be64c9173ab2bf022b9d502f109017457c34543922ae26b8cc3428f3b"
+    },
+    "native/wph016-20261011-highland-smooth.png": {
+      "bytes": 1624338,
+      "sha256": "9701624f0b65d40a1bacf456026c98d5b871975db9cb2af183e9415b88f81a6b"
+    },
+    "native/wph016-8675309-forest-cell.png": {
+      "bytes": 1843449,
+      "sha256": "81c8aff7fa612838abef0238722f4c49ab65c3199a0f9dfdda19cff0d788a773"
+    },
+    "native/wph016-8675309-forest-fracture.png": {
+      "bytes": 1574548,
+      "sha256": "fcfa2d3f3bc9b535ee60fde2f3befead2684a957684950f20e6c117101365654"
+    },
+    "native/wph016-8675309-forest-overworld.png": {
+      "bytes": 2114243,
+      "sha256": "480ef00828a203b5b59e61e450350565692ae8e07baa179e794b21f634c1f2f3"
+    },
+    "native/wph016-8675309-forest-ridge.png": {
+      "bytes": 1902645,
+      "sha256": "1a9f141e669b2082f6df1be17281f3d1235d97e78ae55f47c8baa762c7107a25"
+    },
+    "native/wph016-8675309-forest-smooth.png": {
+      "bytes": 1791499,
+      "sha256": "173f01ef6063d5337a088cc38774396ab5af01bc23a6b6c75577f50fa38d856d"
+    },
+    "native/wph016-8675309-highland-cell.png": {
+      "bytes": 1728538,
+      "sha256": "c89f87400c17bc215b48377051bf1477912c8fc5af4bc107495b694160eb2fc1"
+    },
+    "native/wph016-8675309-highland-fracture.png": {
+      "bytes": 1480258,
+      "sha256": "8cf661212f1f7c83ecc05930d50ead57d57b117d023462f8d1f7607b180388c6"
+    },
+    "native/wph016-8675309-highland-overworld.png": {
+      "bytes": 1216487,
+      "sha256": "c62622cf4b61d55441b8716b2d9b2e023aa2677f81776f57a62e3df8e1a40379"
+    },
+    "native/wph016-8675309-highland-ridge.png": {
+      "bytes": 1699354,
+      "sha256": "e61110f8ff70532f2ad9ccf1ead9b119742c9893c96c6ac32707068b4f178a7a"
+    },
+    "native/wph016-8675309-highland-smooth.png": {
+      "bytes": 1411595,
+      "sha256": "f3a5001445816f77ebda55a917515cfeac55d1f2780cd7f5d5303ef55219b8d4"
+    },
+    "plots/123456789-forest-coarse-maps.png": {
+      "bytes": 132046,
+      "sha256": "d70dfe0b21b37aabe1cea9d5c6a526be7921033b0f344de130b1e69ad191b154"
+    },
+    "plots/123456789-forest-columns.png": {
+      "bytes": 74092,
+      "sha256": "50424759fd4165d5935b2b371424e48ce4a317e69e8e90bfd6a32cef4c815426"
+    },
+    "plots/123456789-forest-density-3d.png": {
+      "bytes": 451211,
+      "sha256": "8ca9685925a866b92750a5832bf8e6637f231a9a73ac1850294220ea7730e21e"
+    },
+    "plots/123456789-forest-density-planes.png": {
+      "bytes": 185846,
+      "sha256": "31aec0edc3740015013497da3fec257a439290651bf5531e5ffe327ff24a95e8"
+    },
+    "plots/123456789-forest-distributions.png": {
+      "bytes": 99834,
+      "sha256": "c93bc9540d9fc0262a7d260cabc106082dadcc1ff7e53bfc5b2c8c6083d939b9"
+    },
+    "plots/123456789-forest-fine-maps.png": {
+      "bytes": 98240,
+      "sha256": "70962454a87104b2916097306c1501c7dbbfa0f989eac42dcbc8cc9e48da09d8"
+    },
+    "plots/123456789-forest-native-contact.png": {
+      "bytes": 1752853,
+      "sha256": "c1c973f8c1e1c9d9106fd457f471ab1110a089ae18abc6f8d441a8e214f0f835"
+    },
+    "plots/123456789-highland-coarse-maps.png": {
+      "bytes": 135756,
+      "sha256": "2b1dd60451ef933c8854cba3143e8c6f6696c2fad1154d278992e5869c71ddda"
+    },
+    "plots/123456789-highland-columns.png": {
+      "bytes": 75417,
+      "sha256": "0ab9ae3353f836faae7a66729beb5041eca4e9f5c070440e3a3eb09ee5538a61"
+    },
+    "plots/123456789-highland-density-3d.png": {
+      "bytes": 408356,
+      "sha256": "40cf7dc421de8c57e27f1321c497a155356310af005ce5cace5b8f7ff47f6aec"
+    },
+    "plots/123456789-highland-density-planes.png": {
+      "bytes": 195009,
+      "sha256": "b7de14acd9eb1f7f7633a39e23c7148578c8ab690f7fcabd8891c5ce00429c80"
+    },
+    "plots/123456789-highland-distributions.png": {
+      "bytes": 105018,
+      "sha256": "300541c8a23bcc6ae31e29fe2c12dcf9ffd26b98a2efb4139482b66d69204b0a"
+    },
+    "plots/123456789-highland-fine-maps.png": {
+      "bytes": 100275,
+      "sha256": "d60b6401e1c135206c6b12ecee3ad9bff854ff111148c3d1e425cbf38c0d1447"
+    },
+    "plots/123456789-highland-native-contact.png": {
+      "bytes": 1700119,
+      "sha256": "a561da453f8cb623307537852f8d39307087daa909a0c7b73236405b42c4eaa6"
+    },
+    "plots/20261011-forest-coarse-maps.png": {
+      "bytes": 130437,
+      "sha256": "4a19d3ba413ecaf5fda1bd827000d152133a7f71afcbfc9844652349cda2a5d4"
+    },
+    "plots/20261011-forest-columns.png": {
+      "bytes": 73550,
+      "sha256": "e8730c9be32a36b637e5677e0c2cb5a71cd4c1b956cd554afdece03bd7be0f3a"
+    },
+    "plots/20261011-forest-density-3d.png": {
+      "bytes": 445552,
+      "sha256": "dcdc0c7ea8a9d4e14157bee51346d79352dde9f32c67419b81e1b1dba11e3733"
+    },
+    "plots/20261011-forest-density-planes.png": {
+      "bytes": 189815,
+      "sha256": "98cf9501330e1bf4920749dcec14aec3600b6cda7de10a346badf0f7724b91af"
+    },
+    "plots/20261011-forest-distributions.png": {
+      "bytes": 99941,
+      "sha256": "a136576663e49df7bd955519f2a2afe289250e73308609c674d89cd52eed566b"
+    },
+    "plots/20261011-forest-fine-maps.png": {
+      "bytes": 97601,
+      "sha256": "3cd475d86df2eeb33f66deb3a7480fac587b2eb5c728ff430a65d74291cad4fe"
+    },
+    "plots/20261011-forest-native-contact.png": {
+      "bytes": 1319700,
+      "sha256": "f25c4ee43116dfba003f58e5d709f2c37a2ee8341e4f17fa9816cdb56b9f895a"
+    },
+    "plots/20261011-highland-coarse-maps.png": {
+      "bytes": 132919,
+      "sha256": "ffbc7d197d6a0ffb8559d117255c6d90791ff5a71211020f7199347ab26b7db9"
+    },
+    "plots/20261011-highland-columns.png": {
+      "bytes": 75616,
+      "sha256": "4801f9bf3235326388763ee1fc21225ef288d1c091fa109b41b6f6a8ee33c354"
+    },
+    "plots/20261011-highland-density-3d.png": {
+      "bytes": 453856,
+      "sha256": "ee0d121e9aa3994ce394ede00605ae6ed76e132a2c9b36f032a6e2e51dd65aab"
+    },
+    "plots/20261011-highland-density-planes.png": {
+      "bytes": 192448,
+      "sha256": "386efa2116ba81189a3a473ee449731784ff44a20e4d4b8cf8a1487035d430b0"
+    },
+    "plots/20261011-highland-distributions.png": {
+      "bytes": 99930,
+      "sha256": "11fee6158ac2228eccb09394fc2da68d9fb9f430c3e27d7a883347170b1af570"
+    },
+    "plots/20261011-highland-fine-maps.png": {
+      "bytes": 97621,
+      "sha256": "507e4035f4ccc7d6dd022c26a5636c031214e2f70b4651ad9dfba3fe27cda739"
+    },
+    "plots/20261011-highland-native-contact.png": {
+      "bytes": 1498795,
+      "sha256": "4d35b0fe47e0276bd9be65ffb2fdc644d358bfc65fc5cc000cca6095428749b3"
+    },
+    "plots/8675309-forest-coarse-maps.png": {
+      "bytes": 132614,
+      "sha256": "f5c932ea686294435cc17464704ae13a59ee66dd8eb113253238c852dd46391c"
+    },
+    "plots/8675309-forest-columns.png": {
+      "bytes": 74403,
+      "sha256": "841a798ef8ac3efcacd771c45542a7bd1b80bc3697b3f58593bbd106ca227c9c"
+    },
+    "plots/8675309-forest-density-3d.png": {
+      "bytes": 382656,
+      "sha256": "81cb29286f7667e44d4f9d47a4e896eb9cc55384d273d77fa5106345433e7a6d"
+    },
+    "plots/8675309-forest-density-planes.png": {
+      "bytes": 192559,
+      "sha256": "b55c010b4e9fac726e5164395ea79134280225275db16395e90f2e159617e094"
+    },
+    "plots/8675309-forest-distributions.png": {
+      "bytes": 103183,
+      "sha256": "dab9254c14e587594148f74ff2d9d6a0d94ba6e5c34406e9b895e565861ef5b9"
+    },
+    "plots/8675309-forest-fine-maps.png": {
+      "bytes": 98794,
+      "sha256": "1b344824e9e2413ce4ff770c9fbbb77facb8309e1524d9394484743ce86aa72d"
+    },
+    "plots/8675309-forest-native-contact.png": {
+      "bytes": 1719171,
+      "sha256": "ad637e6d8a6a97099018208bf4c7501b2dab4b937c241f21cb965d7b5ce9ed47"
+    },
+    "plots/8675309-highland-coarse-maps.png": {
+      "bytes": 133976,
+      "sha256": "d8599de33f7385a55503b4ed59bb0f7dd0483e4d89d67825e0e64a59d39f98ca"
+    },
+    "plots/8675309-highland-columns.png": {
+      "bytes": 76309,
+      "sha256": "a8ce4f9859ff8677876868b8b9d9f58bf9837664680a7658070c75bad66ccbce"
+    },
+    "plots/8675309-highland-density-3d.png": {
+      "bytes": 438410,
+      "sha256": "62828e9f4ed293148e32378812315eb11953dca743b6d347f690d5683ed0773d"
+    },
+    "plots/8675309-highland-density-planes.png": {
+      "bytes": 201127,
+      "sha256": "bc285cb7d3531282857c7203ad1d3cd93ec300e6459d1b1f9273dcccddfd5702"
+    },
+    "plots/8675309-highland-distributions.png": {
+      "bytes": 101531,
+      "sha256": "de16621365892660c8493580a27eff0c01a541b37aafefe3e5b08690be64f543"
+    },
+    "plots/8675309-highland-fine-maps.png": {
+      "bytes": 98870,
+      "sha256": "06df29007aa5ab40fd365fab48ddf5d279eb44c342253186a1c46fd3faa889e1"
+    },
+    "plots/8675309-highland-native-contact.png": {
+      "bytes": 1334776,
+      "sha256": "9b5930c5a6cf9d5f8198c8bea41383605f1f674bb9f6ed59c6a59054ee28074c"
+    },
+    "protocol.json": {
+      "bytes": 12969,
+      "sha256": "8b13754416d891418f3309de2c0274999c12b0f7f1094fea1e6d466dfe822f6b"
+    },
+    "results.json": {
+      "bytes": 137980,
+      "sha256": "eed16a188d3137d4e5738102447a8a2f06e9325892ec68a7135c9d15bb4a1739"
+    }
+  }
+}

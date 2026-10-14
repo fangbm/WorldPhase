@@ -1,0 +1,37 @@
+{
+  "protocol": "WPH01601_LEGACY_BASELINE_V1",
+  "seed": 20261011,
+  "status": "PASS",
+  "minecraft": "26.1",
+  "neoforge": "26.1.0.19-beta",
+  "java": "25.0.3+9-LTS",
+  "os": "Linux",
+  "phaseFullChunkRequests": 0,
+  "densityMeaning": "wired router compute with empty Blender; not NoiseChunk-interpolated density or FULL blocks",
+  "columnMeaning": "native getBaseColumn; no structure beardifier, surface rules, carver/feature stages or player edits",
+  "sharedSpawn": {
+    "x": -64,
+    "y": 88,
+    "z": -192
+  },
+  "rawSeeds": {
+    "smooth": 20261011,
+    "ridge": 20261011,
+    "cell": 20261011,
+    "fracture": 20261011,
+    "overworld": 20261011
+  },
+  "scheduledOperations": 212990,
+  "completedOperations": 212990,
+  "rows": {
+    "attribution": 270,
+    "columns": 2580,
+    "density": 196090,
+    "heights": 13780,
+    "probes": 270
+  },
+  "ticks": 2328,
+  "wallMs": 116500.070385,
+  "serverThreadCpuMs": 57112.158762,
+  "maxWorkTickMs": 37.540382
+}

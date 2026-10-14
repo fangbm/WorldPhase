@@ -1,0 +1,33 @@
+{
+  "minecraft": "26.1",
+  "neoforge": "26.1.0.19-beta",
+  "artifacts": [
+    {
+      "name": "minecraft-patched-26.1.0.19-beta-sources.jar",
+      "sha256": "e855dfdc041e2a826abbfb79acd15627cd17b6ccb59caa151c88724bdeff2b02"
+    },
+    {
+      "name": "neoforge-26.1.0.19-beta-sources.jar",
+      "sha256": "cbda7af642507ef84f6225d5a4481af581f13584f71abef603784c02e2f261e7"
+    }
+  ],
+  "minecraftSourceFiles": [
+    "world/level/levelgen/NoiseRouterData",
+    "world/level/levelgen/NoiseBasedChunkGenerator",
+    "world/level/levelgen/RandomState",
+    "world/level/levelgen/NoiseChunk",
+    "world/level/dimension/DimensionType",
+    "world/attribute/EnvironmentAttributes",
+    "world/attribute/EnvironmentAttributeSystem",
+    "client/GraphicsPreset"
+  ],
+  "neoforgeSourceFiles": [
+    "common/world/NeoForgeEnvironmentAttributes",
+    "client/event/RegisterCustomEnvironmentEffectRendererEvent",
+    "client/event/ExtractLevelRenderStateEvent",
+    "client/CustomSkyboxRenderer",
+    "client/CustomCloudsRenderer",
+    "client/CustomWeatherEffectRenderer"
+  ],
+  "scope": "Actual pinned generated sources; local patched jar digest is an audit identifier, not a portable worldgen preset fingerprint."
+}

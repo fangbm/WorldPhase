@@ -69,6 +69,19 @@ neoForge {
                 programArguments.addAll('--quickPlaySingleplayer', providers.gradleProperty('mvpRoutesOnly').orElse('false').get().toBoolean()?'wph015-routes':'wph015', '--username', 'WPH015Review', '--width', '1280', '--height', '720')
             }
         }
+        (0..<3).each { index ->
+            create("phaseVerificationSpatialSeed${index}Server") {
+                server(); sourceSet=sourceSets.phaseVerification
+                gameDirectory=project.file("run/spatial-baseline-v1/seed-${index}-server")
+                programArgument '--nogui'; systemProperty 'worldphase.verification','spatial-baseline'
+            }
+            create("phaseVerificationSpatialSeed${index}Client") {
+                client(); sourceSet=sourceSets.phaseVerification
+                gameDirectory=project.file("run/spatial-baseline-v1/seed-${index}-client")
+                systemProperty 'worldphase.spatial.client','true'
+                programArguments.addAll('--quickPlaySingleplayer','spatial-legacy-v1','--username','WPH016Baseline','--width','1280','--height','720')
+            }
+        }
         ['Cold', 'Reload'].each { stage ->
             create("phaseVerificationSavedData${stage}Server") {
                 server()
@@ -680,4 +693,98 @@ tasks.register('validateMvpEvidence', Exec) {
     group='verification'
     description='Require complete local native playtest evidence; never approves Phase 2.'
     commandLine 'python3', 'tools/summarize_mvp_playtest.py', '--require-complete'
+}
+
+// WPH-016-01: unchanged legacy baseline, isolated new test worlds only.
+def spatialSeeds=[123456789L,8675309L,20261011L]
+def spatialProtocol=project.file('docs/verification/spatial-retune/v1/protocol.json')
+def prepareSpatial=tasks.register('prepareSpatialBaseline') {
+    doLast {
+        def manifest=new groovy.json.JsonSlurper().parse(spatialProtocol)
+        manifest.sourceSha256.each { name,digest ->
+            def actual=java.security.MessageDigest.getInstance('SHA-256').digest(project.file(name).bytes).encodeHex().toString()
+            if(actual!=digest)throw new GradleException("Frozen legacy baseline input changed: ${name}")
+        }
+        def accepted=project.file('run/core-regression-server/eula.txt')
+        if(!accepted.exists() || !(accepted.text =~ /(?m)^\s*eula\s*=\s*true\s*$/).find())throw new GradleException('An existing accepted Minecraft EULA is required')
+        spatialSeeds.eachWithIndex { seed,index ->
+            def dir=project.file("run/spatial-baseline-v1/seed-${index}-server");dir.mkdirs()
+            new File(dir,'eula.txt').text=accepted.text
+            new File(dir,'server.properties').text="""level-name=world-spatial-legacy-v1
+level-seed=${seed}
+server-ip=127.0.0.1
+server-port=25634
+online-mode=false
+view-distance=8
+simulation-distance=5
+pause-when-empty-seconds=0
+max-tick-time=-1
+"""
+        }
+    }
+}
+spatialSeeds.eachWithIndex { seed,index ->
+    tasks.named("runPhaseVerificationSpatialSeed${index}Server",JavaExec) {
+        dependsOn prepareSpatial
+        if(index>0)mustRunAfter tasks.named("runPhaseVerificationSpatialSeed${index-1}Server")
+        doFirst { project.file("run/spatial-baseline-v1/seed-${index}-server/spatial-baseline.json").text='{"status":"RUNNING"}' }
+        doLast {
+            def data=new groovy.json.JsonSlurper().parse(project.file("run/spatial-baseline-v1/seed-${index}-server/spatial-baseline.json"))
+            if(data.status!='PASS' || data.seed!=seed || data.protocol!='WPH01601_LEGACY_BASELINE_V1' || data.rows.heights!=13780 || data.rows.columns!=2580 || data.rows.density!=196090 || data.rows.probes!=270 || data.rows.attribution!=270)
+                throw new GradleException("Spatial baseline incomplete for ${seed}: ${data.failure}; ${data.rows}")
+        }
+    }
+}
+tasks.register('spatialBaseline') {
+    group='verification';description='Measure the frozen unchanged three-seed terrain baseline; no gameplay approval.'
+    dependsOn((0..<3).collect { index -> tasks.named("runPhaseVerificationSpatialSeed${index}Server") })
+}
+spatialSeeds.eachWithIndex { seed,index ->
+    def prepare=tasks.register("prepareSpatialSeed${index}Client") {
+        doLast {
+            def source=project.file("run/spatial-baseline-v1/seed-${index}-server/world-spatial-legacy-v1")
+            def directory=project.file("run/spatial-baseline-v1/seed-${index}-client")
+            def target=new File(directory,'saves/spatial-legacy-v1')
+            if(!new File(source,'spatial-baseline.json').exists())throw new GradleException('Run spatialBaseline first')
+            if(!target.exists())project.copy { from source; into target }
+            def initial=project.file('run/mvp-playtest/seed-0-client/options.txt')
+            def options=new File(directory,'options.txt')
+            if(!options.exists() && initial.exists())options.text=initial.text
+        }
+    }
+    tasks.named("runPhaseVerificationSpatialSeed${index}Client",JavaExec) {
+        dependsOn prepare
+        if(index>0)mustRunAfter tasks.named("runPhaseVerificationSpatialSeed${index-1}Client")
+        doFirst {
+            def file=project.file("run/spatial-baseline-v1/seed-${index}-client/spatial-client.json")
+            if(file.exists()) {def history=new File(file.parentFile,'history');history.mkdirs();new File(history,"spatial-client-${System.currentTimeMillis()}.json").bytes=file.bytes}
+            def previousShots=new File(file.parentFile,'screenshots')
+            if(previousShots.exists()) {
+                def archive=new File(file.parentFile,"history/screenshots-${System.currentTimeMillis()}");archive.mkdirs()
+                previousShots.listFiles().findAll { it.name.startsWith('wph016-') }.each { shot ->
+                    java.nio.file.Files.move(shot.toPath(),new File(archive,shot.name).toPath())
+                }
+            }
+            file.text='{"status":"RUNNING"}'
+        }
+        doLast {
+            def report=new groovy.json.JsonSlurper().parse(project.file("run/spatial-baseline-v1/seed-${index}-client/spatial-client.json"))
+            if(report.status!='CAPTURES_COMPLETE_NOT_TERRAIN_OR_GAMEPLAY_APPROVAL' || report.seed!=seed || report.photos.size()!=10)
+                throw new GradleException("Incomplete native spatial baseline ${seed}: ${report.failure}")
+        }
+    }
+}
+tasks.register('spatialBaselineClient') {
+    group='verification';description='Capture unchanged baseline with real native client; requires DISPLAY and prior spatialBaseline.'
+    dependsOn((0..<3).collect { index -> tasks.named("runPhaseVerificationSpatialSeed${index}Client") })
+}
+
+// Optional Python plot tooling is intentionally separate from production build dependencies.
+def spatialPython=providers.gradleProperty('spatialPython').orElse('python3')
+tasks.register('testSpatialBaselineTools',Exec) {
+    group='verification';commandLine spatialPython.get(),'-m','unittest','discover','-s','tools','-p','test_spatial_baseline.py'
+}
+tasks.register('spatialBaselineReport',Exec) {
+    group='verification';description='Fail on missing/mismatched measured or native evidence; generate curated baseline plots/report.'
+    commandLine spatialPython.get(),'tools/spatial_baseline.py','--plots','--require-native','--archive'
 }
