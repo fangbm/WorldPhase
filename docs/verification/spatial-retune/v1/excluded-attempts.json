@@ -1,0 +1,31 @@
+{
+  "classification": "EXCLUDED_FROM_MATCHED_BASELINE",
+  "attempts": [
+    {
+      "attempt": "native-r1",
+      "reason": "Fancy preset reset simulation distance to12",
+      "action": "aborted and excluded, original partial outputs retained in ignored history"
+    },
+    {
+      "attempt": "native-r2",
+      "reason": "strict validator detected two camera angle drifts",
+      "failures": [
+        {
+          "seed": 123456789,
+          "window": "highland",
+          "world": "overworld",
+          "yaw": 133.65007,
+          "pitch": 64.350006
+        },
+        {
+          "seed": 8675309,
+          "window": "highland",
+          "world": "ridge",
+          "yaw": 145.64998,
+          "pitch": 54.749996
+        }
+      ],
+      "action": "entire affected seed groups replayed at unchanged frozen pose; seed2 already matching group retained"
+    }
+  ]
+}
