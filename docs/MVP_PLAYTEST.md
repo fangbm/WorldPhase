@@ -2,8 +2,7 @@
 
 ## 1. Executive Summary
 
-**Recommendation: RETUNE. Supplemental negative-observation coverage is complete
-under the explicitly proposed amendment below; final independent review remains required.** Technical transfer regression passes and the four interpretations
+**Recommendation: RETUNE. Supplemental documented-negative observation coverage was accepted in final independent review. Phase 2 remains NOT APPROVED.** Technical transfer regression passes and the four interpretations
 look different. The bounded natural-route trials have not demonstrated multiple
 independent useful routes. A feasible entry shift is insufficient: the return
 position can be incompatible, the alternative can also be blocked, or ordinary
@@ -328,7 +327,7 @@ are committed; no game save, crash dump or runtime log is committed.
 ## 13. First-review supplemental evidence (2026-10-14)
 
 ```yaml
-PLAYTEST_EVIDENCE_COMPLETE: PASS  # proposed documented-negative coverage contract
+PLAYTEST_EVIDENCE_COMPLETE: PASS  # accepted documented-negative coverage contract
 CORE_TECHNICAL_REGRESSION: PASS
 GAMEPLAY_RECOMMENDATION: RETUNE
 PHASE_2_GATE: NOT_APPROVED
@@ -339,12 +338,12 @@ ORIGINAL_PRIMARY_PROTOCOL: FAIL  # seed8675309 remains35/36 + fatal fall
 The [contract](verification/mvp-playtest/supplemental-contract.json) and
 [compact supplemental findings](verification/mvp-playtest/supplemental-findings.json)
 and [supplemental coordinate/image index](verification/mvp-playtest/supplemental-index.md)
-are submitted for final review. Coverage PASS means the missing trial now has a
+were accepted as documented-negative evidence in final independent review. Coverage PASS means the missing trial now has a
 terminal native observation, both Phases have actual short cave ingress/return,
 and declared sustained-ground/adaptive attempts have observed terminal outcomes,
 including failure. It does **not** mean that all intended distances/routes passed,
-that a human played, or that the old protocol passed. Independent review must
-accept or reject this transparent amendment; the tool cannot approve it or GO.
+that a human played, or that the old protocol passed. Independent review accepted
+this transparent amendment; the validator itself cannot approve gameplay or GO.
 
 ### Primary/replay relationship
 
