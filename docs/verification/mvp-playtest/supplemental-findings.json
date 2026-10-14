@@ -1,0 +1,3585 @@
+{
+  "acceptanceAmendment": "ACCEPTED_IN_FINAL_REVIEW: complete negative observations preserve primary FAIL; Phase 2 NOT_APPROVED",
+  "gates": {
+    "PLAYTEST_EVIDENCE_COMPLETE": "PASS",
+    "CORE_TECHNICAL_REGRESSION": "PASS",
+    "GAMEPLAY_RECOMMENDATION": "RETUNE",
+    "PHASE_2_GATE": "NOT_APPROVED"
+  },
+  "baseline": "docs/verification/mvp-playtest/findings.json remains unchanged from bbfd588",
+  "primaryHashes": {
+    "run/mvp-playtest/seed-0-client/mvp-client.json": "c9af722ec746a74628c6b2f9ebc4a68aae615101e366fbfe94b9f14afacd7d29",
+    "run/mvp-playtest/seed-1-client/mvp-client.json": "f9e6b305694ead82f9af84be75131d4a2e9b1f8e9f642be35e890f31e99084ba",
+    "run/mvp-playtest/seed-2-client/mvp-client.json": "8e328f7be5fd080b4369c2b90f897ecc187fde2868c28cb02335d9c6815388f7",
+    "run/mvp-playtest/seed-1-client/mvp-routes.json": "55687610be72d2c7d83cad0cbeb2fb26fa49963eee65995af3388d0e2783ec5b",
+    "run/mvp-playtest/seed-0-client/mvp-reload.json": "91e674103f602a5dfe01afbda1013c9043a195dd6b48ea71773e964f99c663ee"
+  },
+  "runs": [
+    {
+      "kind": "SUPPLEMENTAL_EXPLORATION",
+      "runId": "caves-r3-20261014",
+      "startedAt": 1791950992133,
+      "java": "25.0.3+9-LTS",
+      "os": "Linux",
+      "workload": "scripted native exploration; no human participation; actual Survival input and physics",
+      "caves": [
+        {
+          "phase": "FRACTURE",
+          "inspected": 8470,
+          "fullChunks": 64,
+          "discovery": "NO_CONNECTED_CAVE_WITHIN_FROZEN_BUDGET",
+          "waypoints": [],
+          "status": "DISCOVERY_FAILED"
+        },
+        {
+          "phase": "SMOOTH",
+          "inspected": 4469,
+          "fullChunks": 64,
+          "discovery": "NO_CONNECTED_CAVE_WITHIN_FROZEN_BUDGET",
+          "waypoints": [],
+          "status": "DISCOVERY_FAILED"
+        }
+      ],
+      "travelSegments": [],
+      "status": "EXPLORATION_RECORDED_REVIEW_REQUIRED",
+      "clientTicks": 246,
+      "updatedAt": 1791951009806,
+      "finalPlayer": {
+        "phase": "SMOOTH",
+        "x": -383.5,
+        "y": 220.0,
+        "z": 896.5,
+        "health": 20.0,
+        "uuid": "01461149-4349-368b-8856-192924919853",
+        "safe": false,
+        "support": "Block{minecraft:air}",
+        "nearbyOreFluidFireBlocks": {},
+        "nearbyLivingEntities": 0
+      },
+      "world": {
+        "seed": 123456789,
+        "minecraft": "26.1",
+        "neoforge": "26.1.0.19-beta",
+        "java": "25.0.3+9-LTS",
+        "spawn": "64, 68, -48"
+      },
+      "rawReport": "run/mvp-supplemental/caves-r3-20261014/seed-0-client/mvp-exploration.json",
+      "rawReportSha256": "374cfb769c6de88387490e15ef86c6e47be201d93691abfd07a7577212868653",
+      "metricsSummary": {
+        "samples": 1,
+        "fps": {
+          "min": 57,
+          "median": 57,
+          "max": 57
+        },
+        "integratedAverageTickMs": {
+          "min": 49.562014,
+          "median": 49.562014,
+          "max": 49.562014
+        },
+        "heapUsedBytes": {
+          "min": 1472578760,
+          "median": 1472578760,
+          "max": 1472578760
+        },
+        "gcCountDelta": 0,
+        "gcTimeMsDelta": 0
+      }
+    },
+    {
+      "kind": "SUPPLEMENTAL_EXPLORATION",
+      "runId": "caves-r4-20261014",
+      "startedAt": 1791951090665,
+      "java": "25.0.3+9-LTS",
+      "os": "Linux",
+      "workload": "scripted native exploration; no human participation; actual Survival input and physics",
+      "caves": [
+        {
+          "phase": "FRACTURE",
+          "inspected": 2178,
+          "fullChunks": 64,
+          "discovery": "NATURAL_MOUTH_TO_COVERED_PASSAGE",
+          "searchCenterX": 1344,
+          "searchCenterZ": 1200,
+          "waypoints": [
+            {
+              "x": 1295.5,
+              "y": 66.0,
+              "z": 1200.5
+            },
+            {
+              "x": 1296.5,
+              "y": 66.0,
+              "z": 1200.5
+            },
+            {
+              "x": 1296.5,
+              "y": 66.0,
+              "z": 1201.5
+            },
+            {
+              "x": 1297.5,
+              "y": 66.0,
+              "z": 1201.5
+            },
+            {
+              "x": 1298.5,
+              "y": 65.0,
+              "z": 1201.5
+            },
+            {
+              "x": 1299.5,
+              "y": 65.0,
+              "z": 1201.5
+            }
+          ],
+          "assistance": "OP bootstrap at natural outdoor mouth, health/food reset and night vision BEFORE Survival walk; no terrain edits, no in-walk teleport/heal",
+          "mouth": {
+            "phase": "FRACTURE",
+            "x": 1295.5,
+            "y": 66.0,
+            "z": 1200.5,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:copper_ore}": 4
+            },
+            "nearbyLivingEntities": 0
+          },
+          "inwardWalkTicks": 28,
+          "interior": {
+            "phase": "FRACTURE",
+            "x": 1298.9215490041856,
+            "y": 65.0,
+            "z": 1201.500284182118,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:copper_ore}": 6
+            },
+            "nearbyLivingEntities": 0
+          },
+          "returnWalkTicks": 28,
+          "returned": {
+            "phase": "FRACTURE",
+            "x": 1295.8276036716268,
+            "y": 66.0,
+            "z": 1200.425400697204,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:copper_ore}": 4
+            },
+            "nearbyLivingEntities": 0
+          },
+          "status": "NATIVE_CAVE_RETURN_COMPLETED"
+        },
+        {
+          "phase": "SMOOTH",
+          "inspected": 3296,
+          "fullChunks": 64,
+          "discovery": "NATURAL_MOUTH_TO_COVERED_PASSAGE",
+          "searchCenterX": 1344,
+          "searchCenterZ": 1200,
+          "waypoints": [
+            {
+              "x": 1350.5,
+              "y": 80.0,
+              "z": 1237.5
+            },
+            {
+              "x": 1350.5,
+              "y": 80.0,
+              "z": 1236.5
+            },
+            {
+              "x": 1350.5,
+              "y": 79.0,
+              "z": 1235.5
+            },
+            {
+              "x": 1349.5,
+              "y": 79.0,
+              "z": 1235.5
+            },
+            {
+              "x": 1348.5,
+              "y": 79.0,
+              "z": 1235.5
+            },
+            {
+              "x": 1348.5,
+              "y": 79.0,
+              "z": 1234.5
+            }
+          ],
+          "assistance": "OP bootstrap at natural outdoor mouth, health/food reset and night vision BEFORE Survival walk; no terrain edits, no in-walk teleport/heal",
+          "mouth": {
+            "phase": "SMOOTH",
+            "x": 1350.5,
+            "y": 80.0,
+            "z": 1237.5,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:coal_ore}": 2,
+              "Block{minecraft:copper_ore}": 11,
+              "Block{minecraft:water}": 3
+            },
+            "nearbyLivingEntities": 0
+          },
+          "inwardWalkTicks": 28,
+          "interior": {
+            "phase": "SMOOTH",
+            "x": 1348.389212093618,
+            "y": 79.0,
+            "z": 1234.876967501974,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:copper_ore}": 26,
+              "Block{minecraft:water}": 2
+            },
+            "nearbyLivingEntities": 0
+          },
+          "returnWalkTicks": 27,
+          "returned": {
+            "phase": "SMOOTH",
+            "x": 1350.5282981507464,
+            "y": 80.0,
+            "z": 1237.1201124962756,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:coal_ore}": 2,
+              "Block{minecraft:copper_ore}": 11,
+              "Block{minecraft:water}": 3
+            },
+            "nearbyLivingEntities": 0
+          },
+          "status": "NATIVE_CAVE_RETURN_COMPLETED"
+        }
+      ],
+      "travelSegments": [],
+      "status": "EXPLORATION_RECORDED_REVIEW_REQUIRED",
+      "clientTicks": 1046,
+      "updatedAt": 1791951148718,
+      "finalPlayer": {
+        "phase": "SMOOTH",
+        "x": 1350.4880892823219,
+        "y": 80.0,
+        "z": 1237.5775073145605,
+        "health": 20.0,
+        "uuid": "01461149-4349-368b-8856-192924919853",
+        "safe": true,
+        "support": "Block{minecraft:stone}",
+        "nearbyOreFluidFireBlocks": {
+          "Block{minecraft:coal_ore}": 2,
+          "Block{minecraft:copper_ore}": 11,
+          "Block{minecraft:water}": 3
+        },
+        "nearbyLivingEntities": 0
+      },
+      "world": {
+        "seed": 123456789,
+        "minecraft": "26.1",
+        "neoforge": "26.1.0.19-beta",
+        "java": "25.0.3+9-LTS",
+        "spawn": "64, 68, -48"
+      },
+      "rawReport": "run/mvp-supplemental/caves-r4-20261014/seed-0-client/mvp-exploration.json",
+      "rawReportSha256": "a47ae996c197394c10868dd4b84007f32d743388bafc78bc0716b939aa5b05eb",
+      "metricsSummary": {
+        "samples": 5,
+        "fps": {
+          "min": 30,
+          "median": 34,
+          "max": 60
+        },
+        "integratedAverageTickMs": {
+          "min": 7.673747,
+          "median": 24.024773,
+          "max": 40.687649
+        },
+        "heapUsedBytes": {
+          "min": 1023757776,
+          "median": 1604940400,
+          "max": 2039480344
+        },
+        "gcCountDelta": 51,
+        "gcTimeMsDelta": 880
+      }
+    },
+    {
+      "kind": "SUPPLEMENTAL_EXPLORATION",
+      "runId": "caves-survey-20261014",
+      "startedAt": 1791951374505,
+      "java": "25.0.3+9-LTS",
+      "os": "Linux",
+      "workload": "scripted native exploration; no human participation; actual Survival input and physics",
+      "caves": [
+        {
+          "phase": "FRACTURE",
+          "inspected": 2178,
+          "fullChunks": 64,
+          "discovery": "NATURAL_MOUTH_TO_COVERED_PASSAGE",
+          "searchCenterX": 1344,
+          "searchCenterZ": 1200,
+          "waypoints": [
+            {
+              "x": 1295.5,
+              "y": 66.0,
+              "z": 1200.5
+            },
+            {
+              "x": 1296.5,
+              "y": 66.0,
+              "z": 1200.5
+            },
+            {
+              "x": 1296.5,
+              "y": 66.0,
+              "z": 1201.5
+            },
+            {
+              "x": 1297.5,
+              "y": 66.0,
+              "z": 1201.5
+            },
+            {
+              "x": 1298.5,
+              "y": 65.0,
+              "z": 1201.5
+            },
+            {
+              "x": 1299.5,
+              "y": 65.0,
+              "z": 1201.5
+            }
+          ],
+          "assistance": "OP bootstrap at natural outdoor mouth, health/food reset and night vision BEFORE Survival walk; no terrain edits, no in-walk teleport/heal",
+          "mouth": {
+            "phase": "FRACTURE",
+            "x": 1295.5,
+            "y": 66.0,
+            "z": 1200.5,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:copper_ore}": 4
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 66,
+            "bodyAabb": "AABB[1295.199999988079, 66.0, 1200.199999988079] -> [1295.800000011921, 67.79999995231628, 1200.800000011921]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          },
+          "inwardWalkTicks": 28,
+          "interior": {
+            "phase": "FRACTURE",
+            "x": 1299.113884323281,
+            "y": 65.0,
+            "z": 1201.5003194939354,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:copper_ore}": 4
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 71,
+            "bodyAabb": "AABB[1298.81388431136, 65.0, 1201.2003194820145] -> [1299.4138843352018, 66.79999995231628, 1201.8003195058564]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          },
+          "returnWalkTicks": 0,
+          "status": "RETURN_BLOCKED",
+          "blockedAt": {
+            "phase": "FRACTURE",
+            "x": 1299.5545853802787,
+            "y": 65.0,
+            "z": 1201.500198180334,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:copper_ore}": 4
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 71,
+            "bodyAabb": "AABB[1299.2545853683578, 65.0, 1201.2001981684132] -> [1299.8545853921996, 66.79999995231628, 1201.800198192255]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          }
+        },
+        {
+          "phase": "SMOOTH",
+          "inspected": 3296,
+          "fullChunks": 64,
+          "discovery": "NATURAL_MOUTH_TO_COVERED_PASSAGE",
+          "searchCenterX": 1344,
+          "searchCenterZ": 1200,
+          "waypoints": [
+            {
+              "x": 1350.5,
+              "y": 80.0,
+              "z": 1237.5
+            },
+            {
+              "x": 1350.5,
+              "y": 80.0,
+              "z": 1236.5
+            },
+            {
+              "x": 1350.5,
+              "y": 79.0,
+              "z": 1235.5
+            },
+            {
+              "x": 1349.5,
+              "y": 79.0,
+              "z": 1235.5
+            },
+            {
+              "x": 1348.5,
+              "y": 79.0,
+              "z": 1235.5
+            },
+            {
+              "x": 1348.5,
+              "y": 79.0,
+              "z": 1234.5
+            }
+          ],
+          "assistance": "OP bootstrap at natural outdoor mouth, health/food reset and night vision BEFORE Survival walk; no terrain edits, no in-walk teleport/heal",
+          "mouth": {
+            "phase": "SMOOTH",
+            "x": 1350.5,
+            "y": 80.0,
+            "z": 1237.5,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:coal_ore}": 2,
+              "Block{minecraft:copper_ore}": 11,
+              "Block{minecraft:water}": 3
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 80,
+            "bodyAabb": "AABB[1350.199999988079, 80.0, 1237.199999988079] -> [1350.800000011921, 81.79999995231628, 1237.800000011921]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          },
+          "inwardWalkTicks": 28,
+          "interior": {
+            "phase": "SMOOTH",
+            "x": 1348.389212093618,
+            "y": 79.0,
+            "z": 1234.876967501974,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:copper_ore}": 26,
+              "Block{minecraft:water}": 2
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 86,
+            "bodyAabb": "AABB[1348.089212081697, 79.0, 1234.576967490053] -> [1348.689212105539, 80.79999995231628, 1235.1769675138949]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          },
+          "returnWalkTicks": 0,
+          "status": "RETURN_BLOCKED",
+          "blockedAt": {
+            "phase": "SMOOTH",
+            "x": 1348.4760111486005,
+            "y": 79.0,
+            "z": 1234.4438648559428,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:copper_ore}": 26,
+              "Block{minecraft:water}": 2
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 86,
+            "bodyAabb": "AABB[1348.1760111366796, 79.0, 1234.143864844022] -> [1348.7760111605214, 80.79999995231628, 1234.7438648678637]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          }
+        }
+      ],
+      "travelSegments": [],
+      "status": "EXPLORATION_RECORDED_REVIEW_REQUIRED",
+      "clientTicks": 1217,
+      "updatedAt": 1791951440873,
+      "finalPlayer": {
+        "phase": "SMOOTH",
+        "x": 1348.4760111486005,
+        "y": 79.0,
+        "z": 1234.4438648559428,
+        "health": 20.0,
+        "uuid": "01461149-4349-368b-8856-192924919853",
+        "safe": true,
+        "support": "Block{minecraft:stone}",
+        "nearbyOreFluidFireBlocks": {
+          "Block{minecraft:copper_ore}": 26,
+          "Block{minecraft:water}": 2
+        },
+        "gameMode": "survival",
+        "surfaceHeight": 86,
+        "bodyAabb": "AABB[1348.1760111366796, 79.0, 1234.143864844022] -> [1348.7760111605214, 80.79999995231628, 1234.7438648678637]",
+        "eyeBlock": "Block{minecraft:air}",
+        "nearbyLivingEntities": []
+      },
+      "world": {
+        "seed": 123456789,
+        "minecraft": "26.1",
+        "neoforge": "26.1.0.19-beta",
+        "java": "25.0.3+9-LTS",
+        "spawn": "64, 68, -48"
+      },
+      "rawReport": "run/mvp-supplemental/caves-survey-20261014/seed-0-client/mvp-exploration.json",
+      "rawReportSha256": "e4055084460ce4ee4290e31734bb79162e5d58e855aa0fcc6a3fb7cda7eae81b",
+      "metricsSummary": {
+        "samples": 7,
+        "fps": {
+          "min": 30,
+          "median": 57,
+          "max": 59
+        },
+        "integratedAverageTickMs": {
+          "min": 7.056354,
+          "median": 13.854764,
+          "max": 42.121405
+        },
+        "heapUsedBytes": {
+          "min": 1012183624,
+          "median": 1653976192,
+          "max": 2078045952
+        },
+        "gcCountDelta": 53,
+        "gcTimeMsDelta": 998
+      }
+    },
+    {
+      "kind": "SUPPLEMENTAL_EXPLORATION",
+      "runId": "caves-survey-r2-20261014",
+      "startedAt": 1791951811219,
+      "java": "25.0.3+9-LTS",
+      "os": "Linux",
+      "workload": "scripted native exploration; no human participation; actual Survival input and physics",
+      "caves": [
+        {
+          "phase": "FRACTURE",
+          "inspected": 2178,
+          "fullChunks": 64,
+          "discovery": "NATURAL_MOUTH_TO_COVERED_PASSAGE",
+          "searchCenterX": 1344,
+          "searchCenterZ": 1200,
+          "waypoints": [
+            {
+              "x": 1295.5,
+              "y": 66.0,
+              "z": 1200.5
+            },
+            {
+              "x": 1296.5,
+              "y": 66.0,
+              "z": 1200.5
+            },
+            {
+              "x": 1296.5,
+              "y": 66.0,
+              "z": 1201.5
+            },
+            {
+              "x": 1297.5,
+              "y": 66.0,
+              "z": 1201.5
+            },
+            {
+              "x": 1298.5,
+              "y": 65.0,
+              "z": 1201.5
+            },
+            {
+              "x": 1299.5,
+              "y": 65.0,
+              "z": 1201.5
+            }
+          ],
+          "assistance": "OP bootstrap at natural outdoor mouth, health/food reset and night vision BEFORE Survival walk; no terrain edits, no in-walk teleport/heal",
+          "mouth": {
+            "phase": "FRACTURE",
+            "x": 1295.5,
+            "y": 66.0,
+            "z": 1200.5,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:copper_ore}": 4
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 66,
+            "bodyAabb": "AABB[1295.199999988079, 66.0, 1200.199999988079] -> [1295.800000011921, 67.79999995231628, 1200.800000011921]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          },
+          "inwardWalkTicks": 28,
+          "interior": {
+            "phase": "FRACTURE",
+            "x": 1298.9215490041856,
+            "y": 65.0,
+            "z": 1201.500284182118,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:copper_ore}": 6
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 70,
+            "bodyAabb": "AABB[1298.6215489922647, 65.0, 1201.2002841701972] -> [1299.2215490161066, 66.79999995231628, 1201.800284194039]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          },
+          "returnWalkTicks": 28,
+          "returned": {
+            "phase": "FRACTURE",
+            "x": 1296.0238241189552,
+            "y": 66.0,
+            "z": 1200.4169755459964,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:copper_ore}": 6
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 69,
+            "bodyAabb": "AABB[1295.7238241070343, 66.0, 1200.1169755340754] -> [1296.3238241308761, 67.79999995231628, 1200.7169755579173]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          },
+          "status": "NATIVE_CAVE_RETURN_COMPLETED"
+        },
+        {
+          "phase": "SMOOTH",
+          "inspected": 3296,
+          "fullChunks": 64,
+          "discovery": "NATURAL_MOUTH_TO_COVERED_PASSAGE",
+          "searchCenterX": 1344,
+          "searchCenterZ": 1200,
+          "waypoints": [
+            {
+              "x": 1350.5,
+              "y": 80.0,
+              "z": 1237.5
+            },
+            {
+              "x": 1350.5,
+              "y": 80.0,
+              "z": 1236.5
+            },
+            {
+              "x": 1350.5,
+              "y": 79.0,
+              "z": 1235.5
+            },
+            {
+              "x": 1349.5,
+              "y": 79.0,
+              "z": 1235.5
+            },
+            {
+              "x": 1348.5,
+              "y": 79.0,
+              "z": 1235.5
+            },
+            {
+              "x": 1348.5,
+              "y": 79.0,
+              "z": 1234.5
+            }
+          ],
+          "assistance": "OP bootstrap at natural outdoor mouth, health/food reset and night vision BEFORE Survival walk; no terrain edits, no in-walk teleport/heal",
+          "mouth": {
+            "phase": "SMOOTH",
+            "x": 1350.5,
+            "y": 80.0,
+            "z": 1237.5,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:coal_ore}": 2,
+              "Block{minecraft:copper_ore}": 11,
+              "Block{minecraft:water}": 3
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 80,
+            "bodyAabb": "AABB[1350.199999988079, 80.0, 1237.199999988079] -> [1350.800000011921, 81.79999995231628, 1237.800000011921]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          },
+          "inwardWalkTicks": 28,
+          "interior": {
+            "phase": "SMOOTH",
+            "x": 1348.389212093618,
+            "y": 79.0,
+            "z": 1234.876967501974,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:copper_ore}": 26,
+              "Block{minecraft:water}": 2
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 86,
+            "bodyAabb": "AABB[1348.089212081697, 79.0, 1234.576967490053] -> [1348.689212105539, 80.79999995231628, 1235.1769675138949]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          },
+          "returnWalkTicks": 27,
+          "returned": {
+            "phase": "SMOOTH",
+            "x": 1350.5282981507464,
+            "y": 80.0,
+            "z": 1237.1201124962756,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:coal_ore}": 2,
+              "Block{minecraft:copper_ore}": 11,
+              "Block{minecraft:water}": 3
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 80,
+            "bodyAabb": "AABB[1350.2282981388255, 80.0, 1236.8201124843547] -> [1350.8282981626674, 81.79999995231628, 1237.4201125081966]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          },
+          "status": "NATIVE_CAVE_RETURN_COMPLETED"
+        }
+      ],
+      "travelSegments": [],
+      "status": "EXPLORATION_RECORDED_REVIEW_REQUIRED",
+      "clientTicks": 1348,
+      "updatedAt": 1791951884011,
+      "finalPlayer": {
+        "phase": "SMOOTH",
+        "x": 1350.4880892823219,
+        "y": 80.0,
+        "z": 1237.5775073145605,
+        "health": 20.0,
+        "uuid": "01461149-4349-368b-8856-192924919853",
+        "safe": true,
+        "support": "Block{minecraft:stone}",
+        "nearbyOreFluidFireBlocks": {
+          "Block{minecraft:coal_ore}": 2,
+          "Block{minecraft:copper_ore}": 11,
+          "Block{minecraft:water}": 3
+        },
+        "gameMode": "survival",
+        "surfaceHeight": 80,
+        "bodyAabb": "AABB[1350.188089270401, 80.0, 1237.2775073026396] -> [1350.7880892942428, 81.79999995231628, 1237.8775073264815]",
+        "eyeBlock": "Block{minecraft:air}",
+        "nearbyLivingEntities": []
+      },
+      "world": {
+        "seed": 123456789,
+        "minecraft": "26.1",
+        "neoforge": "26.1.0.19-beta",
+        "java": "25.0.3+9-LTS",
+        "spawn": "64, 68, -48"
+      },
+      "rawReport": "run/mvp-supplemental/caves-survey-r2-20261014/seed-0-client/mvp-exploration.json",
+      "rawReportSha256": "01c9c662c2ce44a4bc509b73d4ed42a068433790ccd431261f475eabce8617c8",
+      "metricsSummary": {
+        "samples": 9,
+        "fps": {
+          "min": 27,
+          "median": 43,
+          "max": 60
+        },
+        "integratedAverageTickMs": {
+          "min": 6.574353,
+          "median": 7.253389,
+          "max": 39.360839
+        },
+        "heapUsedBytes": {
+          "min": 956529776,
+          "median": 1446754904,
+          "max": 1812230096
+        },
+        "gcCountDelta": 58,
+        "gcTimeMsDelta": 1136
+      }
+    },
+    {
+      "kind": "SUPPLEMENTAL_EXPLORATION",
+      "runId": "caves-survey-r3-20261014",
+      "startedAt": 1791951995924,
+      "java": "25.0.3+9-LTS",
+      "os": "Linux",
+      "workload": "scripted native exploration; no human participation; actual Survival input and physics",
+      "caves": [
+        {
+          "phase": "FRACTURE",
+          "inspected": 2178,
+          "fullChunks": 64,
+          "discovery": "NATURAL_MOUTH_TO_COVERED_PASSAGE",
+          "searchCenterX": 1344,
+          "searchCenterZ": 1200,
+          "waypoints": [
+            {
+              "x": 1295.5,
+              "y": 66.0,
+              "z": 1200.5
+            },
+            {
+              "x": 1296.5,
+              "y": 66.0,
+              "z": 1200.5
+            },
+            {
+              "x": 1296.5,
+              "y": 66.0,
+              "z": 1201.5
+            },
+            {
+              "x": 1297.5,
+              "y": 66.0,
+              "z": 1201.5
+            },
+            {
+              "x": 1298.5,
+              "y": 65.0,
+              "z": 1201.5
+            },
+            {
+              "x": 1299.5,
+              "y": 65.0,
+              "z": 1201.5
+            }
+          ],
+          "assistance": "OP bootstrap at natural outdoor mouth, health/food reset and night vision BEFORE Survival walk; no terrain edits, no in-walk teleport/heal",
+          "mouth": {
+            "phase": "FRACTURE",
+            "x": 1295.5,
+            "y": 66.0,
+            "z": 1200.5,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:copper_ore}": 4
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 66,
+            "bodyAabb": "AABB[1295.199999988079, 66.0, 1200.199999988079] -> [1295.800000011921, 67.79999995231628, 1200.800000011921]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          },
+          "inwardWalkTicks": 28,
+          "interior": {
+            "phase": "FRACTURE",
+            "x": 1299.5545853802787,
+            "y": 65.0,
+            "z": 1201.500198180334,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:copper_ore}": 4
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 71,
+            "bodyAabb": "AABB[1299.2545853683578, 65.0, 1201.2001981684132] -> [1299.8545853921996, 66.79999995231628, 1201.800198192255]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          },
+          "returnWalkTicks": 32,
+          "returned": {
+            "phase": "FRACTURE",
+            "x": 1295.2950298198568,
+            "y": 66.0,
+            "z": 1200.5388403511488,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:copper_ore}": 4
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 66,
+            "bodyAabb": "AABB[1294.995029807936, 66.0, 1200.2388403392279] -> [1295.5950298317778, 67.79999995231628, 1200.8388403630697]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          },
+          "status": "NATIVE_CAVE_RETURN_COMPLETED"
+        },
+        {
+          "phase": "SMOOTH",
+          "inspected": 3292,
+          "fullChunks": 64,
+          "discovery": "NATURAL_MOUTH_TO_COVERED_PASSAGE",
+          "searchCenterX": 1344,
+          "searchCenterZ": 1200,
+          "waypoints": [
+            {
+              "x": 1350.5,
+              "y": 80.0,
+              "z": 1237.5
+            },
+            {
+              "x": 1350.5,
+              "y": 80.0,
+              "z": 1236.5
+            },
+            {
+              "x": 1350.5,
+              "y": 79.0,
+              "z": 1235.5
+            },
+            {
+              "x": 1349.5,
+              "y": 79.0,
+              "z": 1235.5
+            },
+            {
+              "x": 1348.5,
+              "y": 79.0,
+              "z": 1235.5
+            },
+            {
+              "x": 1348.5,
+              "y": 79.0,
+              "z": 1234.5
+            }
+          ],
+          "assistance": "OP bootstrap at natural outdoor mouth, health/food reset and night vision BEFORE Survival walk; no terrain edits, no in-walk teleport/heal",
+          "mouth": {
+            "phase": "SMOOTH",
+            "x": 1350.5,
+            "y": 80.0,
+            "z": 1237.5,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:coal_ore}": 2,
+              "Block{minecraft:copper_ore}": 11,
+              "Block{minecraft:water}": 3
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 80,
+            "bodyAabb": "AABB[1350.199999988079, 80.0, 1237.199999988079] -> [1350.800000011921, 81.79999995231628, 1237.800000011921]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          },
+          "inwardWalkTicks": 28,
+          "interior": {
+            "phase": "SMOOTH",
+            "x": 1348.4760111486005,
+            "y": 79.0,
+            "z": 1234.4438648559428,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:copper_ore}": 26,
+              "Block{minecraft:water}": 2
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 86,
+            "bodyAabb": "AABB[1348.1760111366796, 79.0, 1234.143864844022] -> [1348.7760111605214, 80.79999995231628, 1234.7438648678637]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          },
+          "returnWalkTicks": 28,
+          "returned": {
+            "phase": "SMOOTH",
+            "x": 1350.4836247928554,
+            "y": 80.0,
+            "z": 1237.5918177623576,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:stone}",
+            "nearbyOreFluidFireBlocks": {
+              "Block{minecraft:coal_ore}": 2,
+              "Block{minecraft:copper_ore}": 11,
+              "Block{minecraft:water}": 3
+            },
+            "gameMode": "survival",
+            "surfaceHeight": 80,
+            "bodyAabb": "AABB[1350.1836247809345, 80.0, 1237.2918177504366] -> [1350.7836248047763, 81.79999995231628, 1237.8918177742785]",
+            "eyeBlock": "Block{minecraft:air}",
+            "nearbyLivingEntities": []
+          },
+          "status": "NATIVE_CAVE_RETURN_COMPLETED"
+        }
+      ],
+      "travelSegments": [],
+      "status": "EXPLORATION_RECORDED_REVIEW_REQUIRED",
+      "clientTicks": 1359,
+      "updatedAt": 1791952069167,
+      "finalPlayer": {
+        "phase": "SMOOTH",
+        "x": 1350.4836247928554,
+        "y": 80.0,
+        "z": 1237.5918177623576,
+        "health": 20.0,
+        "uuid": "01461149-4349-368b-8856-192924919853",
+        "safe": true,
+        "support": "Block{minecraft:stone}",
+        "nearbyOreFluidFireBlocks": {
+          "Block{minecraft:coal_ore}": 2,
+          "Block{minecraft:copper_ore}": 11,
+          "Block{minecraft:water}": 3
+        },
+        "gameMode": "survival",
+        "surfaceHeight": 80,
+        "bodyAabb": "AABB[1350.1836247809345, 80.0, 1237.2918177504366] -> [1350.7836248047763, 81.79999995231628, 1237.8918177742785]",
+        "eyeBlock": "Block{minecraft:air}",
+        "nearbyLivingEntities": []
+      },
+      "world": {
+        "seed": 123456789,
+        "minecraft": "26.1",
+        "neoforge": "26.1.0.19-beta",
+        "java": "25.0.3+9-LTS",
+        "spawn": "64, 68, -48"
+      },
+      "rawReport": "run/mvp-supplemental/caves-survey-r3-20261014/seed-0-client/mvp-exploration.json",
+      "rawReportSha256": "655de632ed3a2ca57a16af44a7c2b7a89829a90aa94abbc6848273b25d5d4709",
+      "metricsSummary": {
+        "samples": 9,
+        "fps": {
+          "min": 29,
+          "median": 47,
+          "max": 59
+        },
+        "integratedAverageTickMs": {
+          "min": 6.994761,
+          "median": 8.132069,
+          "max": 47.872367
+        },
+        "heapUsedBytes": {
+          "min": 1089994000,
+          "median": 1519772752,
+          "max": 2276210320
+        },
+        "gcCountDelta": 63,
+        "gcTimeMsDelta": 1163
+      }
+    },
+    {
+      "kind": "SUPPLEMENTAL_EXPLORATION",
+      "runId": "exploration-20261014",
+      "startedAt": 1791950688708,
+      "java": "25.0.3+9-LTS",
+      "os": "Linux",
+      "workload": "scripted native exploration; no human participation; actual Survival input and physics",
+      "caves": [
+        {
+          "phase": "FRACTURE",
+          "inspected": 6297,
+          "fullChunks": 64,
+          "discovery": "NO_CONNECTED_CAVE_WITHIN_FROZEN_BUDGET",
+          "waypoints": [],
+          "status": "DISCOVERY_FAILED"
+        },
+        {
+          "phase": "SMOOTH",
+          "inspected": 2513,
+          "fullChunks": 64,
+          "discovery": "NO_CONNECTED_CAVE_WITHIN_FROZEN_BUDGET",
+          "waypoints": [],
+          "status": "DISCOVERY_FAILED"
+        }
+      ],
+      "travelSegments": [],
+      "status": "FAIL",
+      "clientTicks": 181,
+      "updatedAt": 1791950702730,
+      "failure": "java.lang.IllegalStateException: Server exploration action failed",
+      "world": {
+        "seed": 123456789,
+        "minecraft": "26.1",
+        "neoforge": "26.1.0.19-beta",
+        "java": "25.0.3+9-LTS",
+        "spawn": "64, 68, -48"
+      },
+      "rawReport": "run/mvp-supplemental/exploration-20261014/seed-0-client/mvp-exploration.json",
+      "rawReportSha256": "6351c25c6429d9358fdf305f6f09c97da3c8787cb7734af6bca3cf9935ea73ef",
+      "metricsSummary": {
+        "samples": 0
+      }
+    },
+    {
+      "kind": "SUPPLEMENTAL_EXPLORATION",
+      "runId": "exploration-r2-20261014",
+      "startedAt": 1791950776738,
+      "java": "25.0.3+9-LTS",
+      "os": "Linux",
+      "workload": "scripted native exploration; no human participation; actual Survival input and physics",
+      "caves": [
+        {
+          "phase": "FRACTURE",
+          "inspected": 6297,
+          "fullChunks": 64,
+          "discovery": "NO_CONNECTED_CAVE_WITHIN_FROZEN_BUDGET",
+          "waypoints": [],
+          "status": "DISCOVERY_FAILED"
+        },
+        {
+          "phase": "SMOOTH",
+          "inspected": 2513,
+          "fullChunks": 64,
+          "discovery": "NO_CONNECTED_CAVE_WITHIN_FROZEN_BUDGET",
+          "waypoints": [],
+          "status": "DISCOVERY_FAILED"
+        }
+      ],
+      "travelSegments": [
+        {
+          "waypoints": [
+            {
+              "x": -383.5,
+              "y": 64.0,
+              "z": 896.5
+            },
+            {
+              "x": -383.5,
+              "y": 64.0,
+              "z": 895.5
+            },
+            {
+              "x": -383.5,
+              "y": 64.0,
+              "z": 894.5
+            },
+            {
+              "x": -383.5,
+              "y": 64.0,
+              "z": 893.5
+            },
+            {
+              "x": -383.5,
+              "y": 64.0,
+              "z": 892.5
+            },
+            {
+              "x": -383.5,
+              "y": 64.0,
+              "z": 891.5
+            },
+            {
+              "x": -383.5,
+              "y": 64.0,
+              "z": 890.5
+            },
+            {
+              "x": -383.5,
+              "y": 64.0,
+              "z": 889.5
+            },
+            {
+              "x": -383.5,
+              "y": 64.0,
+              "z": 888.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 888.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 887.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 886.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 885.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 884.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 883.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 882.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 881.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 880.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 879.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 878.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 877.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 876.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 875.5
+            }
+          ],
+          "inspected": 1800,
+          "fullChunks": 9,
+          "reason": "SEGMENT_OBSTRUCTED",
+          "planMs": 4.629447,
+          "nativeWalk": "SEGMENT_WALKED"
+        },
+        {
+          "waypoints": [
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 875.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 874.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 873.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 872.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 871.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 870.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 869.5
+            },
+            {
+              "x": -382.5,
+              "y": 65.0,
+              "z": 868.5
+            },
+            {
+              "x": -382.5,
+              "y": 65.0,
+              "z": 867.5
+            },
+            {
+              "x": -382.5,
+              "y": 65.0,
+              "z": 866.5
+            },
+            {
+              "x": -382.5,
+              "y": 65.0,
+              "z": 865.5
+            },
+            {
+              "x": -382.5,
+              "y": 65.0,
+              "z": 864.5
+            },
+            {
+              "x": -382.5,
+              "y": 65.0,
+              "z": 863.5
+            },
+            {
+              "x": -382.5,
+              "y": 65.0,
+              "z": 862.5
+            },
+            {
+              "x": -382.5,
+              "y": 65.0,
+              "z": 861.5
+            },
+            {
+              "x": -382.5,
+              "y": 65.0,
+              "z": 860.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 859.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 858.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 857.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 856.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 855.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 854.5
+            }
+          ],
+          "inspected": 1800,
+          "fullChunks": 6,
+          "reason": "SEGMENT_OBSTRUCTED",
+          "planMs": 5.274402,
+          "nativeWalk": "SEGMENT_WALKED"
+        },
+        {
+          "waypoints": [
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 854.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 853.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 852.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 851.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 850.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 849.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 848.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 847.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 846.5
+            },
+            {
+              "x": -382.5,
+              "y": 64.0,
+              "z": 845.5
+            },
+            {
+              "x": -382.5,
+              "y": 63.0,
+              "z": 844.5
+            },
+            {
+              "x": -382.5,
+              "y": 63.0,
+              "z": 843.5
+            },
+            {
+              "x": -382.5,
+              "y": 63.0,
+              "z": 842.5
+            },
+            {
+              "x": -382.5,
+              "y": 63.0,
+              "z": 841.5
+            },
+            {
+              "x": -382.5,
+              "y": 63.0,
+              "z": 840.5
+            },
+            {
+              "x": -382.5,
+              "y": 63.0,
+              "z": 839.5
+            },
+            {
+              "x": -382.5,
+              "y": 63.0,
+              "z": 838.5
+            },
+            {
+              "x": -382.5,
+              "y": 63.0,
+              "z": 837.5
+            },
+            {
+              "x": -382.5,
+              "y": 63.0,
+              "z": 836.5
+            },
+            {
+              "x": -382.5,
+              "y": 63.0,
+              "z": 835.5
+            },
+            {
+              "x": -382.5,
+              "y": 63.0,
+              "z": 834.5
+            }
+          ],
+          "inspected": 1800,
+          "fullChunks": 6,
+          "reason": "SEGMENT_OBSTRUCTED",
+          "planMs": 4.300207,
+          "nativeWalk": "SEGMENT_WALKED"
+        },
+        {
+          "waypoints": [
+            {
+              "x": -382.5,
+              "y": 63.0,
+              "z": 834.5
+            },
+            {
+              "x": -383.5,
+              "y": 63.0,
+              "z": 834.5
+            },
+            {
+              "x": -384.5,
+              "y": 63.0,
+              "z": 834.5
+            },
+            {
+              "x": -385.5,
+              "y": 63.0,
+              "z": 834.5
+            },
+            {
+              "x": -386.5,
+              "y": 63.0,
+              "z": 834.5
+            },
+            {
+              "x": -387.5,
+              "y": 63.0,
+              "z": 834.5
+            },
+            {
+              "x": -388.5,
+              "y": 63.0,
+              "z": 834.5
+            },
+            {
+              "x": -388.5,
+              "y": 63.0,
+              "z": 833.5
+            },
+            {
+              "x": -388.5,
+              "y": 63.0,
+              "z": 832.5
+            },
+            {
+              "x": -389.5,
+              "y": 63.0,
+              "z": 832.5
+            },
+            {
+              "x": -390.5,
+              "y": 63.0,
+              "z": 832.5
+            },
+            {
+              "x": -390.5,
+              "y": 63.0,
+              "z": 831.5
+            },
+            {
+              "x": -391.5,
+              "y": 63.0,
+              "z": 831.5
+            },
+            {
+              "x": -392.5,
+              "y": 63.0,
+              "z": 831.5
+            },
+            {
+              "x": -393.5,
+              "y": 63.0,
+              "z": 831.5
+            },
+            {
+              "x": -394.5,
+              "y": 63.0,
+              "z": 831.5
+            },
+            {
+              "x": -395.5,
+              "y": 63.0,
+              "z": 831.5
+            },
+            {
+              "x": -396.5,
+              "y": 63.0,
+              "z": 831.5
+            },
+            {
+              "x": -397.5,
+              "y": 63.0,
+              "z": 831.5
+            },
+            {
+              "x": -397.5,
+              "y": 63.0,
+              "z": 830.5
+            },
+            {
+              "x": -397.5,
+              "y": 63.0,
+              "z": 829.5
+            },
+            {
+              "x": -397.5,
+              "y": 63.0,
+              "z": 828.5
+            },
+            {
+              "x": -398.5,
+              "y": 63.0,
+              "z": 828.5
+            },
+            {
+              "x": -399.5,
+              "y": 63.0,
+              "z": 828.5
+            },
+            {
+              "x": -400.5,
+              "y": 63.0,
+              "z": 828.5
+            },
+            {
+              "x": -400.5,
+              "y": 63.0,
+              "z": 827.5
+            },
+            {
+              "x": -401.5,
+              "y": 63.0,
+              "z": 827.5
+            },
+            {
+              "x": -401.5,
+              "y": 63.0,
+              "z": 826.5
+            },
+            {
+              "x": -402.5,
+              "y": 63.0,
+              "z": 826.5
+            },
+            {
+              "x": -402.5,
+              "y": 63.0,
+              "z": 825.5
+            },
+            {
+              "x": -403.5,
+              "y": 63.0,
+              "z": 825.5
+            },
+            {
+              "x": -403.5,
+              "y": 63.0,
+              "z": 824.5
+            },
+            {
+              "x": -403.5,
+              "y": 63.0,
+              "z": 823.5
+            },
+            {
+              "x": -404.5,
+              "y": 63.0,
+              "z": 823.5
+            },
+            {
+              "x": -404.5,
+              "y": 63.0,
+              "z": 822.5
+            },
+            {
+              "x": -405.5,
+              "y": 63.0,
+              "z": 822.5
+            },
+            {
+              "x": -405.5,
+              "y": 63.0,
+              "z": 821.5
+            },
+            {
+              "x": -406.5,
+              "y": 63.0,
+              "z": 821.5
+            },
+            {
+              "x": -407.5,
+              "y": 63.0,
+              "z": 821.5
+            },
+            {
+              "x": -407.5,
+              "y": 63.0,
+              "z": 820.5
+            }
+          ],
+          "inspected": 775,
+          "fullChunks": 5,
+          "reason": "SEGMENT_OBSTRUCTED",
+          "planMs": 1.663592,
+          "nativeWalk": "SEGMENT_WALKED"
+        },
+        {
+          "waypoints": [
+            {
+              "x": -407.5,
+              "y": 63.0,
+              "z": 820.5
+            }
+          ],
+          "inspected": 36,
+          "fullChunks": 1,
+          "reason": "SEGMENT_OBSTRUCTED",
+          "planMs": 0.101811
+        }
+      ],
+      "status": "EXPLORATION_RECORDED_REVIEW_REQUIRED",
+      "clientTicks": 1038,
+      "updatedAt": 1791950908519,
+      "travel": {
+        "start": {
+          "phase": "SMOOTH",
+          "x": -383.5,
+          "y": 64.0,
+          "z": 896.5,
+          "health": 20.0,
+          "uuid": "01461149-4349-368b-8856-192924919853",
+          "safe": true,
+          "support": "Block{minecraft:grass_block}[snowy=false]",
+          "nearbyOreFluidFireBlocks": {},
+          "nearbyLivingEntities": 0
+        },
+        "destinationX": -383.5,
+        "destinationZ": 512.5,
+        "corridorHalfWidth": 24,
+        "declaredBeforeMovement": true,
+        "obstruction": "No supported dry corridor within fixed budget",
+        "end": {
+          "phase": "SMOOTH",
+          "x": -407.5761949268166,
+          "y": 63.0,
+          "z": 820.6906730489294,
+          "health": 20.0,
+          "uuid": "01461149-4349-368b-8856-192924919853",
+          "safe": true,
+          "support": "Block{minecraft:grass_block}[snowy=false]",
+          "nearbyOreFluidFireBlocks": {
+            "Block{minecraft:firefly_bush}": 2,
+            "Block{minecraft:water}": 34
+          },
+          "nearbyLivingEntities": 0,
+          "inspected": 6211,
+          "plannedWaypoints": 107
+        },
+        "northProgress": 75.8093269510706,
+        "status": "BOUNDED_GROUND_ATTEMPT_RECORDED"
+      },
+      "adaptiveChoice": {
+        "before": {
+          "phase": "SMOOTH",
+          "x": -407.5297320351578,
+          "y": 63.0,
+          "z": 820.472923795025,
+          "health": 20.0,
+          "uuid": "01461149-4349-368b-8856-192924919853",
+          "safe": true,
+          "support": "Block{minecraft:grass_block}[snowy=false]",
+          "nearbyOreFluidFireBlocks": {
+            "Block{minecraft:firefly_bush}": 2,
+            "Block{minecraft:water}": 34
+          },
+          "nearbyLivingEntities": 0
+        },
+        "result": "SUCCESS",
+        "after": {
+          "phase": "FRACTURE",
+          "x": -407.5297320351578,
+          "y": 67.0,
+          "z": 820.472923795025,
+          "health": 20.0,
+          "uuid": "01461149-4349-368b-8856-192924919853",
+          "safe": true,
+          "support": "Block{minecraft:grass_block}[snowy=false]",
+          "nearbyOreFluidFireBlocks": {},
+          "nearbyLivingEntities": 0
+        },
+        "classification": "SHIFT_POSITION_FEASIBLE",
+        "alternatePlan": {
+          "waypoints": [
+            {
+              "x": -407.5,
+              "y": 67.0,
+              "z": 820.5
+            },
+            {
+              "x": -407.5,
+              "y": 67.0,
+              "z": 819.5
+            },
+            {
+              "x": -407.5,
+              "y": 67.0,
+              "z": 818.5
+            },
+            {
+              "x": -407.5,
+              "y": 67.0,
+              "z": 817.5
+            },
+            {
+              "x": -407.5,
+              "y": 66.0,
+              "z": 816.5
+            },
+            {
+              "x": -407.5,
+              "y": 66.0,
+              "z": 815.5
+            },
+            {
+              "x": -407.5,
+              "y": 66.0,
+              "z": 814.5
+            },
+            {
+              "x": -407.5,
+              "y": 66.0,
+              "z": 813.5
+            },
+            {
+              "x": -407.5,
+              "y": 66.0,
+              "z": 812.5
+            },
+            {
+              "x": -407.5,
+              "y": 66.0,
+              "z": 811.5
+            },
+            {
+              "x": -407.5,
+              "y": 66.0,
+              "z": 810.5
+            },
+            {
+              "x": -407.5,
+              "y": 66.0,
+              "z": 809.5
+            },
+            {
+              "x": -407.5,
+              "y": 66.0,
+              "z": 808.5
+            }
+          ],
+          "reason": "SEGMENT_CONNECTED"
+        },
+        "exitAttempt": {
+          "phase": "FRACTURE",
+          "x": -407.49999593689364,
+          "y": 66.0,
+          "z": 809.471725964118,
+          "health": 20.0,
+          "uuid": "01461149-4349-368b-8856-192924919853",
+          "safe": true,
+          "support": "Block{minecraft:grass_block}[snowy=false]",
+          "nearbyOreFluidFireBlocks": {},
+          "nearbyLivingEntities": 0,
+          "returnResult": "NO_SAFE_POSITION",
+          "afterReturn": {
+            "phase": "FRACTURE",
+            "x": -407.49999593689364,
+            "y": 66.0,
+            "z": 809.471725964118,
+            "health": 20.0,
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "safe": true,
+            "support": "Block{minecraft:grass_block}[snowy=false]",
+            "nearbyOreFluidFireBlocks": {},
+            "nearbyLivingEntities": 0
+          }
+        }
+      },
+      "finalPlayer": {
+        "phase": "FRACTURE",
+        "x": -407.5000101364784,
+        "y": 66.0,
+        "z": 808.4061453897957,
+        "health": 20.0,
+        "uuid": "01461149-4349-368b-8856-192924919853",
+        "safe": true,
+        "support": "Block{minecraft:grass_block}[snowy=false]",
+        "nearbyOreFluidFireBlocks": {},
+        "nearbyLivingEntities": 0
+      },
+      "world": {
+        "seed": 123456789,
+        "minecraft": "26.1",
+        "neoforge": "26.1.0.19-beta",
+        "java": "25.0.3+9-LTS",
+        "spawn": "64, 68, -48"
+      },
+      "rawReport": "run/mvp-supplemental/exploration-r2-20261014/seed-0-client/mvp-exploration.json",
+      "rawReportSha256": "477e0cafaa5fe5c069a30191bfb08ba5f4f79ef803171bef34c9d0c1f3501f18",
+      "metricsSummary": {
+        "samples": 9,
+        "fps": {
+          "min": 0,
+          "median": 1,
+          "max": 1
+        },
+        "integratedAverageTickMs": {
+          "min": 4.770131,
+          "median": 6.193546,
+          "max": 18.07361
+        },
+        "heapUsedBytes": {
+          "min": 983857800,
+          "median": 1230179392,
+          "max": 1843305864
+        },
+        "gcCountDelta": 66,
+        "gcTimeMsDelta": 1091
+      }
+    },
+    {
+      "workload": "native client input automation, real integrated ServerPlayer/physics/world; no route platforms",
+      "routeTrials": [
+        {
+          "index": 35,
+          "source": "CELL",
+          "targetPhase": "FRACTURE",
+          "entranceX": -383.5,
+          "entranceZ": 896.5,
+          "direction": 3,
+          "setup": {
+            "bootstrap": "SUCCESS",
+            "x": -383.5,
+            "y": 171.0,
+            "z": 896.5
+          },
+          "baselineProgress": 17.19999998807907,
+          "entryShift": {
+            "result": "NO_SAFE_POSITION",
+            "elapsedMs": 373.847558,
+            "before": "(-383.5, 171.0, 896.5)",
+            "after": "(-383.5, 171.0, 896.5)",
+            "level": "worldphase:cell",
+            "uuid": "01461149-4349-368b-8856-192924919853",
+            "inventoryAndPlayerIdentity": "PASS",
+            "playerEntities": 1
+          },
+          "classification": "OBSERVED_TERRAIN_DIFFERENCE",
+          "reason": "ENTRY_SHIFT_REFUSED"
+        }
+      ],
+      "survival": [],
+      "kind": "SUPPLEMENTAL_REPLAY",
+      "runId": "route35-20261014",
+      "os": "Linux",
+      "java": "25.0.3+9-LTS",
+      "status": "COMPLETED_NOT_A_GAMEPLAY_GATE_PASS",
+      "stage": "DONE",
+      "clientTicks": 432,
+      "routeFrom": 35,
+      "routeTo": 36,
+      "returnPolicy": "release keys, wait at least20 ticks for onGround, at most100 ticks; same route criteria; separate clone for replay",
+      "finalPlayer": {
+        "uuid": "01461149-4349-368b-8856-192924919853",
+        "level": "worldphase:cell",
+        "position": "(-383.5, 171.0, 896.5)",
+        "yaw": 90.0,
+        "pitch": 0.0,
+        "inventory": [
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air",
+          "0 minecraft:air"
+        ]
+      },
+      "world": {
+        "seed": 8675309,
+        "minecraft": "26.1",
+        "neoforge": "26.1.0.19-beta",
+        "java": "25.0.3+9-LTS",
+        "spawn": "16, 64, 80"
+      },
+      "rawReport": "run/mvp-supplemental/route35-20261014/seed-1-client/mvp-routes.json",
+      "rawReportSha256": "8f7d29d32e4506760aee52eb805188ce33feb76f519e385bc76a7373fd211517",
+      "metricsSummary": {
+        "samples": 3,
+        "fps": {
+          "min": 59,
+          "median": 60,
+          "max": 60
+        },
+        "integratedAverageTickMs": {
+          "min": 20.01188,
+          "median": 20.729846,
+          "max": 64.892425
+        },
+        "heapUsedBytes": {
+          "min": 733361824,
+          "median": 873226240,
+          "max": 942806016
+        },
+        "gcCountDelta": 24,
+        "gcTimeMsDelta": 261
+      }
+    },
+    {
+      "kind": "SUPPLEMENTAL_EXPLORATION",
+      "runId": "streaming-adaptive-20261014",
+      "startedAt": 1791951551411,
+      "java": "25.0.3+9-LTS",
+      "os": "Linux",
+      "workload": "scripted native exploration; no human participation; actual Survival input and physics",
+      "caves": [],
+      "travelSegments": [
+        {
+          "waypoints": [
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 896.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 895.5
+            },
+            {
+              "x": -383.5,
+              "y": 90.0,
+              "z": 894.5
+            },
+            {
+              "x": -383.5,
+              "y": 90.0,
+              "z": 884.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 883.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 872.5
+            }
+          ],
+          "inspected": 149,
+          "fullChunks": 6,
+          "reason": "SEGMENT_CONNECTED",
+          "planMs": 4.386612,
+          "nativeWalk": "SEGMENT_WALKED"
+        },
+        {
+          "waypoints": [
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 872.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 867.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 866.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 863.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 862.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 860.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 859.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 848.5
+            }
+          ],
+          "inspected": 137,
+          "fullChunks": 4,
+          "reason": "SEGMENT_CONNECTED",
+          "planMs": 1.099092,
+          "nativeWalk": "SEGMENT_WALKED"
+        },
+        {
+          "waypoints": [
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 848.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 829.5
+            },
+            {
+              "x": -383.5,
+              "y": 87.0,
+              "z": 828.5
+            },
+            {
+              "x": -383.5,
+              "y": 87.0,
+              "z": 824.5
+            }
+          ],
+          "inspected": 128,
+          "fullChunks": 6,
+          "reason": "SEGMENT_CONNECTED",
+          "planMs": 0.734993,
+          "nativeWalk": "SEGMENT_WALKED"
+        },
+        {
+          "waypoints": [
+            {
+              "x": -383.5,
+              "y": 87.0,
+              "z": 824.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 823.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 820.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 819.5
+            },
+            {
+              "x": -383.5,
+              "y": 90.0,
+              "z": 818.5
+            },
+            {
+              "x": -383.5,
+              "y": 91.0,
+              "z": 817.5
+            },
+            {
+              "x": -383.5,
+              "y": 92.0,
+              "z": 816.5
+            },
+            {
+              "x": -383.5,
+              "y": 93.0,
+              "z": 815.5
+            },
+            {
+              "x": -383.5,
+              "y": 93.0,
+              "z": 813.5
+            },
+            {
+              "x": -383.5,
+              "y": 94.0,
+              "z": 812.5
+            },
+            {
+              "x": -383.5,
+              "y": 94.0,
+              "z": 810.5
+            },
+            {
+              "x": -383.5,
+              "y": 95.0,
+              "z": 809.5
+            },
+            {
+              "x": -383.5,
+              "y": 95.0,
+              "z": 800.5
+            }
+          ],
+          "inspected": 129,
+          "fullChunks": 4,
+          "reason": "SEGMENT_CONNECTED",
+          "planMs": 0.460776,
+          "nativeWalk": "SEGMENT_WALKED"
+        },
+        {
+          "waypoints": [
+            {
+              "x": -383.5,
+              "y": 95.0,
+              "z": 800.5
+            },
+            {
+              "x": -383.5,
+              "y": 95.0,
+              "z": 799.5
+            },
+            {
+              "x": -383.5,
+              "y": 96.0,
+              "z": 798.5
+            },
+            {
+              "x": -383.5,
+              "y": 96.0,
+              "z": 780.5
+            },
+            {
+              "x": -383.5,
+              "y": 97.0,
+              "z": 779.5
+            },
+            {
+              "x": -383.5,
+              "y": 97.0,
+              "z": 777.5
+            },
+            {
+              "x": -382.5,
+              "y": 97.0,
+              "z": 777.5
+            },
+            {
+              "x": -382.5,
+              "y": 98.0,
+              "z": 776.5
+            }
+          ],
+          "inspected": 133,
+          "fullChunks": 6,
+          "reason": "SEGMENT_CONNECTED",
+          "planMs": 0.609882,
+          "nativeWalk": "PHYSICALLY_BLOCKED"
+        },
+        {
+          "waypoints": [
+            {
+              "x": -383.5,
+              "y": 95.0,
+              "z": 799.5
+            },
+            {
+              "x": -382.5,
+              "y": 95.0,
+              "z": 799.5
+            },
+            {
+              "x": -382.5,
+              "y": 95.0,
+              "z": 798.5
+            },
+            {
+              "x": -382.5,
+              "y": 96.0,
+              "z": 797.5
+            },
+            {
+              "x": -382.5,
+              "y": 96.0,
+              "z": 780.5
+            },
+            {
+              "x": -382.5,
+              "y": 97.0,
+              "z": 779.5
+            },
+            {
+              "x": -382.5,
+              "y": 97.0,
+              "z": 777.5
+            },
+            {
+              "x": -382.5,
+              "y": 98.0,
+              "z": 776.5
+            },
+            {
+              "x": -382.5,
+              "y": 98.0,
+              "z": 775.5
+            }
+          ],
+          "inspected": 131,
+          "fullChunks": 4,
+          "reason": "SEGMENT_CONNECTED",
+          "planMs": 0.760131,
+          "nativeWalk": "SEGMENT_WALKED"
+        },
+        {
+          "waypoints": [
+            {
+              "x": -382.5,
+              "y": 98.0,
+              "z": 775.5
+            },
+            {
+              "x": -382.5,
+              "y": 98.0,
+              "z": 765.5
+            },
+            {
+              "x": -382.5,
+              "y": 99.0,
+              "z": 764.5
+            },
+            {
+              "x": -380.5,
+              "y": 99.0,
+              "z": 764.5
+            },
+            {
+              "x": -380.5,
+              "y": 99.0,
+              "z": 763.5
+            },
+            {
+              "x": -378.5,
+              "y": 99.0,
+              "z": 763.5
+            },
+            {
+              "x": -378.5,
+              "y": 99.0,
+              "z": 762.5
+            },
+            {
+              "x": -377.5,
+              "y": 99.0,
+              "z": 762.5
+            },
+            {
+              "x": -376.5,
+              "y": 100.0,
+              "z": 762.5
+            },
+            {
+              "x": -375.5,
+              "y": 100.0,
+              "z": 762.5
+            },
+            {
+              "x": -375.5,
+              "y": 100.0,
+              "z": 764.5
+            },
+            {
+              "x": -376.5,
+              "y": 99.0,
+              "z": 764.5
+            },
+            {
+              "x": -377.5,
+              "y": 99.0,
+              "z": 764.5
+            },
+            {
+              "x": -377.5,
+              "y": 99.0,
+              "z": 765.5
+            },
+            {
+              "x": -379.5,
+              "y": 99.0,
+              "z": 765.5
+            },
+            {
+              "x": -379.5,
+              "y": 98.0,
+              "z": 766.5
+            },
+            {
+              "x": -380.5,
+              "y": 98.0,
+              "z": 766.5
+            },
+            {
+              "x": -380.5,
+              "y": 98.0,
+              "z": 768.5
+            },
+            {
+              "x": -377.5,
+              "y": 98.0,
+              "z": 768.5
+            },
+            {
+              "x": -377.5,
+              "y": 98.0,
+              "z": 769.5
+            },
+            {
+              "x": -373.5,
+              "y": 98.0,
+              "z": 769.5
+            },
+            {
+              "x": -372.5,
+              "y": 97.0,
+              "z": 769.5
+            },
+            {
+              "x": -372.5,
+              "y": 96.0,
+              "z": 768.5
+            },
+            {
+              "x": -372.5,
+              "y": 96.0,
+              "z": 765.5
+            },
+            {
+              "x": -372.5,
+              "y": 97.0,
+              "z": 764.5
+            },
+            {
+              "x": -372.5,
+              "y": 97.0,
+              "z": 761.5
+            },
+            {
+              "x": -372.5,
+              "y": 96.0,
+              "z": 760.5
+            },
+            {
+              "x": -372.5,
+              "y": 96.0,
+              "z": 756.5
+            },
+            {
+              "x": -371.5,
+              "y": 97.0,
+              "z": 756.5
+            },
+            {
+              "x": -370.5,
+              "y": 97.0,
+              "z": 756.5
+            },
+            {
+              "x": -370.5,
+              "y": 97.0,
+              "z": 751.5
+            }
+          ],
+          "inspected": 413,
+          "fullChunks": 3,
+          "reason": "SEGMENT_CONNECTED",
+          "planMs": 0.969233,
+          "nativeWalk": "SEGMENT_WALKED"
+        },
+        {
+          "waypoints": [
+            {
+              "x": -370.5,
+              "y": 97.0,
+              "z": 751.5
+            },
+            {
+              "x": -368.5,
+              "y": 97.0,
+              "z": 751.5
+            },
+            {
+              "x": -368.5,
+              "y": 97.0,
+              "z": 750.5
+            }
+          ],
+          "inspected": 49,
+          "fullChunks": 3,
+          "reason": "SEGMENT_OBSTRUCTED",
+          "planMs": 0.342388,
+          "nativeWalk": "SEGMENT_WALKED"
+        },
+        {
+          "waypoints": [
+            {
+              "x": -368.5,
+              "y": 97.0,
+              "z": 750.5
+            }
+          ],
+          "inspected": 39,
+          "fullChunks": 3,
+          "reason": "SEGMENT_OBSTRUCTED",
+          "planMs": 0.132024
+        }
+      ],
+      "status": "EXPLORATION_RECORDED_REVIEW_REQUIRED",
+      "clientTicks": 1434,
+      "updatedAt": 1791951629019,
+      "travel": {
+        "start": {
+          "phase": "RIDGE",
+          "x": -383.5,
+          "y": 89.0,
+          "z": 896.5,
+          "health": 20.0,
+          "uuid": "01461149-4349-368b-8856-192924919853",
+          "safe": true,
+          "support": "Block{minecraft:grass_block}[snowy=false]",
+          "nearbyOreFluidFireBlocks": {},
+          "gameMode": "survival",
+          "surfaceHeight": 89,
+          "bodyAabb": "AABB[-383.80000001192093, 89.0, 896.1999999880791] -> [-383.19999998807907, 90.79999995231628, 896.8000000119209]",
+          "eyeBlock": "Block{minecraft:air}",
+          "nearbyLivingEntities": []
+        },
+        "destinationX": -383.5,
+        "destinationZ": 512.5,
+        "corridorHalfWidth": 24,
+        "declaredBeforeMovement": true,
+        "startedAt": 1791951567971,
+        "obstruction": "No supported dry corridor within fixed budget",
+        "blockedWaypointsAvoided": 1,
+        "end": {
+          "phase": "RIDGE",
+          "x": -368.4704666091434,
+          "y": 97.0,
+          "z": 750.5083814494895,
+          "health": 20.0,
+          "uuid": "01461149-4349-368b-8856-192924919853",
+          "safe": true,
+          "support": "Block{minecraft:dirt}",
+          "nearbyOreFluidFireBlocks": {
+            "Block{minecraft:coal_ore}": 6
+          },
+          "gameMode": "survival",
+          "surfaceHeight": 101,
+          "bodyAabb": "AABB[-368.7704666210643, 97.0, 750.2083814375686] -> [-368.17046659722246, 98.79999995231628, 750.8083814614105]",
+          "eyeBlock": "Block{minecraft:air}",
+          "nearbyLivingEntities": [
+            {
+              "type": "entity.minecraft.chicken",
+              "health": 4.0
+            }
+          ],
+          "inspected": 1308,
+          "plannedWaypoints": 83
+        },
+        "northProgress": 145.99161855051045,
+        "destinationReached": false,
+        "status": "BOUNDED_GROUND_ATTEMPT_RECORDED",
+        "endedAt": 1791951626414,
+        "newServerChunksDuringWalk": 1299,
+        "receivedClientChunksDuringWalk": 1042,
+        "maxClientTickGapMs": 3575.217677
+      },
+      "adaptiveChoice": {
+        "before": {
+          "phase": "RIDGE",
+          "x": -368.4783737765587,
+          "y": 97.0,
+          "z": 750.4576719891654,
+          "health": 20.0,
+          "uuid": "01461149-4349-368b-8856-192924919853",
+          "safe": true,
+          "support": "Block{minecraft:dirt}",
+          "nearbyOreFluidFireBlocks": {
+            "Block{minecraft:coal_ore}": 6
+          },
+          "gameMode": "survival",
+          "surfaceHeight": 101,
+          "bodyAabb": "AABB[-368.77837378847966, 97.0, 750.1576719772445] -> [-368.1783737646378, 98.79999995231628, 750.7576720010863]",
+          "eyeBlock": "Block{minecraft:air}",
+          "nearbyLivingEntities": [
+            {
+              "type": "entity.minecraft.chicken",
+              "health": 4.0
+            }
+          ]
+        },
+        "result": "NO_SAFE_POSITION",
+        "after": {
+          "phase": "RIDGE",
+          "x": -368.4783737765587,
+          "y": 97.0,
+          "z": 750.4576719891654,
+          "health": 20.0,
+          "uuid": "01461149-4349-368b-8856-192924919853",
+          "safe": true,
+          "support": "Block{minecraft:dirt}",
+          "nearbyOreFluidFireBlocks": {
+            "Block{minecraft:coal_ore}": 6
+          },
+          "gameMode": "survival",
+          "surfaceHeight": 101,
+          "bodyAabb": "AABB[-368.77837378847966, 97.0, 750.1576719772445] -> [-368.1783737646378, 98.79999995231628, 750.7576720010863]",
+          "eyeBlock": "Block{minecraft:air}",
+          "nearbyLivingEntities": [
+            {
+              "type": "entity.minecraft.chicken",
+              "health": 4.0
+            }
+          ]
+        },
+        "classification": "OBSERVED_TERRAIN_DIFFERENCE"
+      },
+      "finalPlayer": {
+        "phase": "RIDGE",
+        "x": -368.4807310302275,
+        "y": 97.0,
+        "z": 750.4425546841796,
+        "health": 20.0,
+        "uuid": "01461149-4349-368b-8856-192924919853",
+        "safe": true,
+        "support": "Block{minecraft:dirt}",
+        "nearbyOreFluidFireBlocks": {
+          "Block{minecraft:coal_ore}": 6
+        },
+        "gameMode": "survival",
+        "surfaceHeight": 101,
+        "bodyAabb": "AABB[-368.78073104214843, 97.0, 750.1425546722587] -> [-368.1807310183066, 98.79999995231628, 750.7425546961006]",
+        "eyeBlock": "Block{minecraft:air}",
+        "nearbyLivingEntities": [
+          {
+            "type": "entity.minecraft.chicken",
+            "health": 4.0
+          }
+        ]
+      },
+      "world": {
+        "seed": 123456789,
+        "minecraft": "26.1",
+        "neoforge": "26.1.0.19-beta",
+        "java": "25.0.3+9-LTS",
+        "spawn": "64, 68, -48"
+      },
+      "rawReport": "run/mvp-supplemental/streaming-adaptive-20261014/seed-0-client/mvp-exploration.json",
+      "rawReportSha256": "bcdf410bba977593d6ec052fbc8a8552eff1433f86d70b403fbeaf54698a8751",
+      "metricsSummary": {
+        "samples": 14,
+        "fps": {
+          "min": 26,
+          "median": 37,
+          "max": 60
+        },
+        "integratedAverageTickMs": {
+          "min": 4.999535,
+          "median": 8.071068,
+          "max": 59.586768
+        },
+        "heapUsedBytes": {
+          "min": 764626864,
+          "median": 1286858584,
+          "max": 1726022048
+        },
+        "gcCountDelta": 65,
+        "gcTimeMsDelta": 765
+      }
+    },
+    {
+      "kind": "SUPPLEMENTAL_EXPLORATION",
+      "runId": "travel-ridge-20261014",
+      "startedAt": 1791951235978,
+      "java": "25.0.3+9-LTS",
+      "os": "Linux",
+      "workload": "scripted native exploration; no human participation; actual Survival input and physics",
+      "caves": [],
+      "travelSegments": [
+        {
+          "waypoints": [
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 896.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 895.5
+            },
+            {
+              "x": -383.5,
+              "y": 90.0,
+              "z": 894.5
+            },
+            {
+              "x": -383.5,
+              "y": 90.0,
+              "z": 893.5
+            },
+            {
+              "x": -383.5,
+              "y": 90.0,
+              "z": 892.5
+            },
+            {
+              "x": -383.5,
+              "y": 90.0,
+              "z": 891.5
+            },
+            {
+              "x": -383.5,
+              "y": 90.0,
+              "z": 890.5
+            },
+            {
+              "x": -383.5,
+              "y": 90.0,
+              "z": 889.5
+            },
+            {
+              "x": -383.5,
+              "y": 90.0,
+              "z": 888.5
+            },
+            {
+              "x": -383.5,
+              "y": 90.0,
+              "z": 887.5
+            },
+            {
+              "x": -383.5,
+              "y": 90.0,
+              "z": 886.5
+            },
+            {
+              "x": -383.5,
+              "y": 90.0,
+              "z": 885.5
+            },
+            {
+              "x": -383.5,
+              "y": 90.0,
+              "z": 884.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 883.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 882.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 881.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 880.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 879.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 878.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 877.5
+            }
+          ],
+          "inspected": 1800,
+          "fullChunks": 10,
+          "reason": "SEGMENT_OBSTRUCTED",
+          "planMs": 9.834342,
+          "nativeWalk": "SEGMENT_WALKED"
+        },
+        {
+          "waypoints": [
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 877.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 876.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 875.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 874.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 873.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 872.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 871.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 870.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 869.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 868.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 867.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 866.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 865.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 864.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 863.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 862.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 861.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 860.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 859.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 858.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 857.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 856.5
+            }
+          ],
+          "inspected": 1800,
+          "fullChunks": 6,
+          "reason": "SEGMENT_OBSTRUCTED",
+          "planMs": 5.025806,
+          "nativeWalk": "SEGMENT_WALKED"
+        },
+        {
+          "waypoints": [
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 856.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 855.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 854.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 853.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 852.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 851.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 850.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 849.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 848.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 847.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 846.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 845.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 844.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 843.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 842.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 841.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 840.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 839.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 838.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 837.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 836.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 835.5
+            }
+          ],
+          "inspected": 1800,
+          "fullChunks": 6,
+          "reason": "SEGMENT_OBSTRUCTED",
+          "planMs": 4.488704,
+          "nativeWalk": "SEGMENT_WALKED"
+        },
+        {
+          "waypoints": [
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 835.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 834.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 833.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 832.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 831.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 830.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 829.5
+            },
+            {
+              "x": -383.5,
+              "y": 87.0,
+              "z": 828.5
+            },
+            {
+              "x": -383.5,
+              "y": 87.0,
+              "z": 827.5
+            },
+            {
+              "x": -383.5,
+              "y": 87.0,
+              "z": 826.5
+            },
+            {
+              "x": -383.5,
+              "y": 87.0,
+              "z": 825.5
+            },
+            {
+              "x": -383.5,
+              "y": 87.0,
+              "z": 824.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 823.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 822.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 821.5
+            },
+            {
+              "x": -383.5,
+              "y": 88.0,
+              "z": 820.5
+            },
+            {
+              "x": -383.5,
+              "y": 89.0,
+              "z": 819.5
+            },
+            {
+              "x": -383.5,
+              "y": 90.0,
+              "z": 818.5
+            },
+            {
+              "x": -383.5,
+              "y": 91.0,
+              "z": 817.5
+            },
+            {
+              "x": -383.5,
+              "y": 92.0,
+              "z": 816.5
+            },
+            {
+              "x": -383.5,
+              "y": 93.0,
+              "z": 815.5
+            }
+          ],
+          "inspected": 1800,
+          "fullChunks": 10,
+          "reason": "SEGMENT_OBSTRUCTED",
+          "planMs": 3.890456,
+          "nativeWalk": "SEGMENT_WALKED"
+        },
+        {
+          "waypoints": [
+            {
+              "x": -383.5,
+              "y": 93.0,
+              "z": 815.5
+            },
+            {
+              "x": -383.5,
+              "y": 93.0,
+              "z": 814.5
+            },
+            {
+              "x": -383.5,
+              "y": 93.0,
+              "z": 813.5
+            },
+            {
+              "x": -383.5,
+              "y": 94.0,
+              "z": 812.5
+            },
+            {
+              "x": -383.5,
+              "y": 94.0,
+              "z": 811.5
+            },
+            {
+              "x": -383.5,
+              "y": 94.0,
+              "z": 810.5
+            },
+            {
+              "x": -383.5,
+              "y": 95.0,
+              "z": 809.5
+            },
+            {
+              "x": -383.5,
+              "y": 95.0,
+              "z": 808.5
+            },
+            {
+              "x": -383.5,
+              "y": 95.0,
+              "z": 807.5
+            },
+            {
+              "x": -383.5,
+              "y": 95.0,
+              "z": 806.5
+            },
+            {
+              "x": -383.5,
+              "y": 95.0,
+              "z": 805.5
+            },
+            {
+              "x": -383.5,
+              "y": 95.0,
+              "z": 804.5
+            },
+            {
+              "x": -383.5,
+              "y": 95.0,
+              "z": 803.5
+            },
+            {
+              "x": -383.5,
+              "y": 95.0,
+              "z": 802.5
+            },
+            {
+              "x": -383.5,
+              "y": 95.0,
+              "z": 801.5
+            },
+            {
+              "x": -383.5,
+              "y": 95.0,
+              "z": 800.5
+            },
+            {
+              "x": -383.5,
+              "y": 95.0,
+              "z": 799.5
+            },
+            {
+              "x": -383.5,
+              "y": 96.0,
+              "z": 798.5
+            },
+            {
+              "x": -383.5,
+              "y": 96.0,
+              "z": 797.5
+            },
+            {
+              "x": -383.5,
+              "y": 96.0,
+              "z": 796.5
+            },
+            {
+              "x": -383.5,
+              "y": 96.0,
+              "z": 795.5
+            }
+          ],
+          "inspected": 1800,
+          "fullChunks": 10,
+          "reason": "SEGMENT_OBSTRUCTED",
+          "planMs": 4.130969,
+          "nativeWalk": "PHYSICALLY_BLOCKED"
+        }
+      ],
+      "status": "EXPLORATION_RECORDED_REVIEW_REQUIRED",
+      "clientTicks": 953,
+      "updatedAt": 1791951289202,
+      "travel": {
+        "start": {
+          "phase": "RIDGE",
+          "x": -383.5,
+          "y": 89.0,
+          "z": 896.5,
+          "health": 20.0,
+          "uuid": "01461149-4349-368b-8856-192924919853",
+          "safe": true,
+          "support": "Block{minecraft:grass_block}[snowy=false]",
+          "nearbyOreFluidFireBlocks": {},
+          "nearbyLivingEntities": 0
+        },
+        "destinationX": -383.5,
+        "destinationZ": 512.5,
+        "corridorHalfWidth": 24,
+        "declaredBeforeMovement": true,
+        "startedAt": 1791951251350,
+        "obstruction": "Native walking could not follow conservative floor corridor",
+        "end": {
+          "phase": "RIDGE",
+          "x": -383.5,
+          "y": 95.0,
+          "z": 799.3000000119209,
+          "health": 20.0,
+          "uuid": "01461149-4349-368b-8856-192924919853",
+          "safe": true,
+          "support": "Block{minecraft:grass_block}[snowy=false]",
+          "nearbyOreFluidFireBlocks": {},
+          "nearbyLivingEntities": 0,
+          "inspected": 9000,
+          "plannedWaypoints": 106
+        },
+        "northProgress": 97.19999998807907,
+        "status": "BOUNDED_GROUND_ATTEMPT_RECORDED",
+        "endedAt": 1791951286419,
+        "newServerChunksDuringWalk": 1074,
+        "receivedClientChunksDuringWalk": 784,
+        "maxClientTickGapMs": 3419.378041
+      },
+      "adaptiveChoice": {
+        "before": {
+          "phase": "RIDGE",
+          "x": -383.5,
+          "y": 95.0,
+          "z": 799.3000000119209,
+          "health": 20.0,
+          "uuid": "01461149-4349-368b-8856-192924919853",
+          "safe": true,
+          "support": "Block{minecraft:grass_block}[snowy=false]",
+          "nearbyOreFluidFireBlocks": {},
+          "nearbyLivingEntities": 0
+        },
+        "result": "NO_SAFE_POSITION",
+        "after": {
+          "phase": "RIDGE",
+          "x": -383.5,
+          "y": 95.0,
+          "z": 799.3000000119209,
+          "health": 20.0,
+          "uuid": "01461149-4349-368b-8856-192924919853",
+          "safe": true,
+          "support": "Block{minecraft:grass_block}[snowy=false]",
+          "nearbyOreFluidFireBlocks": {},
+          "nearbyLivingEntities": 0
+        },
+        "classification": "OBSERVED_TERRAIN_DIFFERENCE"
+      },
+      "finalPlayer": {
+        "phase": "RIDGE",
+        "x": -383.5,
+        "y": 95.0,
+        "z": 799.3000000119209,
+        "health": 20.0,
+        "uuid": "01461149-4349-368b-8856-192924919853",
+        "safe": true,
+        "support": "Block{minecraft:grass_block}[snowy=false]",
+        "nearbyOreFluidFireBlocks": {},
+        "nearbyLivingEntities": 0
+      },
+      "world": {
+        "seed": 123456789,
+        "minecraft": "26.1",
+        "neoforge": "26.1.0.19-beta",
+        "java": "25.0.3+9-LTS",
+        "spawn": "64, 68, -48"
+      },
+      "rawReport": "run/mvp-supplemental/travel-ridge-20261014/seed-0-client/mvp-exploration.json",
+      "rawReportSha256": "3710b010263767ed1eb490fb20c9c8b0aac401578b6a0e06376c870624dbcc38",
+      "metricsSummary": {
+        "samples": 9,
+        "fps": {
+          "min": 29,
+          "median": 43,
+          "max": 55
+        },
+        "integratedAverageTickMs": {
+          "min": 6.779291,
+          "median": 9.1061,
+          "max": 43.375944
+        },
+        "heapUsedBytes": {
+          "min": 475365080,
+          "median": 1152117048,
+          "max": 1414016632
+        },
+        "gcCountDelta": 69,
+        "gcTimeMsDelta": 789
+      }
+    }
+  ],
+  "images": [
+    {
+      "runId": "route35-20261014",
+      "source": "run/mvp-supplemental/route35-20261014/seed-1-client/screenshots/wph015-8675309-settled-route-35-baseline.png",
+      "archive": "docs/verification/mvp-playtest/supplemental/route35-baseline.png",
+      "sha256": "fafe1ec3437698765d8992e977213c5e413b0383c7b5175cdc9d5212c9f52504",
+      "bytes": 327576
+    },
+    {
+      "runId": "caves-survey-r3-20261014",
+      "source": "run/mvp-supplemental/caves-survey-r3-20261014/seed-0-client/screenshots/wph015-supplement-cave-FRACTURE-mouth.png",
+      "archive": "docs/verification/mvp-playtest/supplemental/cave-fracture-mouth.png",
+      "sha256": "b136778eb92d3f9b17c7fa00fe934cbd03e9f17f13215aa0d36cd66a6d6768a9",
+      "bytes": 171160
+    },
+    {
+      "runId": "caves-survey-r3-20261014",
+      "source": "run/mvp-supplemental/caves-survey-r3-20261014/seed-0-client/screenshots/wph015-supplement-cave-FRACTURE-survey-3.png",
+      "archive": "docs/verification/mvp-playtest/supplemental/cave-fracture-survey-3.png",
+      "sha256": "652e3b32f602fe9b04160c00e7b5f5b438619770e1f9690efc57cf29a3434f98",
+      "bytes": 396320
+    },
+    {
+      "runId": "caves-survey-r3-20261014",
+      "source": "run/mvp-supplemental/caves-survey-r3-20261014/seed-0-client/screenshots/wph015-supplement-cave-FRACTURE-return.png",
+      "archive": "docs/verification/mvp-playtest/supplemental/cave-fracture-return.png",
+      "sha256": "b148e4faff6acda3cbf628b93990d1020d662538d1509c60975418478cfc0eda",
+      "bytes": 832269
+    },
+    {
+      "runId": "caves-survey-r3-20261014",
+      "source": "run/mvp-supplemental/caves-survey-r3-20261014/seed-0-client/screenshots/wph015-supplement-cave-SMOOTH-mouth.png",
+      "archive": "docs/verification/mvp-playtest/supplemental/cave-smooth-mouth.png",
+      "sha256": "e8d06a33d9ac85c337c7419e6ea579e321f241e9288fbcdee89e16c5376b5d75",
+      "bytes": 628317
+    },
+    {
+      "runId": "caves-survey-r3-20261014",
+      "source": "run/mvp-supplemental/caves-survey-r3-20261014/seed-0-client/screenshots/wph015-supplement-cave-SMOOTH-survey-3.png",
+      "archive": "docs/verification/mvp-playtest/supplemental/cave-smooth-survey-3.png",
+      "sha256": "9414126716cf3755234b542865113d4f972d5577fec0616b7dedc1d52c3865d6",
+      "bytes": 415546
+    },
+    {
+      "runId": "caves-survey-r3-20261014",
+      "source": "run/mvp-supplemental/caves-survey-r3-20261014/seed-0-client/screenshots/wph015-supplement-cave-SMOOTH-return.png",
+      "archive": "docs/verification/mvp-playtest/supplemental/cave-smooth-return.png",
+      "sha256": "db3b23f3738676fc6fd68b38d2050f400f14dd8754123c6161a9eb81777054f7",
+      "bytes": 806452
+    },
+    {
+      "runId": "exploration-r2-20261014",
+      "source": "run/mvp-supplemental/exploration-r2-20261014/seed-0-client/screenshots/wph015-supplement-travel-start.png",
+      "archive": "docs/verification/mvp-playtest/supplemental/smooth-travel-start.png",
+      "sha256": "92309ce700e9fe53d8252aeb1fe81fa67343b02742680a83cc463d1c0717204f",
+      "bytes": 1076345
+    },
+    {
+      "runId": "exploration-r2-20261014",
+      "source": "run/mvp-supplemental/exploration-r2-20261014/seed-0-client/screenshots/wph015-supplement-travel-end.png",
+      "archive": "docs/verification/mvp-playtest/supplemental/smooth-travel-end.png",
+      "sha256": "1288dfc99c9c0c903df41261f531348a34f1077b80d1360ed47cb0b462c9feba",
+      "bytes": 1245389
+    },
+    {
+      "runId": "exploration-r2-20261014",
+      "source": "run/mvp-supplemental/exploration-r2-20261014/seed-0-client/screenshots/wph015-supplement-adaptive-choice.png",
+      "archive": "docs/verification/mvp-playtest/supplemental/smooth-adaptive-choice.png",
+      "sha256": "e41edd7c0096ee94179b141f89122827320cb5ccca76f12c757ee6f51a2f9dc8",
+      "bytes": 993083
+    },
+    {
+      "runId": "exploration-r2-20261014",
+      "source": "run/mvp-supplemental/exploration-r2-20261014/seed-0-client/screenshots/wph015-supplement-adaptive-exit.png",
+      "archive": "docs/verification/mvp-playtest/supplemental/smooth-adaptive-exit.png",
+      "sha256": "7d5c284d7c3c02e3610f60e62f4c642ff732009295f5874812829b9b59e43b1f",
+      "bytes": 409823
+    },
+    {
+      "runId": "streaming-adaptive-20261014",
+      "source": "run/mvp-supplemental/streaming-adaptive-20261014/seed-0-client/screenshots/wph015-supplement-travel-start.png",
+      "archive": "docs/verification/mvp-playtest/supplemental/ridge-travel-start.png",
+      "sha256": "db4fed781f0e40a576cd60457bb9bd0a5be5df1f513a74fcf471ac8ac80bf3df",
+      "bytes": 961466
+    },
+    {
+      "runId": "streaming-adaptive-20261014",
+      "source": "run/mvp-supplemental/streaming-adaptive-20261014/seed-0-client/screenshots/wph015-supplement-travel-segment-4.png",
+      "archive": "docs/verification/mvp-playtest/supplemental/ridge-travel-segment-4.png",
+      "sha256": "617c0e2b9c9572352ac7bf731db3ad16487dc55ea909045756585603f87747e0",
+      "bytes": 840987
+    },
+    {
+      "runId": "streaming-adaptive-20261014",
+      "source": "run/mvp-supplemental/streaming-adaptive-20261014/seed-0-client/screenshots/wph015-supplement-travel-end.png",
+      "archive": "docs/verification/mvp-playtest/supplemental/ridge-travel-end.png",
+      "sha256": "307b8ab96138367eae4c33194f2683b5f59a55c699faaece126f7b6139e5e09f",
+      "bytes": 409451
+    }
+  ],
+  "currentCore": {
+    "status": "PASS",
+    "minecraft": "26.1",
+    "neoforge": "26.1.0.19-beta",
+    "java": "25.0.3+9-LTS",
+    "loopTransfers": 400,
+    "successfulTransfers": 456,
+    "completeCycles": 100,
+    "inventoryIdentityAndContentChecks": 495,
+    "maxXzDeviation": 0.0,
+    "maxYawPitchDeviation": 0.0,
+    "maxYCorrection": 1.0,
+    "duplicatePlayerEntities": 0,
+    "droppedTestItemEntities": 0,
+    "saveReloadCheck": "PASS: terrain, marker and Vanilla player data restored before fixture initialization"
+  },
+  "validatorTests": {
+    "count": 38,
+    "status": "PASS",
+    "scope": "synthetic parser/CLI failure fixtures only; not native gameplay evidence"
+  }
+}

@@ -27,3 +27,7 @@ crash-reports/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Python developer acceptance tools
+__pycache__/
+*.pyc

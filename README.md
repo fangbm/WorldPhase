@@ -30,7 +30,7 @@ The long-term goal is to reconstruct the player's compatibility with the **Stabl
 
 ## Project status
 
-**Week 1 technical PoC / WPH-013 bounded tutorial feasibility prototype.**
+**Week 1 technical PoC / WPH-015: negative playtest evidence accepted (RETUNE); Phase 2 NOT APPROVED.**
 
 The project contains the NeoForge bootstrap and a minimal Phase domain model
 with tested, bidirectional Level-key mappings and pure Java 2D Smooth, Ridged,
@@ -47,13 +47,15 @@ native-client verification pass, including safe transfers and save/reload.
 suites and 50 complete four-Phase cycles on both cold startup and save/reload.
 OP tutorial score/find diagnostics now compare Fracture/Smooth base columns with
 bounded, seed-aware search and explanatory scores. Actual tutorial behavior,
-location selection and persistence remain deferred. Candidate quality is an
+usable natural location selection remain deferred. Minimal global tutorial state
+persistence exists with explicit controlled-opening choice and conservative provenance
+invalidation; it does not authorize a natural opening. Candidate quality is an
 experiment, with its ten-seed results documented separately from correctness.
 Local correctness passes, but original useful-majority acceptance fails: retained
 baseline2/10, refined original group1/10 and holdout0/5. Complete tutorial routes
 are unvalidated. The documented Hybrid Opening direction uses a future controlled
 Station for mandatory onboarding and natural candidates for optional discovery.
-No Station/spawn/selection/persistence is implemented. Issue13's experimental-PoC
+No Station/spawn redirection or usable natural selection is implemented. Issue13's experimental-PoC
 scope was accepted in final review, while original useful-majority remains FAIL.
 
 The first milestone is intentionally small:
@@ -89,6 +91,7 @@ If that loop is not fun, the project should not expand into content, bosses, mac
 - [Tutorial v4 frozen plan and holdout results](docs/TUTORIAL_SEARCH_REFINEMENT_VALIDATION.md)
 - [Tutorial feasibility closeout, Hybrid Opening and selection semantics](docs/TUTORIAL_FEASIBILITY_DECISION.md)
 - [Global tutorial SavedData, explicit choices and provenance limits](docs/TUTORIAL_SAVED_DATA.md)
+- [MVP core playtest, native evidence and decision](docs/MVP_PLAYTEST.md)
 
 ## Target stack
 

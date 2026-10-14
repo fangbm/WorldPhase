@@ -12,6 +12,18 @@ if(tutorialProtocol=='refined') tutorialSeeds += [314159265L, 271828182L, 202607
 def tutorialReportName = tutorialProtocol == 'refined' ? 'refined-report.json' : tutorialProtocol == 'attribution' ? 'attribution-report.json' : 'tutorial-report.json'
 def tutorialSummaryPath = tutorialProtocol == 'refined' ? 'tutorial-refined/summary.json' : tutorialProtocol == 'attribution' ? 'tutorial-attribution/summary.json' : 'tutorial-verification/summary.json'
 
+// Each supplemental run has its own save/report/screenshots; primary evidence is immutable.
+def mvpSupplement = providers.gradleProperty('mvpSupplement').orElse('').get()
+if (mvpSupplement && !(mvpSupplement ==~ /[a-z0-9][a-z0-9-]{0,63}/)) throw new GradleException('Invalid mvpSupplement run id')
+if (providers.gradleProperty('mvpExploration').orElse('false').get().toBoolean() && !mvpSupplement)
+    throw new GradleException('mvpExploration requires a separate mvpSupplement run id')
+if (providers.gradleProperty('mvpCavesOnly').orElse('false').get().toBoolean() && providers.gradleProperty('mvpTravelOnly').orElse('false').get().toBoolean())
+    throw new GradleException('Choose cavesOnly or travelOnly, not both')
+if (providers.gradleProperty('mvpExploration').orElse('false').get().toBoolean() &&
+    (providers.gradleProperty('mvpRoutesOnly').orElse('false').get().toBoolean() || providers.gradleProperty('mvpReload').orElse('false').get().toBoolean()))
+    throw new GradleException('Exploration cannot reuse route-only or reload mode')
+def mvpClientDirectory = { index -> project.file(mvpSupplement ? "run/mvp-supplemental/${mvpSupplement}/seed-${index}-client" : "run/mvp-playtest/seed-${index}-client") }
+
 version = mod_version
 group = mod_group_id
 base.archivesName = mod_id
@@ -30,6 +42,33 @@ neoForge {
     version = project.neo_version
 
     runs {
+        (0..<3).each { index ->
+            create("phaseVerificationMvpSeed${index}Server") {
+                server(); sourceSet = sourceSets.phaseVerification
+                gameDirectory = project.file("run/mvp-playtest/seed-${index}-server")
+                programArgument '--nogui'; systemProperty 'worldphase.verification', providers.gradleProperty('mvpServerMode').orElse('mvp-world').get()
+            }
+            create("phaseVerificationMvpSeed${index}Client") {
+                client(); sourceSet = sourceSets.phaseVerification
+                gameDirectory = mvpClientDirectory(index)
+                systemProperty 'worldphase.mvp.client', 'true'
+                systemProperty 'worldphase.mvp.seedIndex', index.toString()
+                systemProperty 'worldphase.mvp.reload', providers.gradleProperty('mvpReload').orElse('false').get()
+                systemProperty 'worldphase.mvp.resumeViews', providers.gradleProperty('mvpResumeViews').orElse('false').get()
+                systemProperty 'worldphase.mvp.routesOnly', providers.gradleProperty('mvpRoutesOnly').orElse('false').get()
+                systemProperty 'worldphase.mvp.routeFrom', providers.gradleProperty('mvpRouteFrom').orElse('0').get()
+                systemProperty 'worldphase.mvp.routeTo', providers.gradleProperty('mvpRouteTo').orElse('36').get()
+                systemProperty 'worldphase.mvp.supplement', mvpSupplement
+                systemProperty 'worldphase.mvp.exploration', providers.gradleProperty('mvpExploration').orElse('false').get()
+                systemProperty 'worldphase.mvp.cavesOnly', providers.gradleProperty('mvpCavesOnly').orElse('false').get()
+                systemProperty 'worldphase.mvp.caveX', providers.gradleProperty('mvpCaveX').orElse('-384').get()
+                systemProperty 'worldphase.mvp.caveZ', providers.gradleProperty('mvpCaveZ').orElse('896').get()
+                systemProperty 'worldphase.mvp.travelOnly', providers.gradleProperty('mvpTravelOnly').orElse('false').get()
+                systemProperty 'worldphase.mvp.travelPhase', providers.gradleProperty('mvpTravelPhase').orElse('SMOOTH').get()
+                systemProperty 'worldphase.mvp.adaptiveWalk', providers.gradleProperty('mvpAdaptiveWalk').orElse('false').get()
+                programArguments.addAll('--quickPlaySingleplayer', providers.gradleProperty('mvpRoutesOnly').orElse('false').get().toBoolean()?'wph015-routes':'wph015', '--username', 'WPH015Review', '--width', '1280', '--height', '720')
+            }
+        }
         ['Cold', 'Reload'].each { stage ->
             create("phaseVerificationSavedData${stage}Server") {
                 server()
@@ -499,6 +538,110 @@ tasks.register('coreRegressionAll') {
     dependsOn coreRegression, coreRegressionServer
 }
 
+// WPH-015: fixed native playtest worlds. Outputs stay under ignored run/.
+def mvpSeeds = [123456789L, 8675309L, 20261011L]
+def prepareMvp = tasks.register('prepareMvpPlaytest') {
+    doLast {
+        def accepted = project.file('run/core-regression-server/eula.txt')
+        if (!accepted.exists() || !(accepted.text =~ /(?m)^\s*eula\s*=\s*true\s*$/).find())
+            throw new GradleException('Use the existing accepted core-regression EULA before preparing playtest worlds.')
+        mvpSeeds.eachWithIndex { seed, index ->
+            def directory = project.file("run/mvp-playtest/seed-${index}-server")
+            directory.mkdirs()
+            new File(directory,'eula.txt').text = accepted.text
+            new File(directory,'server.properties').text = """level-name=world-wph015
+level-seed=${seed}
+server-ip=127.0.0.1
+server-port=25577
+online-mode=false
+gamemode=survival
+spawn-protection=0
+view-distance=8
+simulation-distance=5
+pause-when-empty-seconds=0
+max-tick-time=-1
+"""
+        }
+    }
+}
+def mvpRuns=[]
+mvpSeeds.eachWithIndex { seed,index ->
+    def server = tasks.named("runPhaseVerificationMvpSeed${index}Server", JavaExec) {
+        dependsOn prepareMvp
+        if(index>0) dependsOn tasks.named("runPhaseVerificationMvpSeed${index-1}Server")
+        doFirst {
+            if(providers.gradleProperty('mvpServerMode').orElse('mvp-world').get()=='mvp-world')
+                project.file("run/mvp-playtest/seed-${index}-server/mvp-world.json").text = '{"status":"RUNNING"}'
+            else project.file("run/mvp-playtest/seed-${index}-server/mvp-villages.json").text = '{"status":"RUNNING"}'
+        }
+        doLast {
+            def directory=project.file("run/mvp-playtest/seed-${index}-server")
+            if(providers.gradleProperty('mvpServerMode').orElse('mvp-world').get()=='mvp-villages') {
+                def report=new groovy.json.JsonSlurper().parse(new File(directory,'mvp-villages.json'))
+                if(report.status!='OBSERVATION_COMPLETED_NOT_STRUCTURE_SAFETY_CERTIFICATION' || report.seed!=seed || report.ticks!=600)
+                    throw new GradleException("MVP village observations incomplete: ${report.failure}")
+                return
+            }
+            def report=new groovy.json.JsonSlurper().parse(new File(directory,'mvp-world.json'))
+            if(report.status!='PASS' || report.seed!=seed || report.samples.size()!=40)
+                throw new GradleException("MVP world measurement failed: seed=${seed}; ${report.failure}")
+        }
+    }
+    mvpRuns.add(server)
+    tasks.register("prepareMvpSeed${index}Client") {
+        doLast {
+            def source=project.file("run/mvp-playtest/seed-${index}-server/world-wph015")
+            def name=providers.gradleProperty('mvpRoutesOnly').orElse('false').get().toBoolean()?'wph015-routes':'wph015'
+            def target=new File(mvpClientDirectory(index),"saves/${name}")
+            if(!new File(source,'mvp-world.json').exists()) throw new GradleException('Run mvpPlaytestWorlds first.')
+            if(!target.exists()) project.copy { from source; into target }
+            def options=new File(mvpClientDirectory(index),'options.txt')
+            def initial=project.file('run/mvp-playtest/seed-0-client/options.txt')
+            if((index>0 || mvpSupplement) && !options.exists() && initial.exists()) options.text=initial.text
+            // Keep an existing client world and all evidence on reruns; never silently reset it.
+        }
+    }
+    long nativeStarted=0
+    tasks.named("runPhaseVerificationMvpSeed${index}Client", JavaExec) {
+        dependsOn tasks.named("prepareMvpSeed${index}Client")
+        doFirst {
+            nativeStarted=System.currentTimeMillis()
+            def directory=mvpClientDirectory(index)
+            def history=new File(directory,'history');history.mkdirs()
+            ['client','routes','reload','exploration'].each { kind ->
+                def previous=new File(directory,"mvp-${kind}.json")
+                if(previous.exists()) new File(history,"mvp-${kind}-${nativeStarted}.json").bytes=previous.bytes
+            }
+        }
+        doLast {
+            boolean reload=providers.gradleProperty('mvpReload').orElse('false').get().toBoolean()
+            boolean routesOnly=providers.gradleProperty('mvpRoutesOnly').orElse('false').get().toBoolean()
+            boolean exploration=providers.gradleProperty('mvpExploration').orElse('false').get().toBoolean()
+            def file=new File(mvpClientDirectory(index),"mvp-${exploration?'exploration':reload?'reload':routesOnly?'routes':'client'}.json")
+            def report=file.exists()?new groovy.json.JsonSlurper().parse(file):[:]
+            if(mvpSupplement && (report.runId!=mvpSupplement || report.world?.seed!=mvpSeeds[index] ||
+                report.kind!=(exploration?'SUPPLEMENTAL_EXPLORATION':'SUPPLEMENTAL_REPLAY')))
+                throw new GradleException('Supplemental native report identity does not match requested run')
+            // Negative observations remain negative; coverage is reviewed by the separate summary contract.
+            boolean recordedDeath=mvpSupplement && routesOnly && !reload && !exploration &&
+                report.kind=='SUPPLEMENTAL_REPLAY' && report.runId==mvpSupplement && report.world?.seed==mvpSeeds[index] &&
+                report.routeFrom==providers.gradleProperty('mvpRouteFrom').orElse('0').get().toInteger() &&
+                report.routeTo==providers.gradleProperty('mvpRouteTo').orElse('36').get().toInteger() &&
+                report.routeTo-report.routeFrom==1 && report.abortedTrial?.index==report.routeFrom &&
+                report.routeTrials?.isEmpty() && report.stage=='ROUTES' &&
+                report.status=='RECORDED_NEGATIVE_OUTCOME' && report.abortedTrial?.death?.serverDead==true &&
+                report.abortedTrial.death.health<=0 && report.abortedTrial.classification!='ROUTE_COMPLETED'
+            if(!file.exists() || file.lastModified()<nativeStarted || (!recordedDeath && report.status!=(exploration?'EXPLORATION_RECORDED_REVIEW_REQUIRED':reload?'RELOAD_PASS':'COMPLETED_NOT_A_GAMEPLAY_GATE_PASS')))
+                throw new GradleException("MVP native workload incomplete: ${report.failure}; ${file}")
+        }
+    }
+}
+tasks.register('mvpPlaytestWorlds') {
+    group='verification'
+    description='Measure the three frozen seeds and FULL columns for the native playtest; not gameplay acceptance.'
+    dependsOn mvpRuns
+}
+
 tasks.named('runPhaseVerificationClient', JavaExec).configure {
     def clientDirectory = project.file('run/phase-verification-client')
     def statusFile = new File(clientDirectory, 'phase-visual-status.txt')
@@ -525,4 +668,16 @@ def prepareDensitySmokeFixture = tasks.register('prepareDensitySmokeFixture', Co
 tasks.named('runDensitySmokeServer', JavaExec).configure {
     dependsOn prepareDensitySmokeFixture
     standardInput = System.in
+}
+
+// Evidence validation is intentionally separate from gameplay approval.
+tasks.register('testMvpEvidence', Exec) {
+    group='verification'
+    description='Test native playtest evidence validation, including nonzero failure paths.'
+    commandLine 'python3', '-m', 'unittest', 'discover', '-s', 'tools', '-p', 'test_summarize_mvp_playtest.py'
+}
+tasks.register('validateMvpEvidence', Exec) {
+    group='verification'
+    description='Require complete local native playtest evidence; never approves Phase 2.'
+    commandLine 'python3', 'tools/summarize_mvp_playtest.py', '--require-complete'
 }
