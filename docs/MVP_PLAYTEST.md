@@ -2,8 +2,8 @@
 
 ## 1. Executive Summary
 
-**Recommendation: RETUNE. Delivery remains Draft while critical native acceptance
-is incomplete.** Technical transfer regression passes and the four interpretations
+**Recommendation: RETUNE. Supplemental negative-observation coverage is complete
+under the explicitly proposed amendment below; final independent review remains required.** Technical transfer regression passes and the four interpretations
 look different. The bounded natural-route trials have not demonstrated multiple
 independent useful routes. A feasible entry shift is insufficient: the return
 position can be incompatible, the alternative can also be blocked, or ordinary
@@ -13,7 +13,9 @@ content or relax safety.
 Base main: `5d359a9d60b75f5552c2fdbac36cc0a8ddee4b4a`. Dedicated observations began
 2026-10-11; native client work continued2026-10-12. Kernels, goldens, presets,
 PhaseDefinition, scoring and production transfer/commands are unchanged.
-The [frozen protocol](MVP_PLAYTEST_PLAN.md) predates world observation.
+The [frozen protocol](MVP_PLAYTEST_PLAN.md) predates world observation. The first-review
+primary FAIL is immutable; [supplemental protocol](MVP_PLAYTEST_SUPPLEMENT_PLAN.md)
+and section13 distinguish later evidence from the original acceptance result.
 
 ## 2. Environment and versions
 
@@ -37,6 +39,13 @@ ServerPlayer, ServerLevel and PhaseTransferService. This is explicitly scripted
 native play, not an unrestricted human playtest or a simulated packet transcript.
 All Level operations execute on the server thread. The dev source set is excluded
 from the production JAR.
+
+Supplemental native runs on2026-10-14 use Linux7.0.0-38-generic/GNOME Wayland,
+the same Ryzen9 8945HX/30GiB host and RTX5070Ti Laptop, driver595.99.02.
+Minecraft/NeoForge/Temurin versions remain identical; a separate Linux Gradle
+cache avoids reusing OS-specific Windows transforms. This OS/driver change is
+not a controlled GLFW reproduction or an Issue33 fix. View16/simulation5 and
+production generation/transfer configuration remain unchanged.
 
 ## 3. Tested Seeds / Coordinates
 
@@ -170,7 +179,8 @@ from timing. Native images showed dirt, wood and sand pickups and placement.
 These are completed timed **basic** smoke intervals. The input macro settled into a shoreline loop;
 this is limited coverage, not long-distance or cave traversal, crafting progression,
 an unassisted opening or a broad human Survival pass. Cave and long-distance
-walking coverage remain incomplete. Delivery stays Draft.
+walking coverage were incomplete at the first review. Section13 records the
+additional native attempts; neither stage is human-playtested.
 
 [Fracture collecting/placing](verification/mvp-playtest/wph015-123456789-survival-FRACTURE-1.png),
 [Smooth collected materials](verification/mvp-playtest/wph015-123456789-survival-SMOOTH-5.png),
@@ -264,14 +274,16 @@ Far-camera streaming edges and the GLFW crash remain separate from terrain defec
 - SavedData has no trusted preset fingerprint/full route validator and cannot
   enable a usable natural opening. Searched does not mean selected or safe.
 - Scripted Survival/short corridors do not replace full human route exploration,
-  long-distance loading, cave/resource/crafting coverage or long-term memory testing.
+  deep-cave/resource-balance/crafting coverage or long-term memory testing. The
+  supplemental northward384-block intention stops after146 blocks; that bounded
+  negative attempt does not certify long-distance endurance or route completion.
 
 ## 11. Go / Retune / Stop Decision
 
 **RETUNE**, not GO. Correct transfer and visible worlds have not yet produced
 multiple meaningful playable spatial solutions. Limited trials cannot prove a
-fundamental impossibility warranting STOP/REDESIGN. Current acceptance gaps,
-native crash and village risks prevent claiming a final release gate PASS.
+fundamental impossibility warranting STOP/REDESIGN. The original primary protocol remains FAIL. Completed negative-evidence coverage
+does not resolve the native crash/village risks or approve a release/Phase2 gate.
 
 Suggested future design targets, **not changes made here**: compatible approach
 and return contours around a genuine Fracture/Smooth obstacle; meaningful Ridge
@@ -283,8 +295,9 @@ do not silently select an unreliable natural candidate.
 
 ## 12. Next Development Priorities / Reproduction
 
-Review gameplay evidence/criteria and finish uncovered native Survival/reload/
-human exploration before expansion. Investigate Issue25 separately with Vanilla
+Review the supplemental negative-coverage amendment and RETUNE decision before
+expansion. Broader human gameplay and endurance/deep-cave testing remain future
+validation, not claims made by these scripted native observations. Investigate Issue25 separately with Vanilla
 comparison, actual damage causes and persisted village state. Address/reproduce
 the native GLFW fault separately before claiming stable client sessions. No Phase2
 implementation, new policy, tuning or natural-selection unlock is included.
@@ -311,3 +324,183 @@ workload remains REVIEW_REQUIRED, never automatic GO. Full evidence resides in
 `run/mvp-playtest`, `build/wph-015-*.log`, `build/mvp-playtest/summary.json` and
 `build/core-regression/summary.json`. Only curated screenshots/coordinates/findings
 are committed; no game save, crash dump or runtime log is committed.
+
+## 13. First-review supplemental evidence (2026-10-14)
+
+```yaml
+PLAYTEST_EVIDENCE_COMPLETE: PASS  # proposed documented-negative coverage contract
+CORE_TECHNICAL_REGRESSION: PASS
+GAMEPLAY_RECOMMENDATION: RETUNE
+PHASE_2_GATE: NOT_APPROVED
+ROUTE_COMPLETED: 0
+ORIGINAL_PRIMARY_PROTOCOL: FAIL  # seed8675309 remains35/36 + fatal fall
+```
+
+The [contract](verification/mvp-playtest/supplemental-contract.json) and
+[compact supplemental findings](verification/mvp-playtest/supplemental-findings.json)
+and [supplemental coordinate/image index](verification/mvp-playtest/supplemental-index.md)
+are submitted for final review. Coverage PASS means the missing trial now has a
+terminal native observation, both Phases have actual short cave ingress/return,
+and declared sustained-ground/adaptive attempts have observed terminal outcomes,
+including failure. It does **not** mean that all intended distances/routes passed,
+that a human played, or that the old protocol passed. Independent review must
+accept or reject this transparent amendment; the tool cannot approve it or GO.
+
+### Primary/replay relationship
+
+The original `findings.json`, seed8675309 primary JSON and four-case settled
+replay are unchanged. Primary SHA256 remains
+`f9e6b305694ead82f9af84be75131d4a2e9b1f8e9f642be35e890f31e99084ba`.
+The manifest pins all three primary reports, the original settled replay and
+native reload. No failed seed/trial is removed from the totals.
+
+Independent clone `route35-20261014` replays only index35: Cell->Fracture,
+west from(-383.5,171,896.5), same160-tick/24-block source walk, source<12
+obstruction threshold, unchanged +/-4 entry/return policy. It advances17.2
+source blocks and survives with severe fall damage visible in the
+[baseline image](verification/mvp-playtest/supplemental/route35-baseline.png).
+After the existing pre-entry reset, entry is refused with NO_SAFE_POSITION;
+exact source position/rotation, UUID and inventory remain unchanged, one player
+entity. Terminal classification OBSERVED_TERRAIN_DIFFERENCE, ENTRY_SHIFT_REFUSED.
+This is a separately completed **negative replay**, not a repaired primary PASS,
+a death retry success, or a useful route. The earlier fatal fall stays recorded.
+
+### Actual native cave entry and return
+
+Seed123456789; fixed additional observation box center(1344,1200), after the
+original coastal forest box failed discovery. Actual block/shape inspection,
+not estimated baseHeight, identifies a short natural outdoor-to-covered passage.
+Local setup explicitly requests64 FULL chunks per Phase and inspects2178/3292
+floor positions, below the81-chunk/12000-position bounds. No blocks are changed.
+
+| Phase | Outdoor mouth x/y/z | Settled covered checkpoint x/y/z | Actual returned x/y/z | In / out client ticks |
+| --- | --- | --- | --- | ---: |
+| Fracture |1295.5/66/1200.5|1299.555/65/1201.500|1295.295/66/1200.539|28/32|
+| Smooth |1350.5/80/1237.5|1348.476/79/1234.444|1350.484/80/1237.592|28/28|
+
+These are **brief shallow cave-mouth traversals**, not deep-network exploration.
+Both use native Survival movement, step down and back up, full player collision,
+actual support and health20 throughout. Setup alone uses OP positioning at the
+outdoor mouth plus health/food reset and night vision. No in-walk teleport,
+spectator flight, mining, rescue or healing occurs. Four interior headings and
+10 seconds of stationary observation are captured before the authoritative
+checkpoint; return is also sampled after settling.
+
+The Fracture passage is narrow with stone walls/ceiling and a visible natural
+opening. Smooth has roughly two-block headroom and a small downward floor recess;
+we do not enter the deeper recess. Interior footprints are6/7 blocks below the
+actual local heightmap. Nearby11x7x11 block surveys find6 copper ore blocks in
+Fracture and26 in Smooth; Smooth's mouth also has2 coal ore blocks nearby. This
+limited volume does not establish ore balance. Nearby water2 blocks in Smooth's
+interior survey is outside the tested body; no lava/fire or living entities within
+12 blocks were observed at the checkpoints. Their absence here is not global safety.
+Both return to the mouth naturally without collision/death/load failure.
+
+Images: [Fracture mouth](verification/mvp-playtest/supplemental/cave-fracture-mouth.png),
+[covered passage](verification/mvp-playtest/supplemental/cave-fracture-survey-3.png),
+[return](verification/mvp-playtest/supplemental/cave-fracture-return.png);
+[Smooth mouth](verification/mvp-playtest/supplemental/cave-smooth-mouth.png),
+[interior](verification/mvp-playtest/supplemental/cave-smooth-survey-3.png),
+[return](verification/mvp-playtest/supplemental/cave-smooth-return.png).
+
+Preserved attempts: `exploration`, `exploration-r2` and `caves-r3` fail discovery
+in the original box; `caves-r4` first completes both short walks. The first
+four-direction survey incorrectly reused its200-tick wait as the120-tick walking
+timeout, reporting RETURN_BLOCKED. Survey r2 returns but captures a server
+position before the last movement packet settles; its Fracture snapshot is only
+5 blocks below its preceding column, so strict validation rejects it. Final
+`caves-survey-r3-20261014` resets the counter and samples after settling, preserving
+all failed outputs. These are isolated probe fixes, not production movement fixes;
+no measured heights or >=6-depth requirement were rewritten.
+
+### Ground streaming and adaptive choice: failures retained
+
+All northward goals are declared **before movement**, seed123456789,
+start x/z(-383.5,896.5), intended destination z512.5, corridor half-width24,
+<=18000 inspected floors and<=256 waypoints. Keys follow actual waypoints rather
+than a repeating shoreline macro. Same-height collinear segments can be compressed;
+at most8 physically blocked waypoint cells may be excluded in the final attempt.
+No flight/teleport/healing occurs during the measured walk. No global path proof.
+
+| Isolated attempt | Phase | Northward displacement | Terminal observation |
+| --- | --- | ---: | --- |
+|exploration-r2|Smooth|75.809|Dry corridor stops near water at(-407.576,63,820.691)|
+|travel-ridge|Ridge|97.200|Native walking cannot follow a static-safe step near trees; probe limitation|
+|streaming-adaptive|Ridge|145.992|One blocked waypoint avoided; no further corridor found within bounds at(-368.470,97,750.508)|
+
+The final attempt lasts58.443 wall seconds from declared start to stop. It does
+**not** reach384 blocks and does not certify long-distance endurance. Its multiple
+walked segments and concurrent stream events provide a bounded negative loading
+observation, not a distance-triggered gameplay PASS. The fixed corridor and local
+walker can reject routes a human could take; do not label these barriers impassable.
+Surface y changes89->97 through forest/hills; coal ore6 blocks and a healthy
+chicken are observed near the final stop. No extreme-terrain/hazard immunity claim.
+
+During final native movement,1299 new server FULL-chunk events and1042 client
+chunk-receive events are counted. Load callbacks only count events, never read or
+mutate the Level. Pending entry generation is included, so these totals are not
+independent chunks caused solely by travel. Near-terrain views are coherent;
+[streaming start](verification/mvp-playtest/supplemental/ridge-travel-start.png),
+[mid-route](verification/mvp-playtest/supplemental/ridge-travel-segment-4.png),
+[stopped view](verification/mvp-playtest/supplemental/ridge-travel-end.png).
+Distant/in-flight section edges and temporarily incomplete foliage are observed;
+no persistent density seam or client crash is established by them.
+
+Adaptive example in Smooth uses the actual water-blocked position
+(-407.5297320351578,63,820.472923795025): normal BOUNDED_LANDING succeeds to
+Fracture y67, exact x/z retained. Native walking proceeds north to
+(-407.49999593689364,66,809.471725964118), but the normal return to Smooth is
+NO_SAFE_POSITION. It remains SHIFT_POSITION_FEASIBLE, never ROUTE_COMPLETED.
+[entry](verification/mvp-playtest/supplemental/smooth-adaptive-choice.png),
+[exit refusal](verification/mvp-playtest/supplemental/smooth-adaptive-exit.png).
+The Ridge attempts' normal Fracture entries are refused; their source snapshots
+remain equal. No DEV_SURFACE is used after the declared start.
+This is **scripted native exploration with terrain-dependent decisions**;
+there was no human gameplay participant. It does not change the0 useful-route total.
+
+### Performance, failures and current validation
+
+Final ground attempt sampled FPS26/37/60 and average MSPT5.00/8.07/59.59
+min/median/max; used heap729..1646MiB,65 GC collections/765ms collection-time delta.
+Maximum client-tick gap3.575 seconds includes entry/planning/streaming, not a pure
+steady-state frame-time measurement. Smooth's earlier backgrounded run reported
+FPS0..1 and visibly incomplete distant foliage: it cannot support a smooth-client
+performance claim. Final cave survey FPS29/47/59, average MSPT6.99/8.13/47.87,
+heap1040..2171MiB,63 collections/1163ms. Cave **setup** requests cause9–11-second
+Can't keep up warnings: synchronous dev discovery is expensive and unsuitable
+for automatic startup/gameplay invocation. Walk observations must not hide that cost.
+No OOM/persistent loading failure or additional native crash was seen in these finite
+Linux sessions; no long-term leak-free, TPS or Windows stability guarantee follows.
+Issue25 villager in-wall evidence and Issue33 GLFW fault remain open and unmodified.
+
+Current `coreRegressionAll build testMvpEvidence` passes:361 MC +15 plain dev tests,
+38 Python evidence-validator tests, zero failures; cold/reload each50 cycles,
+400 loop transfers/456 total successes,495 inventory checks,0 x/z/rotation deviation,
+max y correction1, no duplicate player/item entities, actual save/reload PASS.
+The final core/build run takes56 seconds. Existing units are up-to-date after the
+initial fresh Linux execution; both actual dedicated-server stages rerun.
+
+Validator tests execute the CLI and assert nonzero exits for missing/corrupt/stale
+reports, wrong seed/run/trial/direction, incomplete cave/return, absent images,
+changed source state, unsupported utility claims, budget overruns and failed core/
+reload. An actual pending-evidence `validateMvpEvidence` Gradle run returned nonzero,
+then the fully populated contract passes. Primary FAIL cannot be silenced by a
+supplemental success string; immutable hashes and trial identity must match.
+The review gate remains separate and never becomes GO automatically.
+
+```sh
+./gradlew runPhaseVerificationMvpSeed1Client -PmvpSupplement=route35-20261014 -PmvpRoutesOnly=true -PmvpRouteFrom=35 -PmvpRouteTo=36
+./gradlew runPhaseVerificationMvpSeed0Client -PmvpSupplement=exploration-r2-20261014 -PmvpExploration=true
+./gradlew runPhaseVerificationMvpSeed0Client -PmvpSupplement=streaming-adaptive-20261014 -PmvpExploration=true -PmvpTravelOnly=true -PmvpTravelPhase=RIDGE -PmvpAdaptiveWalk=true
+./gradlew runPhaseVerificationMvpSeed0Client -PmvpSupplement=caves-survey-r3-20261014 -PmvpExploration=true -PmvpCavesOnly=true -PmvpCaveX=1344 -PmvpCaveZ=1200
+./gradlew coreRegressionAll build testMvpEvidence
+./gradlew validateMvpEvidence
+```
+
+On this Linux host set JAVA_HOME to the installed Temurin25.0.3+9 and use a
+Linux-specific GRADLE_USER_HOME. Existing isolated worlds are preserved on rerun;
+use a new run ID and explicitly reviewed manifest for a new independent clone.
+Full native reports/logs/worlds stay ignored;14 exact native PNG copies (9.1MiB),
+compact results, image/source SHA256 values and coordinate index are committed.
+No production classes, kernels/goldens/presets/PhaseDefinition/TransferPolicy/
+PhaseTransferService/SavedData/selection behavior changes. No tuning or Phase2.

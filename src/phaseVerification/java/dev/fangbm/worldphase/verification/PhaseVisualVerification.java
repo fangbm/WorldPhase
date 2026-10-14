@@ -21,7 +21,8 @@ public final class PhaseVisualVerification {
     private boolean moving;
 
     public PhaseVisualVerification() {
-        if(Boolean.getBoolean("worldphase.mvp.client")) new MvpPlaytestClient();
+        if(Boolean.getBoolean("worldphase.mvp.exploration")) new MvpExplorationClient();
+        else if(Boolean.getBoolean("worldphase.mvp.client")) new MvpPlaytestClient();
         else NeoForge.EVENT_BUS.addListener(this::tick);
     }
 

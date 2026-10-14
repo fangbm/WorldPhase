@@ -38,6 +38,8 @@ final class MvpPlaytestClient {
     private double originX,originZ,baselineProgress;
     private long previousNano,activeNanos;
     private boolean initialized,submitted;
+    private boolean ending,deathSubmitted;
+    private final String supplement=System.getProperty("worldphase.mvp.supplement", "");
 
     MvpPlaytestClient() {
         NeoForge.EVENT_BUS.addListener(this::tick);
@@ -58,6 +60,7 @@ final class MvpPlaytestClient {
         });
     }
     private void tick(ClientTickEvent.Post e) {
+        if(ending)return;
         var mc=Minecraft.getInstance(); ticks++;
         try {
             if(actionError!=null) throw new IllegalStateException("WPH015 server action failed",actionError);
@@ -73,6 +76,10 @@ final class MvpPlaytestClient {
                 mc.getWindow().setTitle("WorldPhase WPH015 seed "+world.get("seed").getAsLong());
                 report.add("world",world); report.addProperty("workload","native client input automation, real integrated ServerPlayer/physics/world; no route platforms");
                 report.add("photos",photos); report.add("routeTrials",routes); report.add("survival",smokes); report.add("metrics",metrics);
+                if(!supplement.isEmpty()) {
+                    report.addProperty("kind","SUPPLEMENTAL_REPLAY");report.addProperty("runId",supplement);
+                    report.addProperty("os",System.getProperty("os.name"));report.addProperty("java",System.getProperty("java.runtime.version"));
+                }
                 if(Boolean.getBoolean("worldphase.mvp.resumeViews")) {
                     var previous=JsonParser.parseString(Files.readString(Path.of("mvp-client.json"))).getAsJsonObject();
                     if(!previous.get("stage").getAsString().equals("VIEWS") || !previous.get("world").equals(world)
@@ -93,6 +100,19 @@ final class MvpPlaytestClient {
                 }
             }
             if(busy) return;
+            if(mc.player.isDeadOrDying() && !supplement.isEmpty() && stage==Stage.ROUTES && trial!=null) {
+                release(mc);
+                if(!deathSubmitted) {
+                    request(p->{var data=shiftSnapshot(p);data.addProperty("serverDead",p.isDeadOrDying());
+                        data.addProperty("health",p.getHealth());data.addProperty("cause",p.getLastDamageSource()==null?"unknown":p.getLastDamageSource().getMsgId());return data;});
+                    deathSubmitted=true;return;
+                }
+                if(reply==null)return;
+                if(!reply.get("serverDead").getAsBoolean())throw new IllegalStateException("Client death not confirmed by server");
+                trial.add("death",reply.deepCopy());trial.addProperty("classification","OBSERVED_TERRAIN_DIFFERENCE");
+                trial.addProperty("reason","FATAL_FALL_OR_DEATH_DURING_NATIVE_TRIAL");trial.addProperty("routeStep",routeStep);trial.addProperty("walkTicks",routeTicks);
+                report.add("abortedTrial",trial.deepCopy());capture(mc,"route-"+index+"-death");save("RECORDED_NEGATIVE_OUTCOME");ending=true;mc.stop();return;
+            }
             if(mc.player.isDeadOrDying()) throw new IllegalStateException("Native player died in "+stage+"; Survival activeSeconds="+activeNanos/1e9);
             if(mc.screen!=null || mc.isPaused()) { release(mc); previousNano=System.nanoTime(); return; }
             if(ticks%200==0) measure(mc);
@@ -104,6 +124,7 @@ final class MvpPlaytestClient {
                 case RELOAD -> reload(mc);
             }
         } catch(Exception error) {
+            ending=true;
             release(mc); smoking=false; report.addProperty("failure",error.toString());
             try { save("FAIL"); } catch(Exception write) { error.addSuppressed(write); }
             System.err.println("WPH015 FAIL "+error); mc.stop();

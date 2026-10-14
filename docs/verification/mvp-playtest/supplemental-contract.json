@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "protocol": "WPH015_SUPPLEMENT_20261014",
+  "baselineHead": "bbfd5883a3b9946141019ec9c4fa911d3621fef6",
+  "immutablePrimarySha256": {
+    "run/mvp-playtest/seed-0-client/mvp-client.json": "c9af722ec746a74628c6b2f9ebc4a68aae615101e366fbfe94b9f14afacd7d29",
+    "run/mvp-playtest/seed-1-client/mvp-client.json": "f9e6b305694ead82f9af84be75131d4a2e9b1f8e9f642be35e890f31e99084ba",
+    "run/mvp-playtest/seed-2-client/mvp-client.json": "8e328f7be5fd080b4369c2b90f897ecc187fde2868c28cb02335d9c6815388f7",
+    "run/mvp-playtest/seed-1-client/mvp-routes.json": "55687610be72d2c7d83cad0cbeb2fb26fa49963eee65995af3388d0e2783ec5b",
+    "run/mvp-playtest/seed-0-client/mvp-reload.json": "91e674103f602a5dfe01afbda1013c9043a195dd6b48ea71773e964f99c663ee"
+  },
+  "routeReplay": {
+    "path": "run/mvp-supplemental/route35-20261014/seed-1-client",
+    "runId": "route35-20261014",
+    "seed": 8675309,
+    "index": 35,
+    "source": "CELL",
+    "targetPhase": "FRACTURE",
+    "entranceX": -383.5,
+    "entranceZ": 896.5,
+    "direction": 3
+  },
+  "exploration": {
+    "path": "run/mvp-supplemental/exploration-r2-20261014/seed-0-client",
+    "runId": "exploration-r2-20261014",
+    "seed": 123456789
+  },
+  "notBeforeEpochMs": 1791907200000,
+  "acceptance": "Negative outcomes may complete observation coverage; they never become successful gameplay routes. Both caves require actual native ingress/interior/return, not setup discovery alone. Missing evidence remains INCOMPLETE.",
+  "caveExploration": {
+    "path": "run/mvp-supplemental/caves-survey-r3-20261014/seed-0-client",
+    "runId": "caves-survey-r3-20261014",
+    "seed": 123456789
+  },
+  "streamingExploration": {
+    "path": "run/mvp-supplemental/streaming-adaptive-20261014/seed-0-client",
+    "runId": "streaming-adaptive-20261014",
+    "seed": 123456789
+  }
+}
