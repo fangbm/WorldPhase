@@ -1,5 +1,5 @@
 {
-  "acceptanceAmendment": "PROPOSED_FOR_FINAL_REVIEW: complete negative observations do not rewrite the primary FAIL or approve Phase 2",
+  "acceptanceAmendment": "ACCEPTED_IN_FINAL_REVIEW: complete negative observations preserve primary FAIL; Phase 2 NOT_APPROVED",
   "gates": {
     "PLAYTEST_EVIDENCE_COMPLETE": "PASS",
     "CORE_TECHNICAL_REGRESSION": "PASS",
