@@ -65,8 +65,8 @@ failed attempts), declared sustained travel and the adaptive attempt.
 Report independent fields: PLAYTEST_EVIDENCE_COMPLETE, CORE_TECHNICAL_REGRESSION,
 GAMEPLAY_RECOMMENDATION, PHASE_2_GATE. Coverage PASS can coexist with RETUNE and
 zero useful routes; Phase2 remains NOT_APPROVED. Partial scope or unresolved
-runtime interruption remains INCOMPLETE. This amendment is submitted for review;
-it never retroactively changes the original protocol/results.
+runtime interruption remains INCOMPLETE. This amendment was accepted in final independent review on 2026-10-14;
+it never retroactively changes the original protocol/results or the Phase 2 gate.
 
 ## Setup correction before second exploration run
 
