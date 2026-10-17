@@ -43,6 +43,15 @@ neoForge {
 
     runs {
         (0..<3).each { index ->
+            create("phaseVerificationV2PreflightSeed${index}Server") {
+                server(); sourceSet = sourceSets.phaseVerification
+                gameDirectory = project.file("run/v2-numerical-preflight/seed-${index}")
+                programArgument '--nogui'
+                systemProperty 'worldphase.verification', 'v2-numerical-preflight'
+                systemProperty 'worldphase.projectRoot', project.projectDir.absolutePath
+            }
+        }
+        (0..<3).each { index ->
             create("phaseVerificationMvpSeed${index}Server") {
                 server(); sourceSet = sourceSets.phaseVerification
                 gameDirectory = project.file("run/mvp-playtest/seed-${index}-server")
@@ -203,10 +212,12 @@ neoForge {
     unitTest {
         enable()
         testedMod = mods.worldphase
+        loadedMods = [mods.worldphase, mods.worldphase_verification]
     }
 }
 
 dependencies {
+    testImplementation sourceSets.phaseVerification.output
     testImplementation platform('org.junit:junit-bom:5.13.4')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -260,6 +271,8 @@ tasks.named('test', Test).configure {
     useJUnitPlatform()
     // The transforming test loader does not expose Vanilla data resources via getResource.
     systemProperty 'worldphase.minecraftJar', layout.buildDirectory.file("moddev/artifacts/minecraft-patched-${neo_version}.jar").get().asFile.absolutePath
+    systemProperty 'worldphase.projectRoot', project.projectDir.absolutePath
+    systemProperty 'worldphase.v2.measure', providers.gradleProperty('v2MeasurePreparation').orElse('false').get()
 }
 
 def generateModMetadata = tasks.register('generateModMetadata', ProcessResources) {
@@ -549,6 +562,75 @@ tasks.register('coreRegressionAll') {
     group = 'verification'
     description = 'Complete headless acceptance: all unit suites plus real cold and reloaded core server regressions.'
     dependsOn coreRegression, coreRegressionServer
+}
+
+// Numeric preflight never installs a V2 dimension/settings pack. Server worlds remain legacy-only.
+def prepareV2Numerical = tasks.register('prepareV2NumericalPreflight') {
+    doLast {
+        def accepted=project.file('run/core-regression-server/eula.txt')
+        if(!accepted.exists() || !(accepted.text =~ /(?m)^\s*eula\s*=\s*true\s*$/).find())
+            throw new GradleException('Use the existing accepted core-regression EULA for legacy-only numeric verification.')
+        [123456789L,8675309L,20261011L].eachWithIndex { seed,index ->
+            def dir=project.file("run/v2-numerical-preflight/seed-${index}");dir.mkdirs()
+            new File(dir,'eula.txt').text=accepted.text
+            def previous=new File(dir,'v2-preparation.json')
+            if(previous.exists()) {
+                def history=new File(dir,'history');history.mkdirs()
+                new File(history,"preparation-${UUID.randomUUID()}.json").bytes=previous.bytes
+            }
+            previous.text=groovy.json.JsonOutput.toJson([executionStatus:'RUNNING',seed:seed])
+            new File(dir,'server.properties').text="""level-name=legacy-only-preflight-${UUID.randomUUID()}
+level-seed=${seed}
+server-ip=127.0.0.1
+server-port=25579
+online-mode=false
+pause-when-empty-seconds=0
+gamemode=creative
+view-distance=2
+simulation-distance=2
+max-tick-time=-1
+"""
+        }
+    }
+}
+def v2NumericalRuns=[]
+(0..<3).each { index ->
+    def run=tasks.named("runPhaseVerificationV2PreflightSeed${index}Server",JavaExec) {
+        dependsOn prepareV2Numerical
+        if(index>0)dependsOn tasks.named("runPhaseVerificationV2PreflightSeed${index-1}Server")
+        onlyIf {
+            if(index==0)return true
+            def previous=new groovy.json.JsonSlurper().parse(project.file("run/v2-numerical-preflight/seed-${index-1}/v2-preparation.json"))
+            if(previous.executionStatus=='COMPLETED')return true
+            project.file("run/v2-numerical-preflight/seed-${index}/v2-preparation.json").text=groovy.json.JsonOutput.toJson([executionStatus:'NOT_RUN_AFTER_BUDGET_FAILURE'])
+            return false
+        }
+        doLast {
+            def report=new groovy.json.JsonSlurper().parse(project.file("run/v2-numerical-preflight/seed-${index}/v2-preparation.json"))
+            if(!(report.executionStatus in ['COMPLETED','BLOCKED']) || report.v2WorldsCreated!=0 || report.holdoutsSampled!=false)
+                throw new GradleException("Incomplete/invalid V2 numeric evidence: ${report}")
+        }
+    }
+    v2NumericalRuns.add(run)
+}
+tasks.register('v2NumericalPreflightServer') {
+    group='verification';description='Observe real tick preparation on legacy-only servers; retains BLOCKED outcomes and stops later seeds.'
+    dependsOn v2NumericalRuns.last()
+}
+
+tasks.register('testV2PreflightTools', Exec) {
+    group='verification'
+    commandLine 'python', '-m', 'unittest', 'discover', '-s', 'tools', '-p', 'test_check_v2_preflight.py'
+}
+tasks.register('v2PreflightEvidence', Exec) {
+    group='verification'
+    description='Validate complete negative or positive legacy-server preparation evidence, independently of approval.'
+    commandLine 'python', 'tools/check_v2_preflight.py'
+}
+tasks.register('v2PreflightCheck', Exec) {
+    group='verification'
+    description='Nonzero while numerical/preparation gates are blocked. Does not generate or approve V2 worlds.'
+    commandLine 'python', 'tools/check_v2_preflight.py', '--require-pass'
 }
 
 // WPH-015: fixed native playtest worlds. Outputs stay under ignored run/.
