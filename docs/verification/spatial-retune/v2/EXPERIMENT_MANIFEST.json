@@ -1,0 +1,729 @@
+{
+  "schema_version": 1,
+  "experiment_id": "wph-016-02-r1",
+  "milestone": "A_CONFIGURATION_ONLY",
+  "status": "FROZEN_PROPOSAL_AWAITING_REVIEW",
+  "execution_authorized": false,
+  "base_commit": "8fae9d4030b2dd0c9bac95107f81fa2f483143e4",
+  "architecture": "docs/SPATIAL_RETUNE_PLAN.md sections4.0-4.2,4.5,5,8,9",
+  "toolchain": {
+    "minecraft": "26.1",
+    "neoforge": "26.1.0.19-beta",
+    "java": "25.0.3+9",
+    "moddev_gradle": "2.0.148"
+  },
+  "scope": {
+    "phases": [
+      "SMOOTH",
+      "RIDGE"
+    ],
+    "production_changes": false,
+    "generate_worlds_in_A": false,
+    "sky": "neutral Vanilla",
+    "phase_2": "NOT_APPROVED"
+  },
+  "seeds": {
+    "development": [
+      123456789,
+      8675309,
+      20261011
+    ],
+    "holdout": [
+      606102026,
+      -77331057,
+      424242424242
+    ],
+    "holdout_status": "SEALED_NOT_SAMPLED",
+    "release": "separate review after development evidence; no holdout tuning"
+  },
+  "windows": [
+    {
+      "id": "forest",
+      "x": -384,
+      "z": 896
+    },
+    {
+      "id": "highland",
+      "x": 1344,
+      "z": 1200
+    }
+  ],
+  "units": {
+    "horizontal": "world blocks; p=(x,z)",
+    "height": "blocks; y_max exclusive",
+    "density": "dimensionless; positive solid, negative void",
+    "lambda": "blocks per density unit"
+  },
+  "domain": {
+    "y_min": -64,
+    "y_max_exclusive": 320,
+    "sea_level": 63,
+    "cell_width": 4,
+    "cell_height": 8,
+    "world_border_abs": 29999984
+  },
+  "numerics": {
+    "evaluation": "Java25 binary64; StrictMath exp/sin/cos/sqrt; no FMA; parenthesized order in PROTOCOL",
+    "integer": "64-bit wrapping two-complement; >>> unsigned shift; rotl64",
+    "floor": "mathematical floor, also negative",
+    "ordering": "global IDs lexicographic; canonical edge endpoints; no unordered float sums",
+    "tie_break": "lexicographic node/edge ID",
+    "nonfinite": "reject, no fallback",
+    "certificate_arithmetic": "outward-rounded interval arithmetic including kernel evaluation error; B gate",
+    "manifest_digest": "SHA256 of UTF8 bytes after CRLF-to-LF normalization"
+  },
+  "hash": {
+    "id": "splitmix-finalizer-lattice-r1",
+    "M": [
+      "v=(v xor(v>>>30))*0xbf58476d1ce4e5b9",
+      "v=(v xor(v>>>27))*0x94d049bb133111eb",
+      "return v xor(v>>>31)"
+    ],
+    "h": "M(seed xor M(i xor 0x9e3779b97f4a7c15) xor rotl64(M(j xor 0xd1b54a32d192ed03),32) xor tag)",
+    "u": "(h>>>11)*2^-53",
+    "role_seed": "M(raw_seed xor role_tag)"
+  },
+  "channels": {
+    "worldphase:prototype_v2/common/height_r1": {
+      "kind": "GradientNoise",
+      "tag": "0x434f4d4d4f4e0001"
+    },
+    "worldphase:prototype_v2/smooth/wide_r1": {
+      "kind": "GradientNoise",
+      "tag": "0x534d4f4f54480001"
+    },
+    "worldphase:prototype_v2/smooth/hills_r1": {
+      "kind": "GradientNoise",
+      "tag": "0x534d4f4f54480002"
+    },
+    "worldphase:prototype_v2/ridge/curve_r1": {
+      "kind": "GradientNoise",
+      "tag": "0x5249444745000001"
+    },
+    "worldphase:prototype_v2/ridge/along_r1": {
+      "kind": "GradientNoise",
+      "tag": "0x5249444745000002"
+    },
+    "worldphase:prototype_v2/common/node_x_r1": {
+      "kind": "h",
+      "tag": "0x4e4f444558000001"
+    },
+    "worldphase:prototype_v2/common/node_z_r1": {
+      "kind": "h",
+      "tag": "0x4e4f44455a000001"
+    },
+    "worldphase:prototype_v2/common/edge_z_r1": {
+      "kind": "hEdge",
+      "tag": "0x454447455a000001"
+    },
+    "worldphase:prototype_v2/ridge/direction_r1": {
+      "kind": "h_at_0_0",
+      "tag": "0x5249444745444952"
+    },
+    "worldphase:prototype_v2/smooth/detail_r1": {
+      "kind": "NormalNoise_holder",
+      "firstOctave": 0,
+      "amplitudes": [
+        1.0
+      ],
+      "normalization": "divide by actual wired NoiseHolder.maxValue(); finite >0 required"
+    },
+    "worldphase:prototype_v2/ridge/detail_r1": {
+      "kind": "NormalNoise_holder",
+      "firstOctave": 0,
+      "amplitudes": [
+        1.0
+      ],
+      "normalization": "divide by actual wired NoiseHolder.maxValue(); finite >0 required"
+    }
+  },
+  "common": {
+    "reference_holder": "minecraft:overworld/continents",
+    "reference_y": 0,
+    "extension": "raw seeded integer DF -> bilinear -> clamp[-1,1]",
+    "sea": 63,
+    "continent_amplitude": 64,
+    "height_noise_amplitude": 6,
+    "height_noise_length": 900,
+    "lambda": 16,
+    "height_bounds": [
+      -7,
+      133
+    ],
+    "independent_3d_noise": false
+  },
+  "nodes": {
+    "spacing": 512,
+    "jitter_each_axis": 64,
+    "core_radius": 16,
+    "transition_width": 16,
+    "collar": 8,
+    "influence_radius": 32,
+    "m_smoothstep": [
+      24,
+      32
+    ],
+    "solid_depth": 16,
+    "air_clearance": 4,
+    "vertical_fade": 16,
+    "dry_margin": 8,
+    "protected_band_limits": [
+      -40,
+      240
+    ],
+    "max_surface_slope": 0.125,
+    "eligibility": "per-ID common interval certificate; unknown -> disabled with reason",
+    "envelope": "all integer V vertices covering center +/-32 AABB; clamped vertex extrema plus +/-6; bilinear derivatives plus GradientNoise derivative bound",
+    "envelope_max_vertices_per_node": 4356,
+    "mask_query_half_extent": 1,
+    "mask_query_max_nodes": 9,
+    "ideal_core_coverage_percent": 0.30679615757712825,
+    "ideal_influence_coverage_percent": 1.227184630308513,
+    "distance_if_no_influence": 32
+  },
+  "valley_graph": {
+    "edge_shape": "finite segment between eligible axis-adjacent nodes",
+    "x_edge_probability": 1.0,
+    "z_edge_probability": 0.35,
+    "edge_hash": "M(seed xor 0x454447455a000001 xor M(i1) xor rotl64(M(j1),16) xor rotl64(M(i2),32) xor rotl64(M(j2),48)); canonical endpoints",
+    "gaussian_width": 64,
+    "double_zero_radius": 2048,
+    "query_start_half_extent": 6,
+    "query_max_edges": 338,
+    "query_max_endpoint_nodes": 196,
+    "distance_if_no_relevant_edge": "infinity/SATURATED; Gaussian zero; not exact global nearest edge distance"
+  },
+  "smooth": {
+    "wide_amplitude": 4,
+    "wide_length": 900,
+    "valley_depth": 8,
+    "hill_amplitude": 3,
+    "hill_length": 220,
+    "detail_amplitude": 0.04,
+    "detail_xz_length": 80,
+    "detail_y_length": 48,
+    "height_bounds_conservative": [
+      -22,
+      140
+    ],
+    "world_density_bounds": [
+      -21.415,
+      12.79
+    ]
+  },
+  "ridge": {
+    "direction": "theta=PI*u(seed,0,0,direction_tag)",
+    "period": 320,
+    "curve_amplitude": 0.16,
+    "curve_length": 600,
+    "profile_width": 0.28,
+    "ridge_height": 48,
+    "valley_depth": 10,
+    "along_amplitude": 4,
+    "along_tangent_length": 600,
+    "along_normal_length": 900,
+    "wall_mask": [
+      0.1,
+      0.3,
+      0.7,
+      0.9
+    ],
+    "wall_vertical_inner": 16,
+    "wall_vertical_outer": 32,
+    "detail_amplitude": 0.12,
+    "detail_xz_length": 64,
+    "detail_y_length": 40,
+    "height_bounds": [
+      -21,
+      185
+    ],
+    "world_density_bounds": [
+      -21.4325,
+      15.6825
+    ],
+    "curve_coordinate_jacobian_perturbation_bound": 0.5653333333333334,
+    "curve_fold_gate": "perturbation norm <1; no Fracture warp/Jacobian in this arm"
+  },
+  "composition": {
+    "Dcommon": "(Hc-y)/16",
+    "Dterrain": "(1-m)*Dcommon+m*DpCore",
+    "Py": "(1-S(16,32,Hc-y))*(1-S(4,20,y-Hc))",
+    "P": "(1-m)*Py",
+    "Fnative": "pinned Vanilla final_density AST; substitute every exact sloped_cheese reference with Dterrain; all other cave/slide/noodle operators unchanged",
+    "Fcommon": "postProcess(slide(Dcommon)); no cave/noodle",
+    "Dfinal": "(1-P)*Fnative(Dterrain)+P*Fcommon; no outer interpolated wrapper",
+    "postProcess": "squeeze(0.64*interpolated(blend_density(D)))",
+    "slide": {
+      "top_from_y": 240,
+      "top_to_y": 256,
+      "top_target": -0.078125,
+      "bottom_from_y": -64,
+      "bottom_to_y": -40,
+      "bottom_target": 0.1171875
+    },
+    "final_bounds_conservative": [
+      -0.5,
+      0.5
+    ],
+    "vanilla_sloped_cheese_replacement_count": 3,
+    "vanilla_sloped_cheese_replacement_locations": [
+      "/argument1/argument/argument2/argument/argument/argument2/argument2/argument2/argument2/argument2/argument2/input",
+      "/argument1/argument/argument2/argument/argument/argument2/argument2/argument2/argument2/argument2/argument2/when_in_range/argument1",
+      "/argument1/argument/argument2/argument/argument/argument2/argument2/argument2/argument2/argument2/argument2/when_out_of_range/argument1/argument1/argument1/argument2/argument2/input/argument2/argument2"
+    ]
+  },
+  "preliminary_surface": {
+    "type": "minecraft:find_top_surface",
+    "density": "(1-P)*postProcess(slide(Dterrain))+P*Fcommon; no caves/noodle",
+    "lower_bound": -64,
+    "cell_height": 8,
+    "upper_bound": {
+      "smooth": 152,
+      "ridge": 200
+    },
+    "derivation": "ceil8(max(Hc_max,Hp_max)+16*A3+8); global bound covers interpolation corners",
+    "comparison": "raw scan vs base column vs native interpolation vs FULL measured separately"
+  },
+  "codec_contract": {
+    "type_id": "worldphase:prototype_v2/analytic_r1",
+    "class_plan": "dev-only PrototypeAnalyticDensityFunction implements DensityFunction; has children, not SimpleFunction",
+    "codec": "KeyDispatchDataCodec.of(RecordCodecBuilder.mapCodec(...))",
+    "registration": "DeferredRegister<MapCodec<? extends DensityFunction>> on Registries.DENSITY_FUNCTION_TYPE, isolated verification mod bus only",
+    "required_fields": [
+      "profile",
+      "field",
+      "reference"
+    ],
+    "profile": "worldphase:prototype_v2/shared_r1",
+    "fields": [
+      "common_density",
+      "smooth_core",
+      "ridge_core",
+      "node_weight",
+      "protection"
+    ],
+    "reference": "DensityFunction.HOLDER_HELPER_CODEC; require exact minecraft:overworld/continents",
+    "detail": "DensityFunction.NoiseHolder.CODEC; required exact phase holder only for *_core, otherwise forbidden",
+    "runtime_seed_json_field": false,
+    "free_numeric_fields": false,
+    "validation": "strict fixture/codec rejection of unknown profile/field/reference, extra fields, wrong/missing detail, nonfinite or mismatched config",
+    "global_leaf_bounds": {
+      "common_density": [
+        -134217731,
+        134217741
+      ],
+      "smooth_core": [
+        -134217731,
+        134217741
+      ],
+      "ridge_core": [
+        -134217731,
+        134217741
+      ],
+      "node_weight": [
+        0,
+        1
+      ],
+      "protection": [
+        0,
+        1
+      ]
+    },
+    "example": {
+      "type": "worldphase:prototype_v2/analytic_r1",
+      "profile": "worldphase:prototype_v2/shared_r1",
+      "field": "smooth_core",
+      "reference": "minecraft:overworld/continents",
+      "detail": "worldphase:prototype_v2/smooth/detail_r1"
+    }
+  },
+  "seed_binding": {
+    "hook": "dev-only RandomState.<init> NoiseRouter.mapAll WrapOperation; production hook unchanged",
+    "apply": "delegate Vanilla/legacy visitor, then bind immutable V2 leaf to raw constructor seed",
+    "visitNoise": "delegate exactly once to native NoiseWiringHelper, using holder resource key",
+    "mapAll": "map reference/detail children; preserve bound immutable seed; visitor.apply rebuilt leaf",
+    "raw_reference": "unwrap holder/marker scalar delegates after Vanilla seed wiring; no foreign NoiseChunk cached/interpolated state",
+    "unbound_compute": "throw descriptive IllegalStateException; never fixed seed/zero fallback",
+    "integration_gates": [
+      "both visitor nesting orders equivalent",
+      "all child noises seeded",
+      "idempotent same-seed binding",
+      "legacy outputs unchanged",
+      "native interpolation fixture"
+    ]
+  },
+  "arms": [
+    {
+      "id": "LEGACY_V1",
+      "level_ids": {
+        "smooth": "worldphase:smooth",
+        "ridge": "worldphase:ridge"
+      },
+      "settings_ids": {
+        "smooth": "worldphase:smooth",
+        "ridge": "worldphase:ridge"
+      },
+      "world_path_template": "run/spatial-retune-v2/r1/legacy_v1/seed-{seed}/world",
+      "create_policy": "CREATE_NEW_OR_FAIL; reopen only matching manifest for reload checks",
+      "overrides": {}
+    },
+    {
+      "id": "C1_R1",
+      "level_ids": {
+        "smooth": "worldphase:smooth",
+        "ridge": "worldphase:ridge"
+      },
+      "settings_ids": {
+        "smooth": "worldphase:prototype_c1/r1/smooth",
+        "ridge": "worldphase:prototype_c1/r1/ridge"
+      },
+      "world_path_template": "run/spatial-retune-v2/r1/c1_r1/seed-{seed}/world",
+      "create_policy": "CREATE_NEW_OR_FAIL; reopen only matching manifest for reload checks",
+      "overrides": {
+        "smooth_noise.amplitude": [
+          0.1,
+          0.11
+        ],
+        "ridge_noise.amplitude": [
+          1.0,
+          1.1
+        ]
+      }
+    },
+    {
+      "id": "V2_R1",
+      "level_ids": {
+        "smooth": "worldphase:smooth",
+        "ridge": "worldphase:ridge"
+      },
+      "settings_ids": {
+        "smooth": "worldphase:prototype_v2/r1/smooth",
+        "ridge": "worldphase:prototype_v2/r1/ridge"
+      },
+      "world_path_template": "run/spatial-retune-v2/r1/v2_r1/seed-{seed}/world",
+      "create_policy": "CREATE_NEW_OR_FAIL; reopen only matching manifest for reload checks",
+      "overrides": {
+        "source": "all r1 architecture parameters in this manifest"
+      },
+      "data_gate": "BLOCKED_PENDING_CERTIFIED_NUMERICS_AND_NATIVE_INTEGRATION; no V2 terrain execution in A"
+    }
+  ],
+  "resources": {
+    "dimension_mapping": "existing worldphase:smooth/ridge Level keys; only new-world isolated datapack overrides settings pointers per plan section8; production resources/Catalog unchanged",
+    "fixture_resource_paths": {
+      "dimension": "<new-world>/datapacks/<arm>-r1/data/worldphase/dimension/{smooth|ridge}.json",
+      "settings": "src/phaseVerification/resources/data/worldphase/worldgen/noise_settings/{prototype_c1|prototype_v2}/r1/{smooth|ridge}.json",
+      "DF": "src/phaseVerification/resources/data/worldphase/worldgen/density_function/{prototype_c1|prototype_v2}/r1/{phase-or-common}/{role}.json",
+      "noise": "src/phaseVerification/resources/data/worldphase/worldgen/noise/prototype_v2/{smooth|ridge}/detail_r1.json"
+    },
+    "biome_source": "minecraft:multi_noise preset minecraft:overworld",
+    "unchanged_router_slots": "all except final_density and preliminary_surface_level",
+    "unchanged_pipeline": [
+      "dimension type minecraft:overworld",
+      "caves grammar",
+      "carvers",
+      "surface rules",
+      "structures",
+      "features/ores",
+      "aquifer slots",
+      "climate routing"
+    ],
+    "C1_scope": "only S/R instantiated; parent Cell/Fracture C1 deferred",
+    "versioning": "r1 settings/DF/noise immutable; new world per arm/seed; digest mismatch abort"
+  },
+  "preparation_budget": {
+    "roi_radius": 1536,
+    "windows_per_seed": 2,
+    "max_node_certificates_per_seed": 800,
+    "max_raw_C_calls_per_seed": 3484800,
+    "raw_C_calls_per_tick": 512,
+    "preparation_target_ms_per_tick": 25,
+    "certificate_cache_capacity": 1024,
+    "column_cache_capacity": 16384,
+    "cache_keys": "raw seed, manifest SHA256, global node ID or exact x/z; immutable entries; eviction cannot change results",
+    "mode": "explicit bounded-region dev preflight before generation, no automatic startup search",
+    "outside_prepared_roi": "CONTEXT_NOT_PREPARED; abort, no silent fallback/unbounded synchronous preparation",
+    "timing": "report preparation CPU/tick/wall and include it in cold end-to-end totals",
+    "ready_made_performance_result": false
+  },
+  "measurement": {
+    "coarse_height": {
+      "side": 33,
+      "step": 64
+    },
+    "fine_height": {
+      "side": 17,
+      "step": 16
+    },
+    "shape_grid": {
+      "side": 129,
+      "step": 8,
+      "radius": 512
+    },
+    "columns": {
+      "half_length": 512,
+      "step": 8,
+      "y_range_inclusive": [
+        -64,
+        319
+      ]
+    },
+    "density_volume": {
+      "radius_xz": 64,
+      "y_range_inclusive": [
+        -32,
+        160
+      ],
+      "step": 8
+    },
+    "density_planes": "same V1 grids; raw compute distinct from native interpolation/FULL",
+    "camera": {
+      "player_feet_y": 240,
+      "yaw": 135,
+      "pitch": 60,
+      "time": 6000,
+      "weather": "clear",
+      "resolution": [
+        1280,
+        720
+      ],
+      "fov": 70,
+      "render_distance": 16,
+      "simulation_distance": 5,
+      "clouds": "OFF",
+      "gamma": 0.5,
+      "particles": "MINIMAL",
+      "ambient_occlusion": true,
+      "mipmap_levels": 4,
+      "biome_blend_radius": 2,
+      "resource_pack": "Vanilla",
+      "graphics_base": "Fancy; overrides may show CUSTOM"
+    },
+    "settle": "same V1 inner10 compiled-chunk checks; min360ticks; timeout2400; retain occlusion/failures",
+    "blind_review": {
+      "phases": [
+        "smooth",
+        "ridge"
+      ],
+      "images": 12,
+      "min_independent_reviewers": 2,
+      "overall_accuracy_min": 0.8,
+      "per_phase_accuracy_min": 0.7,
+      "shuffle_key": "SHA256(experiment_id + image_id); no visible phase labels"
+    },
+    "performance": {
+      "round_orders": [
+        [
+          "LEGACY_V1",
+          "C1_R1",
+          "V2_R1"
+        ],
+        [
+          "C1_R1",
+          "V2_R1",
+          "LEGACY_V1"
+        ],
+        [
+          "V2_R1",
+          "LEGACY_V1",
+          "C1_R1"
+        ]
+      ],
+      "metrics": [
+        "worldgen CPU per chunk p50/p95/max, by stage",
+        "preparation CPU/tick/wall",
+        "cold inclusive total and warm generation",
+        "server MSPT/TPS",
+        "native frame time p50/p95",
+        "heap/GC and reload"
+      ],
+      "target_worldgen_cpu_p95_relative_legacy": 1.5,
+      "target_steady_mspt_p95_ms": 50,
+      "target_persistent_heap_growth": false,
+      "policy": "observational gates, not CPU-specific unit timing assertions"
+    }
+  },
+  "acceptance": {
+    "configuration_A": "reviewed manifest/math only; no terrain/performance/gameplay PASS",
+    "terrain_visual": "S/R blind overall>=80%, each>=70%; Smooth>=2 valleys/seed width>=32 length>=256 with exits; Ridge>=2 crests/seed length>=256 aspect>=4; <=8-block geometry grids AND FULL confirmation",
+    "shift": "real FULL dual-Level collision/support/hazards/entities; both directions BOUNDED_LANDING +/-4, same x/z; static graph not proof",
+    "route": "separately preregister concrete starts/targets/entry/exit and budget before attempts; Survival completion without surface/fly; S/R goal2 independent cases/seed",
+    "parent_gate": "four-Phase 18-attempt/holdout protocol unchanged; Phase2 NOT_APPROVED",
+    "failure_labels": [
+      "ENVELOPE_UNPROVEN",
+      "CONTEXT_NOT_PREPARED",
+      "BUDGET_EXCEEDED",
+      "TERRAIN_CRITERION_FAIL",
+      "SHIFT_POSITION_REJECTED",
+      "ROUTE_FAILED",
+      "NOT_HUMAN_EVALUATED",
+      "NOT_RUN"
+    ],
+    "holdout": "only separately approved unseal; retain all failures"
+  },
+  "gates_before_B_data": [
+    "review approval of immutable manifest commit/hash",
+    "outward-rounded Hc/kernel error certificate implemented and reviewed; unproved => BLOCKED",
+    "finite-neighborhood oracle and Java StrictMath proof tests",
+    "codec/seed/mapAll/bounds and native preliminary-surface integration tests",
+    "preparation cap/tick slicing validated; failure blocks run",
+    "empty world paths, exact resource digests and isolated dimension mapping verified"
+  ],
+  "evidence_status": {
+    "worlds": "NOT_GENERATED",
+    "screenshots": "NOT_CAPTURED",
+    "performance": "NOT_MEASURED",
+    "node_eligibility_actual_seeds": "NOT_SAMPLED",
+    "routes": "NOT_ATTEMPTED"
+  },
+  "locks": {
+    "tracked_text_sha256": {
+      "src/main/java/dev/fangbm/worldphase/command/package-info.java": "9ae898759748a1595b0ad802ba09fa1da644a7508f8b26338c06c29b8955e4be",
+      "src/main/java/dev/fangbm/worldphase/command/TutorialCommand.java": "3b2445022fe27822403330c8539b08fd29dd059d24fc5376410519e7e5afb430",
+      "src/main/java/dev/fangbm/worldphase/command/WorldPhaseCommand.java": "dcae9f6b5056e4b223b4d33390d29c148f17966ed250335176a30851e74e9871",
+      "src/main/java/dev/fangbm/worldphase/data/package-info.java": "d77f9563618cbd5add4dc72108e90fafba0e88c6b5a98fba93e64f75a6bfa578",
+      "src/main/java/dev/fangbm/worldphase/mixin/RandomStateMixin.java": "8ad358126b50eb715207034b2f27fde0538bbfd85fff358cde8ab1aff64086b4",
+      "src/main/java/dev/fangbm/worldphase/package-info.java": "08a39bea5f5b461d04e333430a0967b65aed62d49087b42656e4806bf3e83794",
+      "src/main/java/dev/fangbm/worldphase/phase/package-info.java": "c752140ad666423142dbc183d263889bf34696d60c4e54e99691c52bd401ea70",
+      "src/main/java/dev/fangbm/worldphase/phase/PhaseCatalog.java": "781d063d04b48ed870132f5e6dbd0db1347b302078b607ee71ed534de611e9d5",
+      "src/main/java/dev/fangbm/worldphase/phase/PhaseDefinition.java": "806137169f8e66ea4bd18c281afa6416d77065c4818dcdfdaa476161d8a3fec2",
+      "src/main/java/dev/fangbm/worldphase/phase/PhaseId.java": "2cd271dcddf0212a361a62a684958e52629ba2ae5323b453ae1913da957a9872",
+      "src/main/java/dev/fangbm/worldphase/phase/PhaseWorldResolver.java": "3cbb51040faf68d4879fd5553772b3f5d9b4370ecd7335c54819534d2b140e23",
+      "src/main/java/dev/fangbm/worldphase/registry/ModDensityFunctions.java": "0410b96258353cf2ab8fab9083f264c40b5930e0aac86e673d8e025d917bd3d8",
+      "src/main/java/dev/fangbm/worldphase/registry/package-info.java": "46270aecb9608c6325310e9568113ecc232963c364433b008645bc90198d9f8a",
+      "src/main/java/dev/fangbm/worldphase/test/package-info.java": "1afaed5a0c13a49011038f28d1ca5cd94926bb54e9ad1afd4393bc231c6cb6c8",
+      "src/main/java/dev/fangbm/worldphase/transfer/LandingInspection.java": "c3e324bb64f984b1165d6054ba861691d6678899774e943c1432a8c4b8780d7f",
+      "src/main/java/dev/fangbm/worldphase/transfer/LandingSafety.java": "3c42dc59af956e847729d288f05efe77d492286644627bdef7f9289d506ed6eb",
+      "src/main/java/dev/fangbm/worldphase/transfer/package-info.java": "614aff42d893078283638d06c0d2da1bddcc3c717c4123b7a5bdb468db1b966e",
+      "src/main/java/dev/fangbm/worldphase/transfer/PhaseTransferService.java": "f34feb4368c2211fb93ec7a74322c77801524310a635f3731e2fb1332795f32a",
+      "src/main/java/dev/fangbm/worldphase/transfer/SafeLandingResolver.java": "eee5e6104f63353ba1275abf5ea121d5a29981499070fd5226d5268c252c63db",
+      "src/main/java/dev/fangbm/worldphase/transfer/TransferPolicy.java": "66b217dbdb21bbd18ae88c726d426d7505c0f3f674e9a83bd5476b45368292c9",
+      "src/main/java/dev/fangbm/worldphase/transfer/TransferResult.java": "7d0109360d05a449a3b9d832d4f6b7ca0fe8b0b425c3052b7f3e39e9e3089580",
+      "src/main/java/dev/fangbm/worldphase/tutorial/package-info.java": "0ce7ab82aec205c5297b371adb5577c81d27869f5fe3b1f3676376a50918b594",
+      "src/main/java/dev/fangbm/worldphase/tutorial/RefinedTutorialSearch.java": "f9a15df1196d3bc8da4af64658e0f5e6972ff3fd7dedd135a6192b86ccdb0ddf",
+      "src/main/java/dev/fangbm/worldphase/tutorial/TutorialCandidate.java": "b5e394c3a68fe932b5a3d014583dd4acac49c7436a035f73e00ccdd821307dc2",
+      "src/main/java/dev/fangbm/worldphase/tutorial/TutorialCandidateFinder.java": "b96ff75fb22e90d2bf186343adec338b34ed5b1de006f1fa9c23b160ee8eb517",
+      "src/main/java/dev/fangbm/worldphase/tutorial/TutorialCorridor.java": "de53e0ec510e6689ba72e7258ab7973368b91204c8f5b88b2150a61b1a2e4dc9",
+      "src/main/java/dev/fangbm/worldphase/tutorial/TutorialOpeningState.java": "028cfd164dcc78fd8bf9ce717b85c38821a50696c578120ab8164133bc4cc847",
+      "src/main/java/dev/fangbm/worldphase/tutorial/TutorialScore.java": "24d2cbbc6c72d82f94f7912b651ea2a17b502bb6a210c5b9afd79dc270988b3b",
+      "src/main/java/dev/fangbm/worldphase/tutorial/TutorialSearchConfig.java": "7619d168d51851b4c93d544d288b3ce2b69714a9c53a1b1b4219ffb199d5ad95",
+      "src/main/java/dev/fangbm/worldphase/tutorial/WorldPhaseSavedData.java": "642d35f0b10010250bc1dad7fb7c805cdf86430d07fef7a2cd471262af2f10a4",
+      "src/main/java/dev/fangbm/worldphase/worldgen/density/package-info.java": "292f074623a19aa145909f7fcc3b23f1262519dfe26c9b137a3a126e08d1b0c3",
+      "src/main/java/dev/fangbm/worldphase/worldgen/density/PhaseNoiseDensityFunction.java": "75a3297b1be9f22be9bab68521187df49618f6909307b2aac7dc7636fbed5e44",
+      "src/main/java/dev/fangbm/worldphase/worldgen/density/PhaseNoiseSeedVisitor.java": "0e4895c7861bf5573d9cbf75c340bb0f1ed4951bfc3485d28920f2757f4c7a3c",
+      "src/main/java/dev/fangbm/worldphase/worldgen/noise/DomainWarpNoise.java": "ab72e040cb20d112bfec6694278d6247c4ca5a455dcd69ba12635d3d308dfe17",
+      "src/main/java/dev/fangbm/worldphase/worldgen/noise/GradientNoise.java": "fea4ef9cffc402f196c1a03b55ddedbb3a8fad8018d26902bb177d9c319fcc29",
+      "src/main/java/dev/fangbm/worldphase/worldgen/noise/NoiseHash.java": "61ad693e9331f5d994d8f0b55969dc5706f057a6d4dc28c7f2c0135d25f8c36c",
+      "src/main/java/dev/fangbm/worldphase/worldgen/noise/NoiseMath.java": "817bcd38251e89b82a61b89c0c2386e48cc007a76601d1824461d7b75328bca5",
+      "src/main/java/dev/fangbm/worldphase/worldgen/noise/package-info.java": "1c2a2a49c64c780b671e209bcac13baed934c6d514c91692fb2e1765f2b28b3e",
+      "src/main/java/dev/fangbm/worldphase/worldgen/noise/PhaseNoise.java": "b1bbd048377c6ff1f8b46081e7bff59876ca8b95188e9b68164fd8ddd5ddffe5",
+      "src/main/java/dev/fangbm/worldphase/worldgen/noise/RidgedNoise.java": "7233cd409d5a511a522b60e09229accb0413c9c2d34825d96ef4ae0401ed6257",
+      "src/main/java/dev/fangbm/worldphase/worldgen/noise/WorleyNoise.java": "4ef11aa505da8fe2d84381eb05dcbc3f557fa78772da33198823b4ef599655a3",
+      "src/main/java/dev/fangbm/worldphase/worldgen/package-info.java": "7db4321c756ce3a367f6c0b7e01d8d3dea4862ba1153e5745489752b8fdfebd8",
+      "src/main/java/dev/fangbm/worldphase/worldgen/sample/package-info.java": "3671c33925319de16083d5a37b58f5ab098f8d7d4f4dae9b6de992b0a6512397",
+      "src/main/java/dev/fangbm/worldphase/worldgen/sample/TerrainComparison.java": "4bff625b21baa557329993265cc1692ee81e462e2805ee3e4a63075437d3fb4f",
+      "src/main/java/dev/fangbm/worldphase/worldgen/sample/TerrainSample.java": "b09db33ebb6da3b634c602de3245936af4156450003d6e8bbd1a43c34a6ab164",
+      "src/main/java/dev/fangbm/worldphase/worldgen/sample/TerrainSampleService.java": "9edc1f137924ef32c1f600fcb6d8ee9b6bb5d196c9e88f2de357cd273ea44dcf",
+      "src/main/java/dev/fangbm/worldphase/WorldPhase.java": "6eb48a1d7338078606ce0e68fdc71810a40031452790f77bf946c7159742e3a1",
+      "src/main/resources/data/worldphase/dimension/cell.json": "4e32d282f3a515f55656f0f8cf47180a49738ff8180c9db879735768fb1912ce",
+      "src/main/resources/data/worldphase/dimension/fracture.json": "69490d9b76e02ac922750e4a49fd4a1cb799674e8a72b4dddb71b9f1500fe5f0",
+      "src/main/resources/data/worldphase/dimension/ridge.json": "8637af8bec995bf170b267f67e336fd8522216e13d4c1f13244c581f06547bb7",
+      "src/main/resources/data/worldphase/dimension/smooth.json": "6cd9beec2c9eb5709030a35a5ebbb12f97dbbfb54fe31bf4bb1f6400fe09c161",
+      "src/main/resources/data/worldphase/worldgen/density_function/cell_gradient.json": "5ea19469bba1127fd28946dd167c69f4a9936ae30aab6086eea2e377d01e086a",
+      "src/main/resources/data/worldphase/worldgen/density_function/cell_modifier.json": "ceda9e13b6b210b4d535106761dbdbe9ab6476491d7481f8fdbf5950671df9ee",
+      "src/main/resources/data/worldphase/worldgen/density_function/cell_noise.json": "604f2fd9be515b331e4024c64f8ecccf24465cc066dcab1de89b1be6bd32761c",
+      "src/main/resources/data/worldphase/worldgen/density_function/cell_offset.json": "c05070e014227d857494707b73ae153e995d068b462069ec68c81d35adc2d1c1",
+      "src/main/resources/data/worldphase/worldgen/density_function/cell_profile.json": "7aca563c559cea7bce30e5f244c9f912ee8ea37ca9b9b8b784b4fa8ca2fff3b2",
+      "src/main/resources/data/worldphase/worldgen/density_function/cell_radius.json": "3e83ad64239caeade198a62c6bafdbdcba660cbc2167439e7caa5a886b92963b",
+      "src/main/resources/data/worldphase/worldgen/density_function/cell_terrain.json": "0bc9bb55af06047b144961515e8522ae48953b931b779e8c5979816bd592d4f4",
+      "src/main/resources/data/worldphase/worldgen/density_function/fracture_gradient.json": "a9fdc3fb8e961c37cbdde709e36b5039962325c06e5e33488e9bde170bc331c6",
+      "src/main/resources/data/worldphase/worldgen/density_function/fracture_modifier.json": "df608a2dd91708299f8e2bd332a33742c1dba7aba2260e12c4b100272ca60fa4",
+      "src/main/resources/data/worldphase/worldgen/density_function/fracture_noise.json": "d4a32b503546a1d4191aad608851b8425b5a0c747c56c454e7b11484969bc5c7",
+      "src/main/resources/data/worldphase/worldgen/density_function/fracture_offset.json": "1616df375ed40d0ab9f680c8acd2017aba32c810729c6d24ba0ffc99143c0346",
+      "src/main/resources/data/worldphase/worldgen/density_function/fracture_terrain.json": "ee3714f4de16c42ae1b5b39b115d8dd49008526a665101879dd80a5513ac9fe1",
+      "src/main/resources/data/worldphase/worldgen/density_function/ridge_gradient.json": "1ca32584862a32df0857dfc96d4ca893bc3afb47faf042c239a9457a532a58d1",
+      "src/main/resources/data/worldphase/worldgen/density_function/ridge_modifier.json": "c1d6fbe7579dd7d78fc73f035b2ebb0a4cf9e69cb700703fda8bf99596eff97e",
+      "src/main/resources/data/worldphase/worldgen/density_function/ridge_noise.json": "289abca870bb4dcc072519606f742e879a271af0295c9ffbbe0faf32b5ab51cd",
+      "src/main/resources/data/worldphase/worldgen/density_function/ridge_offset.json": "d9354deef08c85b931a6e1e10bd23118cba80cad2f0598692d2419d82bf93cdd",
+      "src/main/resources/data/worldphase/worldgen/density_function/ridge_profile.json": "4be879028708d1eecdfb36eb3a5a181f16a86e23197adf5909c9f76d2955ff49",
+      "src/main/resources/data/worldphase/worldgen/density_function/ridge_terrain.json": "f722a62380dc9087350416c84cb3270b7e08db9046cca5fea1f636ab484127d3",
+      "src/main/resources/data/worldphase/worldgen/density_function/smooth_noise.json": "2df929bba778d6182bbb64c1bea0f8498eb1e3b376a57375853ccee2301d2e92",
+      "src/main/resources/data/worldphase/worldgen/density_function/smooth_offset.json": "d707ae35c16ab051bfdff22b47c12fae69cc689f481df5854e7d2b1bf7fd4f15",
+      "src/main/resources/data/worldphase/worldgen/density_function/smooth_terrain.json": "3375faba0ccd4db85dc7e87bd7a24367b691bef4985013380cb6825139c651d8",
+      "src/main/resources/data/worldphase/worldgen/density_function/vanilla_terrain_gradient.json": "9cbe5b167d132f106842559346b781b514456ffc901d95f8219591236b6b6d76",
+      "src/main/resources/data/worldphase/worldgen/noise_settings/cell.json": "8bbe667584ee13fd012fff369043920f877f6b38e4c576c7f80ba523345ac625",
+      "src/main/resources/data/worldphase/worldgen/noise_settings/fracture.json": "9dfa7321264a5abc72e7da315eae8f749e0ccd833a153a03dc11b9df17eb9cd4",
+      "src/main/resources/data/worldphase/worldgen/noise_settings/ridge.json": "fd1957df24c1fef228b0a1a6074881f0a27a1f0f823d691efcef6edf6ed855fa",
+      "src/main/resources/data/worldphase/worldgen/noise_settings/smooth.json": "6a97ec7a29a02d6c6d18639acbab88cd9f3ef38c5b5d217cf75daeb8a10c009e",
+      "src/main/resources/worldphase.mixins.json": "710922acc55d7a5ef217345c5f50a792e8a0f677b8688623b3a63b48925f9ed6",
+      "src/main/templates/META-INF/neoforge.mods.toml": "b48b963538c16a9fac2430b08936a9d721f5564fbff12d6025c2bf691057df7a",
+      "docs/verification/spatial-retune/v1/api-audit.json": "21356e2ee9d597daf019e120514a58548573a6fc0eae870e4f985ca28e5569e9",
+      "docs/verification/spatial-retune/v1/evidence-manifest.json": "22b43f6c8794a4f47fc87a3aa9553ac8b473ce6c7e07a1b8a0ea2f563b7b181a",
+      "docs/verification/spatial-retune/v1/excluded-attempts.json": "b1b61cb28667f42f427e6ac961c19ae01294391a627d1dfb7c6e507cb4079e2b",
+      "docs/verification/spatial-retune/v1/measurements/123456789/selected-options.json": "eaa6d0a978f50e243615f6566e0f1531423c41515b6b9dc05e0cf7f007734964",
+      "docs/verification/spatial-retune/v1/measurements/123456789/spatial-baseline.json": "2aa3d2a0404be39b1260b03aae1588f4716d3760fd20d75dee4b0b1b9f270a87",
+      "docs/verification/spatial-retune/v1/measurements/123456789/spatial-client.json": "95acffd44a70ffb51d5aa7a8b421446d58862c7ee700f1794d5ec7715cac5443",
+      "docs/verification/spatial-retune/v1/measurements/20261011/selected-options.json": "eaa6d0a978f50e243615f6566e0f1531423c41515b6b9dc05e0cf7f007734964",
+      "docs/verification/spatial-retune/v1/measurements/20261011/spatial-baseline.json": "f052ebf685a48ac9065cffd4b9650e71041ce03908a75a6e4e82d939894c8022",
+      "docs/verification/spatial-retune/v1/measurements/20261011/spatial-client.json": "c529f55f1829acaa29bd96c3c3486976956a685e786fe377ddba67d4ec49fa8a",
+      "docs/verification/spatial-retune/v1/measurements/8675309/selected-options.json": "eaa6d0a978f50e243615f6566e0f1531423c41515b6b9dc05e0cf7f007734964",
+      "docs/verification/spatial-retune/v1/measurements/8675309/spatial-baseline.json": "dd844583f41e7f2973ffd2512e35d93aaa9b4d4bcc12b4372945345261455809",
+      "docs/verification/spatial-retune/v1/measurements/8675309/spatial-client.json": "b4aa4982026b38c3e74a429600e549fe581044d2dd1adf4831896536a4c5a61a",
+      "docs/verification/spatial-retune/v1/NATIVE_OBSERVATIONS.md": "1928cc6164f8cfe2c6b8879d2aed37803a6d5053d0694886354ff999d3a848a5",
+      "docs/verification/spatial-retune/v1/protocol.json": "8b13754416d891418f3309de2c0274999c12b0f7f1094fea1e6d466dfe822f6b",
+      "docs/verification/spatial-retune/v1/PROTOCOL.md": "effc83da5c51385a12e3c642b8822f631d5907327b00be7be2a3e18acd23181d",
+      "docs/verification/spatial-retune/v1/results.json": "eed16a188d3137d4e5738102447a8a2f06e9325892ec68a7135c9d15bb4a1739",
+      "docs/verification/spatial-retune/v1/RESULTS.md": "80061e8ccc8df1d75b1095444867371a72e23faf393d259cf0e7b512c6d737b5",
+      "docs/verification/spatial-retune/v1/VALIDATION.md": "330403d95ccdb3ec41e67b063206d5649def37467bbe61d0c99b85c74300ca6b"
+    },
+    "minecraft_data_sha256_map_digest": "011abacedb84b28efac050d7bff65907e53ee342ae1393cc8fc078381e70ab27",
+    "minecraft_data_entry_count": 8282,
+    "minecraft_noise_settings_overworld_sha256": "f525ae55efa6da365eade5ce8d4be9cd22a161117af7c56ce82d27e6d237824e",
+    "minecraft_final_density_canonical_sha256": "bcc404a075b7454e5ea4a39e8818a3e43ef3daec3f2bafa7aabaced2ae299abb",
+    "minecraft_java_sources_sha256": {
+      "net/minecraft/world/level/levelgen/DensityFunction.java": "0c4cdfd51b3f072d12143cef2b305fae31b7ada23963664d9cdf30ea1b2af818",
+      "net/minecraft/world/level/levelgen/DensityFunctions.java": "9357aaaf0abb840a4b2d8d22f1e963c58e0b4ecb4c75566aba50109f7bffc13c",
+      "net/minecraft/world/level/levelgen/NoiseRouter.java": "471ab674cb7988b28a8ea8746ead30c625bb3dd97d1fb41bfea5fcb5379154be",
+      "net/minecraft/world/level/levelgen/NoiseRouterData.java": "2f7158fbaf281e16e6f15208293dfcb4714774ad4a7c79110d3485cc42488288",
+      "net/minecraft/world/level/levelgen/NoiseChunk.java": "b0516831ae9adfb1f445fb8e82d05bb7f0160d1e86a18c730843bb49d78936a8",
+      "net/minecraft/world/level/levelgen/RandomState.java": "969dd48592ce7a02b06fb54bf4238a95fff37955210d692e6c544ff1bab0dba1",
+      "net/minecraft/world/level/levelgen/synth/NormalNoise.java": "93f6294b3b4470cb62a8b0ffa25a3dd21f86f39b2c302fc5267f5455d12d9eb9",
+      "net/minecraft/world/level/levelgen/synth/PerlinNoise.java": "60e41ccec600e1e4a7b2ac42618ab9e6b1951eb2f4a085fe1be693a7a47769ef"
+    },
+    "hash_encoding": "SHA256; canonical maps json.dumps(sort_keys=True,separators=(comma,colon)), ensure_ascii=True; source text CRLF->LF; data entry raw bytes; no ZIP metadata",
+    "scope": "src/main and V1 text; full native data closure; pinned API sources; not a SavedData preset fingerprint"
+  },
+  "query_budget": {
+    "scope": "per analytic leaf compute, before cache; whole native tree/interpolation counted separately",
+    "common_density": {
+      "raw_C_calls": 4,
+      "N2_samples": 1,
+      "N3_samples": 0
+    },
+    "smooth_core": {
+      "raw_C_calls": 4,
+      "N2_samples": 3,
+      "N3_samples": 1,
+      "edge_candidates": 338,
+      "cached_node_certificate_lookups_max": 196
+    },
+    "ridge_core": {
+      "raw_C_calls": 4,
+      "N2_samples": 3,
+      "N3_samples": 1
+    },
+    "node_weight": {
+      "node_candidates": 9,
+      "raw_C_calls": 0,
+      "N3_samples": 0
+    },
+    "protection": {
+      "node_candidates": 9,
+      "raw_C_calls": 4,
+      "N2_samples": 1,
+      "N3_samples": 0
+    },
+    "runtime_envelope_evaluations": 0,
+    "noisy_workload": "preparation cost never hidden; unprepared => abort"
+  }
+}
