@@ -11,3 +11,15 @@ type="required"
 versionRange="[0.1,)"
 ordering="AFTER"
 side="BOTH"
+[[mods]]
+modId="worldphase_v2_preflight"
+version="0.1.0"
+displayName="WorldPhase isolated V2 numerical preflight"
+[[dependencies.worldphase_v2_preflight]]
+modId="worldphase"
+type="required"
+versionRange="[0.1,)"
+ordering="AFTER"
+side="BOTH"
+[[mixins]]
+config="worldphase_v2_preflight.mixins.json"

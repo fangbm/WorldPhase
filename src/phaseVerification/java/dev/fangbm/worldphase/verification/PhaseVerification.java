@@ -28,6 +28,9 @@ public final class PhaseVerification {
     public PhaseVerification() { NeoForge.EVENT_BUS.addListener(this::verify); }
 
     private void verify(ServerStartedEvent event) {
+        if ("v2-numerical-preflight".equals(System.getProperty("worldphase.verification"))) {
+            dev.fangbm.worldphase.verification.v2.V2PreparationVerification.start(event.getServer()); return;
+        }
         if ("spatial-baseline".equals(System.getProperty("worldphase.verification"))) {
             SpatialBaselineVerification.start(event.getServer()); return;
         }

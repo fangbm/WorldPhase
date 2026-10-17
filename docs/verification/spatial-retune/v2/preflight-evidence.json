@@ -1,0 +1,454 @@
+{
+  "schema": 1,
+  "manifest": "521fc8d6e854570ae79f851129109d5948943f9ec372aee50643939d840ad2eb",
+  "scope": "bounded numeric/wiring preflight only; zero V2 worlds; no holdouts",
+  "runtime": {
+    "minecraft": "26.1",
+    "neoforge": "26.1.0.19-beta",
+    "java": "25.0.3+9-LTS",
+    "os": "Windows",
+    "cpu": "AMD Ryzen 9 8945HX, 16 cores / 32 logical"
+  },
+  "serverPreparation": [
+    {
+      "manifest": "521fc8d6e854570ae79f851129109d5948943f9ec372aee50643939d840ad2eb",
+      "seed": 123456789,
+      "jvm": "25.0.3+9-LTS",
+      "mode": "dedicated server Post tick; cold certificate/column caches; Vanilla noise JVM already used during legacy spawn",
+      "v2WorldsCreated": 0,
+      "preparationFullChunkRequests": 0,
+      "holdoutsSampled": false,
+      "numericGate": "BLOCKED_R1_ROUNDED_LIPSCHITZ_CONTRACT",
+      "v2TerrainGenerationAuthorized": false,
+      "executionStatus": "COMPLETED",
+      "wallNanosIncludingTickGaps": 202908903000,
+      "serverThreadCpuNanosIncludingLegacyTicks": 1687500000,
+      "serverAverageMspt": 0.053764,
+      "targetNodes": 477,
+      "completedNodes": 477,
+      "rawCalls": 2077812,
+      "modelCandidates": 0,
+      "enabledNodes": 0,
+      "remainingUnexaminedNodes": 0,
+      "rejections": {
+        "MODEL_SLOPE_REJECTED": 124,
+        "WET_OR_HEIGHT_REJECTED": 353
+      },
+      "preparationStepCpuNanos": 609375000,
+      "preparationStepWallNanos": 2933189400,
+      "heapBefore": 191216648,
+      "heapAfter": 192366632,
+      "certificateCacheEntries": 477,
+      "columnCacheEntries": 0,
+      "cacheEntriesAfterClose": 0,
+      "ticksSummary": {
+        "count": 4059,
+        "maxRawCalls": 512,
+        "lastRawCalls": 116,
+        "maxWallNanos": 5990700,
+        "maxCpuNanos": 15625000,
+        "sumRawCalls": 2077812
+      },
+      "rawReportPath": "run/v2-numerical-preflight/seed-0/v2-preparation.json",
+      "rawReportSha256": "38683daa3e76fbabf854341a594c96f97e1809a6fabd3dc3dd12b6a48fb7e962"
+    },
+    {
+      "manifest": "521fc8d6e854570ae79f851129109d5948943f9ec372aee50643939d840ad2eb",
+      "seed": 8675309,
+      "jvm": "25.0.3+9-LTS",
+      "mode": "dedicated server Post tick; cold certificate/column caches; Vanilla noise JVM already used during legacy spawn",
+      "v2WorldsCreated": 0,
+      "preparationFullChunkRequests": 0,
+      "holdoutsSampled": false,
+      "numericGate": "BLOCKED_R1_ROUNDED_LIPSCHITZ_CONTRACT",
+      "v2TerrainGenerationAuthorized": false,
+      "executionStatus": "COMPLETED",
+      "wallNanosIncludingTickGaps": 202909234400,
+      "serverThreadCpuNanosIncludingLegacyTicks": 7609375000,
+      "serverAverageMspt": 0.055453,
+      "targetNodes": 477,
+      "completedNodes": 477,
+      "rawCalls": 2077812,
+      "modelCandidates": 0,
+      "enabledNodes": 0,
+      "remainingUnexaminedNodes": 0,
+      "rejections": {
+        "MODEL_SLOPE_REJECTED": 112,
+        "WET_OR_HEIGHT_REJECTED": 365
+      },
+      "preparationStepCpuNanos": 1796875000,
+      "preparationStepWallNanos": 2990940200,
+      "heapBefore": 349513344,
+      "heapAfter": 482075984,
+      "certificateCacheEntries": 477,
+      "columnCacheEntries": 0,
+      "cacheEntriesAfterClose": 0,
+      "ticksSummary": {
+        "count": 4059,
+        "maxRawCalls": 512,
+        "lastRawCalls": 116,
+        "maxWallNanos": 5560700,
+        "maxCpuNanos": 15625000,
+        "sumRawCalls": 2077812
+      },
+      "rawReportPath": "run/v2-numerical-preflight/seed-1/v2-preparation.json",
+      "rawReportSha256": "ca2f89266b70c346b762e8cec701c063f038ee07449980c5e926b1cfb77faeea"
+    },
+    {
+      "manifest": "521fc8d6e854570ae79f851129109d5948943f9ec372aee50643939d840ad2eb",
+      "seed": 20261011,
+      "jvm": "25.0.3+9-LTS",
+      "mode": "dedicated server Post tick; cold certificate/column caches; Vanilla noise JVM already used during legacy spawn",
+      "v2WorldsCreated": 0,
+      "preparationFullChunkRequests": 0,
+      "holdoutsSampled": false,
+      "numericGate": "BLOCKED_R1_ROUNDED_LIPSCHITZ_CONTRACT",
+      "v2TerrainGenerationAuthorized": false,
+      "executionStatus": "COMPLETED",
+      "wallNanosIncludingTickGaps": 202910818900,
+      "serverThreadCpuNanosIncludingLegacyTicks": 3234375000,
+      "serverAverageMspt": 0.063251,
+      "targetNodes": 477,
+      "completedNodes": 477,
+      "rawCalls": 2077812,
+      "modelCandidates": 0,
+      "enabledNodes": 0,
+      "remainingUnexaminedNodes": 0,
+      "rejections": {
+        "MODEL_SLOPE_REJECTED": 86,
+        "WET_OR_HEIGHT_REJECTED": 391
+      },
+      "preparationStepCpuNanos": 984375000,
+      "preparationStepWallNanos": 2928138100,
+      "heapBefore": 284568832,
+      "heapAfter": 313928960,
+      "certificateCacheEntries": 477,
+      "columnCacheEntries": 0,
+      "cacheEntriesAfterClose": 0,
+      "ticksSummary": {
+        "count": 4059,
+        "maxRawCalls": 512,
+        "lastRawCalls": 116,
+        "maxWallNanos": 8117800,
+        "maxCpuNanos": 15625000,
+        "sumRawCalls": 2077812
+      },
+      "rawReportPath": "run/v2-numerical-preflight/seed-2/v2-preparation.json",
+      "rawReportSha256": "0f3290a168de043369955735ae206df7654822e258cb693cdeb6ebcde84587cb"
+    }
+  ],
+  "nativeProbes": [
+    {
+      "phase": "smooth",
+      "x": -17,
+      "y": 65,
+      "z": 16,
+      "raw": -0.15688859962068463,
+      "interpolated": -0.15618396768961354,
+      "delta": 0.0007046319310710925,
+      "preliminary": 56.0,
+      "baseColumnBlock": "Block{minecraft:air}",
+      "columnHighestDefaultBlockY": 57,
+      "columnHighestNonAirY": 62,
+      "preliminaryMinusColumnDefaultBlockTop": -1.0
+    },
+    {
+      "phase": "smooth",
+      "x": 0,
+      "y": 95,
+      "z": 0,
+      "raw": -0.4583333333333333,
+      "interpolated": -0.4583333333333333,
+      "delta": 0.0,
+      "preliminary": 56.0,
+      "baseColumnBlock": "Block{minecraft:air}",
+      "columnHighestDefaultBlockY": 58,
+      "columnHighestNonAirY": 62,
+      "preliminaryMinusColumnDefaultBlockTop": -2.0
+    },
+    {
+      "phase": "smooth",
+      "x": 17,
+      "y": 33,
+      "z": -17,
+      "raw": 0.023121295557204533,
+      "interpolated": 0.037888227825574244,
+      "delta": 0.014766932268369712,
+      "preliminary": 48.0,
+      "baseColumnBlock": "Block{minecraft:stone}",
+      "columnHighestDefaultBlockY": 55,
+      "columnHighestNonAirY": 62,
+      "preliminaryMinusColumnDefaultBlockTop": -7.0
+    },
+    {
+      "phase": "ridge",
+      "x": -17,
+      "y": 65,
+      "z": 16,
+      "raw": 0.3313765096384746,
+      "interpolated": 0.3323880836088494,
+      "delta": 0.0010115739703748239,
+      "preliminary": 80.0,
+      "baseColumnBlock": "Block{minecraft:stone}",
+      "columnHighestDefaultBlockY": 82,
+      "columnHighestNonAirY": 82,
+      "preliminaryMinusColumnDefaultBlockTop": -2.0
+    },
+    {
+      "phase": "ridge",
+      "x": 0,
+      "y": 95,
+      "z": 0,
+      "raw": 0.22366671155784984,
+      "interpolated": 0.22366671155784984,
+      "delta": 0.0,
+      "preliminary": 104.0,
+      "baseColumnBlock": "Block{minecraft:stone}",
+      "columnHighestDefaultBlockY": 106,
+      "columnHighestNonAirY": 106,
+      "preliminaryMinusColumnDefaultBlockTop": -2.0
+    },
+    {
+      "phase": "ridge",
+      "x": 17,
+      "y": 33,
+      "z": -17,
+      "raw": 0.023121295557204533,
+      "interpolated": 0.037888227825574244,
+      "delta": 0.014766932268369712,
+      "preliminary": 80.0,
+      "baseColumnBlock": "Block{minecraft:stone}",
+      "columnHighestDefaultBlockY": 80,
+      "columnHighestNonAirY": 80,
+      "preliminaryMinusColumnDefaultBlockTop": 0.0
+    }
+  ],
+  "roundingCounterexample": {
+    "kind": "synthetic constant continents .5, unchanged GradientNoise",
+    "seed": 19,
+    "xLoHex": "0x1.2c00000000001p-39",
+    "xHiHex": "0x1.2c00000000002p-39",
+    "z": 0,
+    "heightIncrementOverCoordinateIncrementApprox": 35184400000000.0
+  },
+  "coldPreparationFirstObservation": {
+    "manifest": "521fc8d6e854570ae79f851129109d5948943f9ec372aee50643939d840ad2eb",
+    "jvm": "25.0.3+9-LTS",
+    "minecraft": "26.1",
+    "neoforge": "26.1.0.19-beta",
+    "mode": "fresh test-worker JVM; cold node/column caches; registry bootstrap measured separately; OS disk cache uncontrolled",
+    "registryBootstrapWallNanos": 247115500,
+    "registryBootstrapCpuNanos": 234375000,
+    "worldsCreated": 0,
+    "fullChunkRequests": 0,
+    "holdoutsSampled": false,
+    "seeds": [
+      {
+        "seed": 123456789,
+        "randomStateInitWallNanos": 39030800,
+        "randomStateInitCpuNanos": 46875000,
+        "status": "PREPARATION_COMPLETED",
+        "wallNanos": 2213645000,
+        "cpuNanos": 2203125000,
+        "targetNodes": 477,
+        "completedNodes": 477,
+        "rawCalls": 2077812,
+        "modelCandidates": 0,
+        "enabledNodes": 0,
+        "rejections": {
+          "MODEL_SLOPE_REJECTED": 124,
+          "WET_OR_HEIGHT_REJECTED": 353
+        },
+        "heapBefore": 176083144,
+        "heapAfter": 141500896,
+        "cacheClearedOnClose": true,
+        "ticksSummary": {
+          "count": 4059,
+          "maxWallNanos": 14154900,
+          "maxCalls": 512
+        }
+      },
+      {
+        "seed": 8675309,
+        "randomStateInitWallNanos": 6541100,
+        "randomStateInitCpuNanos": 0,
+        "status": "PREPARATION_COMPLETED",
+        "wallNanos": 2004008300,
+        "cpuNanos": 2015625000,
+        "targetNodes": 477,
+        "completedNodes": 477,
+        "rawCalls": 2077812,
+        "modelCandidates": 0,
+        "enabledNodes": 0,
+        "rejections": {
+          "MODEL_SLOPE_REJECTED": 112,
+          "WET_OR_HEIGHT_REJECTED": 365
+        },
+        "heapBefore": 141500896,
+        "heapAfter": 171909600,
+        "cacheClearedOnClose": true,
+        "ticksSummary": {
+          "count": 4059,
+          "maxWallNanos": 760800,
+          "maxCalls": 512
+        }
+      },
+      {
+        "seed": 20261011,
+        "randomStateInitWallNanos": 5021200,
+        "randomStateInitCpuNanos": 0,
+        "status": "PREPARATION_COMPLETED",
+        "wallNanos": 1992617200,
+        "cpuNanos": 2000000000,
+        "targetNodes": 477,
+        "completedNodes": 477,
+        "rawCalls": 2077812,
+        "modelCandidates": 0,
+        "enabledNodes": 0,
+        "rejections": {
+          "MODEL_SLOPE_REJECTED": 86,
+          "WET_OR_HEIGHT_REJECTED": 391
+        },
+        "heapBefore": 171909600,
+        "heapAfter": 126838016,
+        "cacheClearedOnClose": true,
+        "ticksSummary": {
+          "count": 4059,
+          "maxWallNanos": 4972900,
+          "maxCalls": 512
+        }
+      }
+    ],
+    "preparationGate": "COMPLETED_WITHIN_OBSERVED_TICK_BUDGET",
+    "numericGate": "BLOCKED_R1_ROUNDED_LIPSCHITZ_CONTRACT",
+    "v2TerrainGenerationAuthorized": false,
+    "rawReportPath": "build/reports/v2-preflight/preparation-a6f15b54-879a-421f-a363-42b9376e1869.json",
+    "rawReportSha256": "3cc7e39cb7e3123bb3fc9871a881a1b23bec19480b0c56eb5b563ae01be733c5"
+  },
+  "coldPreparationCurrentWiringRepeat": {
+    "manifest": "521fc8d6e854570ae79f851129109d5948943f9ec372aee50643939d840ad2eb",
+    "jvm": "25.0.3+9-LTS",
+    "minecraft": "26.1",
+    "neoforge": "26.1.0.19-beta",
+    "mode": "fresh test-worker JVM; cold node/column caches; registry bootstrap measured separately; OS disk cache uncontrolled",
+    "registryBootstrapWallNanos": 332426600,
+    "registryBootstrapCpuNanos": 296875000,
+    "worldsCreated": 0,
+    "fullChunkRequests": 0,
+    "holdoutsSampled": false,
+    "seeds": [
+      {
+        "seed": 123456789,
+        "randomStateInitWallNanos": 52445900,
+        "randomStateInitCpuNanos": 62500000,
+        "status": "PREPARATION_COMPLETED",
+        "wallNanos": 2081867700,
+        "cpuNanos": 2031250000,
+        "targetNodes": 477,
+        "completedNodes": 477,
+        "rawCalls": 2077812,
+        "modelCandidates": 0,
+        "enabledNodes": 0,
+        "rejections": {
+          "MODEL_SLOPE_REJECTED": 124,
+          "WET_OR_HEIGHT_REJECTED": 353
+        },
+        "heapBefore": 133411048,
+        "heapAfter": 119559488,
+        "cacheClearedOnClose": true,
+        "ticksSummary": {
+          "count": 4059,
+          "maxCalls": 512,
+          "maxWallNanos": 14645100
+        }
+      },
+      {
+        "seed": 8675309,
+        "randomStateInitWallNanos": 6775400,
+        "randomStateInitCpuNanos": 15625000,
+        "status": "PREPARATION_COMPLETED",
+        "wallNanos": 1920418400,
+        "cpuNanos": 1921875000,
+        "targetNodes": 477,
+        "completedNodes": 477,
+        "rawCalls": 2077812,
+        "modelCandidates": 0,
+        "enabledNodes": 0,
+        "rejections": {
+          "MODEL_SLOPE_REJECTED": 112,
+          "WET_OR_HEIGHT_REJECTED": 365
+        },
+        "heapBefore": 119559488,
+        "heapAfter": 148919616,
+        "cacheClearedOnClose": true,
+        "ticksSummary": {
+          "count": 4059,
+          "maxCalls": 512,
+          "maxWallNanos": 656800
+        }
+      },
+      {
+        "seed": 20261011,
+        "randomStateInitWallNanos": 4702700,
+        "randomStateInitCpuNanos": 0,
+        "status": "PREPARATION_COMPLETED",
+        "wallNanos": 1921632100,
+        "cpuNanos": 1921875000,
+        "targetNodes": 477,
+        "completedNodes": 477,
+        "rawCalls": 2077812,
+        "modelCandidates": 0,
+        "enabledNodes": 0,
+        "rejections": {
+          "MODEL_SLOPE_REJECTED": 86,
+          "WET_OR_HEIGHT_REJECTED": 391
+        },
+        "heapBefore": 148919616,
+        "heapAfter": 118496848,
+        "cacheClearedOnClose": true,
+        "ticksSummary": {
+          "count": 4059,
+          "maxCalls": 512,
+          "maxWallNanos": 629500
+        }
+      }
+    ],
+    "preparationGate": "COMPLETED_WITHIN_OBSERVED_TICK_BUDGET",
+    "numericGate": "BLOCKED_R1_ROUNDED_LIPSCHITZ_CONTRACT",
+    "v2TerrainGenerationAuthorized": false,
+    "rawReportSha256": "52637435ef80c28634da7a5b00428e8973550cb0030fea5a24361d2d4532e127",
+    "rawReportPath": "build/reports/v2-preflight/preparation-ea99538f-2a95-4642-9e84-f3c3e6c5598e.json"
+  },
+  "productionCoreRegression": {
+    "status": "PASS",
+    "minecraft": "26.1",
+    "neoforge": "26.1.0.19-beta",
+    "java": "25.0.3+9-LTS",
+    "seed": 123456789,
+    "world": "world-wph012-269e77a9-60cf-4714-9679-c2be162dba8b",
+    "completeCycles": 100,
+    "loopTransfers": 400,
+    "successfulTransfers": 456,
+    "maxXzDeviation": 0.0,
+    "maxYawPitchDeviation": 0.0,
+    "maxYCorrection": 1.0,
+    "inventoryIdentityAndContentChecks": 495,
+    "duplicatePlayerEntities": 0,
+    "droppedTestItemEntities": 0,
+    "saveReloadCheck": "PASS: terrain, marker and Vanilla player data restored before fixture initialization"
+  },
+  "generationGateExitCode": 1,
+  "generationGate": "BLOCKED_R1_ROUNDED_LIPSCHITZ_CONTRACT_AND_ZERO_ELIGIBLE_NODES",
+  "unitSuite": {
+    "tests": 379,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "newFocusedSuites": {
+      "dev.fangbm.worldphase.v2test.HcCertificateTest": "7",
+      "dev.fangbm.worldphase.v2test.NativeV2IntegrationTest": "9",
+      "dev.fangbm.worldphase.v2test.V2PreparationTest": "1",
+      "dev.fangbm.worldphase.worldgen.noise.GradientDecimalOracleTest": "1"
+    }
+  }
+}
