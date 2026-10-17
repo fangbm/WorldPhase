@@ -1,0 +1,335 @@
+{
+  "schema_version": 1,
+  "experiment_id": "wph-016-02-r2-shared-nodes",
+  "milestone": "B2_DESIGN_MATH_FREEZE_ONLY",
+  "status": "FROZEN_PROPOSAL_AWAITING_INDEPENDENT_REVIEW",
+  "execution_authorized": false,
+  "base_commit": "29d326e7efb06e647d62a268d7a926894ee0387e",
+  "parent_r1_manifest_sha256": "521fc8d6e854570ae79f851129109d5948943f9ec372aee50643939d840ad2eb",
+  "toolchain": {
+    "minecraft": "26.1",
+    "neoforge": "26.1.0.19-beta",
+    "java": "25.0.3+9",
+    "moddev_gradle": "2.0.148"
+  },
+  "scope": {
+    "production_changes": false,
+    "minecraft_integration_in_B2": false,
+    "world_generation": false,
+    "screenshots": false,
+    "prototype_phases": [
+      "SMOOTH",
+      "RIDGE"
+    ],
+    "shared_height_future_phases": [
+      "FRACTURE",
+      "SMOOTH",
+      "RIDGE",
+      "CELL"
+    ],
+    "phase_2": "NOT_APPROVED",
+    "transfer": "UNCHANGED_BOUNDED_LANDING_XZ_EXACT_Y_PLUS_MINUS_4"
+  },
+  "seeds": {
+    "development": [
+      123456789,
+      8675309,
+      20261011
+    ],
+    "holdout": [
+      606102026,
+      -77331057,
+      424242424242
+    ],
+    "holdout_status": "SEALED_NOT_SAMPLED",
+    "release": "separate review after development evidence; no holdout tuning"
+  },
+  "windows": [
+    {
+      "id": "forest",
+      "x": -384,
+      "z": 896
+    },
+    {
+      "id": "highland",
+      "x": 1344,
+      "z": 1200
+    }
+  ],
+  "domain": {
+    "y_min": -64,
+    "y_max_exclusive": 320,
+    "sea_level": 63,
+    "cell_width": 4,
+    "cell_height": 8,
+    "world_border_abs": 29999984
+  },
+  "hash": {
+    "id": "splitmix-finalizer-lattice-r1",
+    "M": [
+      "v=(v xor(v>>>30))*0xbf58476d1ce4e5b9",
+      "v=(v xor(v>>>27))*0x94d049bb133111eb",
+      "return v xor(v>>>31)"
+    ],
+    "h": "M(seed xor M(i xor 0x9e3779b97f4a7c15) xor rotl64(M(j xor 0xd1b54a32d192ed03),32) xor tag)",
+    "u": "(h>>>11)*2^-53",
+    "role_seed": "M(raw_seed xor role_tag)"
+  },
+  "channels": {
+    "node_x_r2": "0x4e4f444558000002",
+    "node_z_r2": "0x4e4f44455a000002"
+  },
+  "reference": {
+    "field": "r1 Hc from actual wired raw continents bilinear + unchanged GradientNoise",
+    "phase_independent": true,
+    "anchor_height": "h=floor(Hc(center))+0.5, only if interval has one unambiguous floor bin",
+    "error_cap": 5.960464477539063e-08,
+    "dry_min": 71,
+    "protected_band": [
+      -40,
+      240
+    ],
+    "seed_semantics": "same raw seed; original r1 Hc role seed; no seed+phaseIndex",
+    "reference_model": "stored binary64 integer continents outputs define exact bilinear model; outward error separate"
+  },
+  "nodes": {
+    "spacing": 1024,
+    "jitter_each_axis": 128,
+    "core_radius": 16,
+    "common_collar_radius": 24,
+    "background_outer_radius": 176,
+    "support_radius_bound": 192,
+    "core_density": "(h-y)/16; no independent 3D noise",
+    "near_surface_solid_depth": 16,
+    "air_clearance": 4,
+    "vertical_fade": 16,
+    "query_half_extent": 1,
+    "query_max_ids": 9,
+    "nonoverlap_min_center_distance": 768,
+    "ideal_core_coverage_percent": 0.07669903939428206,
+    "ideal_collar_inclusive_percent": 0.17257283863713463,
+    "ideal_support_area_upper_percent": 11.044661672776616,
+    "asymptotic_support_budget_percent": 12,
+    "finite_roi_support_budget_percent": 15,
+    "coverage_rule": "core vs collar vs actual influenced area separate; support disk is upper bound, not safe area",
+    "finite_roi_support_budget_domain": "union of both frozen ROI squares; per-window area also reported, not asserted identical"
+  },
+  "ports": {
+    "directions": [
+      "E",
+      "W",
+      "N",
+      "S"
+    ],
+    "minimum_opposite_pairs_per_phase": 1,
+    "required_same_opposite_pair": [
+      "SMOOTH",
+      "RIDGE"
+    ],
+    "longitudinal_fade_in": [
+      16,
+      20
+    ],
+    "ramp": [
+      24,
+      152
+    ],
+    "ramp_max_abs_delta": 8,
+    "terminal": [
+      152,
+      176
+    ],
+    "longitudinal_fade_out": [
+      176,
+      184
+    ],
+    "transverse_plateau_half_width": 10,
+    "transverse_outer_half_width": 14,
+    "walk_center_half_width": 2,
+    "max_test_aabb_width": 1.2,
+    "max_test_aabb_height": 2,
+    "terminal_height_error_from_endpoint_max": 0.5,
+    "terminal_model_gradient_max": 0.0625,
+    "terminal_certificate": "continuous interval/derivative bound or equivalent verified physical increment envelope; never sparse samples only",
+    "ramp_model_gradient_max": 0.1171875,
+    "terminal_composite_gradient_max": 0.1015625,
+    "non_opposite_pair": "REJECT_ISOLATED_OR_DEAD_END",
+    "failure_does_not_raise_or_lower_anchor": true,
+    "terminal_certificate_domain_u": [
+      152,
+      184
+    ],
+    "external_exit_strip": [
+      176,
+      184
+    ],
+    "minimum_model_height": 65,
+    "endpoint_height": "floor(lo_p)+.5 only if floor(lo_p)==floor(hi_p), proven Hp error <=2^-24; unknown rejects"
+  },
+  "physical_certificate": {
+    "minimum_separation": 0.25,
+    "slope_limit": 0.125,
+    "height_program_error_cap": 9.5367431640625e-07,
+    "increment": "abs(hhat(p)-hhat(q)) <= L_model*d + 2*E; only d>=0.25 within certified corridor domain",
+    "ramp_finite_slope_upper": 0.11719512939453125,
+    "terminal_finite_slope_upper": 0.10157012939453125,
+    "below_scale": "continuous model enclosure plus point error only; no homogeneous rounded Lipschitz claim",
+    "full_safety_required": true
+  },
+  "valley_graph": {
+    "spacing_from_nodes": true,
+    "query_start_half_extent": 3,
+    "query_max_edges": 98,
+    "query_max_endpoint_nodes": 64,
+    "gaussian_width": 64,
+    "double_zero_radius": 2048,
+    "omitted_edge_min_distance": 2432,
+    "edge_rule": "r1 x/all, z/hash probability .35 using canonical IDs; node positions use r2 tags",
+    "eligibility": "ANCHOR_DRY only, never port results: no circular dependence on Smooth terrain",
+    "physical_connectivity_claim": false
+  },
+  "preparation": {
+    "roi_half_extent": 1536,
+    "target_ids_exact": 132,
+    "target_ids_cap": 256,
+    "shortlist_per_window": 8,
+    "detailed_nodes_cap": 16,
+    "shortlist": "per-window dry anchors whose support disk fits ROI, sorted exact-dyadic squared distance to frozen window center then global ID; union; no refill after port rejection",
+    "anchor_raw_calls_upper": 528,
+    "terminal_integer_vertices_per_port_phase": 748,
+    "terminal_unique_raw_vertices_per_port_both_phases": 805,
+    "detailed_raw_calls_upper": 51520,
+    "total_raw_calls_analytic_upper": 52048,
+    "arm_A_raw_calls_upper": 8992,
+    "raw_calls_hard_cap": 65536,
+    "raw_cache_entries_cap": 65536,
+    "phase_column_entries_cap": 98304,
+    "port_count_per_node": 4,
+    "column_work_items_upper": 95744,
+    "smooth_edge_tests_upper": 4691456,
+    "raw_calls_per_tick_cap": 2048,
+    "soft_work_ms_per_tick": 8,
+    "hard_work_ms_per_tick": 25,
+    "ticks_cap": 256,
+    "cpu_ms_cap": 1500,
+    "scheduled_wall_ms_cap": 15000,
+    "allocation_bytes_cap": 268435456,
+    "retained_context_bytes_review_limit": 33554432,
+    "timing_status": "NOT_MEASURED; counts are bounds, time/retained bytes need actual Java preflight",
+    "scheduling": "owner server thread; slice raw calls AND geometry/certification work; no background Level use",
+    "scope_of_budget": "each arm per seed/ROI union; FULL verification separate, cannot be hidden here",
+    "overrun": "BLOCK_ENTIRE_PROFILE, preserve first failure, no partial publication or parameter changes"
+  },
+  "arm_A": {
+    "id": "LOCAL_PHYSICAL_A_R2",
+    "node_distribution": "same r2 candidate IDs for fair A/B comparison",
+    "terrain_edit": false,
+    "detailed_domain_half_extent": 10,
+    "model": "retain raw Hc; certify local footprint physical increment <=1/8 with error; FULL actual dual-phase landing mandatory",
+    "yield": "UNKNOWN; no promise localizing the proof cures ocean/real cliffs"
+  },
+  "arm_B": {
+    "id": "CONTROLLED_PATCH_B_R2",
+    "selected_proposal": true,
+    "terrain_edit": "future dev-only profile, NOT implemented in B2",
+    "height_model": "flat core + quintic controlled ramps + certified terminal handoff, Protocol sections 3-5",
+    "settings_ids": {
+      "smooth": "worldphase:prototype_v2/r2/smooth",
+      "ridge": "worldphase:prototype_v2/r2/ridge"
+    },
+    "analytic_type_id": "worldphase:prototype_v2/analytic_r2",
+    "profile_id": "worldphase:prototype_v2/shared_r2"
+  },
+  "states": [
+    "UNEXAMINED",
+    "ANCHOR_REJECTED",
+    "ANCHOR_DRY",
+    "DEFERRED_NOT_SHORTLISTED",
+    "PORT_GEOMETRY_REJECTED",
+    "MATH_NODE_READY",
+    "NATIVE_NUMERIC_VALIDATED",
+    "FULL_PAIR_VALIDATED",
+    "SHIFT_POSITION_FEASIBLE",
+    "ROUTE_COMPLETED"
+  ],
+  "rejections": [
+    "NONFINITE",
+    "PROFILE_OR_SEED_MISMATCH",
+    "ROI_MISS",
+    "ANCHOR_BIN_UNCERTAIN",
+    "ANCHOR_ERROR_UNPROVEN",
+    "WET_ANCHOR",
+    "BAND_LIMIT",
+    "RAMP_HEIGHT_DELTA",
+    "TERMINAL_RANGE",
+    "TERMINAL_GRADIENT",
+    "FLOAT_ERROR_UNPROVEN",
+    "NO_COMMON_OPPOSITE_PORTS",
+    "BUDGET_EXCEEDED",
+    "INSUFFICIENT_NODE_YIELD",
+    "SUPPORT_COVERAGE_EXCEEDED",
+    "FULL_COLLISION",
+    "FULL_FLUID_OR_HAZARD",
+    "FULL_SUPPORT",
+    "FULL_PORT_BLOCKED",
+    "NO_COMPLETE_ROUTE",
+    "WET_PORT_MODEL"
+  ],
+  "future_gates": {
+    "each_seed_each_window_math_nodes_min": 2,
+    "all_three_development_seeds_must_pass_numeric": true,
+    "endpoint_graph": "components and isolated nodes reported; endpoints/anchor-valley graph are not walking edges",
+    "full_targets_per_seed_cap": 4,
+    "full_target_selection": "first 2 MATH_NODE_READY nodes/window by frozen ranking; union; no replacements after failure",
+    "full_pair_pass_rate_min": 0.75,
+    "two_valid_nodes_same_window_per_seed_required": true,
+    "full_scan_ticks_cap": 2400,
+    "full_scan_wall_ms_cap": 120000,
+    "full_scan_cpu_ms_cap": 10000,
+    "full_scan_hard_ms_per_tick": 25,
+    "full_scan_chunks_per_tick_cap": 1,
+    "full_scan_new_chunks_per_seed_cap": 512,
+    "port_validation": "at least same opposite pair in both phases, actual support/collision/fluid/hazard; changes require revalidation",
+    "shift": "real native player, both directions, unchanged x/z, y within +/-4; no DEV_SURFACE",
+    "route": "at least one completed useful source-obstacle/alternate-phase/exit route per development seed, survival walk/jump; NO teleport across gap",
+    "visual": "phase feature tests remain independent; environment/flat nodes not morphology PASS",
+    "world_generation": "requires separate approval after r2 native preflight; no authorization token or runtime entrypoint in B2",
+    "full_scan_chunk_scope": "explicit FULL requests for chosen opposite ports, body footprint and core only; incidental native neighbour generation separately tracked, cannot be assumed zero",
+    "full_port_pair_selection": "first common opposite pair in E/W then N/S order from math results; no fallback after FULL failure",
+    "full_annular_isolation": "any observed terrain-ring isolation blocks whole profile; no post-generation DF eligibility change"
+  },
+  "future_worlds": {
+    "path": "run/spatial-retune-v2/r2/<arm>/seed-<seed>/new-world",
+    "rules": "CREATE_NEW_OR_FAIL, approved digest + source/settings fingerprint; mismatch blocks, no old save upgrade",
+    "controls": [
+      "LEGACY_V1",
+      "C1_R1 frozen old coefficient-only arm",
+      "r1 negative preflight only, no blocked r1 worlds",
+      "LOCAL_PHYSICAL_A_R2",
+      "CONTROLLED_PATCH_B_R2"
+    ],
+    "camera": "same legacy seed/window/camera/noon/clear/neutral sky; no B2 captures"
+  },
+  "evidence_status": {
+    "synthetic_model": "PENDING_EXECUTION_AFTER_FREEZE",
+    "native_r2": "NOT_IMPLEMENTED",
+    "real_seed_yield": "NOT_SAMPLED",
+    "performance": "NOT_MEASURED",
+    "full": "NOT_RUN",
+    "shift": "NOT_RUN",
+    "routes": "NOT_RUN",
+    "holdout": "SEALED_NOT_SAMPLED"
+  },
+  "locks": {
+    "docs/verification/spatial-retune/v2/EXPERIMENT_MANIFEST.json": "521fc8d6e854570ae79f851129109d5948943f9ec372aee50643939d840ad2eb",
+    "docs/verification/spatial-retune/v2/PROTOCOL.md": "8c997249422908e1c3e0cc8c14298ba650fc69651eb399d8e162c9b05abb5da1",
+    "docs/verification/spatial-retune/v2/PREFLIGHT_B1_RESULTS.md": "21701389a7fdd23567d1c05300fadd443a8ff17a9d50e06ec1433ea098ecba58",
+    "docs/verification/spatial-retune/v2/preflight-evidence.json": "d37cba0550045f453e6535e509abfb66d384cf5cdda31d0bd9c1003f1f697827",
+    "src/main/java/dev/fangbm/worldphase/worldgen/noise/GradientNoise.java": "fea4ef9cffc402f196c1a03b55ddedbb3a8fad8018d26902bb177d9c319fcc29",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/v2/HcCertificate.java": "8f4e35cfc0425efd01fd804f8b17f98530c14fd58b01216a109b2314f504c22e",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/v2/GradientRoundoff.java": "525eb886e800f4d4c2e2f968efc90ef4a97f2e894f9c558f36dce0dacabfadfd",
+    "tools/shared_nodes_r2.py": "007033f5d99fdeec6b30400e58d476ffb3cff0dbdeb4e8c47808e9c49fcf9235",
+    "tools/test_shared_nodes_r2.py": "3c0490bca311109cf2c95fa0c3440f307a480c3f341e4846cc7eda4849741b2a"
+  },
+  "states_semantics": "DF activation is immutable MATH_NODE_READY only after full numerical preflight; later FULL/dynamic state never changes density or rerolls terrain"
+}
