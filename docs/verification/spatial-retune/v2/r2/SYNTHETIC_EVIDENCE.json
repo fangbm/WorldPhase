@@ -1,0 +1,276 @@
+{
+  "status": "PURE_MODEL_AND_ERROR_ONLY_NOT_NATIVE_OR_FULL",
+  "manifestSha256": "82a3e9676d7de3e223299feff88c7a9ea67e8e4e1c25bb1f3aa134deb59ec9bf",
+  "modelGradient": {
+    "core": 0,
+    "ramp": 0.1171875,
+    "terminal": 0.1015625
+  },
+  "rationalProgramErrorUpper": {
+    "ramp": "873477178031351800777925019024985204964056695027/12259964326927110866866776217202473468949912977468817408",
+    "terminal": "5958347203258879028743792399164706976031517411826947397568547/68242365001225056980250881939018440142644021819555824092793513443328"
+  },
+  "errorBlocks": {
+    "ramp": 7.124630665628403e-08,
+    "terminal": 8.731155790324555e-08,
+    "frozenCap": 9.5367431640625e-07
+  },
+  "finitePhysicalSlope": {
+    "ramp": 0.11719512939453125,
+    "terminal": 0.10157012939453125
+  },
+  "developmentLayouts": [
+    {
+      "seed": 123456789,
+      "targetIds": 132,
+      "syntheticAllDryShortlist": 12,
+      "shortlistIds": [
+        [
+          -2,
+          0
+        ],
+        [
+          -2,
+          1
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          -1,
+          0
+        ],
+        [
+          -1,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "realAnchors": "NOT_SAMPLED",
+      "realYield": "UNKNOWN"
+    },
+    {
+      "seed": 8675309,
+      "targetIds": 132,
+      "syntheticAllDryShortlist": 13,
+      "shortlistIds": [
+        [
+          -2,
+          0
+        ],
+        [
+          -2,
+          1
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          -1,
+          0
+        ],
+        [
+          -1,
+          1
+        ],
+        [
+          0,
+          -1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "realAnchors": "NOT_SAMPLED",
+      "realYield": "UNKNOWN"
+    },
+    {
+      "seed": 20261011,
+      "targetIds": 132,
+      "syntheticAllDryShortlist": 13,
+      "shortlistIds": [
+        [
+          -2,
+          0
+        ],
+        [
+          -2,
+          1
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          -1,
+          0
+        ],
+        [
+          -1,
+          1
+        ],
+        [
+          0,
+          -1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "realAnchors": "NOT_SAMPLED",
+      "realYield": "UNKNOWN"
+    }
+  ],
+  "rawContinentalnessCalls": 0,
+  "minecraftWorldsCreated": 0,
+  "nativeInterpolation": "NOT_RUN",
+  "interpolationOracle": "SYNTHETIC_ONLY",
+  "fullSafety": "NOT_RUN",
+  "shiftFeasibility": "NOT_RUN",
+  "completedRoutes": 0,
+  "holdouts": "SEALED_NOT_SAMPLED",
+  "cpuTickWall": "NOT_MEASURED_IN_MINECRAFT",
+  "generationAuthorized": false,
+  "freezeCommit": "d15138de7889fb034ab0514eb318db083642ff13",
+  "firstExecution": {
+    "tests": 18,
+    "passed": 17,
+    "failed": 1,
+    "failure": "one-shot reversed iterator consumed after first window"
+  },
+  "correctedExecution": {
+    "tests": 18,
+    "passed": 18,
+    "failed": 0,
+    "sourceRevision": "PROTOTYPE_SOURCE_REVISIONS.json",
+    "thresholdOrModelChanges": false
+  },
+  "r1RegressionTests": {
+    "tests": 15,
+    "passed": 15,
+    "historicalInputsModified": false
+  },
+  "r1AnalyticBandExclusion": {
+    "rawBound": 1024,
+    "heightErrorUpper": 8.177895168595872e-10,
+    "modelOnlyN2SlopeUpper": 0.04416666666666669,
+    "continentsRawCalls": 0,
+    "parameterSource": {
+      "entry": "data/minecraft/worldgen/noise/continentalness.json",
+      "sha256": "7a6cf57a552a237c3f02364db96c0f5ca858ce067e126fc2e23d607ea212c031",
+      "parameters": {
+        "amplitudes": [
+          1.0,
+          1.0,
+          2.0,
+          2.0,
+          2.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "firstOctave": -9
+      },
+      "kind": "source inspection only, zero evaluations"
+    }
+  },
+  "checks": {
+    "build": "PASS, 15 tasks UP-TO-DATE; no fresh native verification claimed",
+    "r2RequireNativeExit": 1,
+    "r1RequirePassExit": "EXPECTED_1",
+    "newMCOrServerRun": false
+  },
+  "finalFocusedSuite": {
+    "tests": 23,
+    "passed": 23,
+    "failed": 0,
+    "compositionGeometryTests": 5,
+    "nativeOrCollisionSimulation": false
+  },
+  "sourceSha256LF": {
+    "tools/shared_nodes_r2.py": "1a037767bf13a53cac7bc99b271d951ce16393cade74128787d71f577da02b67",
+    "tools/test_shared_nodes_r2.py": "3c0490bca311109cf2c95fa0c3440f307a480c3f341e4846cc7eda4849741b2a",
+    "tools/shared_nodes_r2_geometry.py": "6e4ca51963bd4f495570ce04942bdbfb56a0eef5f3987f3ab2b387d6df079673",
+    "tools/test_shared_nodes_r2_geometry.py": "7c1054934ebba21ee001dbdf1a5033e9ee939d5ec1b0c359cd2132d93a124ca6"
+  }
+}

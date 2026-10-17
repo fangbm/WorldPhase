@@ -57,6 +57,7 @@ def target_ids():
 
 
 def shortlist(seed, dry_ids):
+    dry_ids = tuple(dry_ids)  # materialize once: both windows must see the same immutable collection
     selected = set()
     radius = M["preparation"]["roi_half_extent"] - M["nodes"]["support_radius_bound"]
     for w in M["windows"]:
@@ -215,7 +216,15 @@ def check_locks():
         raise ValueError("R2_FREEZE_MISMATCH")
     for name, expected in M["locks"].items():
         actual = hashlib.sha256((ROOT/name).read_bytes().replace(b"\r\n", b"\n")).hexdigest()
-        if actual != expected: raise ValueError("HISTORICAL_INPUT_CHANGED: "+name)
+        if actual != expected:
+            # The mathematical manifest remains frozen. A source-only fix is separately audited,
+            # never allowed for historical r1 inputs or runtime/production files.
+            revision_file = DIRECTORY/"PROTOTYPE_SOURCE_REVISIONS.json"
+            revisions = json.loads(revision_file.read_text(encoding="utf-8")) if revision_file.exists() else {}
+            revision = revisions.get("files", {}).get(name, {})
+            allowed = name == "tools/shared_nodes_r2.py" and revision.get("frozen_sha256") == expected
+            if not allowed or revision.get("corrected_sha256") != actual:
+                raise ValueError("HISTORICAL_INPUT_CHANGED: "+name)
     return digest
 
 

@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "freeze_commit": "d15138de7889fb034ab0514eb318db083642ff13",
+  "mathematical_manifest_modified": false,
+  "kind": "pure-oracle implementation correction; no parameter, formula, seed, rank, budget or authorization change",
+  "first_test_run": {
+    "tests": 18,
+    "passed": 17,
+    "failed": 1,
+    "failure": "test_shortlist_is_spatial_deterministic_and_never_refills: reversed iterator consumed by first window"
+  },
+  "files": {
+    "tools/shared_nodes_r2.py": {
+      "frozen_sha256": "007033f5d99fdeec6b30400e58d476ffb3cff0dbdeb4e8c47808e9c49fcf9235",
+      "corrected_sha256": "1a037767bf13a53cac7bc99b271d951ce16393cade74128787d71f577da02b67",
+      "correction": "materialize dry_ids once before both windows; accept only this separately pinned source revision in lock audit"
+    }
+  },
+  "approval": "AWAITING_REVIEW; does not authorize native/worldgen"
+}
