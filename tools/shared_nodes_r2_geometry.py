@@ -17,6 +17,7 @@ def port_mask(x,z,direction):
 
 class NodeModel:
     def __init__(self,h,external,port_evidence):
+        if not math.isfinite(h): raise ValueError("NONFINITE_HEIGHT")
         self.h,self.external,self.evidence=h,external,port_evidence
         valid={phase:{d for d,args in ports.items() if r2.port_certificate(h,*args)=="PORT_MODEL_READY_NOT_FULL_SAFE"}
                for phase,ports in port_evidence.items()}
@@ -25,7 +26,10 @@ class NodeModel:
 
     def height(self,phase,x,z):
         if phase not in r2.M["scope"]["prototype_phases"]: raise ValueError("UNMODELED_PHASE")
+        if any(not math.isfinite(v) or abs(v)>2*r2.M["domain"]["world_border_abs"] for v in (x,z)):
+            raise ValueError("NONFINITE_OR_OUT_OF_DOMAIN")
         external=self.external(phase,x,z)
+        if not math.isfinite(external): raise ValueError("NONFINITE_EXTERNAL_HEIGHT")
         if not self.pair: return external # rejected model is never installed as an isolated plateau
         n=r2.M["nodes"]
         b=1-r2.quintic((math.hypot(x,z)-n["common_collar_radius"])/(n["background_outer_radius"]-n["common_collar_radius"]))

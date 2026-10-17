@@ -56,6 +56,14 @@ class SyntheticCompositeGeometryTests(unittest.TestCase):
             for key in sorted(chunks,reverse=True):by_chunk.update(evaluate(chunks[key]))
             self.assertEqual(first,by_chunk)
 
+    def test_invalid_geometry_inputs_fail_closed(self):
+        node=self.make()
+        for x in [math.nan,math.inf,-math.inf,1e308]:
+            with self.assertRaises(ValueError):node.height("SMOOTH",x,0)
+        with self.assertRaises(ValueError):NodeModel(math.nan,lambda p,x,z:96.5,{})
+        invalid=NodeModel(96.5,lambda p,x,z:math.nan,{})
+        with self.assertRaises(ValueError):invalid.height("SMOOTH",0,0)
+
     def test_mask_support_nonoverlap_and_bounded_extent(self):
         # Algebraic proof in protocol; these samples only catch code/transcription errors.
         for x in range(-200,201,4):

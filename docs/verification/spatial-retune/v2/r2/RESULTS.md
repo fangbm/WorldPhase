@@ -12,10 +12,11 @@ manifest LF SHA256 `82a3e9676d7de3e223299feff88c7a9ea67e8e4e1c25bb1f3aa134deb59e
 首轮18测试：17 PASS、1 FAIL。失败为单次reversed迭代器在第一个窗口消耗，第二窗口看不到相同dry IDs。
 这是原型输入处理错误，不是几何或参数试验失败。修复仅将输入在两个窗口前物化一次；原失败保留。
 [源码勘误](PROTOTYPE_SOURCE_REVISIONS.json) 记录冻结代码hash、修正hash及首轮失败；
+协议§3的量化幅度口头“不到.5”在一般闭区间语义应为“≤.5”；冻结的floor公式不变，保守分析取包含等号的界。
 manifest 中原始源码锁保留为历史值，审计仅对这个明确指定的纯原型文件接受该外部修订，
 不允许借此修改r1、生产文件或测试配置。当前修订仍等待review，不是独立批准。
 
-修正后核心18/18 PASS；随后按已冻结公式补充5项二维组合几何测试，最终23/23 PASS。没有升高1/8，没有修改seed/节点分布/评分/退出条件，没有看地形后调参。
+修正后核心18/18 PASS；随后按已冻结公式补充6项二维组合几何/非法输入测试，最终24/24 PASS。没有升高1/8，没有修改seed/节点分布/评分/退出条件，没有看地形后调参。
 证据：[SYNTHETIC_EVIDENCE.json](SYNTHETIC_EVIDENCE.json)。二维组合代码实现冻结后的公式，不修改参数或主原型；来源摘要另列。
 
 ## 归因的新增解析证据，未重采样r1
@@ -86,7 +87,7 @@ endpoint-only图组件不等于可走通的图；FULL失败也不能反过来改
 ## 命令与证据边界
 
 ```sh
-python -m unittest discover -s tools -p 'test_shared_nodes_r2*.py'    # 23 PASS; original 17/18 failure retained
+python -m unittest discover -s tools -p 'test_shared_nodes_r2*.py'    # 24 PASS; original 17/18 failure retained
 python tools/shared_nodes_r2.py --write-report                       # PURE_MODEL_AND_ERROR_ONLY_NOT_NATIVE_OR_FULL
 python tools/shared_nodes_r2.py --require-native                     # expected exit 1
 python -m unittest discover -s tools -p test_spatial_v2_manifest.py    # 15 PASS, r1 unchanged
@@ -94,7 +95,7 @@ python -m unittest discover -s tools -p test_spatial_v2_manifest.py    # 15 PASS
 ```
 
 另对r1 `check_v2_preflight.py --require-pass` 核对继续非零。不重新跑server、生成地形或截屏。
-本轮build复用现有编译/测试输出，不能称为新一轮真实服务器验收。23项r2测试是实际执行的纯数学/合成几何测试。
+本轮build复用现有编译/测试输出，不能称为新一轮真实服务器验收。24项r2测试是实际执行的纯数学/合成几何测试。
 纯JDK band界计算仅读取两份既有数学源码，无MC classpath；source参数读取有摘要归档。
 运行日志留在ignored build/tmp，未提交生成目录或世界。
 
