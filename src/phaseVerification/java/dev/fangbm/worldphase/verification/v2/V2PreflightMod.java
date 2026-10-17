@@ -12,5 +12,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public final class V2PreflightMod {
     public static final DeferredRegister<MapCodec<? extends DensityFunction>> TYPES=DeferredRegister.create(Registries.DENSITY_FUNCTION_TYPE,"worldphase");
     public static final java.util.function.Supplier<MapCodec<? extends DensityFunction>> ANALYTIC=TYPES.register("prototype_v2/analytic_r1",()->PrototypeAnalyticDensityFunction.CODEC.codec());
+    public static final java.util.function.Supplier<MapCodec<? extends DensityFunction>> R2_ANALYTIC=TYPES.register("prototype_v2/analytic_r2",()->dev.fangbm.worldphase.verification.v2.r2.R2Density.CODEC.codec());
     public V2PreflightMod(IEventBus bus){TYPES.register(bus);}
 }
