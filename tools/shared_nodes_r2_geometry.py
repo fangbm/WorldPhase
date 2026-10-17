@@ -22,7 +22,9 @@ class NodeModel:
         valid={phase:{d for d,args in ports.items() if r2.port_certificate(h,*args)=="PORT_MODEL_READY_NOT_FULL_SAFE"}
                for phase,ports in port_evidence.items()}
         self.pair=r2.common_pair(valid)
-        self.active_dirs=set.intersection(*(set(valid.get(p,set())) for p in r2.M["scope"]["prototype_phases"])) if self.pair else set()
+        # Only the frozen first common opposite pair may modify geometry. Other
+        # passing ports remain diagnostic evidence, never extra ramps or fallbacks.
+        self.active_dirs=set(self.pair) if self.pair else set()
 
     def height(self,phase,x,z):
         if phase not in r2.M["scope"]["prototype_phases"]: raise ValueError("UNMODELED_PHASE")

@@ -16,8 +16,41 @@ manifest LF SHA256 `82a3e9676d7de3e223299feff88c7a9ea67e8e4e1c25bb1f3aa134deb59e
 manifest 中原始源码锁保留为历史值，审计仅对这个明确指定的纯原型文件接受该外部修订，
 不允许借此修改r1、生产文件或测试配置。当前修订仍等待review，不是独立批准。
 
-修正后核心18/18 PASS；随后按已冻结公式补充6项二维组合几何/非法输入测试，最终24/24 PASS。没有升高1/8，没有修改seed/节点分布/评分/退出条件，没有看地形后调参。
+修正后核心18/18 PASS；随后按已冻结公式补充6项二维组合几何/非法输入测试，此前在 `af607aa` 为24/24 PASS。该历史结果没有覆盖下述端口激活偏差，不能作为实现完全符合协议的证明。没有升高1/8，没有修改seed/节点分布/评分/退出条件，没有看地形后调参。
 证据：[SYNTHETIC_EVIDENCE.json](SYNTHETIC_EVIDENCE.json)。二维组合代码实现冻结后的公式，不修改参数或主原型；来源摘要另列。
+
+## PR #39 端口激活勘误（第二次源码修正）
+
+独立复审输入 head 为 `af607aac44130e1f58b73491fd270a5e3b0dfbb2`。
+`NodeModel` 已用 `common_pair` 选定首个共同相反端口对，但错误地将所有共同合格方向激活。
+例如两Phase均通过E/W/N时，选定E/W却仍让N产生附加坡道，违反冻结协议§4的非选中端口q=0契约。
+这是实现偏差，不是冻结模型、端口资格或阈值的问题。
+
+本次仅令 `active_dirs` 严格等于选定对，无共同对时为空；仍按E/W优先、N/S回退。
+其他合格端口保留在诊断输入中，不参与地形生成。FULL失败后不能改选另一对，不能反向改变密度。
+`port_mask` 仍是单方向的几何支持函数；实际组合只遍历激活方向，因此未选中方向的有效q为0，
+但该位置仍可能受原有径向背景混合影响，不能将“无附加坡道”误读为“完全无背景修改”。
+无共同对时则不安装平台，保留原始外部地形。
+
+新增4项回归，先在修复前运行：28项中26 PASS / 2 FAIL，明确复现E/W/N及四方向输入的额外N/S激活。
+修复后28/28 PASS（原18项数学测试 + 10项几何测试）。新增场景为：
+
+- A：两Phase的E/W/N通过，仅E/W激活；N方向几何mask本来非零，但实际高度精确等于背景混合高度。
+- B：仅共同N/S通过，激活N/S；E/W高度精确等于背景混合高度。
+- C：Smooth仅E/W、Ridge仅N/S，无共同对；核心和各方向均保留原有外部地形。
+- D：改变端口/Phase字典插入顺序、重复/逆序/按正负chunk分组查询，选定对、激活集合和 `float.hex()` 结果一致。
+
+原有坡道宽度测试曾遍历所有四方向，隐含了同一偏差；现按选定对验证，非选中方向由A/B独立检查。
+冻结源码commit `d15138d`、首轮迭代器17/18失败及物化修复记录均保留。
+几何原型首次引入于 `3141952`，其摘要及复审前后LF SHA256详列于外部源码审计；本次摘要为：
+
+|文件|修复前 LF SHA256|修复后 LF SHA256|
+|---|---|---|
+|`tools/shared_nodes_r2_geometry.py`|`bc9d12c37bc0e38ba0a5f2333b8c261cc01c218a68c06bafb394c49c46b48d08`|`2e3db94d6b9989c29e6670dcf6fd6091494371c9104b1be762fbe3c8a9e65c72`|
+|`tools/test_shared_nodes_r2_geometry.py`|`472f82697c34c5d21e39b8f7f5c7e54df84d44996cff632f5e6d00bd8ead6805`|`944259a60dcc1b2f6dcbbb3a5ae930b4abb9a686a6335a5cbe540725867280a6`|
+
+manifest、FROZEN_SHA256、协议和r1锁定输入均保持不变；不通过修改manifest消除历史源码摘要差异。
+`PROTOTYPE_SOURCE_REVISIONS.json` 与 `SYNTHETIC_EVIDENCE.json` 同时保留前后源码摘要、原失败和本次执行结果。
 
 ## 归因的新增解析证据，未重采样r1
 
@@ -87,15 +120,18 @@ endpoint-only图组件不等于可走通的图；FULL失败也不能反过来改
 ## 命令与证据边界
 
 ```sh
-python -m unittest discover -s tools -p 'test_shared_nodes_r2*.py'    # 24 PASS; original 17/18 failure retained
+python -m unittest discover -s tools -p 'test_shared_nodes_r2*.py' -v # 28 PASS; both failure histories retained
 python tools/shared_nodes_r2.py --write-report                       # PURE_MODEL_AND_ERROR_ONLY_NOT_NATIVE_OR_FULL
 python tools/shared_nodes_r2.py --require-native                     # expected exit 1
-python -m unittest discover -s tools -p test_spatial_v2_manifest.py    # 15 PASS, r1 unchanged
-./gradlew build                                                      # PASS, 15 tasks UP-TO-DATE
+python -m unittest discover -s tools -p test_spatial_v2_manifest.py -v # 15 PASS, r1 unchanged
+python tools/check_v2_preflight.py --require-pass                    # expected exit 1, r1 generation still BLOCKED
 ```
 
-另对r1 `check_v2_preflight.py --require-pass` 核对继续非零。不重新跑server、生成地形或截屏。
-本轮build复用现有编译/测试输出，不能称为新一轮真实服务器验收。24项r2测试是实际执行的纯数学/合成几何测试。
+上述命令均在端口修正后实际执行。两个非零退出分别仍为 `R2_NATIVE_FULL_GENERATION_GATE_NOT_APPROVED`
+和三个开发seed的 `BLOCKED_R1_ROUNDED_LIPSCHITZ_CONTRACT`，是预期阻塞，不能报告为原生门禁PASS。
+新生成的ignored数学报告逐字段与归档模型证据相同，raw调用和新世界数仍为0。
+此前 `./gradlew build` 的15 tasks UP-TO-DATE仅为历史记录，本次未改Java/Gradle，未重新执行build或原生服务器。
+本次28项r2测试是实际执行的纯数学/合成几何测试；没有生成地形或截屏。
 纯JDK band界计算仅读取两份既有数学源码，无MC classpath；source参数读取有摘要归档。
 运行日志留在ignored build/tmp，未提交生成目录或世界。
 

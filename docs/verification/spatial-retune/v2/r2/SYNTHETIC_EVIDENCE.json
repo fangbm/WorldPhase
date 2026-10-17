@@ -261,16 +261,97 @@
     "newMCOrServerRun": false
   },
   "finalFocusedSuite": {
+    "tests": 28,
+    "passed": 28,
+    "failed": 0,
+    "compositionGeometryTests": 10,
+    "newSelectedPortRegressionTests": 4,
+    "nativeOrCollisionSimulation": false
+  },
+  "sourceSha256LF": {
+    "tools/shared_nodes_r2.py": "1a037767bf13a53cac7bc99b271d951ce16393cade74128787d71f577da02b67",
+    "tools/test_shared_nodes_r2.py": "3c0490bca311109cf2c95fa0c3440f307a480c3f341e4846cc7eda4849741b2a",
+    "tools/shared_nodes_r2_geometry.py": "2e3db94d6b9989c29e6670dcf6fd6091494371c9104b1be762fbe3c8a9e65c72",
+    "tools/test_shared_nodes_r2_geometry.py": "944259a60dcc1b2f6dcbbb3a5ae930b4abb9a686a6335a5cbe540725867280a6"
+  },
+  "reviewInputFocusedSuite": {
+    "head": "af607aac44130e1f58b73491fd270a5e3b0dfbb2",
     "tests": 24,
     "passed": 24,
     "failed": 0,
     "compositionGeometryTests": 6,
     "nativeOrCollisionSimulation": false
   },
-  "sourceSha256LF": {
-    "tools/shared_nodes_r2.py": "1a037767bf13a53cac7bc99b271d951ce16393cade74128787d71f577da02b67",
-    "tools/test_shared_nodes_r2.py": "3c0490bca311109cf2c95fa0c3440f307a480c3f341e4846cc7eda4849741b2a",
-    "tools/shared_nodes_r2_geometry.py": "bc9d12c37bc0e38ba0a5f2333b8c261cc01c218a68c06bafb394c49c46b48d08",
-    "tools/test_shared_nodes_r2_geometry.py": "472f82697c34c5d21e39b8f7f5c7e54df84d44996cff632f5e6d00bd8ead6805"
+  "selectedPortCorrection": {
+    "review_head": "af607aac44130e1f58b73491fd270a5e3b0dfbb2",
+    "kind": "selected-port activation implementation correction; frozen model and eligibility unchanged",
+    "deviation": "common_pair chose E/W, but intersection of all passing directions also activated N (and S when present)",
+    "correction": "activate exactly common_pair result, or no directions when absent; other evidence is diagnostic only; no FULL-failure fallback",
+    "original_geometry_commit": "3141952d83fba4db916bc078f813cf4b63a4646d",
+    "original_geometry_sha256LF": "6e4ca51963bd4f495570ce04942bdbfb56a0eef5f3987f3ab2b387d6df079673",
+    "files": {
+      "tools/shared_nodes_r2_geometry.py": {
+        "before_sha256LF": "bc9d12c37bc0e38ba0a5f2333b8c261cc01c218a68c06bafb394c49c46b48d08",
+        "after_sha256LF": "2e3db94d6b9989c29e6670dcf6fd6091494371c9104b1be762fbe3c8a9e65c72"
+      },
+      "tools/test_shared_nodes_r2_geometry.py": {
+        "before_sha256LF": "472f82697c34c5d21e39b8f7f5c7e54df84d44996cff632f5e6d00bd8ead6805",
+        "after_sha256LF": "944259a60dcc1b2f6dcbbb3a5ae930b4abb9a686a6335a5cbe540725867280a6"
+      }
+    },
+    "before_fix_reproduction": {
+      "tests": 28,
+      "passed": 26,
+      "failed": 2,
+      "failures": [
+        "test_selected_ports_ew_priority_leaves_north_at_background: unexpected N activation",
+        "test_selected_ports_dictionary_and_query_order_are_bitwise_stable: unexpected N/S activation"
+      ]
+    },
+    "after_fix": {
+      "tests": 28,
+      "passed": 28,
+      "failed": 0,
+      "mathTests": 18,
+      "geometryTests": 10,
+      "newRegressionTests": 4
+    },
+    "new_regression_scenarios": [
+      "A: E/W/N eligible in both phases; E/W only; N height exactly background blend",
+      "B: N/S fallback only; E/W height exactly background blend; N/S ramps active",
+      "C: disjoint E/W versus N/S pairs; no shared patch, original external heights unchanged",
+      "D: port/phase dictionary insertion, repeated/reversed/chunk-grouped queries; identical float.hex results and E/W selection"
+    ],
+    "existing_test_adjustment": "ramp-width assertions apply only to selected pair; prior all-four-ramp assumption contradicted frozen protocol",
+    "manifest_parameters_or_authorization_changed": false
+  },
+  "reviewRepairVerification": {
+    "r2FocusedTests": {
+      "tests": 28,
+      "passed": 28,
+      "exit": 0
+    },
+    "writeReportExit": 0,
+    "reportMatchesArchivedModelFields": true,
+    "r2RequireNative": {
+      "exit": 1,
+      "reason": "R2_NATIVE_FULL_GENERATION_GATE_NOT_APPROVED",
+      "expectedBlocked": true
+    },
+    "r1ManifestTests": {
+      "tests": 15,
+      "passed": 15,
+      "exit": 0
+    },
+    "r1RequirePass": {
+      "exit": 1,
+      "reason": "V2_GENERATION_GATE_BLOCKED: BLOCKED_R1_ROUNDED_LIPSCHITZ_CONTRACT on all three development seeds",
+      "expectedBlocked": true
+    },
+    "r1HistoricalInputsUnchanged": true,
+    "r2ManifestAndFreezeFileUnchanged": true,
+    "javaGradleOrProductionChanged": false,
+    "buildThisRepair": "NOT_RUN; prior checks.build is historical cached output, not fresh validation",
+    "newMCOrServerRun": false
   }
 }

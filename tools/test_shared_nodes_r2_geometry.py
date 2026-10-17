@@ -11,6 +11,79 @@ class SyntheticCompositeGeometryTests(unittest.TestCase):
         evidence={p:{d:(v,0,0,0) for d in DIRECTIONS} for p,v in values.items()}
         return NodeModel(96.5,lambda p,x,z:96.5+values[p],evidence)
 
+    def background(self,node,phase,x,z):
+        n=r2.M["nodes"]
+        b=1-r2.quintic((math.hypot(x,z)-n["common_collar_radius"])/(n["background_outer_radius"]-n["common_collar_radius"]))
+        return (1-b)*node.external(phase,x,z)+b*node.h
+
+    def test_selected_ports_ew_priority_leaves_north_at_background(self):
+        evidence={p:{d:(delta,0,0,0) for d in ("E","W","N")}
+                  for p,delta in [("SMOOTH",8),("RIDGE",-8)]}
+        node=NodeModel(96.5,lambda p,x,z:104.5 if p=="SMOOTH" else 88.5,evidence)
+        self.assertEqual(node.pair,("E","W"))
+        self.assertEqual(node.active_dirs,{"E","W"})
+        for phase in ("SMOOTH","RIDGE"):
+            for x,z in [(0,-80),(2,-100),(-2,-152)]:
+                # The geometric mask alone is nonzero here: eligibility must gate it off.
+                self.assertGreater(port_mask(x,z,"N"),0)
+                background=self.background(node,phase,x,z)
+                self.assertEqual(node.height(phase,x,z),background)
+            self.assertNotEqual(self.background(node,phase,0,-80),
+                                r2.ramp(node.h,evidence[phase]["N"][0],80))
+
+    def test_selected_ports_ns_fallback_leaves_east_west_at_background(self):
+        evidence={p:{d:(delta,0,0,0) for d in ("N","S")}
+                  for p,delta in [("SMOOTH",8),("RIDGE",-8)]}
+        node=NodeModel(96.5,lambda p,x,z:104.5 if p=="SMOOTH" else 88.5,evidence)
+        self.assertEqual(node.pair,("N","S"))
+        self.assertEqual(node.active_dirs,{"N","S"})
+        for phase in ("SMOOTH","RIDGE"):
+            for d in ("E","W"):
+                dx,dz=DIRECTIONS[d]
+                self.assertGreater(port_mask(80*dx,80*dz,d),0)
+                self.assertEqual(node.height(phase,80*dx,80*dz),
+                                 self.background(node,phase,80*dx,80*dz))
+            for d in node.pair:
+                dx,dz=DIRECTIONS[d]
+                self.assertEqual(node.height(phase,80*dx,80*dz),
+                                 r2.ramp(node.h,evidence[phase][d][0],80))
+
+    def test_selected_ports_mismatched_pairs_keep_natural_background(self):
+        evidence={"SMOOTH":{d:(8,0,0,0) for d in ("E","W")},
+                  "RIDGE":{d:(-8,0,0,0) for d in ("N","S")}}
+        external=lambda p,x,z:(104.5 if p=="SMOOTH" else 88.5)+x/64-z/128
+        node=NodeModel(96.5,external,evidence)
+        self.assertIsNone(node.pair)
+        self.assertEqual(node.active_dirs,set())
+        for phase in ("SMOOTH","RIDGE"):
+            for x,z in [(0,0),(16,0),(80,0),(-80,0),(0,80),(0,-80),(200,-16)]:
+                self.assertEqual(node.height(phase,x,z),external(phase,x,z))
+
+    def test_selected_ports_dictionary_and_query_order_are_bitwise_stable(self):
+        # Include all four passing ports to test E/W priority over a complete N/S pair.
+        orders=[("E","W","N","S"),("S","N","W","E"),("N","E","S","W")]
+        points=[(-16.25,-.5),(-16.,0.),(-15.75,.5),(-.25,-16.25),(0.,-16.),
+                (.25,-15.75),(15.75,16.5),(16.,16.),(16.25,15.5),
+                (0.,-80.),(2.,100.),(-80.,0.),(100.,2.)]
+        expected=None
+        for order in orders:
+            for phases in [("SMOOTH","RIDGE"),("RIDGE","SMOOTH")]:
+                evidence={p:{d:(8 if p=="SMOOTH" else -8,0,0,0) for d in order} for p in phases}
+                node=NodeModel(96.5,lambda p,x,z:104.5 if p=="SMOOTH" else 88.5,evidence)
+                self.assertEqual(node.pair,("E","W"))
+                self.assertEqual(node.active_dirs,{"E","W"})
+                chunks={}
+                for point in points:
+                    chunks.setdefault(tuple(math.floor(c/16) for c in point),[]).append(point)
+                chunk_order=[point for key in sorted(chunks,reverse=True) for point in reversed(chunks[key])]
+                for query_order in [points,list(reversed(points)),chunk_order,points*2]:
+                    actual={(p,x,z):node.height(p,x,z).hex() for p in phases for x,z in query_order}
+                    if expected is None:expected=actual
+                    self.assertEqual(actual,expected)
+                # Queries cannot select a different pair or activate diagnostic-only ports.
+                self.assertEqual(node.pair,("E","W"))
+                self.assertEqual(node.active_dirs,{"E","W"})
+
     def test_core_is_shared_but_external_terrain_is_not(self):
         node=self.make()
         self.assertIsNotNone(node.pair)
@@ -23,7 +96,8 @@ class SyntheticCompositeGeometryTests(unittest.TestCase):
     def test_ramps_leave_core_and_join_natural_strip_both_phases(self):
         node=self.make()
         for phase in ["SMOOTH","RIDGE"]:
-            for direction,(dx,dz) in DIRECTIONS.items():
+            for direction in node.pair:
+                dx,dz=DIRECTIONS[direction]
                 heights=[node.height(phase,u*dx,u*dz) for u in [i/4 for i in range(0,801)]]
                 self.assertEqual(heights[-1],node.external(phase,200*dx,200*dz))
                 self.assertLessEqual(max(abs(a-b)/.25 for a,b in zip(heights,heights[1:])),.125)
