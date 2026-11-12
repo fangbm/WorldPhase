@@ -1,0 +1,210 @@
+{
+  "test": {
+    "tests": 397,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 2,
+    "suites": [
+      {
+        "name": "dev.fangbm.worldphase.command.WorldPhaseCommandTest",
+        "tests": "50",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:05.499Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.phase.PhaseDomainTest",
+        "tests": "29",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:08.455Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.transfer.PhaseTransferServiceTest",
+        "tests": "45",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:08.528Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.transfer.SafeLandingResolverTest",
+        "tests": "35",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:08.792Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.tutorial.TutorialCandidateFinderTest",
+        "tests": "31",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:08.999Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.tutorial.TutorialCorridorTest",
+        "tests": "5",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:09.920Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.tutorial.TutorialScoreTest",
+        "tests": "8",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:09.922Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.tutorial.WorldPhaseSavedDataTest",
+        "tests": "31",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:09.929Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.v2test.HcCertificateTest",
+        "tests": "7",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:10.795Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.v2test.NativeV2IntegrationTest",
+        "tests": "9",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:13.528Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.v2test.R2ColdPreflightTest",
+        "tests": "1",
+        "skipped": "1",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:18.534Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.v2test.R2FrozenModelParityTest",
+        "tests": "1",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:18.534Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.v2test.R2MathTest",
+        "tests": "11",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:18.593Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.v2test.R2NativeTest",
+        "tests": "5",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:18.728Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.v2test.V2PreparationTest",
+        "tests": "1",
+        "skipped": "1",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:38.366Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.worldgen.density.PhaseNoiseDensityFunctionTest",
+        "tests": "51",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:48.864Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.worldgen.noise.FracturePresetTest",
+        "tests": "1",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:49.045Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.worldgen.noise.GradientDecimalOracleTest",
+        "tests": "1",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:49.051Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.worldgen.noise.NoiseKernelsTest",
+        "tests": "34",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:49.055Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.worldgen.PhaseWorldTest",
+        "tests": "6",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:38.731Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.worldgen.sample.TerrainSampleServiceTest",
+        "tests": "32",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:49.343Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.worldgen.SmoothWorldTest",
+        "tests": "3",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:17:47.918Z"
+      }
+    ]
+  },
+  "testNoiseProfiler": {
+    "tests": 15,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suites": [
+      {
+        "name": "dev.fangbm.worldphase.dev.noise.NoiseProfilerTest",
+        "tests": "8",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:07:21.545Z"
+      },
+      {
+        "name": "dev.fangbm.worldphase.verification.CoreInvariantLedgerTest",
+        "tests": "7",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-17T12:07:21.605Z"
+      }
+    ]
+  }
+}

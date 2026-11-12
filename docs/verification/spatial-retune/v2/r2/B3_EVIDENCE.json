@@ -1,0 +1,157 @@
+{
+  "schema": 1,
+  "baseCommit": "5a1edecdce908debe1e12dde3c818e579610772f",
+  "runtimeSourceCommit": "c6a256fa5f6b45183aa839dfb8e6b2f6d70b21ce",
+  "manifestSha256": "82a3e9676d7de3e223299feff88c7a9ea67e8e4e1c25bb1f3aa134deb59ec9bf",
+  "arm": "CONTROLLED_PATCH_B_R2",
+  "armA": "NOT_RUN; no A/B outcome comparison claimed",
+  "runtimeSourceSha256LF": {
+    "build.gradle": "7ffac07596c20f632887605e8647e45318e89ab800abf82e6d25169cccf3fc73",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/PhaseVerification.java": "a476a05d300df9bf4327ec15fb27ee5a941809eb5cf80676f5a9562d123a6c66",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/v2/NativeV2Fixture.java": "f2cacee33d487c994b1e16ef8f66f33de5297b64e40bf894c84d500e5db509b8",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/v2/V2PreflightMod.java": "a0a1bc441bf76f338a3063b1ea7a9dd6906ad086cb3615a144252b1a4e920704",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/v2/mixin/V2RandomStateMixin.java": "67f6d6f7a0049cceb90e23c72e8b3bd61c3ffd28e42e83b1854f0ed7815449f0",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/v2/r2/Jet.java": "4f2281aebac1365278f27a8850120c20616b445e562f9061a0a2991f29115db0",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/v2/r2/LocalNoise.java": "bcb9eecf3944e14c1898ae2a787d8b955c41b4dbff6cf16cb6b1bb42faa43e4d",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/v2/r2/R2.java": "f7fbaa98553321a5a93bea4964f57505e6a8a1b8ca57037b9080e2e6382e18f1",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/v2/r2/R2Context.java": "3cf60d7028d9b4120802d9558d1965d7bfe5defafabdffb2410564954e10e1a1",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/v2/r2/R2Density.java": "a428677a17fa8017068284e3800f49b99b8d3acd2bf85d0a2b97bc26f3d04e2e",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/v2/r2/R2Evidence.java": "76a38b2e2d76093d968620839087e2c05051aff8096991638b5e1ba84a1f5686",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/v2/r2/R2Fixture.java": "729039d97fa3beb4e3d5b2150667a2ac851ed2729aa85b54b02c8310c97970a7",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/v2/r2/R2Memory.java": "d6469dcae212ed9780e6a82db287b28e9a3885bdee0f9d1d2dadbc2f2d1aa923",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/v2/r2/R2SeedVisitor.java": "bfbfbc60303fd09be7592491b03695c9c644f124ffeb3b430033f42263b0b750",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/v2/r2/R2ServerPreflight.java": "226c1cf0cd129d0e095ea64b78455a2be2c419f6c029ee4f87a4d44842fdefb1",
+    "tools/java/org/worldphase/measurement/Agent.java": "04d66d00e41f1892805c111214fe8d74a34a041db66c4085391c40a59063b06d",
+    "src/test/java/dev/fangbm/worldphase/v2test/R2ColdPreflightTest.java": "4d870e834511c4117b40730b84043110f9ab7e5f50efdf0940728d08c8649aa6",
+    "src/test/java/dev/fangbm/worldphase/v2test/R2MathTest.java": "6119cdd85155cdb110c8f5da5a5accd09682350ec281a19a25a29561cb01ea43",
+    "src/test/java/dev/fangbm/worldphase/v2test/R2NativeTest.java": "e0760b43be9fb6c7d553c2c798c86e5214de437f5d0d87afee0818aa4ffc76bc"
+  },
+  "protectedSha256LF": {
+    "docs/verification/spatial-retune/v2/EXPERIMENT_MANIFEST.json": "521fc8d6e854570ae79f851129109d5948943f9ec372aee50643939d840ad2eb",
+    "docs/verification/spatial-retune/v2/NUMERICAL_CERTIFICATE.md": "0411b0f51969f59dab604b9f02767bd62d16758ca137b8c51f14ef1f16c55bb1",
+    "docs/verification/spatial-retune/v2/PREFLIGHT_B1_RESULTS.md": "21701389a7fdd23567d1c05300fadd443a8ff17a9d50e06ec1433ea098ecba58",
+    "docs/verification/spatial-retune/v2/PROTOCOL.md": "8c997249422908e1c3e0cc8c14298ba650fc69651eb399d8e162c9b05abb5da1",
+    "docs/verification/spatial-retune/v2/preflight-evidence.json": "d37cba0550045f453e6535e509abfb66d384cf5cdda31d0bd9c1003f1f697827",
+    "docs/verification/spatial-retune/v2/r2/EXPERIMENT_MANIFEST.json": "82a3e9676d7de3e223299feff88c7a9ea67e8e4e1c25bb1f3aa134deb59ec9bf",
+    "docs/verification/spatial-retune/v2/r2/FROZEN_SHA256.txt": "a55ecce9f495f56ab028542fcb309b1f96c8fc3cc4985167f8bf1d53bb02542a",
+    "docs/verification/spatial-retune/v2/r2/PROTOCOL.md": "f3a6d07e6a2cf5bced593d210599c44d3d8b95d872d972a8946bdb973d928cc0",
+    "docs/verification/spatial-retune/v2/r2/PROTOTYPE_SOURCE_REVISIONS.json": "6d6579096eebee831a925605f914ad2861f55c4bf904441306f6df0aabfdcab5",
+    "docs/verification/spatial-retune/v2/r2/RESULTS.md": "d6e433a36435a5f6f7340dfb550978c0497dae8e445de288457a2b230c211326",
+    "docs/verification/spatial-retune/v2/r2/SYNTHETIC_EVIDENCE.json": "6922bce4dea390da73bcf5f703e6686d691ad67ef98a24b15fdcf9237104d425",
+    "src/main/java/dev/fangbm/worldphase/worldgen/noise/GradientNoise.java": "fea4ef9cffc402f196c1a03b55ddedbb3a8fad8018d26902bb177d9c319fcc29",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/v2/GradientRoundoff.java": "525eb886e800f4d4c2e2f968efc90ef4a97f2e894f9c558f36dce0dacabfadfd",
+    "src/phaseVerification/java/dev/fangbm/worldphase/verification/v2/HcCertificate.java": "8f4e35cfc0425efd01fd804f8b17f98530c14fd58b01216a109b2314f504c22e",
+    "tools/shared_nodes_r2.py": "1a037767bf13a53cac7bc99b271d951ce16393cade74128787d71f577da02b67",
+    "tools/test_shared_nodes_r2.py": "3c0490bca311109cf2c95fa0c3440f307a480c3f341e4846cc7eda4849741b2a"
+  },
+  "reports": [
+    {
+      "mode": "cold",
+      "seed": 123456789,
+      "path": "docs/verification/spatial-retune/v2/r2/b3/cold/seed-123456789.json",
+      "sha256LF": "e6c9225ea9fc72d065a1a8489127a2420a03814feb2a1df36c31900cb51af54e"
+    },
+    {
+      "mode": "cold",
+      "seed": 8675309,
+      "path": "docs/verification/spatial-retune/v2/r2/b3/cold/seed-8675309.json",
+      "sha256LF": "837f2d13fd9aaceb0ea3bccfe1d104f6c387dfef01a9233733919d2a008a663f"
+    },
+    {
+      "mode": "cold",
+      "seed": 20261011,
+      "path": "docs/verification/spatial-retune/v2/r2/b3/cold/seed-20261011.json",
+      "sha256LF": "ec34152a9e7fe5e378c3f41bf08df5ce340529ffe6447a34eb06cbdeb6965033"
+    },
+    {
+      "mode": "server",
+      "seed": 123456789,
+      "path": "docs/verification/spatial-retune/v2/r2/b3/server/seed-123456789.json",
+      "sha256LF": "a84f1c8085fc2e088b27762d89145482e5cee1ac0f03f640d2a51c220266367b"
+    },
+    {
+      "mode": "server",
+      "seed": 8675309,
+      "path": "docs/verification/spatial-retune/v2/r2/b3/server/seed-8675309.json",
+      "sha256LF": "daa1f53da45f22272dfa59707f6c588c0cb54218cef87a3c8fd0e57f9e178ac3"
+    },
+    {
+      "mode": "server",
+      "seed": 20261011,
+      "path": "docs/verification/spatial-retune/v2/r2/b3/server/seed-20261011.json",
+      "sha256LF": "222f9857dc836384a8177f70e56601845cd0d0b5d3c3ef9abf71c22607e92157"
+    }
+  ],
+  "outcome": {
+    "cold": "BLOCKED_INITIALIZATION_BUDGET",
+    "serverPreparation": "COMPLETED",
+    "nodeYield": "FAIL_0_PUBLISHED_MATH_NODES_ALL_THREE_SEEDS",
+    "nativeNumeric": "BLOCKED_FULL_DF_ERROR_CERTIFICATE_UNPROVEN",
+    "full": "NOT_RUN",
+    "shift": "NOT_RUN",
+    "routes": 0,
+    "worldGenerationAuthorized": false,
+    "holdoutsSampled": false
+  },
+  "environment": {
+    "cpu": "AMD Ryzen 9 8945HX; 16 cores / 32 logical processors",
+    "os": "Windows 11 Pro Insider Preview 10.0.28120",
+    "ramKiB": 32733004,
+    "java": "25.0.3+9-LTS",
+    "minecraft": "26.1",
+    "neoforge": "26.1.0.19-beta",
+    "cpuTimer": "Observed ThreadMXBean values are multiples of 15.625ms; reported zero must not be interpreted as zero work or a precise total-CPU upper bound",
+    "measurement": "Serial worker/server runs; OS cache and unrelated host activity uncontrolled",
+    "instrumentation": "Separate dev measurement agent; production mod JAR does not contain verification classes"
+  },
+  "regression": {
+    "path": "docs/verification/spatial-retune/v2/r2/b3/regression/core-summary.json",
+    "sha256LF": "565d98f6e1a7fd9016a812d178f98131122b1b6ac5f2d1cc6b87ac91606b814e",
+    "originalInputSha256Raw": "d27263c5f1d902bf188ccd488a8cb553708f5254483784202ae6dacd046ed8ca",
+    "format": "JSON_FORMAT_NORMALIZED_VALUES_UNCHANGED; primary cold/server reports remain byte-for-byte copies"
+  },
+  "nativeSyntheticProbes": {
+    "path": "docs/verification/spatial-retune/v2/r2/b3/synthetic-native-probes.json",
+    "sha256LF": "edd0a2c8e00607ce18c281ba309242396cce6ddc3052900a226a792ee3e16827"
+  },
+  "geometryParityProbes": {
+    "path": "docs/verification/spatial-retune/v2/r2/b3/synthetic-geometry-probes.json",
+    "sha256LF": "d16877fd671ab833e083bde44b2a4f28bdfc243e5b3c06adfd6caa195bcdff06"
+  },
+  "junitSummary": {
+    "path": "docs/verification/spatial-retune/v2/r2/b3/regression/junit-summary.json",
+    "sha256LF": "9c5eaad65e93b49c30f932269c86911818adc144d79e6b94ddb120b96260278e"
+  },
+  "additionalValidationSourceSha256LF": {
+    "src/test/java/dev/fangbm/worldphase/v2test/R2FrozenModelParityTest.java": "cabfb72efbf2a136522720eff4e3e81c2e2e21b7e52ccccfed5215a3372b3414",
+    "tools/test_r2_native_parity.py": "2ceb941c78736948df0fad99a425a0417a78fdecaf74eb5eea36816be281be5c"
+  },
+  "evidenceRunDate": "2026-10-17; resumed closeout does not relabel these as a new native run",
+  "verificationSummary": {
+    "focusedJava": {
+      "tests": 17,
+      "failed": 0,
+      "kind": "11 math + 5 native operator + 1 synthetic geometry emitter"
+    },
+    "pythonEvidenceTests": 8,
+    "pythonParityTests": 1,
+    "b2MathGeometryTests": 28,
+    "r1ManifestTests": 15,
+    "coreRegressionAllBuild": "PASS; final run 2m31s; 23 tasks, 5 executed/18 UP-TO-DATE",
+    "coldMeasurementWorkers": "three separate workers, one evidence test each; all preparation outcomes FAILED budget",
+    "r1RequirePassExit": 1,
+    "r2RequirePassExit": 1
+  },
+  "closeoutRevalidation": {
+    "date": "2026-11-12",
+    "pythonTests": {
+      "b2MathGeometry": 28,
+      "r1Manifest": 15,
+      "b3EvidenceFailurePaths": 8,
+      "frozenGeometryParity": 1
+    },
+    "nativeOrGradleRerunDuringCloseout": false,
+    "runtimeAndProtectedHashes": "PASS",
+    "primaryReportsUnchanged": true
+  }
+}

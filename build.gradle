@@ -42,6 +42,14 @@ neoForge {
     version = project.neo_version
 
     runs {
+        phaseVerificationR2PreflightServer {
+            server(); sourceSet=sourceSets.phaseVerification
+            gameDirectory=project.file('run/r2-native-preflight/legacy-host')
+            programArgument '--nogui'
+            systemProperty 'worldphase.verification','v2-r2-preflight'
+            systemProperty 'worldphase.projectRoot',project.projectDir.absolutePath
+            systemProperty 'worldphase.minecraftJar',layout.buildDirectory.file("moddev/artifacts/minecraft-patched-${neo_version}.jar").get().asFile.absolutePath
+        }
         (0..<3).each { index ->
             create("phaseVerificationV2PreflightSeed${index}Server") {
                 server(); sourceSet = sourceSets.phaseVerification
@@ -869,4 +877,49 @@ tasks.register('testSpatialBaselineTools',Exec) {
 tasks.register('spatialBaselineReport',Exec) {
     group='verification';description='Fail on missing/mismatched measured or native evidence; generate curated baseline plots/report.'
     commandLine spatialPython.get(),'tools/spatial_baseline.py','--plots','--require-native','--archive'
+}
+
+// B3 measurement agent and isolated legacy-host preflight. Never packaged in the mod JAR.
+def compileR2MemoryAgent=tasks.register('compileR2MemoryAgent',JavaCompile) {
+    source=fileTree('tools/java') { include '**/measurement/Agent.java' }
+    destinationDirectory=layout.buildDirectory.dir('r2-agent-classes')
+    classpath=files()
+    javaCompiler=javaToolchains.compilerFor { languageVersion=JavaLanguageVersion.of(25) }
+}
+def r2MemoryAgent=tasks.register('r2MemoryAgent',Jar) {
+    dependsOn compileR2MemoryAgent
+    archiveFileName='r2-memory-agent.jar'
+    from(compileR2MemoryAgent.flatMap { it.destinationDirectory })
+    manifest { attributes 'Premain-Class':'org.worldphase.measurement.Agent' }
+}
+def r2MeasurementArgs={ -> ["-javaagent:${r2MemoryAgent.get().archiveFile.get().asFile.absolutePath}",
+    '--add-opens=java.base/java.util=ALL-UNNAMED','--add-opens=java.base/java.lang=ALL-UNNAMED'] }
+tasks.named('test',Test) {
+    dependsOn r2MemoryAgent
+    jvmArgs r2MeasurementArgs()
+    systemProperty 'worldphase.r2.coldSeed',providers.gradleProperty('r2ColdSeed').orElse('DISABLED').get()
+    systemProperty 'worldphase.sourceCommit',providers.gradleProperty('r2SourceCommit').orElse('UNRECORDED').get()
+}
+tasks.named('runPhaseVerificationR2PreflightServer',JavaExec) {
+    dependsOn r2MemoryAgent
+    jvmArgs r2MeasurementArgs()
+    systemProperty 'worldphase.sourceCommit',providers.gradleProperty('r2SourceCommit').orElse('UNRECORDED').get()
+    doFirst {
+        def accepted=project.file('run/core-regression-server/eula.txt')
+        if(!accepted.exists()||!(accepted.text =~ /(?m)^\s*eula\s*=\s*true\s*$/).find())throw new GradleException('Existing accepted EULA required')
+        def dir=project.file('run/r2-native-preflight/legacy-host');dir.mkdirs()
+        if(new File(dir,'r2-reports').exists())throw new GradleException('Archive prior r2-reports before a new run; never overwrite evidence')
+        new File(dir,'eula.txt').text=accepted.text
+        new File(dir,'server.properties').text="""level-name=legacy-only-host
+level-seed=123456789
+server-ip=127.0.0.1
+server-port=25579
+online-mode=false
+pause-when-empty-seconds=0
+gamemode=creative
+view-distance=2
+simulation-distance=2
+max-tick-time=-1
+"""
+    }
 }

@@ -1,0 +1,721 @@
+{
+  "status": "PASS",
+  "minecraft": "26.1",
+  "neoforge": "26.1.0.19-beta",
+  "java": "25.0.3+9-LTS",
+  "seed": 123456789,
+  "world": "world-wph012-9c0abb37-58dc-4f02-b585-5f435580e35c",
+  "completeCycles": 100,
+  "loopTransfers": 400,
+  "successfulTransfers": 456,
+  "maxXzDeviation": 0.0,
+  "maxYawPitchDeviation": 0.0,
+  "maxYCorrection": 1.0,
+  "inventoryIdentityAndContentChecks": 495,
+  "duplicatePlayerEntities": 0,
+  "droppedTestItemEntities": 0,
+  "saveReloadCheck": "PASS: terrain, marker and Vanilla player data restored before fixture initialization",
+  "stages": {
+    "cold": {
+      "minecraft": "26.1",
+      "neoforge": "26.1.0.19-beta",
+      "java": "25.0.3+9-LTS",
+      "seed": 123456789,
+      "stage": "cold",
+      "phases": [
+        "worldphase:fracture",
+        "worldphase:smooth",
+        "worldphase:ridge",
+        "worldphase:cell"
+      ],
+      "rawSeeds": {
+        "FRACTURE": 123456789,
+        "SMOOTH": 123456789,
+        "RIDGE": 123456789,
+        "CELL": 123456789
+      },
+      "terrain": {
+        "samples": [
+          {
+            "x": -512,
+            "z": 768,
+            "FRACTURE": {
+              "baseHeight": 78,
+              "rawNoise": 0.04247489132356346,
+              "rawNoiseBits": "4586282097987391319"
+            },
+            "SMOOTH": {
+              "baseHeight": 73,
+              "rawNoise": 0.008675700446310322,
+              "rawNoiseBits": "4576154822587092635"
+            },
+            "RIDGE": {
+              "baseHeight": 124,
+              "rawNoise": 0.9699479603214662,
+              "rawNoiseBits": "4606911734090621472"
+            },
+            "CELL": {
+              "baseHeight": 47,
+              "rawNoise": 0.2864346256544442,
+              "rawNoiseBits": "4598831567411359370"
+            }
+          },
+          {
+            "x": 256,
+            "z": 256,
+            "FRACTURE": {
+              "baseHeight": 93,
+              "rawNoise": 0.26212147263137325,
+              "rawNoiseBits": "4598393580583779753"
+            },
+            "SMOOTH": {
+              "baseHeight": 64,
+              "rawNoise": 0.0202802790623845,
+              "rawNoiseBits": "4581502613871036704"
+            },
+            "RIDGE": {
+              "baseHeight": 90,
+              "rawNoise": 0.9221495891787551,
+              "rawNoiseBits": "4606481204637687011"
+            },
+            "CELL": {
+              "baseHeight": 76,
+              "rawNoise": 0.5198346112171872,
+              "rawNoiseBits": "4602857473468020438"
+            }
+          },
+          {
+            "x": 1024,
+            "z": -1024,
+            "FRACTURE": {
+              "baseHeight": 51,
+              "rawNoise": -0.04141320439488563,
+              "rawNoiseBits": "13809501129630763044"
+            },
+            "SMOOTH": {
+              "baseHeight": 56,
+              "rawNoise": 1.2265003895546083e-09,
+              "rawNoiseBits": "4473501822306331899"
+            },
+            "RIDGE": {
+              "baseHeight": 101,
+              "rawNoise": 0.9754130506930611,
+              "rawNoiseBits": "4606960959248543593"
+            },
+            "CELL": {
+              "baseHeight": 58,
+              "rawNoise": 0.4502429579446109,
+              "rawNoiseBits": "4601782475988408078"
+            }
+          }
+        ],
+        "fullChunks": {
+          "FRACTURE": {
+            "floor": 84,
+            "surface": 84,
+            "biome": "minecraft:forest",
+            "topBlock": "Block{minecraft:birch_leaves}[distance=4,persistent=false,waterlogged=false]",
+            "underBlock": "Block{minecraft:birch_leaves}[distance=3,persistent=false,waterlogged=false]",
+            "caveAirBlocks": 2494,
+            "waterBlocks": 0,
+            "lavaBlocks": 36,
+            "oreBlocks": 475,
+            "vegetationBlocks": 247,
+            "surfaceBlocks": {
+              "minecraft:birch_leaves": 63,
+              "minecraft:grass_block": 166,
+              "minecraft:oak_leaves": 27
+            },
+            "blockSha256": "e7629f2e1dd0070c1fb5e07840149afcfb412cebd81bc152395c31073cf6cb31",
+            "biomeSha256": "e6abfdddc380c166e9081599ab272136abd2b474f4aa06d0f9a129eec48550fe",
+            "heightSha256": "133531a01db961b34c422b56425279d71429935bc92dc9c6fd5614bf3223f544"
+          },
+          "SMOOTH": {
+            "floor": 73,
+            "surface": 73,
+            "biome": "minecraft:forest",
+            "topBlock": "Block{minecraft:grass_block}[snowy=false]",
+            "underBlock": "Block{minecraft:dirt}",
+            "caveAirBlocks": 2443,
+            "waterBlocks": 0,
+            "lavaBlocks": 36,
+            "oreBlocks": 403,
+            "vegetationBlocks": 223,
+            "surfaceBlocks": {
+              "minecraft:birch_leaves": 36,
+              "minecraft:grass_block": 177,
+              "minecraft:oak_leaves": 43
+            },
+            "blockSha256": "d57fef1745e2dfd76a871ba8343d6028c052a1d45f8536e88e59ff11e1c30dd7",
+            "biomeSha256": "e6abfdddc380c166e9081599ab272136abd2b474f4aa06d0f9a129eec48550fe",
+            "heightSha256": "10684ca70ffff04e29149b7100ad5d6631b29e52359694728f8fd5b42b3732ba"
+          },
+          "RIDGE": {
+            "floor": 124,
+            "surface": 124,
+            "biome": "minecraft:forest",
+            "topBlock": "Block{minecraft:grass_block}[snowy=false]",
+            "underBlock": "Block{minecraft:dirt}",
+            "caveAirBlocks": 2498,
+            "waterBlocks": 0,
+            "lavaBlocks": 36,
+            "oreBlocks": 586,
+            "vegetationBlocks": 329,
+            "surfaceBlocks": {
+              "minecraft:birch_leaves": 12,
+              "minecraft:grass_block": 164,
+              "minecraft:oak_leaves": 80
+            },
+            "blockSha256": "9acac11a814e4e383365617990bc5bad2b4ff8c7408d069a5cd2530d17841fba",
+            "biomeSha256": "e6abfdddc380c166e9081599ab272136abd2b474f4aa06d0f9a129eec48550fe",
+            "heightSha256": "f71229587196f6b3e7886cc2062dfacb08e641dd796b0944ea13924cc03157fd"
+          },
+          "CELL": {
+            "floor": 47,
+            "surface": 62,
+            "biome": "minecraft:forest",
+            "topBlock": "Block{minecraft:gravel}",
+            "underBlock": "Block{minecraft:granite}",
+            "caveAirBlocks": 2316,
+            "waterBlocks": 3819,
+            "lavaBlocks": 36,
+            "oreBlocks": 310,
+            "vegetationBlocks": 0,
+            "surfaceBlocks": {
+              "minecraft:gravel": 256
+            },
+            "blockSha256": "498d8951f4b47b803413ae0e8056eba2fc212434ebfb30b911b3c8415c082aa5",
+            "biomeSha256": "e6abfdddc380c166e9081599ab272136abd2b474f4aa06d0f9a129eec48550fe",
+            "heightSha256": "ad9ba1042b8de847c704d8f9b0d19b61f11f86542c85f1f607d4daf3f07d8a40"
+          }
+        }
+      },
+      "resources": [
+        {
+          "label": "before_loop",
+          "nanoTime": 36213675344800,
+          "heapUsedBytes": 672579272,
+          "gcCount": 66,
+          "gcTimeMs": 625
+        },
+        {
+          "label": "cycle_10",
+          "nanoTime": 36213714813800,
+          "heapUsedBytes": 676773576,
+          "gcCount": 66,
+          "gcTimeMs": 625
+        },
+        {
+          "label": "cycle_20",
+          "nanoTime": 36213746782800,
+          "heapUsedBytes": 685162184,
+          "gcCount": 66,
+          "gcTimeMs": 625
+        },
+        {
+          "label": "cycle_30",
+          "nanoTime": 36213779849700,
+          "heapUsedBytes": 689356488,
+          "gcCount": 66,
+          "gcTimeMs": 625
+        },
+        {
+          "label": "cycle_40",
+          "nanoTime": 36213806744300,
+          "heapUsedBytes": 697745096,
+          "gcCount": 66,
+          "gcTimeMs": 625
+        },
+        {
+          "label": "cycle_50",
+          "nanoTime": 36213832361000,
+          "heapUsedBytes": 701939400,
+          "gcCount": 66,
+          "gcTimeMs": 625
+        }
+      ],
+      "saveReloadCheck": "CHECKPOINT_SAVED: reload task must verify it",
+      "savedPlayer": {
+        "dimension": "worldphase:fracture",
+        "uuid": "a3b83e90-28f9-4a94-b89c-8c46af811012",
+        "x": -16.125,
+        "y": 220.5,
+        "z": 15.9375,
+        "yaw": 123.25,
+        "pitch": -37.5,
+        "inventory": [
+          {
+            "id": "minecraft:diamond",
+            "count": 7
+          },
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 23
+          },
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {
+            "id": "minecraft:clock",
+            "count": 1
+          },
+          {
+            "id": "minecraft:diamond_boots",
+            "count": 1
+          },
+          {},
+          {},
+          {},
+          {
+            "id": "minecraft:shield",
+            "count": 1
+          },
+          {},
+          {}
+        ]
+      },
+      "status": "PASS",
+      "successfulTransfers": 228,
+      "loopTransfers": 200,
+      "completeCycles": 50,
+      "rejectedScenarios": [
+        "before:all_blocked: NO_SAFE_POSITION",
+        "before:unsupported: NO_SAFE_POSITION",
+        "before:dangerous_powder_snow: NO_SAFE_POSITION",
+        "before:world_border: OUT_OF_WORLD",
+        "before:native_travel_veto: ERROR",
+        "before:safe_plus_five_forbidden: NO_SAFE_POSITION",
+        "before:same_phase_noop: SAME_PHASE",
+        "after:all_blocked: NO_SAFE_POSITION",
+        "after:unsupported: NO_SAFE_POSITION",
+        "after:dangerous_powder_snow: NO_SAFE_POSITION",
+        "after:world_border: OUT_OF_WORLD",
+        "after:native_travel_veto: ERROR",
+        "after:safe_plus_five_forbidden: NO_SAFE_POSITION",
+        "after:same_phase_noop: SAME_PHASE"
+      ],
+      "maxXzDeviation": 0.0,
+      "maxYawPitchDeviation": 0.0,
+      "maxYCorrection": 1.0,
+      "inventoryIdentityAndContentChecks": 247,
+      "duplicatePlayerEntities": 0,
+      "droppedTestItemEntities": 0,
+      "transport": "real ServerPlayer/native teleport, simulated outbound packet sends; no GUI/login acceptance claim"
+    },
+    "reload": {
+      "minecraft": "26.1",
+      "neoforge": "26.1.0.19-beta",
+      "java": "25.0.3+9-LTS",
+      "seed": 123456789,
+      "stage": "reload",
+      "phases": [
+        "worldphase:fracture",
+        "worldphase:smooth",
+        "worldphase:ridge",
+        "worldphase:cell"
+      ],
+      "rawSeeds": {
+        "FRACTURE": 123456789,
+        "SMOOTH": 123456789,
+        "RIDGE": 123456789,
+        "CELL": 123456789
+      },
+      "terrain": {
+        "samples": [
+          {
+            "x": -512,
+            "z": 768,
+            "FRACTURE": {
+              "baseHeight": 78,
+              "rawNoise": 0.04247489132356346,
+              "rawNoiseBits": "4586282097987391319"
+            },
+            "SMOOTH": {
+              "baseHeight": 73,
+              "rawNoise": 0.008675700446310322,
+              "rawNoiseBits": "4576154822587092635"
+            },
+            "RIDGE": {
+              "baseHeight": 124,
+              "rawNoise": 0.9699479603214662,
+              "rawNoiseBits": "4606911734090621472"
+            },
+            "CELL": {
+              "baseHeight": 47,
+              "rawNoise": 0.2864346256544442,
+              "rawNoiseBits": "4598831567411359370"
+            }
+          },
+          {
+            "x": 256,
+            "z": 256,
+            "FRACTURE": {
+              "baseHeight": 93,
+              "rawNoise": 0.26212147263137325,
+              "rawNoiseBits": "4598393580583779753"
+            },
+            "SMOOTH": {
+              "baseHeight": 64,
+              "rawNoise": 0.0202802790623845,
+              "rawNoiseBits": "4581502613871036704"
+            },
+            "RIDGE": {
+              "baseHeight": 90,
+              "rawNoise": 0.9221495891787551,
+              "rawNoiseBits": "4606481204637687011"
+            },
+            "CELL": {
+              "baseHeight": 76,
+              "rawNoise": 0.5198346112171872,
+              "rawNoiseBits": "4602857473468020438"
+            }
+          },
+          {
+            "x": 1024,
+            "z": -1024,
+            "FRACTURE": {
+              "baseHeight": 51,
+              "rawNoise": -0.04141320439488563,
+              "rawNoiseBits": "13809501129630763044"
+            },
+            "SMOOTH": {
+              "baseHeight": 56,
+              "rawNoise": 1.2265003895546083e-09,
+              "rawNoiseBits": "4473501822306331899"
+            },
+            "RIDGE": {
+              "baseHeight": 101,
+              "rawNoise": 0.9754130506930611,
+              "rawNoiseBits": "4606960959248543593"
+            },
+            "CELL": {
+              "baseHeight": 58,
+              "rawNoise": 0.4502429579446109,
+              "rawNoiseBits": "4601782475988408078"
+            }
+          }
+        ],
+        "fullChunks": {
+          "FRACTURE": {
+            "floor": 84,
+            "surface": 84,
+            "biome": "minecraft:forest",
+            "topBlock": "Block{minecraft:birch_leaves}[distance=4,persistent=false,waterlogged=false]",
+            "underBlock": "Block{minecraft:birch_leaves}[distance=3,persistent=false,waterlogged=false]",
+            "caveAirBlocks": 2494,
+            "waterBlocks": 0,
+            "lavaBlocks": 36,
+            "oreBlocks": 475,
+            "vegetationBlocks": 247,
+            "surfaceBlocks": {
+              "minecraft:birch_leaves": 63,
+              "minecraft:grass_block": 166,
+              "minecraft:oak_leaves": 27
+            },
+            "blockSha256": "e7629f2e1dd0070c1fb5e07840149afcfb412cebd81bc152395c31073cf6cb31",
+            "biomeSha256": "e6abfdddc380c166e9081599ab272136abd2b474f4aa06d0f9a129eec48550fe",
+            "heightSha256": "133531a01db961b34c422b56425279d71429935bc92dc9c6fd5614bf3223f544"
+          },
+          "SMOOTH": {
+            "floor": 73,
+            "surface": 73,
+            "biome": "minecraft:forest",
+            "topBlock": "Block{minecraft:grass_block}[snowy=false]",
+            "underBlock": "Block{minecraft:dirt}",
+            "caveAirBlocks": 2443,
+            "waterBlocks": 0,
+            "lavaBlocks": 36,
+            "oreBlocks": 403,
+            "vegetationBlocks": 223,
+            "surfaceBlocks": {
+              "minecraft:birch_leaves": 36,
+              "minecraft:grass_block": 177,
+              "minecraft:oak_leaves": 43
+            },
+            "blockSha256": "d57fef1745e2dfd76a871ba8343d6028c052a1d45f8536e88e59ff11e1c30dd7",
+            "biomeSha256": "e6abfdddc380c166e9081599ab272136abd2b474f4aa06d0f9a129eec48550fe",
+            "heightSha256": "10684ca70ffff04e29149b7100ad5d6631b29e52359694728f8fd5b42b3732ba"
+          },
+          "RIDGE": {
+            "floor": 124,
+            "surface": 124,
+            "biome": "minecraft:forest",
+            "topBlock": "Block{minecraft:grass_block}[snowy=false]",
+            "underBlock": "Block{minecraft:dirt}",
+            "caveAirBlocks": 2498,
+            "waterBlocks": 0,
+            "lavaBlocks": 36,
+            "oreBlocks": 586,
+            "vegetationBlocks": 329,
+            "surfaceBlocks": {
+              "minecraft:birch_leaves": 12,
+              "minecraft:grass_block": 164,
+              "minecraft:oak_leaves": 80
+            },
+            "blockSha256": "9acac11a814e4e383365617990bc5bad2b4ff8c7408d069a5cd2530d17841fba",
+            "biomeSha256": "e6abfdddc380c166e9081599ab272136abd2b474f4aa06d0f9a129eec48550fe",
+            "heightSha256": "f71229587196f6b3e7886cc2062dfacb08e641dd796b0944ea13924cc03157fd"
+          },
+          "CELL": {
+            "floor": 47,
+            "surface": 62,
+            "biome": "minecraft:forest",
+            "topBlock": "Block{minecraft:gravel}",
+            "underBlock": "Block{minecraft:granite}",
+            "caveAirBlocks": 2316,
+            "waterBlocks": 3819,
+            "lavaBlocks": 36,
+            "oreBlocks": 310,
+            "vegetationBlocks": 0,
+            "surfaceBlocks": {
+              "minecraft:gravel": 256
+            },
+            "blockSha256": "498d8951f4b47b803413ae0e8056eba2fc212434ebfb30b911b3c8415c082aa5",
+            "biomeSha256": "e6abfdddc380c166e9081599ab272136abd2b474f4aa06d0f9a129eec48550fe",
+            "heightSha256": "ad9ba1042b8de847c704d8f9b0d19b61f11f86542c85f1f607d4daf3f07d8a40"
+          }
+        }
+      },
+      "restoredPlayer": {
+        "dimension": "worldphase:fracture",
+        "uuid": "a3b83e90-28f9-4a94-b89c-8c46af811012",
+        "x": -16.125,
+        "y": 220.5,
+        "z": 15.9375,
+        "yaw": 123.25,
+        "pitch": -37.5,
+        "inventory": [
+          {
+            "id": "minecraft:diamond",
+            "count": 7
+          },
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 23
+          },
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {
+            "id": "minecraft:clock",
+            "count": 1
+          },
+          {
+            "id": "minecraft:diamond_boots",
+            "count": 1
+          },
+          {},
+          {},
+          {},
+          {
+            "id": "minecraft:shield",
+            "count": 1
+          },
+          {},
+          {}
+        ]
+      },
+      "saveReloadCheck": "PASS: terrain, marker and Vanilla player data restored before fixture initialization",
+      "resources": [
+        {
+          "label": "before_loop",
+          "nanoTime": 36253153782400,
+          "heapUsedBytes": 330496448,
+          "gcCount": 41,
+          "gcTimeMs": 501
+        },
+        {
+          "label": "cycle_10",
+          "nanoTime": 36253276146900,
+          "heapUsedBytes": 334690752,
+          "gcCount": 41,
+          "gcTimeMs": 501
+        },
+        {
+          "label": "cycle_20",
+          "nanoTime": 36253389387800,
+          "heapUsedBytes": 338885056,
+          "gcCount": 41,
+          "gcTimeMs": 501
+        },
+        {
+          "label": "cycle_30",
+          "nanoTime": 36253481659300,
+          "heapUsedBytes": 343079360,
+          "gcCount": 41,
+          "gcTimeMs": 501
+        },
+        {
+          "label": "cycle_40",
+          "nanoTime": 36253537166500,
+          "heapUsedBytes": 347273664,
+          "gcCount": 41,
+          "gcTimeMs": 501
+        },
+        {
+          "label": "cycle_50",
+          "nanoTime": 36253589490800,
+          "heapUsedBytes": 347273664,
+          "gcCount": 41,
+          "gcTimeMs": 501
+        }
+      ],
+      "savedPlayer": {
+        "dimension": "worldphase:fracture",
+        "uuid": "a3b83e90-28f9-4a94-b89c-8c46af811012",
+        "x": -16.125,
+        "y": 220.5,
+        "z": 15.9375,
+        "yaw": 123.25,
+        "pitch": -37.5,
+        "inventory": [
+          {
+            "id": "minecraft:diamond",
+            "count": 7
+          },
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 23
+          },
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {
+            "id": "minecraft:clock",
+            "count": 1
+          },
+          {
+            "id": "minecraft:diamond_boots",
+            "count": 1
+          },
+          {},
+          {},
+          {},
+          {
+            "id": "minecraft:shield",
+            "count": 1
+          },
+          {},
+          {}
+        ]
+      },
+      "status": "PASS",
+      "successfulTransfers": 228,
+      "loopTransfers": 200,
+      "completeCycles": 50,
+      "rejectedScenarios": [
+        "before:all_blocked: NO_SAFE_POSITION",
+        "before:unsupported: NO_SAFE_POSITION",
+        "before:dangerous_powder_snow: NO_SAFE_POSITION",
+        "before:world_border: OUT_OF_WORLD",
+        "before:native_travel_veto: ERROR",
+        "before:safe_plus_five_forbidden: NO_SAFE_POSITION",
+        "before:same_phase_noop: SAME_PHASE",
+        "after:all_blocked: NO_SAFE_POSITION",
+        "after:unsupported: NO_SAFE_POSITION",
+        "after:dangerous_powder_snow: NO_SAFE_POSITION",
+        "after:world_border: OUT_OF_WORLD",
+        "after:native_travel_veto: ERROR",
+        "after:safe_plus_five_forbidden: NO_SAFE_POSITION",
+        "after:same_phase_noop: SAME_PHASE"
+      ],
+      "maxXzDeviation": 0.0,
+      "maxYawPitchDeviation": 0.0,
+      "maxYCorrection": 1.0,
+      "inventoryIdentityAndContentChecks": 248,
+      "duplicatePlayerEntities": 0,
+      "droppedTestItemEntities": 0,
+      "transport": "real ServerPlayer/native teleport, simulated outbound packet sends; no GUI/login acceptance claim"
+    }
+  }
+}

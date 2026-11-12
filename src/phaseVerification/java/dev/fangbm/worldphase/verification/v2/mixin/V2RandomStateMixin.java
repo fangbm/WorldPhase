@@ -13,6 +13,6 @@ abstract class V2RandomStateMixin {
     @WrapOperation(method="<init>",at=@At(value="INVOKE",target="Lnet/minecraft/world/level/levelgen/NoiseRouter;mapAll(Lnet/minecraft/world/level/levelgen/DensityFunction$Visitor;)Lnet/minecraft/world/level/levelgen/NoiseRouter;"),require=1)
     private NoiseRouter v2$seed(NoiseRouter router,DensityFunction.Visitor visitor,Operation<NoiseRouter> original,
                                NoiseGeneratorSettings settings,HolderGetter<NormalNoise.NoiseParameters> noises,long seed) {
-        return original.call(router,new V2SeedVisitor(visitor,seed));
+        return original.call(router,new dev.fangbm.worldphase.verification.v2.r2.R2SeedVisitor(new V2SeedVisitor(visitor,seed),seed));
     }
 }
