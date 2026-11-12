@@ -1,0 +1,80 @@
+[
+  {
+    "phase": "smooth",
+    "x": -17,
+    "y": 80,
+    "z": 16,
+    "raw": -0.02230250695160623,
+    "interpolated": -0.022304326253294465,
+    "delta": -1.8193016882335489E-6,
+    "baseColumnBlock": "Block{minecraft:air}",
+    "preliminary": 72.0,
+    "columnHighestDefaultBlockY": 78,
+    "preliminaryMinusColumnTop": -6.0
+  },
+  {
+    "phase": "smooth",
+    "x": 0,
+    "y": 80,
+    "z": 0,
+    "raw": -0.019017901207624165,
+    "interpolated": -0.019017901207624165,
+    "delta": 0.0,
+    "baseColumnBlock": "Block{minecraft:air}",
+    "preliminary": 72.0,
+    "columnHighestDefaultBlockY": 79,
+    "preliminaryMinusColumnTop": -7.0
+  },
+  {
+    "phase": "smooth",
+    "x": 17,
+    "y": 80,
+    "z": -17,
+    "raw": -0.01657950369314849,
+    "interpolated": -0.01658649919552703,
+    "delta": -6.995502378540769E-6,
+    "baseColumnBlock": "Block{minecraft:air}",
+    "preliminary": 72.0,
+    "columnHighestDefaultBlockY": 79,
+    "preliminaryMinusColumnTop": -7.0
+  },
+  {
+    "phase": "ridge",
+    "x": -17,
+    "y": 80,
+    "z": 16,
+    "raw": 0.3447714008848882,
+    "interpolated": 0.2175541308303771,
+    "delta": -0.1272172700545111,
+    "baseColumnBlock": "Block{minecraft:stone}",
+    "preliminary": 104.0,
+    "columnHighestDefaultBlockY": 104,
+    "preliminaryMinusColumnTop": 0.0
+  },
+  {
+    "phase": "ridge",
+    "x": 0,
+    "y": 80,
+    "z": 0,
+    "raw": 0.1780050313056405,
+    "interpolated": 0.1780050313056405,
+    "delta": 0.0,
+    "baseColumnBlock": "Block{minecraft:stone}",
+    "preliminary": 120.0,
+    "columnHighestDefaultBlockY": 126,
+    "preliminaryMinusColumnTop": -6.0
+  },
+  {
+    "phase": "ridge",
+    "x": 17,
+    "y": 80,
+    "z": -17,
+    "raw": 0.43607859519138303,
+    "interpolated": 0.26111628536053855,
+    "delta": -0.1749623098308445,
+    "baseColumnBlock": "Block{minecraft:stone}",
+    "preliminary": 96.0,
+    "columnHighestDefaultBlockY": 103,
+    "preliminaryMinusColumnTop": -7.0
+  }
+]

@@ -1,0 +1,3649 @@
+{
+  "schema": 1,
+  "manifest": "82a3e9676d7de3e223299feff88c7a9ea67e8e4e1c25bb1f3aa134deb59ec9bf",
+  "sourceCommit": "c6a256fa5f6b45183aa839dfb8e6b2f6d70b21ce",
+  "seed": 123456789,
+  "mode": "fresh Gradle worker per development seed; registry bootstrap separate; no server tick gaps",
+  "minecraft": "26.1",
+  "neoforge": "26.1.0.19-beta",
+  "java": "25.0.3+9-LTS",
+  "executionStatus": "FAILED",
+  "failure": "BUDGET_EXCEEDED:INITIALIZATION_HARD_TICK_25MS",
+  "initializationWallNanos": 39864500,
+  "initializationCpuNanos": 46875000,
+  "initializationAllocatedBytes": 6506576,
+  "activePreparationCpuNanos": 46875000,
+  "scheduledWallNanos": 39864500,
+  "ownedAllocationBytes": 6506576,
+  "tickCount": 1,
+  "tickKind": "WORKER_SLICES_NOT_SERVER_TICKS",
+  "maxMeasuredStepIncludingRecordingNanos": 0,
+  "maxTickWallNanos": 39864500,
+  "ticks": [],
+  "rawCalls": 0,
+  "cacheHits": 0,
+  "cacheMisses": 0,
+  "rawCacheEntries": 0,
+  "heightEvaluations": 0,
+  "intervalDerivativeWork": 0,
+  "smoothValleyEdgeTests": 0,
+  "intervalJetConstructions": 0,
+  "retainedContextBytes": 2254832,
+  "retainedMeasurement": "Instrumentation reachable owned graph; shared immutable metadata overcounted; borrowed native reference excluded",
+  "postPreparationMemoryDiagnosticWallNanos": 3379500,
+  "anchors": 132,
+  "examinedAnchors": 0,
+  "dryAnchors": 0,
+  "shortlistedNodes": 0,
+  "shortlistIds": [],
+  "publishedMathNodes": 0,
+  "windows": [
+    {
+      "x": -384,
+      "z": 896,
+      "mathNodes": 0,
+      "gate": "FAIL_INCOMPLETE_PREPARATION"
+    },
+    {
+      "x": 1344,
+      "z": 1200,
+      "mathNodes": 0,
+      "gate": "FAIL_INCOMPLETE_PREPARATION"
+    }
+  ],
+  "nodeYieldGate": "FAIL",
+  "portOutcomes": {},
+  "smoothPassingPorts": 0,
+  "ridgePassingPorts": 0,
+  "nodes": [
+    {
+      "id": {
+        "i": -5,
+        "j": -4
+      },
+      "center": {
+        "x": -4699.042210844063,
+        "z": -3560.42000378664
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -5,
+        "j": -3
+      },
+      "center": {
+        "x": -4559.236557434769,
+        "z": -2687.1056298860603
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -5,
+        "j": -2
+      },
+      "center": {
+        "x": -4698.9967419660325,
+        "z": -1661.0228654327939
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -5,
+        "j": -1
+      },
+      "center": {
+        "x": -4683.276114521248,
+        "z": -637.6183982051554
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -5,
+        "j": 0
+      },
+      "center": {
+        "x": -4545.027404834475,
+        "z": 472.94839292359336
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -5,
+        "j": 1
+      },
+      "center": {
+        "x": -4524.588573307653,
+        "z": 1552.9711539908772
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -5,
+        "j": 2
+      },
+      "center": {
+        "x": -4492.665556106238,
+        "z": 2622.2376805461054
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -5,
+        "j": 3
+      },
+      "center": {
+        "x": -4532.232924341738,
+        "z": 3567.4066428681413
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -5,
+        "j": 4
+      },
+      "center": {
+        "x": -4650.666679134052,
+        "z": 4714.195900378641
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -5,
+        "j": 5
+      },
+      "center": {
+        "x": -4515.235724465656,
+        "z": 5530.32203439328
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -5,
+        "j": 6
+      },
+      "center": {
+        "x": -4665.326792475187,
+        "z": 6583.428864167538
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -4,
+        "j": -4
+      },
+      "center": {
+        "x": -3554.739444646384,
+        "z": -3544.6076157910766
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -4,
+        "j": -3
+      },
+      "center": {
+        "x": -3678.1293291120855,
+        "z": -2434.6057385656713
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -4,
+        "j": -2
+      },
+      "center": {
+        "x": -3464.724157119692,
+        "z": -1418.5066703851785
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -4,
+        "j": -1
+      },
+      "center": {
+        "x": -3546.39427331041,
+        "z": -506.3781528306324
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -4,
+        "j": 0
+      },
+      "center": {
+        "x": -3661.0998155982807,
+        "z": 576.4136850323825
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -4,
+        "j": 1
+      },
+      "center": {
+        "x": -3533.742737311393,
+        "z": 1599.0398881599485
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -4,
+        "j": 2
+      },
+      "center": {
+        "x": -3692.7885239764687,
+        "z": 2538.29306875185
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -4,
+        "j": 3
+      },
+      "center": {
+        "x": -3651.4776987257915,
+        "z": 3551.007428534649
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -4,
+        "j": 4
+      },
+      "center": {
+        "x": -3579.8330950864197,
+        "z": 4706.831093897929
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -4,
+        "j": 5
+      },
+      "center": {
+        "x": -3614.3870110802823,
+        "z": 5654.495704934523
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -4,
+        "j": 6
+      },
+      "center": {
+        "x": -3693.618663705844,
+        "z": 6566.8740260501545
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -3,
+        "j": -4
+      },
+      "center": {
+        "x": -2527.300162097854,
+        "z": -3561.05981327722
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -3,
+        "j": -3
+      },
+      "center": {
+        "x": -2643.5023306397,
+        "z": -2555.3102989104623
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -3,
+        "j": -2
+      },
+      "center": {
+        "x": -2637.015763301774,
+        "z": -1579.5806712198353
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -3,
+        "j": -1
+      },
+      "center": {
+        "x": -2618.6323279388453,
+        "z": -532.9355731976494
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -3,
+        "j": 0
+      },
+      "center": {
+        "x": -2639.325751941222,
+        "z": 510.0329281207546
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -3,
+        "j": 1
+      },
+      "center": {
+        "x": -2672.3998348293517,
+        "z": 1492.2573940718457
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -3,
+        "j": 2
+      },
+      "center": {
+        "x": -2537.317703639131,
+        "z": 2574.51822324554
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -3,
+        "j": 3
+      },
+      "center": {
+        "x": -2440.2420464524703,
+        "z": 3587.7916596965733
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -3,
+        "j": 4
+      },
+      "center": {
+        "x": -2621.5821994244334,
+        "z": 4488.574145946897
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -3,
+        "j": 5
+      },
+      "center": {
+        "x": -2595.498597179973,
+        "z": 5537.845604318348
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -3,
+        "j": 6
+      },
+      "center": {
+        "x": -2682.4582217846855,
+        "z": 6556.01208072729
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -2,
+        "j": -4
+      },
+      "center": {
+        "x": -1629.0841663275182,
+        "z": -3623.0776898640834
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -2,
+        "j": -3
+      },
+      "center": {
+        "x": -1439.7849873470832,
+        "z": -2615.973582883184
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -2,
+        "j": -2
+      },
+      "center": {
+        "x": -1652.728502651321,
+        "z": -1651.0984922154569
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -2,
+        "j": -1
+      },
+      "center": {
+        "x": -1548.0451601066006,
+        "z": -595.8760526475105
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -2,
+        "j": 0
+      },
+      "center": {
+        "x": -1586.160973511073,
+        "z": 607.3507412452375
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -2,
+        "j": 1
+      },
+      "center": {
+        "x": -1413.855080088582,
+        "z": 1640.7935294898448
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -2,
+        "j": 2
+      },
+      "center": {
+        "x": -1569.5985426050147,
+        "z": 2587.848803644094
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -2,
+        "j": 3
+      },
+      "center": {
+        "x": -1482.0127257205816,
+        "z": 3703.857388527632
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -2,
+        "j": 4
+      },
+      "center": {
+        "x": -1460.4048664987113,
+        "z": 4565.881255351662
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -2,
+        "j": 5
+      },
+      "center": {
+        "x": -1611.7103067200612,
+        "z": 5727.002609410716
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -2,
+        "j": 6
+      },
+      "center": {
+        "x": -1583.3711499713197,
+        "z": 6549.049474955136
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -1,
+        "j": -4
+      },
+      "center": {
+        "x": -553.9489759687675,
+        "z": -3503.802029655714
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -1,
+        "j": -3
+      },
+      "center": {
+        "x": -510.4706056822193,
+        "z": -2462.7810130711123
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -1,
+        "j": -2
+      },
+      "center": {
+        "x": -483.82034173849104,
+        "z": -1436.1084905928496
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -1,
+        "j": -1
+      },
+      "center": {
+        "x": -626.9495252684669,
+        "z": -415.68306382044557
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -1,
+        "j": 0
+      },
+      "center": {
+        "x": -445.6804157740097,
+        "z": 389.03970832438654
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -1,
+        "j": 1
+      },
+      "center": {
+        "x": -502.87550961776617,
+        "z": 1604.8498686132698
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -1,
+        "j": 2
+      },
+      "center": {
+        "x": -522.763031650114,
+        "z": 2439.7971659175446
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -1,
+        "j": 3
+      },
+      "center": {
+        "x": -473.5428579556484,
+        "z": 3643.1618179605134
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -1,
+        "j": 4
+      },
+      "center": {
+        "x": -467.1950684881991,
+        "z": 4728.928847138864
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -1,
+        "j": 5
+      },
+      "center": {
+        "x": -385.89293301200803,
+        "z": 5669.283818772386
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": -1,
+        "j": 6
+      },
+      "center": {
+        "x": -592.1999879301769,
+        "z": 6727.479157199485
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 0,
+        "j": -4
+      },
+      "center": {
+        "x": 541.2553731105404,
+        "z": -3619.5319796856234
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 0,
+        "j": -3
+      },
+      "center": {
+        "x": 392.1547999488322,
+        "z": -2557.053864765413
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 0,
+        "j": -2
+      },
+      "center": {
+        "x": 551.870695997476,
+        "z": -1475.081914122001
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 0,
+        "j": -1
+      },
+      "center": {
+        "x": 480.41849452746914,
+        "z": -483.2988363044998
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 0,
+        "j": 0
+      },
+      "center": {
+        "x": 580.1811578227122,
+        "z": 571.747908781315
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 0,
+        "j": 1
+      },
+      "center": {
+        "x": 568.1116678760869,
+        "z": 1663.999911344747
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 0,
+        "j": 2
+      },
+      "center": {
+        "x": 634.3220933358073,
+        "z": 2555.640081612446
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 0,
+        "j": 3
+      },
+      "center": {
+        "x": 425.74015691611953,
+        "z": 3530.359257881016
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 0,
+        "j": 4
+      },
+      "center": {
+        "x": 431.48757153521115,
+        "z": 4540.632574728542
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 0,
+        "j": 5
+      },
+      "center": {
+        "x": 533.3299658894497,
+        "z": 5601.947346932275
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 0,
+        "j": 6
+      },
+      "center": {
+        "x": 632.0414641559952,
+        "z": 6614.265586834653
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 1,
+        "j": -4
+      },
+      "center": {
+        "x": 1651.6337145095601,
+        "z": -3586.5783515545963
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 1,
+        "j": -3
+      },
+      "center": {
+        "x": 1611.1715841973717,
+        "z": -2674.345198890119
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 1,
+        "j": -2
+      },
+      "center": {
+        "x": 1526.1868348442567,
+        "z": -1572.168583243676
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 1,
+        "j": -1
+      },
+      "center": {
+        "x": 1616.8648026559868,
+        "z": -427.0179373672142
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 1,
+        "j": 0
+      },
+      "center": {
+        "x": 1470.3378801737174,
+        "z": 598.635624632156
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 1,
+        "j": 1
+      },
+      "center": {
+        "x": 1571.7708587590178,
+        "z": 1644.1983195062635
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 1,
+        "j": 2
+      },
+      "center": {
+        "x": 1426.2058487587415,
+        "z": 2454.776271984083
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 1,
+        "j": 3
+      },
+      "center": {
+        "x": 1443.8127891088689,
+        "z": 3492.9870069616595
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 1,
+        "j": 4
+      },
+      "center": {
+        "x": 1600.8167709926954,
+        "z": 4719.783693867185
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 1,
+        "j": 5
+      },
+      "center": {
+        "x": 1644.9399793381529,
+        "z": 5594.15371059887
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 1,
+        "j": 6
+      },
+      "center": {
+        "x": 1469.173196439928,
+        "z": 6656.373271270371
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 2,
+        "j": -4
+      },
+      "center": {
+        "x": 2569.9754031455495,
+        "z": -3509.707903104421
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 2,
+        "j": -3
+      },
+      "center": {
+        "x": 2460.73697256174,
+        "z": -2464.0259337072725
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 2,
+        "j": -2
+      },
+      "center": {
+        "x": 2547.8386818231875,
+        "z": -1566.7384440284775
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 2,
+        "j": -1
+      },
+      "center": {
+        "x": 2480.942126780211,
+        "z": -438.16195689691705
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 2,
+        "j": 0
+      },
+      "center": {
+        "x": 2530.4243275515696,
+        "z": 520.9486274673473
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 2,
+        "j": 1
+      },
+      "center": {
+        "x": 2626.455759120919,
+        "z": 1537.0933541123024
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 2,
+        "j": 2
+      },
+      "center": {
+        "x": 2666.191189844853,
+        "z": 2545.0379779024756
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 2,
+        "j": 3
+      },
+      "center": {
+        "x": 2450.032791795025,
+        "z": 3543.9867589328674
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 2,
+        "j": 4
+      },
+      "center": {
+        "x": 2544.2768334601524,
+        "z": 4514.16632106655
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 2,
+        "j": 5
+      },
+      "center": {
+        "x": 2483.437075114791,
+        "z": 5521.084410846807
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 2,
+        "j": 6
+      },
+      "center": {
+        "x": 2555.4994519234147,
+        "z": 6661.168880024204
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 3,
+        "j": -4
+      },
+      "center": {
+        "x": 3569.8665082563716,
+        "z": -3587.1702246032282
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 3,
+        "j": -3
+      },
+      "center": {
+        "x": 3501.287265703251,
+        "z": -2552.7493736704973
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 3,
+        "j": -2
+      },
+      "center": {
+        "x": 3691.480646393393,
+        "z": -1564.4335941940722
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 3,
+        "j": -1
+      },
+      "center": {
+        "x": 3510.59617401798,
+        "z": -598.9219764209672
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 3,
+        "j": 0
+      },
+      "center": {
+        "x": 3623.514678134822,
+        "z": 532.8848287525936
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 3,
+        "j": 1
+      },
+      "center": {
+        "x": 3570.7954436183836,
+        "z": 1630.6050524208106
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 3,
+        "j": 2
+      },
+      "center": {
+        "x": 3646.3378475355353,
+        "z": 2618.5874780753697
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 3,
+        "j": 3
+      },
+      "center": {
+        "x": 3479.3719360203095,
+        "z": 3480.440736078105
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 3,
+        "j": 4
+      },
+      "center": {
+        "x": 3699.9666796511747,
+        "z": 4508.253207696681
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 3,
+        "j": 5
+      },
+      "center": {
+        "x": 3528.3187788872006,
+        "z": 5603.704358336423
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 3,
+        "j": 6
+      },
+      "center": {
+        "x": 3506.247368871813,
+        "z": 6589.981680277409
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 4,
+        "j": -4
+      },
+      "center": {
+        "x": 4516.048875290295,
+        "z": -3597.273340672502
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 4,
+        "j": -3
+      },
+      "center": {
+        "x": 4536.672902704651,
+        "z": -2465.6895037909044
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 4,
+        "j": -2
+      },
+      "center": {
+        "x": 4523.591876327833,
+        "z": -1616.436096063789
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 4,
+        "j": -1
+      },
+      "center": {
+        "x": 4622.736812686618,
+        "z": -432.1248007337062
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 4,
+        "j": 0
+      },
+      "center": {
+        "x": 4667.151655072532,
+        "z": 452.51656367111025
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 4,
+        "j": 1
+      },
+      "center": {
+        "x": 4523.998520955276,
+        "z": 1618.4999836876482
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 4,
+        "j": 2
+      },
+      "center": {
+        "x": 4664.8765082065975,
+        "z": 2530.069322280719
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 4,
+        "j": 3
+      },
+      "center": {
+        "x": 4707.111627015528,
+        "z": 3575.7834518219315
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 4,
+        "j": 4
+      },
+      "center": {
+        "x": 4722.810361344353,
+        "z": 4555.064629647453
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 4,
+        "j": 5
+      },
+      "center": {
+        "x": 4545.369864726874,
+        "z": 5514.677154054314
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 4,
+        "j": 6
+      },
+      "center": {
+        "x": 4546.939694749505,
+        "z": 6675.731516499938
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 5,
+        "j": -4
+      },
+      "center": {
+        "x": 5749.270975238364,
+        "z": -3588.6060828337604
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 5,
+        "j": -3
+      },
+      "center": {
+        "x": 5554.085174323279,
+        "z": -2639.7404532161204
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 5,
+        "j": -2
+      },
+      "center": {
+        "x": 5582.286507493161,
+        "z": -1420.798091909331
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 5,
+        "j": -1
+      },
+      "center": {
+        "x": 5736.040071280087,
+        "z": -558.7261110712546
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 5,
+        "j": 0
+      },
+      "center": {
+        "x": 5735.39314359312,
+        "z": 421.83602157362094
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 5,
+        "j": 1
+      },
+      "center": {
+        "x": 5742.186000046243,
+        "z": 1653.2533724251032
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 5,
+        "j": 2
+      },
+      "center": {
+        "x": 5537.030647357392,
+        "z": 2512.7626882136315
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 5,
+        "j": 3
+      },
+      "center": {
+        "x": 5600.3794313078015,
+        "z": 3582.804291806275
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 5,
+        "j": 4
+      },
+      "center": {
+        "x": 5548.190135419292,
+        "z": 4707.174115279493
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 5,
+        "j": 5
+      },
+      "center": {
+        "x": 5739.453164295954,
+        "z": 5528.0418632296205
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 5,
+        "j": 6
+      },
+      "center": {
+        "x": 5597.760085048079,
+        "z": 6781.13878133282
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 6,
+        "j": -4
+      },
+      "center": {
+        "x": 6561.984502557532,
+        "z": -3597.2674283613196
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 6,
+        "j": -3
+      },
+      "center": {
+        "x": 6530.449461705501,
+        "z": -2472.7679610500354
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 6,
+        "j": -2
+      },
+      "center": {
+        "x": 6559.9691675411905,
+        "z": -1420.836749312732
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 6,
+        "j": -1
+      },
+      "center": {
+        "x": 6542.257982679113,
+        "z": -449.17255712920746
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 6,
+        "j": 0
+      },
+      "center": {
+        "x": 6778.40211564589,
+        "z": 440.9504736626744
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 6,
+        "j": 1
+      },
+      "center": {
+        "x": 6779.146004399128,
+        "z": 1621.4206970360444
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 6,
+        "j": 2
+      },
+      "center": {
+        "x": 6683.642292492719,
+        "z": 2635.881856060111
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 6,
+        "j": 3
+      },
+      "center": {
+        "x": 6618.570708078341,
+        "z": 3520.5070105413715
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 6,
+        "j": 4
+      },
+      "center": {
+        "x": 6578.742204700231,
+        "z": 4494.800362454937
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 6,
+        "j": 5
+      },
+      "center": {
+        "x": 6610.853576911102,
+        "z": 5561.666701813767
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    },
+    {
+      "id": {
+        "i": 6,
+        "j": 6
+      },
+      "center": {
+        "x": 6756.973620712377,
+        "z": 6555.688975840053
+      },
+      "status": "UNEXAMINED",
+      "h": 0.0,
+      "ports": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "pair": []
+    }
+  ],
+  "anchorGraph": {
+    "meaning": "ANCHOR_DRY geometric valley graph, not safe walking routes",
+    "completeAnchorSet": false,
+    "nodes": [],
+    "edges": [],
+    "components": []
+  },
+  "endpointGraph": {
+    "meaning": "per-node core-to-selected-terminal mathematical edges only; no inter-node walking edges proved",
+    "components": 0,
+    "publishedCoreCount": 0,
+    "interNodeVerifiedWalkingEdges": 0
+  },
+  "nativeNumericValidated": false,
+  "fullPairValidated": false,
+  "shiftPositionFeasible": false,
+  "routeCompleted": 0,
+  "worldGenerationAuthorized": false,
+  "v2WorldsCreated": 0,
+  "preflightFullChunkRequests": 0,
+  "holdoutsSampled": false,
+  "fullDensityProgramErrorCertificate": "UNPROVEN: complete radial/mask/detail/native interpolation error certificate not published; scalar terminal enclosure is separate",
+  "recommendation": "BLOCKED",
+  "registryBootstrapWallNanos": 340786100,
+  "registryBootstrapCpuNanos": 312500000
+}

@@ -1,0 +1,1832 @@
+{
+  "kind": "SYNTHETIC_GEOMETRY_ONLY_NOT_REAL_SEED_YIELD",
+  "manifest": "82a3e9676d7de3e223299feff88c7a9ea67e8e4e1c25bb1f3aa134deb59ec9bf",
+  "rows": [
+    {
+      "scene": 0,
+      "phase": "SMOOTH",
+      "x": -1586,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.06831231369921,
+      "height": 96.5,
+      "density": 0.40625,
+      "protection": 1.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "SMOOTH",
+      "x": -1506,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.46970263844199,
+      "height": 99.59051063542657,
+      "density": 0.5994069147141605,
+      "protection": 1.0,
+      "qsum": 1.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "SMOOTH",
+      "x": -1666,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.75231696525525,
+      "height": 99.55395241465914,
+      "density": 0.597122025916196,
+      "protection": 1.0,
+      "qsum": 1.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "SMOOTH",
+      "x": -1586,
+      "z": 687,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 78.77595175369665,
+      "height": 91.87922610374073,
+      "density": 0.12709777054783597,
+      "protection": 0.7392935388097355,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "SMOOTH",
+      "x": -1586,
+      "z": 527,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.32893230785207,
+      "height": 91.89467631067996,
+      "density": 0.12834076279366932,
+      "protection": 0.7317974763196584,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "SMOOTH",
+      "x": -1584,
+      "z": 507,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.277980945332,
+      "height": 87.80953692832188,
+      "density": -0.11823324299671498,
+      "protection": 0.4953865139684307,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "SMOOTH",
+      "x": -1433,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.69103596736868,
+      "height": 104.47391539696534,
+      "density": 0.9046586147937672,
+      "protection": 0.99897669222651,
+      "qsum": 1.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "SMOOTH",
+      "x": -1410,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.50518426150137,
+      "height": 79.50518426150137,
+      "density": -0.6189259836561644,
+      "protection": 0.0,
+      "qsum": 0.9999209699851266,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "SMOOTH",
+      "x": -1402,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.41346488023503,
+      "height": 79.41346488023503,
+      "density": -0.6246584449853109,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "SMOOTH",
+      "x": -1394,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.3118743891075,
+      "height": 79.3118743891075,
+      "density": -0.6310078506807811,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "SMOOTH",
+      "x": -1602,
+      "z": 623,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.02898375260915,
+      "height": 96.5,
+      "density": 0.40625,
+      "protection": 1.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "RIDGE",
+      "x": -1586,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.43215932412227,
+      "height": 96.5,
+      "density": 0.40625,
+      "protection": 1.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "RIDGE",
+      "x": -1506,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 94.5272498614591,
+      "height": 93.40948936457343,
+      "density": 0.21309308528583948,
+      "protection": 1.0,
+      "qsum": 1.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "RIDGE",
+      "x": -1666,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.87279920089097,
+      "height": 93.44604758534086,
+      "density": 0.215377974083804,
+      "protection": 1.0,
+      "qsum": 1.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "RIDGE",
+      "x": -1586,
+      "z": 687,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.43247239088733,
+      "height": 89.18261420266819,
+      "density": -0.04144047326919842,
+      "protection": 0.7392935388097355,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "RIDGE",
+      "x": -1586,
+      "z": 527,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.57930807534285,
+      "height": 89.01159996290562,
+      "density": -0.05185150894222618,
+      "protection": 0.7317974763196584,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "RIDGE",
+      "x": -1584,
+      "z": 507,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.94492124279643,
+      "height": 82.59533565045307,
+      "density": -0.4441208228635156,
+      "protection": 0.43763921071459816,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "RIDGE",
+      "x": -1433,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 72.70467316167387,
+      "height": 88.48339250160392,
+      "density": -0.09474906616632171,
+      "protection": 0.99897669222651,
+      "qsum": 1.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "RIDGE",
+      "x": -1410,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.15578817973173,
+      "height": 68.15578817973173,
+      "density": -1.328263238766767,
+      "protection": 0.0,
+      "qsum": 0.9999209699851266,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "RIDGE",
+      "x": -1402,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 67.90222946968663,
+      "height": 67.90222946968663,
+      "density": -1.3441106581445856,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "RIDGE",
+      "x": -1394,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 67.79831174783502,
+      "height": 67.79831174783502,
+      "density": -1.3506055157603116,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 0,
+      "phase": "RIDGE",
+      "x": -1602,
+      "z": 623,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.50850964440555,
+      "height": 96.5,
+      "density": 0.40625,
+      "protection": 1.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "ridgeEligible": [
+        "E",
+        "W",
+        "N"
+      ],
+      "selectedPair": [
+        "E",
+        "W"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "SMOOTH",
+      "x": -1586,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.06831231369921,
+      "height": 96.5,
+      "density": 0.40625,
+      "protection": 1.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "SMOOTH",
+      "x": -1506,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.46970263844199,
+      "height": 91.96698708233494,
+      "density": 0.13278511010998795,
+      "protection": 0.733826555025557,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "SMOOTH",
+      "x": -1666,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.75231696525525,
+      "height": 92.09982983080485,
+      "density": 0.14096048799340877,
+      "protection": 0.7372669305917389,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "SMOOTH",
+      "x": -1586,
+      "z": 687,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 78.77595175369665,
+      "height": 99.53244799444198,
+      "density": 0.5957779996526238,
+      "protection": 1.0,
+      "qsum": 1.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "SMOOTH",
+      "x": -1586,
+      "z": 527,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.32893230785207,
+      "height": 99.61210256896922,
+      "density": 0.6007564105605763,
+      "protection": 1.0,
+      "qsum": 1.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "SMOOTH",
+      "x": -1584,
+      "z": 507,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.277980945332,
+      "height": 101.91181966592973,
+      "density": 0.7444887291206079,
+      "protection": 1.0,
+      "qsum": 1.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "SMOOTH",
+      "x": -1433,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.69103596736868,
+      "height": 80.1404400051515,
+      "density": -0.580211730743413,
+      "protection": 0.01860497593307905,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "SMOOTH",
+      "x": -1410,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.50518426150137,
+      "height": 79.50518426150137,
+      "density": -0.6189259836561644,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "SMOOTH",
+      "x": -1402,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.41346488023503,
+      "height": 79.41346488023503,
+      "density": -0.6246584449853109,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "SMOOTH",
+      "x": -1394,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.3118743891075,
+      "height": 79.3118743891075,
+      "density": -0.6310078506807811,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "SMOOTH",
+      "x": -1602,
+      "z": 623,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.02898375260915,
+      "height": 96.5,
+      "density": 0.40625,
+      "protection": 1.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "RIDGE",
+      "x": -1586,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.43215932412227,
+      "height": 96.5,
+      "density": 0.40625,
+      "protection": 1.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "RIDGE",
+      "x": -1506,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 94.5272498614591,
+      "height": 95.97490629955075,
+      "density": 0.38328006118597674,
+      "protection": 0.733826555025557,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "RIDGE",
+      "x": -1666,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.87279920089097,
+      "height": 89.24142073489173,
+      "density": -0.037690080501161904,
+      "protection": 0.7372669305917389,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "RIDGE",
+      "x": -1586,
+      "z": 687,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.43247239088733,
+      "height": 93.46755200555802,
+      "density": 0.2167220003473762,
+      "protection": 1.0,
+      "qsum": 1.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "RIDGE",
+      "x": -1586,
+      "z": 527,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.57930807534285,
+      "height": 93.38789743103078,
+      "density": 0.21174358943942373,
+      "protection": 1.0,
+      "qsum": 1.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "RIDGE",
+      "x": -1584,
+      "z": 507,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.94492124279643,
+      "height": 91.08818033407027,
+      "density": 0.06801127087939207,
+      "protection": 1.0,
+      "qsum": 1.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "RIDGE",
+      "x": -1433,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 72.70467316167387,
+      "height": 73.34086441895457,
+      "density": -1.0051852048807217,
+      "protection": 0.0030102039280387005,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "RIDGE",
+      "x": -1410,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.15578817973173,
+      "height": 68.15578817973173,
+      "density": -1.328263238766767,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "RIDGE",
+      "x": -1402,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 67.90222946968663,
+      "height": 67.90222946968663,
+      "density": -1.3441106581445856,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "RIDGE",
+      "x": -1394,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 67.79831174783502,
+      "height": 67.79831174783502,
+      "density": -1.3506055157603116,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 1,
+      "phase": "RIDGE",
+      "x": -1602,
+      "z": 623,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.50850964440555,
+      "height": 96.5,
+      "density": 0.40625,
+      "protection": 1.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "N",
+        "S"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": [
+        "N",
+        "S"
+      ]
+    },
+    {
+      "scene": 2,
+      "phase": "SMOOTH",
+      "x": -1586,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.06831231369921,
+      "height": 79.06831231369921,
+      "density": -0.6462304803937994,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "SMOOTH",
+      "x": -1506,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.46970263844199,
+      "height": 79.46970263844199,
+      "density": -0.6211435850973758,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "SMOOTH",
+      "x": -1666,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.75231696525525,
+      "height": 79.75231696525525,
+      "density": -0.603480189671547,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "SMOOTH",
+      "x": -1586,
+      "z": 687,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 78.77595175369665,
+      "height": 78.77595175369665,
+      "density": -0.6645030153939596,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "SMOOTH",
+      "x": -1586,
+      "z": 527,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.32893230785207,
+      "height": 79.32893230785207,
+      "density": -0.6299417307592455,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "SMOOTH",
+      "x": -1584,
+      "z": 507,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.277980945332,
+      "height": 79.277980945332,
+      "density": -0.6331261909167497,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "SMOOTH",
+      "x": -1433,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.69103596736868,
+      "height": 79.69103596736868,
+      "density": -0.6073102520394577,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "SMOOTH",
+      "x": -1410,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.50518426150137,
+      "height": 79.50518426150137,
+      "density": -0.6189259836561644,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "SMOOTH",
+      "x": -1402,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.41346488023503,
+      "height": 79.41346488023503,
+      "density": -0.6246584449853109,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "SMOOTH",
+      "x": -1394,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.3118743891075,
+      "height": 79.3118743891075,
+      "density": -0.6310078506807811,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "SMOOTH",
+      "x": -1602,
+      "z": 623,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 79.02898375260915,
+      "height": 79.02898375260915,
+      "density": -0.6486885154619281,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "RIDGE",
+      "x": -1586,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.43215932412227,
+      "height": 68.43215932412227,
+      "density": -1.3109900422423584,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "RIDGE",
+      "x": -1506,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 94.5272498614591,
+      "height": 94.5272498614591,
+      "density": 0.31995311634119356,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "RIDGE",
+      "x": -1666,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.87279920089097,
+      "height": 68.87279920089097,
+      "density": -1.2834500499443147,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "RIDGE",
+      "x": -1586,
+      "z": 687,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.43247239088733,
+      "height": 68.43247239088733,
+      "density": -1.3109704755695422,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "RIDGE",
+      "x": -1586,
+      "z": 527,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.57930807534285,
+      "height": 68.57930807534285,
+      "density": -1.3017932452910719,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "RIDGE",
+      "x": -1584,
+      "z": 507,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.94492124279643,
+      "height": 68.94492124279643,
+      "density": -1.2789424223252235,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "RIDGE",
+      "x": -1433,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 72.70467316167387,
+      "height": 72.70467316167387,
+      "density": -1.0439579273953834,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "RIDGE",
+      "x": -1410,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.15578817973173,
+      "height": 68.15578817973173,
+      "density": -1.328263238766767,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "RIDGE",
+      "x": -1402,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 67.90222946968663,
+      "height": 67.90222946968663,
+      "density": -1.3441106581445856,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "RIDGE",
+      "x": -1394,
+      "z": 607,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 67.79831174783502,
+      "height": 67.79831174783502,
+      "density": -1.3506055157603116,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    },
+    {
+      "scene": 2,
+      "phase": "RIDGE",
+      "x": -1602,
+      "z": 623,
+      "centerX": -1586.160973511073,
+      "centerZ": 607.3507412452375,
+      "h": 96.5,
+      "backgroundHp": 68.50850964440555,
+      "height": 68.50850964440555,
+      "density": -1.3062181472246532,
+      "protection": 0.0,
+      "qsum": 0.0,
+      "detail": 0.037,
+      "y": 90,
+      "smoothEligible": [
+        "E",
+        "W"
+      ],
+      "ridgeEligible": [
+        "N",
+        "S"
+      ],
+      "selectedPair": []
+    }
+  ]
+}
