@@ -106,7 +106,9 @@
   },
   "regression": {
     "path": "docs/verification/spatial-retune/v2/r2/b3/regression/core-summary.json",
-    "sha256LF": "d27263c5f1d902bf188ccd488a8cb553708f5254483784202ae6dacd046ed8ca"
+    "sha256LF": "565d98f6e1a7fd9016a812d178f98131122b1b6ac5f2d1cc6b87ac91606b814e",
+    "originalInputSha256Raw": "d27263c5f1d902bf188ccd488a8cb553708f5254483784202ae6dacd046ed8ca",
+    "format": "JSON_FORMAT_NORMALIZED_VALUES_UNCHANGED; primary cold/server reports remain byte-for-byte copies"
   },
   "nativeSyntheticProbes": {
     "path": "docs/verification/spatial-retune/v2/r2/b3/synthetic-native-probes.json",
@@ -139,5 +141,17 @@
     "coldMeasurementWorkers": "three separate workers, one evidence test each; all preparation outcomes FAILED budget",
     "r1RequirePassExit": 1,
     "r2RequirePassExit": 1
+  },
+  "closeoutRevalidation": {
+    "date": "2026-11-12",
+    "pythonTests": {
+      "b2MathGeometry": 28,
+      "r1Manifest": 15,
+      "b3EvidenceFailurePaths": 8,
+      "frozenGeometryParity": 1
+    },
+    "nativeOrGradleRerunDuringCloseout": false,
+    "runtimeAndProtectedHashes": "PASS",
+    "primaryReportsUnchanged": true
   }
 }

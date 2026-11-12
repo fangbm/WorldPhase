@@ -166,7 +166,7 @@ owned retained遍历排除输入reference、Thread、clock，包含保守多算�
 
 ## 回归与失败路径
 
-2026-10-17实际执行并保留证据：
+原生/Gradle运行于2026-10-17完成；2026-11-12收尾时重验Python测试、源码/证据摘要和失败门禁，没有重跑或重标日期的原生测量：
 
 - focused Java：17项（11数学、5原生算子、1合成几何导出）通过。
 - 完整JUnit：397项，395通过、2跳过、0失败；另外profiler/core-report 15项通过。
@@ -174,7 +174,7 @@ owned retained遍历排除输入reference、Thread、clock，包含保守多算�
 - `./gradlew coreRegressionAll build` 最后一次 **PASS，2m31s**，23任务中5执行、18 UP-TO-DATE。
   真实冷/重载服务器100完整循环、400循环Shift、456总成功，最大xz/yaw/pitch偏差0；
   重复玩家/掉落测试物品0，save/reload PASS。
-  [原始core摘要](b3/regression/core-summary.json)、[JUnit摘要](b3/regression/junit-summary.json)。
+  [core摘要](b3/regression/core-summary.json)（仅规范JSON格式，值不变，输入字节摘要见索引）、[JUnit摘要](b3/regression/junit-summary.json)。
 - B2纯数学/几何28项、r1 manifest 15项通过。B3 evidence失败路径8项和Python几何一致性1项通过。
 - `check_v2_preflight.py --require-pass` 仍预期exit1；r1冻结报告与原始0/477×3未改。
 - `check_r2_native_preflight.py` 验证完整负面证据exit0；`--require-pass` 预期exit1。
